@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beta Oxidation Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404015; --red-border:#D9404040;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --purple:#7C3AED; --purple-dim:#7C3AED12; --purple-border:#7C3AED35;
+  --teal:#0891B2; --teal-dim:#0891B212; --teal-border:#0891B235;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.14);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;letter-spacing:.04em;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:20px 20px 60px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── OVERVIEW HERO ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:28px 26px;margin-bottom:16px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--royal),var(--amber),var(--red),var(--green));}
+.overview-title{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--amber);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:18px;max-width:600px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--royal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+/* ── SHARED CONTENT ELEMENTS ── */
+.section-lbl{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:16px 0 8px;}
+.content-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.content-card-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:10px;line-height:1.2;}
+.content-body{font-size:14px;color:var(--text-body);line-height:1.85;}
+.content-body p{margin-bottom:12px;}
+.content-body p:last-child{margin-bottom:0;}
+.content-body strong{color:var(--text-dark);font-weight:600;}
+.content-body em{color:var(--amber);font-style:normal;font-weight:600;}
+
+/* ── INFO GRID ── */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+/* ── ANALOGY BOX ── */
+.analogy-box{background:linear-gradient(135deg,#fffbf0,#fff8e1);border:1px solid var(--gold-border);border-left:4px solid var(--gold);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;}
+.analogy-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:7px;}
+.analogy-body{font-size:13px;color:var(--text-body);line-height:1.8;}
+.analogy-body strong{color:var(--text-dark);}
+
+/* ── PLAIN ENGLISH ── */
+.plain-english{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid var(--green);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;}
+.plain-english-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+.plain-english-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.plain-english-body strong{color:var(--text-dark);}
+
+/* ── KEY CALLOUT ── */
+.key-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;}
+.key-callout-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.key-callout-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.key-callout-body strong{color:var(--text-dark);}
+
+/* ── FATTY ACID TABLE ── */
+.fa-table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0;}
+.fa-table th{background:var(--off-white);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);}
+.fa-table td{padding:8px 12px;border-bottom:1px solid var(--light-grey);vertical-align:top;font-family:var(--font-mono);font-size:11px;line-height:1.5;}
+.fa-table tr:last-child td{border-bottom:none;}
+.fa-table td:first-child{font-weight:700;color:var(--royal);font-family:var(--font-mono);}
+.fa-table td:nth-child(3){font-family:var(--font-body);color:var(--amber);font-weight:600;}
+
+/* ── LIPID CLASS GRID ── */
+.lipid-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.lipid-card{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.lipid-card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:6px;}
+.lipid-card-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.lipid-card-body{font-size:12px;color:var(--text-body);line-height:1.6;}
+
+/* ── PATHWAY DIVIDER ── */
+.pathway-divider{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 18px;margin:18px 0 12px;display:flex;align-items:center;gap:12px;}
+.pathway-divider-title{font-size:14px;font-weight:700;color:var(--royal);}
+.pathway-divider-sub{font-size:12px;color:var(--text-muted);}
+
+/* ── STEP CARDS ── */
+.step-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:visible;}
+.step-card:hover{box-shadow:var(--shadow-md);}
+.step-card.key-enzyme{border-color:var(--gold-border);border-width:1.5px;}
+.step-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;position:relative;}
+.step-header:hover{background:var(--off-white);}
+.step-num-badge{width:32px;height:32px;border-radius:50%;font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.step-card.key-enzyme .step-num-badge{background:var(--gold);color:var(--white);}
+.step-header-main{flex:1;min-width:0;}
+.step-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;word-break:break-word;}
+.step-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:normal;word-break:break-all;}
+.step-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.step-card.open .step-chevron{transform:rotate(180deg);}
+.step-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.step-card.open .step-body{display:block;}
+
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.badge-purple{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple-border);}
+.badge-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.explanation{font-size:14px;color:var(--text-body);line-height:1.8;margin-top:12px;}
+.explanation strong{color:var(--text-dark);font-weight:600;}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--amber);}
+
+/* ── CARNITINE TRANSPORT ── */
+.transport-steps{display:flex;flex-direction:column;gap:0;}
+.transport-step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--light-grey);}
+.transport-step:last-child{border-bottom:none;}
+.transport-num{width:30px;height:30px;border-radius:50%;background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.transport-content{flex:1;}
+.transport-heading{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.transport-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+.transport-body strong{color:var(--text-dark);}
+
+/* ── ATP YIELD TABLE ── */
+.atp-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0;}
+.atp-table th{background:var(--royal-dim);padding:9px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--royal);border-bottom:2px solid var(--royal-border);}
+.atp-table td{padding:9px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;}
+.atp-table tr:last-child td{border-bottom:none;}
+.atp-table tr.subtotal td{background:var(--gold-dim);font-weight:700;color:var(--amber);}
+.atp-table tr.total-row td{background:var(--royal-dim);font-weight:700;color:var(--royal);font-size:14px;}
+.atp-table .enzyme-col{font-size:12px;color:var(--text-body);}
+.atp-table .cofactor-col{font-family:var(--font-mono);font-size:12px;color:var(--red);}
+.atp-table .atp-old{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);text-decoration:line-through;}
+.atp-table .atp-new{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--green);}
+
+/* ── KETONE BODY ── */
+.ketone-chain{display:flex;flex-direction:column;gap:0;margin:14px 0;}
+.ketone-step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--light-grey);}
+.ketone-step:last-child{border-bottom:none;}
+.ketone-num{width:30px;height:30px;border-radius:50%;background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.ketone-content{flex:1;}
+.ketone-heading{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.ketone-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+.ketone-body strong{color:var(--text-dark);}
+.ketone-technical{display:inline-block;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:2px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+/* ── KETONE TYPES ── */
+.ketone-types{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;}
+.ketone-type-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px;text-align:center;box-shadow:var(--shadow-sm);}
+.ketone-type-icon{font-size:22px;margin-bottom:6px;}
+.ketone-type-name{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.ketone-type-formula{font-family:var(--font-mono);font-size:11px;color:var(--royal);margin-bottom:6px;}
+.ketone-type-note{font-size:11px;color:var(--text-muted);line-height:1.5;}
+
+/* ── CLINICAL CARDS ── */
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+
+/* ── COMPARISON TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;overflow-x:auto;display:block;}
+.compare-table th{background:var(--off-white);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);white-space:nowrap;}
+.compare-table td{padding:9px 12px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;}
+.compare-table tr:last-child td{border-bottom:none;}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ── TOOLTIP ── */
+.pathway-link{display:inline-flex;align-items:center;gap:4px;background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;cursor:pointer;position:relative;margin:2px;vertical-align:middle;font-family:var(--font-body);user-select:none;}
+.plink-tooltip{display:block;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:#0F1623;color:#ffffff;font-size:12px;font-weight:400;line-height:1.55;padding:11px 14px;border-radius:10px;width:230px;opacity:0;pointer-events:none;transition:opacity .18s ease;z-index:9000;box-shadow:0 6px 24px rgba(0,0,0,.22);}
+.plink-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0F1623;}
+.pathway-link:hover .plink-tooltip,.pathway-link.active-tip .plink-tooltip{opacity:1;pointer-events:auto;}
+
+/* ══ DEFINITIVE MOBILE CSS ══ */
+@media (max-width: 640px) {
+  .main { padding: 10px 12px 40px; }
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .overview-title { font-size: 22px !important; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .info-grid, .detail-grid, .lipid-grid { grid-template-columns: 1fr !important; }
+  .ketone-types { grid-template-columns: 1fr !important; }
+  .step-card { overflow: visible !important; }
+  .step-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+  .step-header-main { width: calc(100% - 46px); min-width: 0; }
+  .step-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+  .step-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; }
+  .step-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-body { padding: 0 12px 16px; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .fa-table, .atp-table, .compare-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .content-body { font-size: 13px; }
+  .key-callout { flex-direction: column; gap: 6px; }
+  .step-callout { flex-direction: column; gap: 6px; }
+  .pathway-link { position: static; }
+  .plink-tooltip { position: fixed !important; left: 12px !important; right: 12px !important; bottom: 72px !important; top: auto !important; width: auto !important; max-width: calc(100vw - 24px) !important; transform: none !important; font-size: 13px; line-height: 1.6; padding: 14px 16px; z-index: 9999 !important; }
+  .plink-tooltip::after { display: none !important; }
+}
+
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:28px;text-align:center;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.test-mode-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:14px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+.mode-toggle-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 20px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.mode-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;}
+.start-btn{background:var(--royal);color:var(--white);border:none;border-radius:24px;padding:12px 32px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;}
+.exit-test-btn{background:none;border:none;color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;padding:8px 0;margin-bottom:12px;display:block;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 18px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.completed{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+.check-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;}
+.btn-try-again{background:var(--off-white);border:1px solid var(--mid-grey);color:var(--text-body);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.btn-reveal-ans{background:var(--teal-dim);border:1px solid var(--teal-border);color:var(--teal);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.next-challenge-btn{background:var(--green);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;display:none;}
+.result-msg{font-size:14px;font-weight:600;margin-top:12px;min-height:20px;}
+.reveal-note-box{background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--teal);margin-top:10px;display:none;}
+.completion-banner-div{background:linear-gradient(135deg,var(--royal-dim),#e8f0ff);border:1px solid var(--royal-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px;}
+.completion-banner-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--royal);margin-bottom:8px;}
+.completion-banner-sub{font-size:14px;color:var(--text-muted);}
+.mcq-option{background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;margin-bottom:8px;font-size:13px;color:var(--text-body);transition:all .15s;line-height:1.5;}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mcq-option.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.mcq-option.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;display:none;}
+.mcq-next-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:9px 22px;font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.mc-qnum{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.mc-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.6;margin-bottom:6px;}
+.mc-instr{font-size:11px;color:var(--text-muted);margin-bottom:12px;font-style:italic;}
+.mc-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.mc-opt{display:flex;align-items:flex-start;gap:10px;background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;transition:all .15s;}
+.mc-opt:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mc-opt.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mc-opt.correct{background:var(--green-dim);border-color:var(--green);}
+.mc-opt.incorrect{background:var(--red-dim);border-color:var(--red);}
+.mc-opt.missed{background:var(--teal-dim);border-color:var(--teal);}
+.mc-cb{font-size:16px;flex-shrink:0;margin-top:1px;color:var(--text-muted);}
+.mc-opt.selected .mc-cb{color:var(--royal);}
+.mc-opt.correct .mc-cb{color:var(--green);}
+.mc-opt.incorrect .mc-cb{color:var(--red);}
+.mc-opt.missed .mc-cb{color:var(--teal);}
+.mc-opttext{font-size:13px;color:var(--text-body);line-height:1.6;}
+.mc-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;}
+.mc-qblock{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mc-qblock:last-child{border-bottom:none;margin-bottom:0;}
+.ra-item{margin-bottom:10px;padding-bottom:28px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-stmts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.ra-sbox{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;}
+.ra-slbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-stxt{font-size:13px;color:var(--text-body);line-height:1.6;}
+.ra-opts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.ra-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+.ra-btn:hover{border-color:var(--royal);color:var(--royal);}
+.ra-btn.selected{background:var(--royal-dim);border-color:var(--royal);color:var(--royal);}
+.ra-btn.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.ra-btn.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.ra-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:11px 13px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:6px;}
+@media(max-width:640px){.ra-stmts{grid-template-columns:1fr;}.challenge-nav-btn{padding:7px 12px;font-size:11px;}}
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Beta Oxidation Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Beta-Oxidation</button>
+    <button class="tab-btn" onclick="showTab('atp',this)">ATP Yield</button>
+    <button class="tab-btn" onclick="showTab('ketones',this)">Ketone Bodies</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">Lipid <span>Oxidation</span> & Beta Oxidation</div>
+    <div class="overview-subtitle">Fat is the body's most energy-dense fuel — 9 kcal/g compared to 4 kcal/g for carbohydrates. Beta-oxidation is the pathway that unlocks this energy by systematically dismantling fatty acid chains into two-carbon acetyl-CoA units that feed the TCA cycle.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">9</div><div class="stat-label">kcal per gram fat</div></div>
+      <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Steps per cycle</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--amber)">106</div><div class="stat-label">ATP from palmitate (old)</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--green)">~108</div><div class="stat-label">ATP from palmitate (new)</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">7</div><div class="stat-label">Cycles for C16</div></div>
+    </div>
+  </div>
+
+  <!-- Lipid subclasses -->
+  <div class="content-card">
+    <div class="content-card-title">What Are Lipids? — The Two Main Families</div>
+    <div class="content-body">
+      <p>Lipids are a diverse group of biological molecules united by one property: they are <strong>hydrophobic</strong> (water-repelling). They don't dissolve in water — which is exactly why they are so useful as membranes, energy stores, and signalling molecules. The two main structural families are acyl-lipids and isoprenoids.</p>
+    </div>
+    <div class="lipid-grid">
+      <div class="lipid-card">
+        <div class="lipid-card-label">Acyl-Lipids — Contain Fatty Acid Groups</div>
+        <div class="lipid-card-title">Fatty acid-based lipids</div>
+        <div class="lipid-card-body">
+          <strong>Phospholipids</strong> — membrane bilayer components<br>
+          <strong>Triacylglycerols (TAGs)</strong> — stored energy in adipose tissue; 9 kcal/g<br>
+          <strong>Waxes</strong> — moisture barriers on skin, feathers<br>
+          <strong>Eicosanoids</strong> — signalling molecules (prostaglandins, leukotrienes) made from arachidonic acid<br>
+          <strong>Sphingomyelins</strong> — membranes, especially important in myelin sheaths<br>
+          <strong>Glycosphingolipids</strong> — cell recognition (ABO blood group antigens)
+        </div>
+      </div>
+      <div class="lipid-card">
+        <div class="lipid-card-label">Isoprenoids — Made from 5-Carbon Isoprene Units</div>
+        <div class="lipid-card-title">Isoprene-based lipids</div>
+        <div class="lipid-card-body">
+          <strong>Steroids/Sterols</strong> — cholesterol (membrane), steroid hormones<br>
+          <strong>Lipid vitamins</strong> — Vitamins A, E, K (fat-soluble)<br>
+          <strong>Carotenoids</strong> — photosynthetic accessory pigments (β-carotene → Vitamin A)<br>
+          <strong>Chlorophyll</strong> — major light-harvesting pigment<br>
+          <strong>Ubiquinone (CoQ10)</strong> — lipid-soluble electron carrier in ETC<br>
+          <strong>Essential oils</strong> — menthol and other aromatic compounds
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fatty Acids -->
+  <div class="content-card">
+    <div class="content-card-title">Fatty Acids — Structure and Nomenclature</div>
+    <div class="content-body">
+      <p>Fatty acids are the building blocks of most lipids. They are <strong>amphipathic</strong> molecules — they have a polar carboxyl group (–COOH) at one end that interacts with water, and a long non-polar hydrocarbon tail that repels water. The tail is where the energy is stored — all those C–H bonds can be oxidised to release energy.</p>
+
+      <p>Fatty acids are classified by three features:</p>
+      <p><strong>Chain length:</strong> Very long chain (&gt;20C) · Long chain (C12–C20) · Medium chain (C6–C12) · Short chain (C4). This matters because different enzymes handle different chain lengths, and chain length determines how the fat is processed and transported.</p>
+      <p><strong>Degree of unsaturation:</strong> Saturated (no double bonds, maximum H) · Monounsaturated (one double bond) · Polyunsaturated (multiple double bonds). Double bonds reduce energy yield slightly because fewer C–H bonds are present to oxidise.</p>
+      <p><strong>Position of double bonds:</strong> Omega (ω) notation counts from the methyl end of the chain. Omega-3 fatty acids (first double bond at carbon 3 from the end) are considered health-promoting — they reduce inflammation and support cardiovascular health.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🔤 Reading Fatty Acid Shorthand</div>
+      <div class="analogy-body">
+        <strong>C18:1 Δ9 (Oleic acid)</strong> — 18 carbons total, 1 double bond, positioned at carbon 9 counting from the carboxyl end (between C9 and C10).<br><br>
+        <strong>Omega (ω) notation</strong> — counts from the methyl end (the tail). Oleic acid = 18:1ω9. Linoleic acid = 18:2Δ9,12 = 18:2ω6,9.<br><br>
+        <strong>Essential fatty acids:</strong> Mammals lack the enzymes to introduce double bonds beyond C-9. So linoleate (18:2 Δ9,12), linolenate (18:3 Δ9,12,15), and arachidonate (20:4 Δ5,8,11,14) must come from the diet — they are <strong>essential fatty acids</strong>.
+      </div>
+    </div>
+
+    <div class="section-lbl">Important Fatty Acids to Know</div>
+    <div style="overflow-x:auto;">
+    <table class="fa-table">
+      <thead>
+        <tr><th>Symbol</th><th>Structure (shorthand)</th><th>Trivial Name</th><th>Systematic Name</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>16:0</td><td>CH₃-(CH₂)₁₄-COOH</td><td>Palmitic</td><td>Hexadecanoic</td></tr>
+        <tr><td>16:1(Δ9)</td><td>CH₃-(CH₂)₅-CH=CH-(CH₂)₇-COOH</td><td>Palmitoleic</td><td>cis-9-hexadecenoic</td></tr>
+        <tr><td>18:0</td><td>CH₃-(CH₂)₁₆-COOH</td><td>Stearic</td><td>Octadecanoic</td></tr>
+        <tr><td>18:1(Δ9)</td><td>CH₃-(CH₂)₇-CH=CH-(CH₂)₇-COOH</td><td>Oleic</td><td>cis-9-octadecenoic</td></tr>
+        <tr><td>18:2(Δ9,12)*</td><td>CH₃-(CH₂)₃-(CH₂-CH=CH)₂-(CH₂)₇-COOH</td><td>Linoleic*</td><td>cis,cis-9,12-octadecadienoic</td></tr>
+        <tr><td>18:3(Δ9,12,15)*</td><td>CH₃-(CH₂-CH=CH)₃-(CH₂)₇-COOH</td><td>Linolenic*</td><td>cis,cis,cis-9,12,15-octadecatrienoic</td></tr>
+        <tr><td>20:4(Δ5,8,11,14)*</td><td>CH₃-(CH₂)₃-(CH₂-CH=CH)₄-(CH₂)₃-COOH</td><td>Arachidonic*</td><td>cis,cis,cis,cis-5,8,11,14-eicosatetraenoic</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">* Essential fatty acids — cannot be synthesised by mammals; must be obtained from diet</div>
+  </div>
+
+  <!-- Triglycerides and mobilisation -->
+  <div class="content-card">
+    <div class="content-card-title">Triglycerides — The Main Energy Store and How They're Mobilised</div>
+    <div class="content-body">
+      <p>Triglycerides (triacylglycerols, TAGs) are the body's primary form of stored energy. Each TAG molecule is made of <strong>glycerol + 3 fatty acids</strong> esterified to it. They are stored in adipose tissue (fat cells), which are essentially specialised containers for fat droplets. Fat is a far superior energy store to glycogen — 9 kcal/g vs 4 kcal/g — and fat stores are essentially unlimited, while glycogen is limited to ~400g in total.</p>
+
+      <p><strong>Mobilisation during fasting:</strong> When blood glucose falls and glucagon/epinephrine rise, <em>Hormone-Sensitive Lipase (HSL)</em> in adipose tissue is activated via the cAMP cascade (glucagon/epinephrine → adenylyl cyclase → cAMP → PKA → HSL). HSL hydrolyses TAGs into free fatty acids (FFAs) and glycerol. FFAs enter the blood, travel to peripheral tissues, and are oxidised by beta-oxidation. Glycerol travels to the liver where it is converted to DHAP and enters gluconeogenesis.</p>
+
+      <p><strong>Dietary fat mobilisation:</strong> Dietary fats must be emulsified by bile salts in the small intestine to make them accessible to <em>pancreatic lipase</em>. Free fatty acids (FFAs) stimulate the duodenum to release <em>Cholecystokinin (CCK / Pancreozymin)</em> — a 33-amino acid hormone that empties the gallbladder (more bile salts) and triggers pancreatic enzyme release. TAGs are broken down into FFAs and glycerol, absorbed into intestinal cells, re-packaged into <strong>chylomicrons</strong> (with proteins), and released into the lymph → blood. In tissues, <strong>Lipoprotein Lipase</strong> hydrolyses chylomicrons for uptake into adipocytes or hepatic cells.</p>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>Glycerol from TAG hydrolysis</strong> enters glycolysis as DHAP — it can be used for energy or for gluconeogenesis in the liver. <strong>Fatty acids</strong> cannot cross the blood-brain barrier and cannot be converted to glucose (even-chain FAs) — they are oxidised purely for energy in peripheral tissues.</div>
+    </div>
+  </div>
+
+  <!-- Carnitine transport -->
+  <div class="content-card">
+    <div class="content-card-title">Getting Fatty Acids INTO the Mitochondria — The Carnitine Shuttle</div>
+    <div class="content-body">
+      <p>Beta-oxidation takes place in the <strong>mitochondrial matrix</strong>. But activated fatty acids (fatty acyl-CoA) cannot cross the inner mitochondrial membrane on their own — CoA is too large to pass through. The solution is a <strong>carnitine carrier system</strong> that swaps the CoA for carnitine, shuttles the fatty acid across, and swaps back.</p>
+      <p>This 3-step process is the <em>rate-limiting step</em> for beta-oxidation — controlling entry into the pathway controls the whole pathway.</p>
+    </div>
+    <div class="transport-steps">
+      <div class="transport-step">
+        <div class="transport-num">1</div>
+        <div class="transport-content">
+          <div class="transport-heading">Activation — Fatty acid + CoA → Fatty Acyl-CoA (cytosol)</div>
+          <div class="transport-body">Before the fatty acid can be transported, it must first be <strong>activated</strong> by esterification with Coenzyme A. This is catalysed by <em>Acyl-CoA Synthetase (Thiokinase)</em> on the outer mitochondrial membrane or ER. The reaction requires ATP (consumed as ATP → AMP + PPi, equivalent to 2 ATP), and PPi is immediately hydrolysed to 2Pi by pyrophosphatase, driving the reaction irreversibly forward. The product, <strong>Fatty Acyl-CoA</strong>, is the activated form — it is "charged" and ready for oxidation. Different chain lengths have different Acyl-CoA Synthetases.</div>
+        </div>
+      </div>
+      <div class="transport-step">
+        <div class="transport-num">2</div>
+        <div class="transport-content">
+          <div class="transport-heading">CPT-I — Transfer to Carnitine at the Outer Membrane</div>
+          <div class="transport-body"><em>Carnitine Palmitoyl Transferase I (CPT-I)</em> sits on the cytosolic surface of the outer mitochondrial membrane. It transfers the fatty acid from CoA onto <strong>carnitine</strong> (replacing CoA with carnitine), forming <strong>acylcarnitine</strong>. This is the key regulated step — CPT-I is inhibited by <strong>malonyl-CoA</strong> (the first committed intermediate of fatty acid synthesis). When fatty acid synthesis is active (fed state, high malonyl-CoA), beta-oxidation is automatically shut off. This prevents the futile cycle of simultaneously making and breaking down fatty acids.</div>
+        </div>
+      </div>
+      <div class="transport-step">
+        <div class="transport-num">3</div>
+        <div class="transport-content">
+          <div class="transport-heading">Antiporter — Acylcarnitine crosses the inner membrane</div>
+          <div class="transport-body">A specific <strong>antiporter</strong> in the inner mitochondrial membrane exchanges acylcarnitine (moving inward) for free carnitine (moving outward). One goes in as the other comes out — hence "antiporter." This is a 1:1 exchange. The acylcarnitine is now inside the matrix.</div>
+        </div>
+      </div>
+      <div class="transport-step">
+        <div class="transport-num">4</div>
+        <div class="transport-content">
+          <div class="transport-heading">CPT-II — Transfer back to CoA in the Matrix</div>
+          <div class="transport-body"><em>Carnitine Palmitoyl Transferase II (CPT-II)</em> sits on the matrix face of the inner mitochondrial membrane. It transfers the fatty acid back from carnitine onto a new molecule of CoA (matrix CoA), regenerating <strong>Fatty Acyl-CoA</strong> inside the matrix. Free carnitine is released and transported back out via the antiporter for reuse. The fatty acyl-CoA is now in the matrix — ready for beta-oxidation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">⚡</div>
+      <div class="key-callout-body"><strong>Short and medium chain fatty acids (C4–C12)</strong> do NOT need the carnitine shuttle — they can diffuse directly across the inner mitochondrial membrane. This is why medium-chain triglyceride (MCT) formulas are used in patients with CPT-I or CPT-II deficiency — the fatty acids bypass the blocked transport system entirely.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ BETA-OXIDATION STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div style="background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:14px;font-weight:500;">
+    💡 Beta-oxidation is called "beta" because oxidation occurs at the <strong>beta carbon (C-3)</strong> — the second carbon from the carboxyl end. Each cycle removes 2 carbons as acetyl-CoA and produces 1 FADH₂ + 1 NADH. Tap any card to expand.
+  </div>
+
+  <!-- Activation -->
+  <div class="pathway-divider">
+    <div>
+      <div class="pathway-divider-title">Step 0 — Activation (Prerequisite)</div>
+      <div class="pathway-divider-sub">Fatty acid → Fatty Acyl-CoA · Costs 2 ATP equivalents · Occurs outside mitochondria</div>
+    </div>
+  </div>
+
+  <div class="step-card key-enzyme" id="s0">
+    <div class="step-header" onclick="toggleCard('s0')">
+      <div class="step-num-badge">0</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Acyl-CoA Synthetase (Thiokinase)</div>
+        <div class="step-rxn-preview">Fatty acid + CoA + ATP → Fatty Acyl-CoA + AMP + PPi</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-red">Irreversible</span><span class="badge badge-amber">Costs 2 ATP</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fatty acid + CoA + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Fatty Acyl-CoA + AMP + PPi</div></div>
+        <div class="detail-item"><div class="detail-label">Location</div><div class="detail-value">ER membrane + outer mitochondrial membrane</div></div>
+        <div class="detail-item"><div class="detail-label">ATP cost</div><div class="detail-value">ATP → AMP + PPi = 2 ATP equivalents lost</div></div>
+      </div>
+      <div class="explanation">
+        The fatty acid must be "activated" before it can be oxidised. Acyl-CoA Synthetase attaches CoA to the carboxyl group of the fatty acid via a high-energy thioester bond — this is what makes Fatty Acyl-CoA reactive and ready for oxidation. The reaction costs 2 ATP equivalents because ATP is cleaved all the way to AMP (not ADP). The pyrophosphate (PPi) is immediately hydrolysed to 2 inorganic phosphates by pyrophosphatase, making the reaction irreversible.<br><br>
+        Different Acyl-CoA Synthetases handle different chain lengths: long-chain (>C12), medium-chain (C6–C12), and short-chain (C4) isoforms. Only one activation occurs per fatty acid — regardless of how many beta-oxidation cycles follow.
+      </div>
+    </div>
+  </div>
+
+  <!-- The 4-step cycle -->
+  <div class="pathway-divider">
+    <div>
+      <div class="pathway-divider-title">The 4-Step Beta-Oxidation Cycle</div>
+      <div class="pathway-divider-sub">Repeats n-1 times for an n/2-carbon fatty acid · Each cycle: 1 FADH₂ + 1 NADH + 1 Acetyl-CoA</div>
+    </div>
+  </div>
+
+  <div class="step-card key-enzyme" id="s1">
+    <div class="step-header" onclick="toggleCard('s1')">
+      <div class="step-num-badge">1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Acyl-CoA Dehydrogenase</div>
+        <div class="step-rxn-preview">Fatty Acyl-CoA + FAD → trans-Δ2-Enoyl-CoA + FADH₂</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-gold">Step 1: Dehydrogenation</span><span class="badge badge-red">Produces FADH₂</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>First oxidation step.</strong> A double bond is introduced between the alpha (C-2) and beta (C-3) carbons — this is where the name "beta-oxidation" comes from. FAD is the electron acceptor (not NAD⁺) because the C–C bond being oxidised here is not adjacent to a carbonyl group, so the reaction requires the stronger oxidising power of FAD.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fatty Acyl-CoA (saturated)</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">trans-Δ2-Enoyl-CoA (has trans double bond)</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme (Electron acceptor)</div><div class="detail-value">FAD → FADH₂ (1 per cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Isoforms</div><div class="detail-value">LCAD (&gt;C12) · MCAD (C6–C12) · SCAD (C4–C6)</div></div>
+      </div>
+      <div class="explanation">
+        Three separate Acyl-CoA Dehydrogenases handle different chain lengths — LCAD (long chain, &gt;C12), MCAD (medium chain, C6–C12), and SCAD (short chain, C4–C6). The product is a <strong>trans double bond</strong> (trans-Δ2-enoyl-CoA) — this is important: the next enzyme (hydratase) only works on trans double bonds. This specificity is why unsaturated fatty acids (which have cis double bonds) require additional enzymes.
+        <br><br>
+        <span class="pathway-link" onclick="this.classList.toggle('active-tip')">MCAD Deficiency<span class="plink-tooltip">MCAD deficiency is one of the most common inborn errors of metabolism. Medium-chain fatty acids cannot be oxidised. During fasting, when fat oxidation is needed, energy production fails → hypoglycaemia + no compensatory ketone bodies (because ketogenesis also requires beta-oxidation). Classic presentation: hypoketotic hypoglycaemia in an infant during an intercurrent illness.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="s2">
+    <div class="step-header" onclick="toggleCard('s2')">
+      <div class="step-num-badge">2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Enoyl-CoA Hydratase</div>
+        <div class="step-rxn-preview">trans-Δ2-Enoyl-CoA + H₂O → L-3-Hydroxyacyl-CoA</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-royal">Step 2: Hydration</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">trans-Δ2-Enoyl-CoA</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">L-3-Hydroxyacyl-CoA</div></div>
+        <div class="detail-item"><div class="detail-label">Cofactor</div><div class="detail-value">Water (H₂O)</div></div>
+        <div class="detail-item"><div class="detail-label">Stereospecificity</div><div class="detail-value">Produces the L (S) isomer only</div></div>
+      </div>
+      <div class="explanation">
+        Water is added across the double bond (hydration). The enzyme is stereospecific — it produces only the <strong>L-3-hydroxyacyl-CoA</strong> (L-isomer, also called S-isomer). This stereochemical specificity matters: the next enzyme (beta-hydroxyacyl-CoA dehydrogenase) only works on the L-form. The product is a 3-hydroxy compound — an alcohol at the beta carbon, set up perfectly for the next oxidation step.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card key-enzyme" id="s3">
+    <div class="step-header" onclick="toggleCard('s3')">
+      <div class="step-num-badge">3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">β-Hydroxyacyl-CoA Dehydrogenase</div>
+        <div class="step-rxn-preview">L-3-Hydroxyacyl-CoA + NAD⁺ → β-Ketoacyl-CoA + NADH + H⁺</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-gold">Step 3: 2nd Dehydrogenation</span><span class="badge badge-green">Produces NADH</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">L-3-Hydroxyacyl-CoA</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">β-Ketoacyl-CoA (ketone at C-3)</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme (Electron acceptor)</div><div class="detail-value">NAD⁺ → NADH + H⁺ (1 per cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction type</div><div class="detail-value">Oxidation of alcohol → ketone</div></div>
+      </div>
+      <div class="explanation">
+        The hydroxyl group at C-3 is oxidised to a ketone. This time <strong>NAD⁺</strong> is the electron acceptor (unlike step 1 which used FAD) — because the carbon being oxidised here is adjacent to a carbonyl group, which lowers the energy barrier enough for NAD⁺. The product is a <strong>beta-ketoacyl-CoA</strong> — a ketone at the beta carbon, which is now perfectly positioned for the thiolytic cleavage in step 4.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card key-enzyme" id="s4">
+    <div class="step-header" onclick="toggleCard('s4')">
+      <div class="step-num-badge">4</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">β-Ketoacyl-CoA Thiolase (Thiolase)</div>
+        <div class="step-rxn-preview">β-Ketoacyl-CoA + CoA → Acetyl-CoA + Acyl-CoA (shortened by 2C)</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-gold">Step 4: Thiolysis</span><span class="badge badge-amber">Releases Acetyl-CoA</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>✂️</span>
+        <div><strong>The carbon–carbon cleavage step.</strong> Thiolase cleaves the bond between C-2 and C-3, releasing acetyl-CoA (the 2-carbon unit) and a fatty acyl-CoA that is now 2 carbons shorter. The shortened acyl-CoA re-enters the cycle at step 1. This continues until the fatty acid is completely degraded to acetyl-CoA.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">β-Ketoacyl-CoA + CoA (from matrix)</div></div>
+        <div class="detail-item"><div class="detail-label">Products</div><div class="detail-value">Acetyl-CoA (2C) + Acyl-CoA (n-2 carbons)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction type</div><div class="detail-value">Thiolytic cleavage (CoA acts as nucleophile)</div></div>
+        <div class="detail-item"><div class="detail-label">Fate of acetyl-CoA</div><div class="detail-value">TCA cycle → 10 ATP; or ketogenesis (in liver)</div></div>
+      </div>
+      <div class="explanation">
+        CoA attacks the C-3 carbon in a thiolytic cleavage — the bond between C-2 and C-3 is broken. One CoA molecule is consumed per cycle to form the new acetyl-CoA. The shortened acyl-CoA then undergoes another round of beta-oxidation. For palmitate (16C), this cycle runs <strong>7 times</strong> to produce <strong>8 acetyl-CoA molecules</strong> (the last cycle yields 2 acetyl-CoA simultaneously).
+        <br><br>
+        <span class="pathway-link" onclick="this.classList.toggle('active-tip')">TCA Cycle Connection<span class="plink-tooltip">Acetyl-CoA enters the TCA cycle via Citrate Synthase (OAA + Acetyl-CoA → Citrate). Each acetyl-CoA yields 3 NADH + 1 FADH₂ + 1 GTP = ~10 ATP. All 8 acetyl-CoAs from palmitate produce 80 ATP (old: 80 ATP; new: ~82.5 ATP).</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special cases -->
+  <div class="pathway-divider" style="background:var(--amber-dim);border-color:var(--amber-border);">
+    <div>
+      <div class="pathway-divider-title" style="color:var(--amber);">Special Cases — Odd-Chain, Unsaturated, Branched-Chain</div>
+      <div class="pathway-divider-sub">Standard beta-oxidation handles even-chain saturated FAs. Special enzymes handle the rest.</div>
+    </div>
+  </div>
+
+  <div class="step-card" id="sodd">
+    <div class="step-header" onclick="toggleCard('sodd')">
+      <div class="step-num-badge" style="background:var(--amber-dim);color:var(--amber);border-color:var(--amber-border);">ODD</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Odd-Chain Fatty Acids → Propionyl-CoA → Succinyl-CoA</div>
+        <div class="step-rxn-preview">Final product: Propionyl-CoA (3C) → via 3 enzymes → Succinyl-CoA → TCA cycle</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-amber">Requires Biotin + Vit B₁₂</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="explanation">
+        Odd-chain fatty acids (found in some bacteria, plants, and marine organisms, as well as in the human colon) undergo normal beta-oxidation until the final thiolase cleavage — which produces a <strong>3-carbon Propionyl-CoA</strong> instead of two acetyl-CoAs. Propionyl-CoA cannot enter the TCA cycle directly and requires three specific enzymes:
+        <br><br>
+        <strong>1. Propionyl-CoA Carboxylase</strong> (requires <em>Biotin</em> as cofactor): adds CO₂ to Propionyl-CoA → D-Methylmalonyl-CoA (uses ATP). This is analogous to Pyruvate Carboxylase — biotin is the CO₂ carrier in both.<br><br>
+        <strong>2. Methylmalonyl-CoA Epimerase</strong>: converts D-Methylmalonyl-CoA → L-Methylmalonyl-CoA (stereoisomeric conversion).<br><br>
+        <strong>3. Methylmalonyl-CoA Mutase</strong> (requires <em>Vitamin B₁₂ (adenosylcobalamin)</em> as cofactor): rearranges L-Methylmalonyl-CoA → <strong>Succinyl-CoA</strong>. Succinyl-CoA enters the TCA cycle directly as a 4-carbon intermediate. This is the only way mammals convert fat carbons into glucose (odd-chain fatty acid carbons enter TCA at succinyl-CoA → OAA → gluconeogenesis).
+      </div>
+      <div class="key-callout" style="margin-top:12px;">
+        <div class="key-callout-icon">💡</div>
+        <div class="key-callout-body"><strong>Vitamin B₁₂ deficiency</strong> impairs Methylmalonyl-CoA Mutase → methylmalonyl-CoA accumulates → elevated methylmalonic acid in urine (methylmalonic aciduria). This is one of the diagnostic markers for B₁₂ deficiency, alongside homocystinuria.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="sunsat">
+    <div class="step-header" onclick="toggleCard('sunsat')">
+      <div class="step-num-badge" style="background:var(--teal-dim);color:var(--teal);border-color:var(--teal-border);">UNS</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Unsaturated Fatty Acids — Extra Enzymes Needed</div>
+        <div class="step-rxn-preview">Cis double bonds bypass Step 1; resolved by Enoyl-CoA Isomerase or 2,4-Dienoyl-CoA Reductase</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-teal">2 Extra Enzymes</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="explanation">
+        The problem with unsaturated fatty acids is that their natural double bonds are <strong>cis</strong>, but beta-oxidation step 1 (Acyl-CoA Dehydrogenase) produces a <strong>trans</strong> double bond. When the cycle reaches the position of a pre-existing cis double bond in the chain, it cannot form the required trans-Δ2 configuration — the geometry is wrong for Enoyl-CoA Hydratase (step 2).<br><br>
+        <strong>Two additional enzymes resolve this:</strong><br><br>
+        <strong>Enoyl-CoA Isomerase:</strong> handles monounsaturated fatty acids. Converts the cis-Δ3 enoyl-CoA to trans-Δ2 enoyl-CoA, which is then the correct substrate for step 2 (Hydratase). One fewer FADH₂ is produced per double bond already present (step 1 is bypassed).<br><br>
+        <strong>2,4-Dienoyl-CoA Reductase</strong> (requires NADPH): handles polyunsaturated fatty acids where two adjacent double bonds create a 2,4-dienoyl intermediate. Reduces it to trans-Δ3-enoyl-CoA, which Enoyl-CoA Isomerase then converts to the correct trans-Δ2 form. One FADH₂ and one NADPH are lost for each double bond pair handled this way — which is why unsaturated FAs yield slightly less ATP than saturated FAs of the same length.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="sbranch">
+    <div class="step-header" onclick="toggleCard('sbranch')">
+      <div class="step-num-badge" style="background:var(--purple-dim);color:var(--purple);border-color:var(--purple-border);">BCH</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Branched-Chain & Very Long Chain FA — Peroxisomal Oxidation</div>
+        <div class="step-rxn-preview">Very long chain FAs → peroxisomal beta-oxidation → octanoyl-CoA → mitochondrial beta-oxidation</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-purple">Peroxisomes</span><span class="badge badge-red">Refsum's Disease</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="explanation">
+        <strong>Why peroxisomes?</strong> Very long chain fatty acids (&gt;C20), branched-chain fatty acids, some prostaglandins, and leukotrienes are too large or too complex to enter mitochondria via the carnitine shuttle. They undergo initial oxidation in <strong>peroxisomes</strong> using the same enzymatic steps as mitochondrial beta-oxidation, until the chain is shortened to <strong>octanoyl-CoA (C8)</strong>. At that point, the chain is small enough to transfer to mitochondria for completion.<br><br>
+        <strong>Phytanic acid and Refsum's Disease:</strong> Phytanic acid is a branched-chain fatty acid derived from the breakdown of chlorophyll (found in plant foods and meat from plant-eating animals). It cannot undergo direct beta-oxidation because of the methyl branch at C-3 (which would block thiolase). Instead, phytanic acid first undergoes <strong>alpha-oxidation</strong> in peroxisomes — an alpha-hydroxylase removes one carbon (as CO₂), producing pristanic acid. Pristanic acid can then undergo beta-oxidation normally.<br><br>
+        <strong>Refsum's Disease (Adult Refsum's Disease):</strong> Rare autosomal recessive disorder caused by deficiency of phytanoyl-CoA hydroxylase (the alpha-hydroxylase). Phytanic acid accumulates in tissues — causing <strong>nerve damage, retinal degeneration (retinitis pigmentosa), ataxia (spastic movement), bone and skin changes</strong>. Treatment: strict avoidance of chlorophyll-containing foods (green vegetables) and meat from plant-eating animals.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ATP YIELD ══ -->
+<div id="tab-atp" class="section-panel">
+
+  <div class="content-card">
+    <div class="content-card-title">How We Count ATP from Beta-Oxidation</div>
+    <div class="content-body">
+      <p>Calculating the ATP yield from fatty acid oxidation is a favourite exam topic — and it requires combining the yield from beta-oxidation itself with the yield from the TCA cycle and oxidative phosphorylation for each acetyl-CoA produced. Here we use <strong>palmitate (16-carbon, fully saturated)</strong> as the worked example — it is the most common calculation asked in exams.</p>
+
+      <p><strong>The old vs new ATP controversy:</strong> Your lecturer's slides show both the classical values (NADH = 3 ATP, FADH₂ = 2 ATP, giving 106 ATP for palmitate) and the modern P/O ratio values (NADH = 2.5 ATP, FADH₂ = 1.5 ATP, giving ~108 ATP). You need to know both — <strong>know which one your lecturer expects in exams</strong>.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🔢 The Logic of the Calculation</div>
+      <div class="analogy-body">
+        Think of it in three layers:<br>
+        <strong>Layer 1 — Beta-oxidation:</strong> Each cycle produces 1 FADH₂ + 1 NADH. Palmitate (16C) needs 7 cycles = 7 FADH₂ + 7 NADH.<br>
+        <strong>Layer 2 — TCA cycle:</strong> Each acetyl-CoA produces 3 NADH + 1 FADH₂ + 1 GTP. 8 acetyl-CoA × 10 ATP = 80 ATP.<br>
+        <strong>Layer 3 — Subtract activation cost:</strong> Activation used ATP → AMP = 2 ATP equivalents.<br>
+        Total = beta-oxidation ATP + TCA ATP − 2.
+      </div>
+    </div>
+  </div>
+
+  <!-- Palmitate calculation -->
+  <div class="content-card">
+    <div class="content-card-title">Palmitate (C16:0) — Step-by-Step ATP Calculation</div>
+
+    <div class="section-lbl">Step 1 — Activation (cost)</div>
+    <div style="background:var(--red-dim);border:1px solid var(--red-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--text-body);margin-bottom:12px;">
+      Palmitate + CoA + <strong>ATP → AMP + PPi</strong> → 2 Pi<br>
+      ATP is cleaved to AMP (not ADP), so this costs <strong>2 ATP equivalents</strong>. PPi hydrolysis is irreversible and drives the reaction forward.
+    </div>
+
+    <div class="section-lbl">Step 2 — Beta-Oxidation (7 cycles for C16)</div>
+    <div style="background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--text-body);margin-bottom:12px;">
+      7 cycles × (1 FADH₂ + 1 NADH) = <strong>7 FADH₂ + 7 NADH</strong><br>
+      Products: <strong>8 Acetyl-CoA</strong> (one released per cycle; the last cycle yields the final 2 simultaneously)
+    </div>
+
+    <div class="section-lbl">Step 3 — TCA Cycle (8 Acetyl-CoA)</div>
+    <div style="background:var(--green-dim);border:1px solid var(--green-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--text-body);margin-bottom:14px;">
+      Per acetyl-CoA: 3 NADH + 1 FADH₂ + 1 GTP<br>
+      8 × (3 NADH + 1 FADH₂ + 1 GTP) = <strong>24 NADH + 8 FADH₂ + 8 GTP</strong>
+    </div>
+
+    <div class="section-lbl">Full ATP Yield Table — Old vs New Values</div>
+    <div style="overflow-x:auto;">
+    <table class="atp-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Enzyme Step</th>
+          <th>Cofactor Produced</th>
+          <th>Old ATP (×3/×2)</th>
+          <th>New ATP (×2.5/×1.5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;color:var(--royal)">Beta-oxidation</td>
+          <td class="enzyme-col">Acyl-CoA Dehydrogenase (7×)</td>
+          <td class="cofactor-col">7 FADH₂</td>
+          <td class="atp-old">14</td>
+          <td class="atp-new">10.5</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="enzyme-col">β-Hydroxyacyl-CoA Dehydrogenase (7×)</td>
+          <td class="cofactor-col">7 NADH</td>
+          <td class="atp-old">21</td>
+          <td class="atp-new">17.5</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="2">Beta-oxidation subtotal</td>
+          <td>7 FADH₂ + 7 NADH</td>
+          <td>35</td>
+          <td>28</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--green)">TCA Cycle</td>
+          <td class="enzyme-col">Isocitrate Dehydrogenase (8×)</td>
+          <td class="cofactor-col">8 NADH</td>
+          <td class="atp-old">24</td>
+          <td class="atp-new">20</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="enzyme-col">α-Ketoglutarate Dehydrogenase (8×)</td>
+          <td class="cofactor-col">8 NADH</td>
+          <td class="atp-old">24</td>
+          <td class="atp-new">20</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="enzyme-col">Succinate Dehydrogenase (8×)</td>
+          <td class="cofactor-col">8 FADH₂</td>
+          <td class="atp-old">16</td>
+          <td class="atp-new">12</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="enzyme-col">Malate Dehydrogenase (8×)</td>
+          <td class="cofactor-col">8 NADH</td>
+          <td class="atp-old">24</td>
+          <td class="atp-new">20</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="enzyme-col">Succinyl-CoA Synthetase (8×)</td>
+          <td class="cofactor-col">8 GTP</td>
+          <td>8</td>
+          <td>8</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="2">TCA subtotal (8 acetyl-CoA)</td>
+          <td>24 NADH + 8 FADH₂ + 8 GTP</td>
+          <td>96</td>
+          <td>80</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--red)">Activation</td>
+          <td class="enzyme-col">Acyl-CoA Synthetase</td>
+          <td class="cofactor-col">−2 ATP</td>
+          <td class="atp-old">−2</td>
+          <td class="atp-new">−2</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2">GRAND TOTAL — Palmitate → CO₂ + H₂O</td>
+          <td>7+8 FADH₂ · 7+24 NADH · 8 GTP</td>
+          <td>129 → 106*</td>
+          <td>106 → ~108*</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">
+      * Your lecturer's slide states: Old concept gives <strong>106 ATP</strong> total (35 from beta-oxidation + 80 from TCA − 2 activation + rounding). New concept gives approximately <strong>108 ATP</strong> with P/O ratios of 2.5 (NADH) and 1.5 (FADH₂). Both values appear in exams — know the old value (106) for traditional questions and the new (~108) for modern biochemistry questions.
+    </div>
+
+    <div class="key-callout" style="margin-top:16px;">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>Why does fat yield so much more energy than glucose?</strong> Glucose (C₆H₁₂O₆) is already partially oxidised — it contains oxygen atoms. Fatty acids are highly reduced hydrocarbons — almost all carbons are bonded to hydrogen. The more reduced a molecule, the more energy is released when it is fully oxidised. This is why fat at 9 kcal/g yields more than double the energy of carbohydrate at 4 kcal/g.</div>
+    </div>
+  </div>
+
+  <!-- Summary equation -->
+  <div class="content-card">
+    <div class="content-card-title">Summary Equation — Palmitoyl-CoA to CO₂ and H₂O</div>
+    <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:16px;font-family:var(--font-mono);font-size:13px;line-height:2;color:var(--text-body);">
+      <span style="color:var(--royal);font-weight:700">BETA-OXIDATION:</span><br>
+      Palmitoyl-CoA + 7 FAD + 7 NAD⁺ + 7 CoA + 7 H₂O<br>
+      → 8 Acetyl-CoA + 7 FADH₂ + 7 NADH + 7 H⁺<br><br>
+      <span style="color:var(--green);font-weight:700">TCA CYCLE (×8):</span><br>
+      8 Acetyl-CoA + 16 O₂ → 16 CO₂ + 8 CoA + 24 NADH + 8 FADH₂ + 8 GTP<br><br>
+      <span style="color:var(--amber);font-weight:700">NET (subtracting 2 ATP for activation):</span><br>
+      Palmitate + 23 O₂ → 16 CO₂ + 16 H₂O + <strong style="color:var(--royal)">~106–108 ATP</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ KETONE BODIES ══ -->
+<div id="tab-ketones" class="section-panel">
+
+  <div class="content-card">
+    <div class="content-card-title">What Are Ketone Bodies and Why Do We Make Them?</div>
+    <div class="content-body">
+      <p>Ketone bodies are water-soluble molecules made in the liver from excess Acetyl-CoA during fasting, starvation, prolonged exercise, or uncontrolled diabetes. They are the liver's way of sending fat-derived fuel to the rest of the body — particularly the brain, which cannot use fatty acids directly.</p>
+
+      <p>Here is the fundamental scenario: during fasting or carbohydrate starvation, <strong>OAA (oxaloacetate)</strong> in the liver is depleted because gluconeogenesis uses it to make glucose. OAA is the entry point for Acetyl-CoA into the TCA cycle — without enough OAA, Acetyl-CoA cannot enter the TCA cycle even though it is being produced in large quantities from beta-oxidation. <strong>The TCA cycle is throttled by OAA depletion, and Acetyl-CoA backs up.</strong> The liver diverts this excess Acetyl-CoA into ketone body synthesis instead.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🏭 The Overflow Factory Analogy</div>
+      <div class="analogy-body">
+        Imagine a factory (liver) that converts raw material (fatty acids) into a product (Acetyl-CoA). Normally, the production line (TCA cycle) processes everything. But during fasting, the production line slows (OAA depleted) while raw material input (fatty acid mobilisation) increases. The factory is overproducing faster than it can process. So the manager (liver) packages the excess into portable, water-soluble containers (ketone bodies) and ships them out to other factories (brain, heart, muscle) that can use them as fuel. This is ketogenesis.
+      </div>
+    </div>
+
+    <div class="content-body">
+      <p><strong>Why can't the brain use fatty acids?</strong> Fatty acids are too large and too tightly bound to albumin to cross the blood-brain barrier. The brain has very low capacity for fatty acid oxidation. But <strong>ketone bodies are small and water-soluble</strong> — they cross the blood-brain barrier easily and can be metabolised by neurons. During prolonged fasting, the brain shifts from 100% glucose to using ketone bodies for up to 70% of its energy needs, dramatically reducing the demand for gluconeogenesis and protecting muscle protein from breakdown.</p>
+    </div>
+  </div>
+
+  <!-- Three ketone bodies -->
+  <div class="section-lbl">The Three Ketone Bodies</div>
+  <div class="ketone-types">
+    <div class="ketone-type-card">
+      <div class="ketone-type-icon">🔶</div>
+      <div class="ketone-type-name">Acetoacetate</div>
+      <div class="ketone-type-formula">CH₃-CO-CH₂-COO⁻</div>
+      <div class="ketone-type-note">Primary ketone body. Produced first. Can be reduced to β-hydroxybutyrate or spontaneously decarboxylated to acetone. Strong acid (pKa ~3.8).</div>
+    </div>
+    <div class="ketone-type-card">
+      <div class="ketone-type-icon">🔷</div>
+      <div class="ketone-type-name">β-Hydroxybutyrate</div>
+      <div class="ketone-type-formula">CH₃-CHOH-CH₂-COO⁻</div>
+      <div class="ketone-type-note">Formed by reduction of acetoacetate (uses NADH). Quantitatively the most abundant ketone body in blood. Technically not a ketone (it's a hydroxy acid) — but counted clinically as one. Major fuel for the brain during starvation.</div>
+    </div>
+    <div class="ketone-type-card">
+      <div class="ketone-type-icon">💨</div>
+      <div class="ketone-type-name">Acetone</div>
+      <div class="ketone-type-formula">CH₃-CO-CH₃</div>
+      <div class="ketone-type-note">Spontaneous, non-enzymatic decarboxylation of acetoacetate. Volatile — exhaled via lungs (fruity/sweet breath in DKA). Cannot be metabolised for energy. A clinical marker but not a useful fuel.</div>
+    </div>
+  </div>
+
+  <!-- Ketogenesis steps -->
+  <div class="content-card">
+    <div class="content-card-title">Ketogenesis — How Ketone Bodies Are Made (in Liver Mitochondria)</div>
+    <div class="ketone-chain">
+
+      <div class="ketone-step">
+        <div class="ketone-num">1</div>
+        <div class="ketone-content">
+          <div class="ketone-heading">2 Acetyl-CoA → Acetoacetyl-CoA (Thiolase runs in reverse)</div>
+          <div class="ketone-body">Two molecules of Acetyl-CoA condense to form <strong>Acetoacetyl-CoA</strong>. This is the reverse of the thiolase reaction from beta-oxidation. CoA is released. Enzyme: <em>Thiolase</em>.</div>
+          <div class="ketone-technical">2 Acetyl-CoA → Acetoacetyl-CoA + CoA</div>
+        </div>
+      </div>
+
+      <div class="ketone-step">
+        <div class="ketone-num">2</div>
+        <div class="ketone-content">
+          <div class="ketone-heading">Acetoacetyl-CoA + Acetyl-CoA → HMG-CoA</div>
+          <div class="ketone-body"><strong>HMG-CoA Synthase</strong> (3-Hydroxy-3-Methylglutaryl-CoA Synthase) condenses Acetoacetyl-CoA with another Acetyl-CoA to form <strong>HMG-CoA (3-Hydroxy-3-Methylglutaryl-CoA)</strong>. This is a 6-carbon intermediate and the key branch point — the same HMG-CoA is also the precursor for cholesterol synthesis in the cytosol (via a cytosolic HMG-CoA Synthase). <strong>This step is the committed step of ketogenesis.</strong></div>
+          <div class="ketone-technical">Acetoacetyl-CoA + Acetyl-CoA + H₂O → HMG-CoA + CoA</div>
+        </div>
+      </div>
+
+      <div class="ketone-step">
+        <div class="ketone-num">3</div>
+        <div class="ketone-content">
+          <div class="ketone-heading">HMG-CoA → Acetoacetate + Acetyl-CoA</div>
+          <div class="ketone-body"><strong>HMG-CoA Lyase</strong> cleaves HMG-CoA into <strong>Acetoacetate</strong> (the first free ketone body) and Acetyl-CoA. This step is unique to ketogenesis — the cytosolic HMG-CoA pathway (for cholesterol) uses a different enzyme (HMG-CoA Reductase, the target of statins) to produce mevalonate instead.</div>
+          <div class="ketone-technical">HMG-CoA → Acetoacetate + Acetyl-CoA</div>
+        </div>
+      </div>
+
+      <div class="ketone-step">
+        <div class="ketone-num">4</div>
+        <div class="ketone-content">
+          <div class="ketone-heading">Acetoacetate → β-Hydroxybutyrate (or Acetone)</div>
+          <div class="ketone-body">
+            Acetoacetate has two fates:<br>
+            (a) <strong>Reduction</strong> by <em>β-Hydroxybutyrate Dehydrogenase</em> using NADH → <strong>β-Hydroxybutyrate</strong>. The high NADH:NAD⁺ ratio in the liver during active fatty acid oxidation drives this reaction strongly toward β-hydroxybutyrate. This is why β-hydroxybutyrate predominates in the blood during starvation and DKA.<br>
+            (b) <strong>Spontaneous decarboxylation</strong> of acetoacetate → <strong>Acetone + CO₂</strong>. Non-enzymatic. Gives the fruity breath characteristic of ketoacidosis.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ketone body utilisation -->
+  <div class="content-card">
+    <div class="content-card-title">Ketone Body Utilisation — How Peripheral Tissues Use Them</div>
+    <div class="content-body">
+      <p>Liver makes ketone bodies but <strong>cannot use them itself</strong> — it lacks <em>Succinyl-CoA:Acetoacetate CoA Transferase (Thiophorase)</em>, the enzyme needed for ketone body activation in peripheral tissues. This ensures ketone bodies are exported to where they are needed. <strong>Brain, heart, skeletal muscle, and kidney</strong> can all use ketone bodies.</p>
+    </div>
+    <div class="transport-steps">
+      <div class="transport-step">
+        <div class="transport-num">1</div>
+        <div class="transport-content">
+          <div class="transport-heading">β-Hydroxybutyrate → Acetoacetate (in peripheral tissues)</div>
+          <div class="transport-body">β-Hydroxybutyrate Dehydrogenase (runs in reverse in peripheral tissues) oxidises β-hydroxybutyrate back to acetoacetate, generating NADH in the process.</div>
+        </div>
+      </div>
+      <div class="transport-step">
+        <div class="transport-num">2</div>
+        <div class="transport-content">
+          <div class="transport-heading">Acetoacetate + Succinyl-CoA → Acetoacetyl-CoA + Succinate (Thiophorase)</div>
+          <div class="transport-body"><em>Succinyl-CoA:Acetoacetate CoA Transferase (Thiophorase)</em> transfers CoA from Succinyl-CoA (a TCA intermediate) to acetoacetate, producing Acetoacetyl-CoA. This "costs" one CoA equivalent from the TCA cycle but is energetically acceptable. <strong>This enzyme is absent in the liver</strong> — which is why the liver cannot use its own ketone bodies.</div>
+        </div>
+      </div>
+      <div class="transport-step">
+        <div class="transport-num">3</div>
+        <div class="transport-content">
+          <div class="transport-heading">Acetoacetyl-CoA → 2 Acetyl-CoA (Thiolase)</div>
+          <div class="transport-body">Thiolase cleaves Acetoacetyl-CoA into 2 Acetyl-CoA, which enter the TCA cycle normally → ATP generation. The net yield of ketone body oxidation is similar to that of glucose — giving the brain an efficient alternative fuel during prolonged starvation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">Plain English — The Ketone Body System</div>
+      <div class="plain-english-body">
+        The liver acts as a <strong>ketone body factory</strong> — it converts excess fat-derived fuel into a portable, water-soluble, brain-accessible form. The rest of the body acts as a <strong>ketone body consumer</strong> — converting them back to Acetyl-CoA for the TCA cycle. The liver is the only producer; it cannot consume its own product. This clever division of labour ensures that during fasting, the brain gets the fuel it needs without requiring the liver to give up glucose that could be used elsewhere.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;">
+    ⚕️ Clinical disorders of fatty acid oxidation and ketone metabolism are united by one theme: when fat cannot be oxidised normally, the body cannot switch from glucose to fat during fasting — leading to energy failure, organ damage, or dangerous metabolite accumulation.
+  </div>
+
+  <!-- MCAD -->
+  <div class="clinical-card" style="border-left-color:var(--red)">
+    <div class="clinical-disease">MCAD Deficiency — Medium-Chain Acyl-CoA Dehydrogenase Deficiency</div>
+    <div class="clinical-enzyme-link" style="color:var(--red)">Deficient enzyme: MCAD (Step 1 of beta-oxidation for C6–C12 fatty acids)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Most common FA oxidation defect</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Newborn Screen detectable</span><br><br>
+      MCAD deficiency is one of the most common inborn errors of metabolism — affecting approximately 1 in 10,000–15,000 live births in Western populations. Medium-chain fatty acids (C6–C12) cannot be oxidised because the first dehydrogenation step is blocked.<br><br>
+      <strong>Why is it dangerous during fasting?</strong> During fasting, the body normally shifts from glucose to fat oxidation. In MCAD deficiency, medium-chain fatty acids back up and cannot be converted to Acetyl-CoA. Two consequences: (1) <strong>hypoketotic hypoglycaemia</strong> — blood glucose falls (fat oxidation failing) but ketone bodies are not produced (no Acetyl-CoA from medium-chain fats for ketogenesis) — the brain has neither glucose nor ketones; (2) accumulating medium-chain fatty acids and their derivatives are directly toxic to the liver and brain.<br><br>
+      <strong>Presentation:</strong> Previously well infant develops acute encephalopathy, vomiting, and hypoglycaemia triggered by an illness (viral infection) that causes a period of reduced feeding. Can be mistaken for Reye syndrome. Without diagnosis, can be rapidly fatal.<br><br>
+      <strong>Key lab finding:</strong> Elevated C8 (octanoyl) acylcarnitines on tandem mass spectrometry. This is why MCAD is included in newborn screening — early detection and simple dietary management (avoid prolonged fasting) is life-saving.<br><br>
+      <strong>Treatment:</strong> Avoid fasting. Frequent carbohydrate feeds. Emergency dextrose infusion during illness. Carnitine supplementation may help clear toxic acylcarnitines.
+    </div>
+  </div>
+
+  <!-- Refsum's Disease -->
+  <div class="clinical-card" style="border-left-color:var(--purple)">
+    <div class="clinical-disease">Refsum's Disease (Adult Refsum's Disease — ARD)</div>
+    <div class="clinical-enzyme-link" style="color:var(--purple)">Deficient enzyme: Phytanoyl-CoA Hydroxylase (alpha-hydroxylase in peroxisomes)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Autosomal Recessive</span><span class="clinical-tag">Peroxisomal Disorder</span><span class="clinical-tag">Treatable by diet</span><br><br>
+      Phytanic acid is a branched-chain fatty acid formed from the breakdown of phytol (a component of chlorophyll). Because of the methyl branch at C-3, phytanic acid cannot undergo direct beta-oxidation — it first requires <strong>alpha-oxidation</strong> in peroxisomes to remove one carbon. In Refsum's disease, the alpha-hydroxylase is deficient, so phytanic acid accumulates in all tissues.<br><br>
+      <strong>Clinical features:</strong> Phytanic acid accumulation causes progressive damage to multiple systems:<br>
+      — <strong>Peripheral neuropathy</strong> (nerve damage — weakness, sensory loss)<br>
+      — <strong>Retinitis pigmentosa</strong> (progressive retinal degeneration → night blindness → eventual vision loss)<br>
+      — <strong>Cerebellar ataxia</strong> (coordination problems, spastic movement)<br>
+      — <strong>Anosmia</strong> (loss of smell)<br>
+      — <strong>Cardiac arrhythmias</strong><br>
+      — <strong>Ichthyosis</strong> (scaly skin)<br>
+      — Bone changes (shortening of metatarsal bones)<br><br>
+      <strong>Treatment:</strong> Strict dietary restriction of phytanic acid — avoid all green vegetables (chlorophyll source), meat from ruminants (cows, sheep store phytanic acid in fat), and dairy products from ruminants. With strict dietary control, disease progression can be halted and symptoms may partially improve.
+    </div>
+  </div>
+
+  <!-- DKA -->
+  <div class="clinical-card" style="border-left-color:var(--red)">
+    <div class="clinical-disease">Diabetic Ketoacidosis (DKA)</div>
+    <div class="clinical-enzyme-link" style="color:var(--red)">Mechanism: Insulin deficiency → uncontrolled lipolysis + unopposed ketogenesis → ketone accumulation → acidosis</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Type 1 DM primarily</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Medical Emergency</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">High Anion Gap Acidosis</span><br><br>
+      <strong>The biochemical chain:</strong> In insulin deficiency (Type 1 DM or severe Type 2), glucose cannot enter cells. The body interprets this as starvation — glucagon rises, epinephrine rises, Hormone-Sensitive Lipase is maximally activated → massive lipolysis → FFAs flood into the liver. Beta-oxidation runs at maximum rate → enormous Acetyl-CoA production. OAA is depleted (gluconeogenesis maximal). Acetyl-CoA cannot enter TCA cycle → diverted entirely to ketogenesis → acetoacetate and β-hydroxybutyrate accumulate in blood at pathological levels (normal &lt;0.1 mmol/L; DKA &gt;3 mmol/L).<br><br>
+      <strong>Why acidosis?</strong> Acetoacetate and β-hydroxybutyrate are strong acids (pKa ~3.5–4.7). At high concentrations they overwhelm the body's buffering systems → blood pH falls below 7.3. This impairs haemoglobin's ability to bind oxygen, disrupts enzyme function, and can cause coma and death.<br><br>
+      <strong>Clinical triad of DKA:</strong> <strong>Hyperglycaemia</strong> (usually &gt;11 mmol/L), <strong>Ketonaemia/Ketonuria</strong>, <strong>Metabolic acidosis</strong> (pH &lt;7.3, bicarb &lt;15 mmol/L).<br><br>
+      <strong>Symptoms:</strong> Fruity breath (acetone), Kussmaul breathing (deep, rapid breathing — compensatory respiratory alkalosis), nausea/vomiting, abdominal pain, dehydration, confusion, coma.<br><br>
+      <strong>Treatment:</strong> IV fluids (correct dehydration), Insulin infusion (suppress lipolysis and ketogenesis, promote glucose uptake), Electrolyte replacement (especially K⁺ — insulin drives K⁺ into cells, can cause hypokalaemia). Bicarbonate only for severe acidosis (pH &lt;6.9).
+    </div>
+  </div>
+
+  <!-- CPT deficiency -->
+  <div class="clinical-card" style="border-left-color:var(--teal)">
+    <div class="clinical-disease">CPT-I and CPT-II Deficiency</div>
+    <div class="clinical-enzyme-link" style="color:var(--teal)">Deficient enzyme: Carnitine Palmitoyl Transferase I or II — blocks fatty acid entry into mitochondria</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Long-chain FA cannot be oxidised</span><br><br>
+      <strong>CPT-I Deficiency:</strong> The transfer of long-chain fatty acids from CoA to carnitine is blocked. Long-chain FA accumulate in the cytosol. Beta-oxidation of long-chain fatty acids is completely blocked. Presents with hypoketotic hypoglycaemia during fasting (similar to MCAD) + elevated free carnitine (backed up, not esterified). The liver is specifically affected (hepatomegaly, liver dysfunction). The key distinguishing feature: <strong>elevated free carnitine with low acylcarnitines</strong>. Paradoxically, medium and short-chain fatty acids can still be oxidised (they don't need CPT-I).<br><br>
+      <strong>CPT-II Deficiency:</strong> The reconstitution of fatty acyl-CoA in the matrix is blocked. Three clinical forms: severe neonatal (fatal cardiomyopathy + hypoglycaemia), infantile (liver disease + hypoketotic hypoglycaemia), and adult myopathic form (exercise-induced rhabdomyolysis — similar presentation to McArdle disease). The adult form is the most common and presents with muscle pain + myoglobinuria after prolonged exercise, fasting, or cold exposure.<br><br>
+      <strong>Treatment:</strong> Avoid fasting. Frequent carbohydrate-rich meals. Supplemental medium-chain triglycerides (MCT oil) — MCTs bypass CPT-I and II entirely, reaching the matrix directly without carnitine.
+    </div>
+  </div>
+
+  <!-- Ketosis vs DKA -->
+  <div class="content-card">
+    <div class="content-card-title">Distinguishing Physiological Ketosis from Pathological DKA</div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr><th>Feature</th><th>Physiological Ketosis (Fasting/Keto diet)</th><th>Diabetic Ketoacidosis</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Blood ketones</td><td style="color:var(--amber)">0.5–3 mmol/L (mild elevation)</td><td style="color:var(--red)">Usually &gt;3 mmol/L (often 10–25 mmol/L)</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Blood glucose</td><td style="color:var(--green)">Normal or low-normal</td><td style="color:var(--red)">&gt;11 mmol/L (hyperglycaemia)</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Blood pH</td><td style="color:var(--green)">Normal (7.35–7.45)</td><td style="color:var(--red)">Low (&lt;7.3 — acidosis)</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Insulin</td><td style="color:var(--green)">Low but present</td><td style="color:var(--red)">Severely deficient or absent</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Lipolysis</td><td style="color:var(--amber)">Moderate (regulated)</td><td style="color:var(--red)">Uncontrolled (massive)</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Clinical state</td><td style="color:var(--green)">Well, asymptomatic</td><td style="color:var(--red)">Sick, dehydrated, may be comatose</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Fruity breath</td><td style="color:var(--amber)">May be present (mild)</td><td style="color:var(--red)">Strongly present (acetone)</td></tr>
+        <tr><td style="font-weight:600;color:var(--text-dark)">Treatment needed</td><td style="color:var(--green)">None (physiological)</td><td style="color:var(--red)">Emergency: fluids + insulin + electrolytes</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="key-callout" style="margin-top:14px;">
+      <div class="key-callout-icon">⚠️</div>
+      <div class="key-callout-body"><strong>Three types of diabetic coma:</strong> (1) <strong>Hypoglycaemic coma</strong> — blood sugar too low (too much insulin). (2) <strong>Diabetic Ketoacidosis (DKA)</strong> — hyperglycaemia + ketoacidosis + dehydration (mainly Type 1). (3) <strong>Hyperosmolar Non-Ketotic Coma (HONK)</strong> — extremely high blood sugar (&gt;33 mmol/L) causing profound osmotic dehydration without significant ketosis (mainly Type 2 — enough insulin to suppress ketogenesis but not enough to prevent hyperglycaemia).</div>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true" style="display:none">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="test-mode-subtitle" id="mode-desc">Three challenge types — jump to any freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChal(1)">1 &middot; MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChal(2)">2 &middot; R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChal(3)">3 &middot; Multiple Completion</button>
+    </div>
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 &mdash; Multiple Choice</div>
+        <div class="challenge-instructions">Select the single best answer for each question.</div>
+        <div class="mcq-item" id="qi0" style="display:block"><div class="mc-qnum">Question 1 of 5</div><div class="mc-stem">A 6-month-old presents with hypoketotic hypoglycaemia following a 12-hour fast during a febrile illness. Plasma acylcarnitine shows elevated C8 (octanoylcarnitine). Which enzyme deficiency is responsible?</div><div class="mcq-option" id="qo0_0" onclick="pickMCQ(0,0)">Long-Chain Acyl-CoA Dehydrogenase (LCAD)</div>
+<div class="mcq-option" id="qo0_1" onclick="pickMCQ(0,1)">Medium-Chain Acyl-CoA Dehydrogenase (MCAD)</div>
+<div class="mcq-option" id="qo0_2" onclick="pickMCQ(0,2)">Carnitine Palmitoyl Transferase I (CPT-I)</div>
+<div class="mcq-option" id="qo0_3" onclick="pickMCQ(0,3)">Very Long Chain Acyl-CoA Dehydrogenase (VLCAD)</div>
+<div class="mcq-feedback" id="qf0">Elevated C8 acylcarnitines specifically indicate MCAD deficiency - the most common inherited fatty acid oxidation defect. MCAD handles C6-C12 fatty acids. Hypoketotic hypoglycaemia occurs because: fat oxidation fails (blood glucose falls) AND ketogenesis fails (no acetyl-CoA from medium-chain fats) leaving the brain without both glucose and ketones. LCAD/VLCAD show longer-chain acylcarnitine profiles. CPT-I deficiency shows elevated free carnitine not acylcarnitines.</div><button class="mcq-next-btn" id="qn0" onclick="nextMCQ(0)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi1" style="display:none"><div class="mc-qnum">Question 2 of 5</div><div class="mc-stem">Which correctly describes the role of malonyl-CoA in fatty acid metabolism?</div><div class="mcq-option" id="qo1_0" onclick="pickMCQ(1,0)">Malonyl-CoA activates CPT-I during the fed state</div>
+<div class="mcq-option" id="qo1_1" onclick="pickMCQ(1,1)">Malonyl-CoA inhibits CPT-I, preventing simultaneous fatty acid synthesis and oxidation</div>
+<div class="mcq-option" id="qo1_2" onclick="pickMCQ(1,2)">Malonyl-CoA is the product of beta-oxidation signalling sufficient energy</div>
+<div class="mcq-option" id="qo1_3" onclick="pickMCQ(1,3)">Malonyl-CoA activates Hormone-Sensitive Lipase to promote lipolysis</div>
+<div class="mcq-feedback" id="qf1">Malonyl-CoA is the first committed intermediate of fatty acid synthesis (made by Acetyl-CoA Carboxylase). It potently inhibits CPT-I, the rate-limiting transporter for fatty acid entry into mitochondria. In the fed state, high malonyl-CoA switches off beta-oxidation preventing the futile cycle of simultaneously making and breaking fatty acids. In fasting, malonyl-CoA falls, CPT-I is disinhibited, and oxidation proceeds.</div><button class="mcq-next-btn" id="qn1" onclick="nextMCQ(1)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi2" style="display:none"><div class="mc-qnum">Question 3 of 5</div><div class="mc-stem">How many ATP are produced from complete oxidation of palmitate (C16:0) using modern P/O ratio values?</div><div class="mcq-option" id="qo2_0" onclick="pickMCQ(2,0)">106 ATP</div>
+<div class="mcq-option" id="qo2_1" onclick="pickMCQ(2,1)">129 ATP</div>
+<div class="mcq-option" id="qo2_2" onclick="pickMCQ(2,2)">~108 ATP</div>
+<div class="mcq-option" id="qo2_3" onclick="pickMCQ(2,3)">~80 ATP</div>
+<div class="mcq-feedback" id="qf2">Modern values (NADH=2.5, FADH2=1.5): 7 cycles beta-oxidation = 7 FADH2 (10.5) + 7 NADH (17.5) = 28 ATP. 8 acetyl-CoA through TCA = 24 NADH (60) + 8 FADH2 (12) + 8 GTP (8) = 80 ATP. Total = 28+80-2 (activation) = ~106 ATP. With rounding the modern value is approximately 108 ATP. The old classical value of 106 used NADH=3, FADH2=2.</div><button class="mcq-next-btn" id="qn2" onclick="nextMCQ(2)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi3" style="display:none"><div class="mc-qnum">Question 4 of 5</div><div class="mc-stem">A patient with Refsum disease is advised to avoid green vegetables and ruminant meat. What is the biochemical basis?</div><div class="mcq-option" id="qo3_0" onclick="pickMCQ(3,0)">These foods contain phytanic acid from phytol in chlorophyll which cannot be alpha-oxidised due to absent phytanoyl-CoA hydroxylase</div>
+<div class="mcq-option" id="qo3_1" onclick="pickMCQ(3,1)">These foods trigger autoimmune destruction of peripheral nerves</div>
+<div class="mcq-option" id="qo3_2" onclick="pickMCQ(3,2)">These foods contain very long chain fatty acids accumulating due to absent peroxisomal beta-oxidation</div>
+<div class="mcq-option" id="qo3_3" onclick="pickMCQ(3,3)">These foods contain galactose accumulating due to deficient Leloir pathway enzymes</div>
+<div class="mcq-feedback" id="qf3">Phytanic acid is a branched-chain fatty acid derived from phytol in chlorophyll (plants) and stored in fat of ruminants. The methyl branch at C-3 prevents direct beta-oxidation - it requires alpha-oxidation first. In Refsum disease, phytanoyl-CoA hydroxylase is deficient. Phytanic acid accumulates causing peripheral neuropathy, retinitis pigmentosa, and ataxia. Avoiding chlorophyll-containing foods and ruminant products prevents new accumulation.</div><button class="mcq-next-btn" id="qn3" onclick="nextMCQ(3)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi4" style="display:none"><div class="mc-qnum">Question 5 of 5</div><div class="mc-stem">During beta-oxidation of oleic acid (18:1 delta9-cis), which enzyme resolves the problem created by the cis double bond?</div><div class="mcq-option" id="qo4_0" onclick="pickMCQ(4,0)">2,4-Dienoyl-CoA Reductase using NADPH</div>
+<div class="mcq-option" id="qo4_1" onclick="pickMCQ(4,1)">Enoyl-CoA Isomerase converting cis-delta3-enoyl-CoA to trans-delta2-enoyl-CoA</div>
+<div class="mcq-option" id="qo4_2" onclick="pickMCQ(4,2)">A specific cis-Acyl-CoA Dehydrogenase that accepts cis substrates</div>
+<div class="mcq-option" id="qo4_3" onclick="pickMCQ(4,3)">Peroxisomal alpha-oxidase removing the double bond carbon</div>
+<div class="mcq-feedback" id="qf4">After three normal beta-oxidation cycles on oleic acid, the molecule becomes cis-delta3-enoyl-CoA. Enoyl-CoA Hydratase only acts on trans-delta2 substrates. Enoyl-CoA Isomerase converts the cis-delta3 double bond to trans-delta2 - the correct substrate for hydratase. One fewer FADH2 is produced per pre-existing double bond. 2,4-Dienoyl-CoA Reductase handles polyunsaturated FAs with two adjacent double bonds creating a 2,4-dienoyl intermediate.</div><button class="mcq-next-btn" id="qn4" onclick="nextMCQ(4)">Finish MCQ</button></div>
+
+        <button class="btn-try-again" id="mcq-reset" onclick="resetMCQ()" style="display:none">Try Again</button>
+        <div class="result-msg" id="mcq-res"></div>
+        <button class="next-challenge-btn" id="mcq-nxt" onclick="doneAndNext(1)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 &mdash; Reason &amp; Assertion</div>
+        <div class="challenge-instructions"><strong>A</strong>&nbsp;Both true, reason explains &nbsp;<strong>B</strong>&nbsp;Both true, reason does not explain &nbsp;<strong>C</strong>&nbsp;Assertion true, reason false &nbsp;<strong>D</strong>&nbsp;Assertion false, reason true &nbsp;<strong>E</strong>&nbsp;Both false</div>
+        <div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Odd-chain fatty acid oxidation can contribute carbons to gluconeogenesis, unlike even-chain fatty acid oxidation.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">The terminal propionyl-CoA from odd-chain FA oxidation is converted to succinyl-CoA via biotin-dependent and vitamin B12-dependent enzymes, entering the TCA cycle and exiting as oxaloacetate for gluconeogenesis.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb0_A" onclick="pickRA(0,'A')">A</button><button class="ra-btn" id="rb0_B" onclick="pickRA(0,'B')">B</button><button class="ra-btn" id="rb0_C" onclick="pickRA(0,'C')">C</button><button class="ra-btn" id="rb0_D" onclick="pickRA(0,'D')">D</button><button class="ra-btn" id="rb0_E" onclick="pickRA(0,'E')">E</button></div><div class="ra-fb" id="rf0">Both correct. Even-chain FAs produce only acetyl-CoA - both carbons lost as CO2 per TCA turn, gluconeogenically inert. Odd-chain FAs produce propionyl-CoA from their last 3 carbons. Propionyl-CoA Carboxylase (biotin) and Methylmalonyl-CoA Mutase (vitamin B12) convert it to succinyl-CoA, a TCA intermediate contributing to OAA and gluconeogenesis. The only way fatty acid carbons can enter gluconeogenesis in mammals.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Ketone bodies are produced in the liver but cannot be used by the liver as an energy source.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">The liver lacks Succinyl-CoA:Acetoacetate CoA Transferase (Thiophorase), the enzyme required to activate acetoacetate for oxidation in peripheral tissues.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb1_A" onclick="pickRA(1,'A')">A</button><button class="ra-btn" id="rb1_B" onclick="pickRA(1,'B')">B</button><button class="ra-btn" id="rb1_C" onclick="pickRA(1,'C')">C</button><button class="ra-btn" id="rb1_D" onclick="pickRA(1,'D')">D</button><button class="ra-btn" id="rb1_E" onclick="pickRA(1,'E')">E</button></div><div class="ra-fb" id="rf1">Both correct. The liver synthesises ketone bodies from excess acetyl-CoA during fasting. However, the liver lacks thiophorase - the enzyme that transfers CoA from succinyl-CoA to acetoacetate to form acetoacetyl-CoA. Without this enzyme, the liver cannot activate its own ketone bodies for oxidation. This ensures ketone bodies are exported to brain, heart, and muscles that do possess thiophorase.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Short and medium chain fatty acids do not require the carnitine shuttle to enter the mitochondria.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Short and medium chain fatty acids can diffuse directly across the inner mitochondrial membrane.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb2_A" onclick="pickRA(2,'A')">A</button><button class="ra-btn" id="rb2_B" onclick="pickRA(2,'B')">B</button><button class="ra-btn" id="rb2_C" onclick="pickRA(2,'C')">C</button><button class="ra-btn" id="rb2_D" onclick="pickRA(2,'D')">D</button><button class="ra-btn" id="rb2_E" onclick="pickRA(2,'E')">E</button></div><div class="ra-fb" id="rf2">Both correct. Long-chain FAs (>C12) require CPT-I/carnitine/CPT-II shuttle. Short (C4) and medium-chain (C6-C12) FAs are small and lipophilic enough to diffuse directly across the inner membrane. This is clinically exploited in CPT deficiency - MCT oil provides fatty acids that bypass the blocked transporter.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">In diabetic ketoacidosis, insulin deficiency leads to massive ketone body production causing metabolic alkalosis.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Acetoacetate and beta-hydroxybutyrate are strong acids that when produced in excess consume the bicarbonate buffer and lower blood pH.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb3_A" onclick="pickRA(3,'A')">A</button><button class="ra-btn" id="rb3_B" onclick="pickRA(3,'B')">B</button><button class="ra-btn" id="rb3_C" onclick="pickRA(3,'C')">C</button><button class="ra-btn" id="rb3_D" onclick="pickRA(3,'D')">D</button><button class="ra-btn" id="rb3_E" onclick="pickRA(3,'E')">E</button></div><div class="ra-fb" id="rf3">The assertion is FALSE - DKA causes metabolic ACIDOSIS not alkalosis. The reason is TRUE and correctly explains why acidosis occurs. Assertion false, reason true = D.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">During fasting, the liver simultaneously undergoes active gluconeogenesis and active fatty acid oxidation.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Acetyl-CoA from fatty acid oxidation activates Pyruvate Carboxylase generating oxaloacetate for gluconeogenesis, while NADH from beta-oxidation provides energy for gluconeogenic reactions.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb4_A" onclick="pickRA(4,'A')">A</button><button class="ra-btn" id="rb4_B" onclick="pickRA(4,'B')">B</button><button class="ra-btn" id="rb4_C" onclick="pickRA(4,'C')">C</button><button class="ra-btn" id="rb4_D" onclick="pickRA(4,'D')">D</button><button class="ra-btn" id="rb4_E" onclick="pickRA(4,'E')">E</button></div><div class="ra-fb" id="rf4">Both correct. During fasting, glucagon activates lipolysis providing fatty acids for beta-oxidation while promoting gluconeogenesis. Acetyl-CoA from beta-oxidation allosterically activates Pyruvate Carboxylase (pyruvate + CO2 to OAA feeding gluconeogenesis) and NADH helps drive energetically costly gluconeogenic reactions. Fat oxidation and gluconeogenesis are coordinately activated.</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+          <button class="check-btn" onclick="checkRA()">Check Answers</button>
+          <button class="btn-try-again" id="ra-reset" onclick="resetRA()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="ra-rev" onclick="revRA()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="ra-res"></div>
+        <div class="reveal-note-box" id="ra-rnote">Correct answers shown in green.</div>
+        <button class="next-challenge-btn" id="ra-nxt" onclick="doneAndNext(2)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply.</div>
+        <div class="mc-qblock"><div class="mc-qnum">Question 1 of 3</div><div class="mc-stem">Which of the following statements about the carnitine transport system are correct?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo0_0" onclick="pickMC(this,0,0)"><div class="mc-cb" id="mb0_0">&#9633;</div><div class="mc-opttext">CPT-I is the rate-limiting enzyme for long-chain fatty acid entry into mitochondria</div></div>
+<div class="mc-opt" id="mo0_1" onclick="pickMC(this,0,1)"><div class="mc-cb" id="mb0_1">&#9633;</div><div class="mc-opttext">Malonyl-CoA inhibits CPT-I preventing simultaneous fatty acid synthesis and oxidation</div></div>
+<div class="mc-opt" id="mo0_2" onclick="pickMC(this,0,2)"><div class="mc-cb" id="mb0_2">&#9633;</div><div class="mc-opttext">CPT-II is located on the cytosolic surface of the outer mitochondrial membrane</div></div>
+<div class="mc-opt" id="mo0_3" onclick="pickMC(this,0,3)"><div class="mc-cb" id="mb0_3">&#9633;</div><div class="mc-opttext">The antiporter exchanges acylcarnitine moving inward for free carnitine moving outward</div></div>
+<div class="mc-opt" id="mo0_4" onclick="pickMC(this,0,4)"><div class="mc-cb" id="mb0_4">&#9633;</div><div class="mc-opttext">Activation of a fatty acid by Acyl-CoA Synthetase costs 1 ATP equivalent</div></div>
+</div><div class="mc-fb" id="mf0" style="display:none">CPT-I is rate-limiting for beta-oxidation (1 correct). Malonyl-CoA inhibition of CPT-I is the key reciprocal regulatory mechanism (2 correct). CPT-II is on the matrix face of the inner membrane not the cytosolic surface of the outer membrane (3 wrong). Antiporter enables 1:1 exchange of acylcarnitine and free carnitine (4 correct). Acyl-CoA Synthetase cleaves ATP to AMP + PPi = 2 ATP equivalents not 1 (5 wrong).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 2 of 3</div><div class="mc-stem">Which of the following are correct regarding ketone body metabolism?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo1_0" onclick="pickMC(this,1,0)"><div class="mc-cb" id="mb1_0">&#9633;</div><div class="mc-opttext">Ketogenesis occurs primarily in liver mitochondria</div></div>
+<div class="mc-opt" id="mo1_1" onclick="pickMC(this,1,1)"><div class="mc-cb" id="mb1_1">&#9633;</div><div class="mc-opttext">HMG-CoA Synthase catalyses the committed step of ketogenesis</div></div>
+<div class="mc-opt" id="mo1_2" onclick="pickMC(this,1,2)"><div class="mc-cb" id="mb1_2">&#9633;</div><div class="mc-opttext">The liver can use its own ketone bodies as fuel when acetyl-CoA is in excess</div></div>
+<div class="mc-opt" id="mo1_3" onclick="pickMC(this,1,3)"><div class="mc-cb" id="mb1_3">&#9633;</div><div class="mc-opttext">Acetone is formed by spontaneous non-enzymatic decarboxylation of acetoacetate</div></div>
+<div class="mc-opt" id="mo1_4" onclick="pickMC(this,1,4)"><div class="mc-cb" id="mb1_4">&#9633;</div><div class="mc-opttext">During prolonged starvation the brain can meet up to 70% of its energy needs from ketone bodies</div></div>
+</div><div class="mc-fb" id="mf1" style="display:none">Ketogenesis in liver mitochondria (1 correct). HMG-CoA Synthase is the committed step (2 correct). Liver lacks thiophorase and cannot use its own ketone bodies (3 wrong). Acetone produced by spontaneous decarboxylation - exhaled giving fruity breath (4 correct). Brain shifts heavily to ketone bodies during starvation reducing gluconeogenesis demand (5 correct).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 3 of 3</div><div class="mc-stem">Which of the following are true regarding special cases in beta-oxidation?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo2_0" onclick="pickMC(this,2,0)"><div class="mc-cb" id="mb2_0">&#9633;</div><div class="mc-opttext">Odd-chain fatty acids produce propionyl-CoA as the final product</div></div>
+<div class="mc-opt" id="mo2_1" onclick="pickMC(this,2,1)"><div class="mc-cb" id="mb2_1">&#9633;</div><div class="mc-opttext">Vitamin B12 is required as cofactor for Methylmalonyl-CoA Mutase</div></div>
+<div class="mc-opt" id="mo2_2" onclick="pickMC(this,2,2)"><div class="mc-cb" id="mb2_2">&#9633;</div><div class="mc-opttext">Unsaturated fatty acids yield slightly more ATP than saturated fatty acids of the same chain length</div></div>
+<div class="mc-opt" id="mo2_3" onclick="pickMC(this,2,3)"><div class="mc-cb" id="mb2_3">&#9633;</div><div class="mc-opttext">Very long chain fatty acids undergo initial shortening in peroxisomes before transfer to mitochondria</div></div>
+<div class="mc-opt" id="mo2_4" onclick="pickMC(this,2,4)"><div class="mc-cb" id="mb2_4">&#9633;</div><div class="mc-opttext">Refsum disease is caused by deficiency of phytanoyl-CoA hydroxylase blocking alpha-oxidation</div></div>
+</div><div class="mc-fb" id="mf2" style="display:none">Odd-chain FAs produce 3-carbon propionyl-CoA terminally (1 correct). Methylmalonyl-CoA Mutase requires adenosylcobalamin/B12 (2 correct). Unsaturated FAs yield LESS ATP - double bonds already partially oxidised, bypass Acyl-CoA Dehydrogenase steps (3 wrong). Very long chain FAs undergo peroxisomal beta-oxidation first (4 correct). Refsum disease: phytanoyl-CoA hydroxylase deficiency (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC2()">Check Answers</button>
+          <button class="btn-try-again" id="mc2-reset" onclick="resetMC2()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc2-rev" onclick="revMC2()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc2-res"></div>
+        <div class="reveal-note-box" id="mc2-rnote" style="display:none">Correct selections shown.</div>
+        <button class="next-challenge-btn" id="mc2-nxt" onclick="doneAndNext(3)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+    <div id="cb" style="display:none" class="completion-banner-div">
+      <div class="completion-banner-title">All Challenges Complete!</div>
+      <div class="completion-banner-sub">Return to the content tabs to review anything that needs reinforcement.</div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Beta Oxidation Mastery · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+// ── UI ──
+function showTab(id,btn){document.querySelectorAll('.section-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+(function(){var last=0;var h=document.getElementById('site-header');window.addEventListener('scroll',function(){var cur=window.scrollY;if(cur>last&&cur>60)h.classList.add('hide-bar');else h.classList.remove('hide-bar');last=cur;},{passive:true});})();
+function toggleCard(id){document.getElementById(id).classList.toggle('open');}
+(function(){document.addEventListener('click',function(e){var link=e.target.closest?e.target.closest('.pathway-link'):null;if(!link&&e.target.classList&&e.target.classList.contains('pathway-link'))link=e.target;if(link){e.preventDefault();e.stopPropagation();var isActive=link.classList.contains('active-tip');document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});if(!isActive)link.classList.add('active-tip');}else{document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});}});})();
+// ── TEST - FREE MODE ──
+var chalDone=[false,false,false];
+function startTestFree(){var t=document.getElementById('tms');if(t)t.style.display='none';document.getElementById('challenge-area').style.display='block';showChal(1);}
+function exitTest(){document.getElementById('tms').style.display='none';document.getElementById('challenge-area').style.display='none';document.getElementById('tms').style.display='block';}
+function showChal(n){document.querySelectorAll('.challenge-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('[id^="cnav-"]').forEach(function(b){b.classList.remove('active');});document.getElementById('cp'+n).classList.add('active');var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('active');}
+function doneAndNext(n){chalDone[n-1]=true;var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('completed');if(n>=3){var cb=document.getElementById('cb');if(cb)cb.style.display='block';}else{showChal(n+1);}}
+// ── MCQ ──
+var mqAns=[1, 1, 2, 0, 1];
+var mqSel=new Array(5).fill(-1);
+var mqDone=new Array(5).fill(false);
+var mqScore=0;
+function pickMCQ(qi,oi){
+  if(mqDone[qi])return;
+  var qblock=document.getElementById('qi'+qi);
+  if(qblock){
+    var sopts=qblock.querySelectorAll('.mcq-option');
+    for(var ks=0;ks<sopts.length;ks++) sopts[ks].classList.remove('selected');
+    if(sopts[oi]) sopts[oi].classList.add('selected');
+  }
+  setTimeout(function(){
+    mqDone[qi]=true;mqSel[qi]=oi;
+    var ok=(mqAns[qi]===oi);
+    if(ok)mqScore++;
+    if(qblock){
+      var opts=qblock.querySelectorAll('.mcq-option');
+      for(var j=0;j<opts.length;j++){
+        opts[j].classList.remove('selected','correct','wrong');
+        if(j===oi){opts[j].classList.add(ok?'correct':'wrong');}
+        else if(j===mqAns[qi]&&!ok){opts[j].classList.add('correct');}
+        opts[j].style.pointerEvents='none';
+      }
+    }
+    document.getElementById('qf'+qi).style.display='block';
+    document.getElementById('qn'+qi).style.display='inline-block';
+    if(qi===mqAns.length-1){
+      setTimeout(function(){
+        var r=document.getElementById('mcq-res');
+        r.textContent=mqScore+' of '+mqAns.length+' correct.';
+        r.style.color=mqScore===mqAns.length?'var(--green)':'var(--red)';
+        document.getElementById('mcq-reset').style.display='inline-block';
+        document.getElementById('mcq-nxt').style.display='inline-block';
+      },400);
+    }
+  },300);
+}
+function nextMCQ(qi){
+  document.getElementById('qi'+qi).style.display='none';
+  if(qi+1<5){document.getElementById('qi'+(qi+1)).style.display='block';}
+}
+function resetMCQ(){
+  mqSel=new Array(5).fill(-1);mqDone=new Array(5).fill(false);mqScore=0;
+  for(var i=0;i<5;i++){
+    document.getElementById('qi'+i).style.display=(i===0)?'block':'none';
+    document.getElementById('qf'+i).style.display='none';
+    document.getElementById('qn'+i).style.display='none';
+    var opts=document.getElementById('qi'+i).querySelectorAll('.mcq-option');
+    for(var j=0;j<opts.length;j++){opts[j].classList.remove('correct','wrong','selected');opts[j].style.pointerEvents='';}
+  }
+  document.getElementById('mcq-res').textContent='';
+  document.getElementById('mcq-reset').style.display='none';
+  document.getElementById('mcq-nxt').style.display='none';
+}
+// ── RA ──
+var raAns=['A', 'A', 'A', 'D', 'A'];
+var raSel=new Array(5).fill('');
+var raChk=false;
+function pickRA(qi,o){
+  if(raChk)return;
+  raSel[qi]=o;
+  ['A','B','C','D','E'].forEach(function(x){document.getElementById('rb'+qi+'_'+x).classList.remove('selected');});
+  document.getElementById('rb'+qi+'_'+o).classList.add('selected');
+}
+function checkRA(){
+  raChk=true;var sc=0;
+  for(var i=0;i<5;i++){
+    var s=raSel[i];var cor=raAns[i];
+    ['A','B','C','D','E'].forEach(function(o){
+      var b=document.getElementById('rb'+i+'_'+o);
+      b.classList.remove('selected');
+      if(o===cor){b.classList.add('correct');}
+      else if(o===s&&s!==cor){b.classList.add('wrong');}
+    });
+    if(s===cor)sc++;
+    document.getElementById('rf'+i).style.display='block';
+  }
+  var r=document.getElementById('ra-res');
+  r.textContent=sc+' of 5 correct.';
+  r.style.color=(sc===5)?'var(--green)':'var(--red)';
+  document.getElementById('ra-reset').style.display='inline-block';
+  document.getElementById('ra-rev').style.display='inline-block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+}
+function resetRA(){
+  raChk=false;raSel=new Array(5).fill('');
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');});
+    document.getElementById('rf'+i).style.display='none';
+  }
+  document.getElementById('ra-res').textContent='';
+  document.getElementById('ra-reset').style.display='none';
+  document.getElementById('ra-rev').style.display='none';
+  document.getElementById('ra-nxt').style.display='none';
+  document.getElementById('ra-rnote').style.display='none';
+}
+function revRA(){
+  raChk=true;
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');if(o===raAns[i])b.classList.add('correct');});
+    document.getElementById('rf'+i).style.display='block';
+  }
+  document.getElementById('ra-rnote').style.display='block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+  document.getElementById('ra-reset').style.display='inline-block';
+}
+// ── MC ──
+var mcSel=[[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAns=[[true, true, false, true, false], [true, true, false, true, true], [true, true, false, true, true]];
+var mcSz=[5, 5, 5];
+var mcChk=false;
+function pickMC(el,qi,oi){
+  if(mcChk)return;
+  mcSel[qi][oi]=!mcSel[qi][oi];
+  el.classList.toggle('selected',mcSel[qi][oi]);
+  document.getElementById('mb'+qi+'_'+oi).textContent=mcSel[qi][oi]?'[x]':'[ ]';
+}
+function checkMC2(){
+  mcChk=true;var sc=0;
+  for(var i=0;i<3;i++){
+    var ok=true;
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      var s=mcSel[i][j];var cor=mcAns[i][j];
+      o.classList.remove('selected');
+      if(s&&cor){o.classList.add('correct');cb.textContent='+';}
+      else if(s&&!cor){o.classList.add('incorrect');cb.textContent='x';ok=false;}
+      else if(!s&&cor){o.classList.add('missed');cb.textContent='o';ok=false;}
+      else{cb.textContent='[ ]';}
+    }
+    if(ok)sc++;
+    document.getElementById('mf'+i).style.display='block';
+  }
+  var r=document.getElementById('mc2-res');
+  r.textContent=sc+' of 3 fully correct.';
+  r.style.color=(sc===3)?'var(--green)':'var(--red)';
+  document.getElementById('mc2-reset').style.display='inline-block';
+  document.getElementById('mc2-rev').style.display='inline-block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+}
+function resetMC2(){
+  mcChk=false;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      mcSel[i][j]=false;
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent='[ ]';
+    }
+    document.getElementById('mf'+i).style.display='none';
+  }
+  document.getElementById('mc2-res').textContent='';
+  document.getElementById('mc2-reset').style.display='none';
+  document.getElementById('mc2-rev').style.display='none';
+  document.getElementById('mc2-nxt').style.display='none';
+  document.getElementById('mc2-rnote').style.display='none';
+}
+function revMC2(){
+  mcChk=true;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('selected','correct','incorrect','missed');
+      if(mcAns[i][j]){o.classList.add('missed');cb.textContent='o';}
+      else{cb.textContent='[ ]';}
+    }
+    document.getElementById('mf'+i).style.display='block';
+  }
+  document.getElementById('mc2-rnote').style.display='block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+  document.getElementById('mc2-reset').style.display='inline-block';
+}
+</script>
+</body>
+</html>

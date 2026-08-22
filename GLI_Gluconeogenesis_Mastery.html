@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gluconeogenesis Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOOLTIP SYSTEM ── */
+.pathway-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
+  vertical-align: middle;
+  font-family: var(--font-body);
+  user-select: none;
+}
+.plink-tooltip {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F1623;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  padding: 11px 14px;
+  border-radius: 10px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 9000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.plink-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0F1623;
+}
+/* Show on hover (desktop) */
+.pathway-link:hover .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Show on tap (mobile + desktop click) */
+.pathway-link.active-tip .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+:root {
+  --white:       #FFFFFF;
+  --off-white:   #F7F8FA;
+  --light-grey:  #EEF0F4;
+  --mid-grey:    #C8CDD8;
+  --text-muted:  #8892A0;
+  --text-body:   #2D3648;
+  --text-dark:   #0F1623;
+  --gold:        #C9A84C;
+  --gold-light:  #F0D98A;
+  --gold-dim:    #C9A84C18;
+  --gold-border: #C9A84C40;
+  --royal:       #1A3FBF;
+  --royal-light: #2D5FE8;
+  --royal-dim:   #1A3FBF12;
+  --royal-border:#1A3FBF35;
+  --red:         #D94040;
+  --red-dim:     #D9404012;
+  --red-border:  #D9404035;
+  --green:       #1A8C5B;
+  --green-dim:   #1A8C5B12;
+  --green-border:#1A8C5B35;
+  --purple:      #7C3AED;
+  --purple-dim:  #7C3AED12;
+  --purple-border:#7C3AED35;
+  --shadow-sm:   0 1px 4px rgba(15,22,35,.07);
+  --shadow-md:   0 4px 16px rgba(15,22,35,.10);
+  --shadow-lg:   0 8px 32px rgba(15,22,35,.13);
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --font-display:'Playfair Display', serif;
+  --font-body:   'Inter', sans-serif;
+  --font-mono:   'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.65;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;line-height:1;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);}
+.brand-main .b2{color:var(--gold);}
+.brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:18px 16px 50px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── SHARED CARD COMPONENTS ── */
+.card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.card-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.card-body{font-size:14px;color:var(--text-body);line-height:1.75;}
+.card-body strong{color:var(--text-dark);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-grey{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-purple{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple-border);}
+
+/* ── OVERVIEW ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--royal));}
+.overview-title{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--royal);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:18px;max-width:580px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 12px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--royal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+/* Substrate entry block */
+.substrate-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.substrate-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.substrate-items{display:flex;flex-direction:column;gap:8px;}
+.substrate-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);}
+.substrate-entry{font-family:var(--font-mono);font-size:10px;font-weight:600;color:var(--royal);background:var(--royal-dim);border:1px solid var(--royal-border);padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.substrate-desc{font-size:12px;color:var(--text-body);line-height:1.5;}
+.substrate-desc strong{color:var(--text-dark);}
+
+/* ── STEPS ── */
+.steps-intro{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:16px;font-weight:500;}
+
+/* Shared steps summary card */
+.shared-steps-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:12px;box-shadow:var(--shadow-sm);overflow:hidden;}
+.shared-steps-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.shared-steps-header:hover{background:var(--off-white);}
+.shared-badge{width:34px;height:34px;border-radius:50%;background:var(--light-grey);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.shared-steps-body{display:none;padding:0 18px 16px;border-top:1px solid var(--light-grey);}
+.shared-steps-card.open .shared-steps-body{display:block;}
+.shared-steps-card.open .step-chevron{transform:rotate(180deg);}
+.shared-step-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--light-grey);font-size:13px;}
+.shared-step-row:last-child{border-bottom:none;}
+.shared-step-num{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);width:50px;flex-shrink:0;}
+.shared-step-enzyme{font-weight:600;color:var(--text-dark);flex:1;}
+.shared-step-rxn{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);}
+
+/* Bypass enzyme cards */
+.bypass-card{background:var(--white);border:1.5px solid var(--gold-border);border-radius:var(--radius-lg);margin-bottom:12px;box-shadow:var(--shadow-sm);overflow:hidden;position:relative;}
+.bypass-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);}
+.bypass-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.bypass-header:hover{background:var(--off-white);}
+.bypass-num-badge{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--white);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bypass-header-main{flex:1;min-width:0;}
+.bypass-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;}
+.bypass-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bypass-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.bypass-card.open .step-chevron{transform:rotate(180deg);}
+.bypass-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.bypass-card.open .bypass-body{display:block;}
+
+.bypass-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:14px 0;display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.bypass-callout strong{color:var(--gold);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.section-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;}
+.reg-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.reg-tag{font-size:12px;padding:5px 12px;border-radius:var(--radius-sm);font-weight:500;display:flex;align-items:center;gap:5px;}
+.reg-tag.inhibitor{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-tag.activator{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-tag.cofactor{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.step-explanation{font-size:14px;color:var(--text-body);line-height:1.75;margin-top:10px;}
+.step-explanation strong{color:var(--text-dark);font-weight:600;}
+
+/* Pathway link tooltip */
+
+/* Compartment badge */
+.compartment-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;font-family:var(--font-body);}
+.compartment-badge.mito{background:#78350f18;color:#92400e;border:1px solid #78350f35;}
+.compartment-badge.cyto{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+/* ── REGULATION ── */
+.reg-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);}
+.reg-intro{font-size:14px;color:var(--text-body);line-height:1.75;max-width:700px;}
+.reg-intro strong{color:var(--text-dark);}
+.reg-enzyme-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.reg-enzyme-card.primary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);}
+.reg-enzyme-card.secondary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--royal);}
+.reg-enzyme-card.danger::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);}
+.reg-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.reg-card-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);}
+.reg-card-subtitle{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:3px;}
+.reg-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.reg-col-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.reg-col-label.inhibit{color:var(--red);}
+.reg-col-label.activate{color:var(--green);}
+.reg-col-items{display:flex;flex-direction:column;gap:6px;}
+.reg-item{font-size:12px;padding:6px 12px;border-radius:var(--radius-sm);line-height:1.5;font-weight:500;}
+.reg-item.inhibit{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-item.activate{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-mechanism{font-size:14px;color:var(--text-body);line-height:1.75;background:var(--off-white);border-radius:var(--radius-md);padding:14px 16px;}
+.reg-mechanism strong{color:var(--text-dark);}
+
+.futile-block{background:var(--white);border:1.5px solid var(--red-border);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;}
+.futile-title{font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.futile-body{font-size:14px;color:var(--text-body);line-height:1.75;}
+.futile-body strong{color:var(--text-dark);}
+
+.hormonal-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.hormonal-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+
+/* ── CLINICAL ── */
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+.intro-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;}
+
+/* ── TEST SECTION ── */
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-md);text-align:center;}
+.test-mode-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:inline-flex;background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:4px;gap:4px;margin-bottom:16px;}
+.mode-toggle-btn{background:none;border:none;padding:7px 20px;border-radius:16px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);box-shadow:var(--shadow-sm);}
+.mode-desc{font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 18px;line-height:1.6;}
+.start-btn{background:var(--royal);color:var(--white);border:none;padding:12px 32px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-md);}
+.start-btn:hover{background:var(--royal-light);transform:translateY(-1px);}
+
+.exit-test-btn{background:none;border:none;color:var(--royal);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s;}
+.exit-test-btn:hover{opacity:.7;}
+
+.challenge-nav{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.done{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-nav-btn.locked{opacity:.45;cursor:not-allowed;}
+
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;}
+
+/* Tap & drop shared */
+.tap-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.tap-chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:grab;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.tap-chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.tap-chip.tapging{opacity:.45;}
+.tap-chip.used{opacity:.3;pointer-events:none;}
+
+/* Arrange slots */
+.arrange-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.arrange-slot{display:flex;align-items:center;gap:10px;}
+.slot-num{width:26px;height:26px;border-radius:50%;background:var(--light-grey);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.slot-drop{flex:1;min-height:40px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-md);display:flex;align-items:center;padding:6px 12px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.slot-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);color:var(--royal);}
+.slot-drop.filled{border-style:solid;border-color:var(--mid-grey);background:var(--off-white);color:var(--text-body);font-weight:500;}
+.slot-drop.correct{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.slot-drop.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);animation:shake .3s;}
+
+/* Match grid */
+.match-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.match-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.match-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.match-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.match-step-info{flex:1;font-size:12px;font-family:var(--font-mono);color:var(--text-muted);min-width:120px;}
+.match-drop{width:200px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.match-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.match-drop.filled{border-style:solid;border-color:var(--mid-grey);color:var(--text-dark);font-weight:600;background:var(--white);}
+
+/* Cofactor grid */
+.cofactor-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.cofactor-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.cofactor-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.cofactor-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.cofactor-enzyme-name{flex:1;font-size:13px;font-weight:600;color:var(--text-dark);min-width:150px;}
+.cofactor-drop{width:180px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);flex-wrap:wrap;gap:4px;}
+.cofactor-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+
+/* MCQ */
+.mcq-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mcq-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.65;margin-bottom:12px;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.mcq-option{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:13px;color:var(--text-body);background:var(--off-white);}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.mcq-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.mcq-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.mcq-feedback.show{display:block;}
+.mcq-feedback strong{color:var(--text-dark);}
+
+/* R&A */
+.ra-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-statements{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ra-statement-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.ra-statement-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-statement-text{font-size:13px;color:var(--text-dark);line-height:1.6;font-weight:500;}
+.ra-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.ra-option{display:flex;align-items:flex-start;gap:10px;padding:8px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text-body);background:var(--off-white);}
+.ra-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.ra-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.ra-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.ra-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.ra-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.ra-feedback.show{display:block;}
+.ra-feedback strong{color:var(--text-dark);}
+
+/* Buttons */
+.check-btn{background:var(--royal);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-right:8px;}
+.check-btn:hover{background:var(--royal-light);}
+.reset-btn{background:var(--off-white);color:var(--text-muted);border:1px solid var(--light-grey);padding:10px 20px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.reset-btn:hover{border-color:var(--mid-grey);color:var(--text-body);}
+.result-msg{margin-top:14px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;display:none;}
+.result-msg.show{display:block;}
+.result-msg.pass{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.result-msg.fail{background:var(--gold-dim);color:#8a6c1a;border:1px solid var(--gold-border);}
+.next-challenge-btn{background:var(--gold);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:10px;display:none;}
+.next-challenge-btn.show{display:inline-block;}
+.next-challenge-btn:hover{filter:brightness(1.08);}
+
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);letter-spacing:.06em;}
+
+/* ── TAP-TO-PLACE INTERACTION ── */
+.tap-chip { cursor: pointer; user-select: none; transition: all .15s; }
+.tap-chip.selected {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+  color: var(--royal) !important;
+  box-shadow: 0 0 0 2px var(--royal);
+  transform: translateY(-2px);
+}
+.tap-chip.used { opacity: .3; pointer-events: none; }
+.slot-drop, .match-drop, .cofactor-drop {
+  cursor: pointer;
+  transition: all .15s;
+}
+.slot-drop.tap-ready, .match-drop.tap-ready, .cofactor-drop.tap-ready {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+}
+
+/* ── TRY AGAIN / REVEAL ── */
+.btn-try-again{background:#B4530912;color:#B45309;border:1px solid #B4530935;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-try-again:hover{background:#B45309;color:#fff;}
+.btn-try-again.show{display:inline-block;}
+.btn-reveal-ans{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-reveal-ans:hover{background:#0D7A6B;color:#fff;}
+.btn-reveal-ans.show{display:inline-block;}
+.slot-drop.revealed,.match-drop.revealed,.drop-zone.revealed{border-color:#0D7A6B!important;background:#0D7A6B15!important;color:#0D7A6B!important;pointer-events:none;}
+.match-row.revealed{background:#0D7A6B12!important;border-color:#0D7A6B40!important;}
+.reveal-note-box{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
+.reveal-note-box.show{display:block;}
+
+/* ── Cross-file CSS aliases for consistency ── */
+.chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.chip.used{opacity:.3;pointer-events:none;}
+.chip-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.btn-check{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-check:hover{background:var(--royal-light);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;margin-top:10px;}
+.btn-next.show{display:inline-block;}
+.btn-next:hover{filter:brightness(1.08);}
+
+/* ══ DEFINITIVE MOBILE CSS — max-width: 640px ══ */
+@media (max-width: 640px) {
+
+  /* ── LAYOUT & PADDING ── */
+  .main { padding: 10px 12px 40px; }
+  .overview-hero { padding: 14px 14px; }
+  .challenge-card { padding: 16px 14px; }
+  .info-card, .reg-enzyme-card, .clinical-card { padding: 14px 14px; }
+  .reg-hero { padding: 14px 14px; }
+
+  /* ── HEADER ── */
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── OVERVIEW ── */
+  .overview-title { font-size: 22px !important; }
+  .overview-subtitle { font-size: 13px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 8px; }
+
+  /* ── GRIDS → SINGLE COLUMN ── */
+  .info-grid,
+  .detail-grid,
+  .two-col,
+  .reg-columns,
+  .reg-cols,
+  .ra-statements,
+  .nadph-grid,
+  .structure-grid,
+  .tissue-cols,
+  .amphibolic-cols,
+  .comparison-cols,
+  .modes-reg-block .tissue-cols { grid-template-columns: 1fr !important; }
+
+  /* ── STEP CARDS ── */
+  .step-card,
+  .bypass-card,
+  .pdc-card,
+  .nonox-card,
+  .shared-steps-card,
+  .nonox-card { overflow: visible !important; }
+
+  .step-header,
+  .bypass-header,
+  .pdc-header,
+  .nonox-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+
+  .step-header-main,
+  .bypass-header-main { width: calc(100% - 50px); min-width: 0; }
+
+  .step-enzyme-name,
+  .bypass-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+
+  .step-rxn-preview,
+  .bypass-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; max-width: 100%; }
+
+  .step-badges,
+  .bypass-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-num-badge { flex-shrink: 0; }
+
+  .step-body,
+  .bypass-body,
+  .pdc-body,
+  .nonox-body { padding: 0 12px 16px; }
+
+  .step-callout { flex-direction: column; gap: 6px; }
+
+  /* ── REGULATION ── */
+  .reg-card-header { flex-direction: column; gap: 8px; }
+  .reg-card-title { font-size: 15px; }
+  .reg-col-items { gap: 6px; }
+  .cascade-step { flex-direction: column; gap: 6px; }
+  .cascade-arrow { flex-direction: row; width: auto; }
+  .mode-row { flex-direction: column; gap: 6px; }
+  .mode-pill { align-self: flex-start; }
+
+  /* ── TEST — NAVIGATION ── */
+  .challenge-nav { flex-wrap: wrap; gap: 6px; }
+  .challenge-nav-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* ── TEST — CHIP BANK ── */
+  .chip-bank, .tap-bank, .arrange-bank { flex-wrap: wrap; min-height: 44px; }
+  .chip, .tap-chip { font-size: 11px; padding: 6px 10px; word-break: break-word; max-width: 100%; box-sizing: border-box; }
+
+  /* ── TEST — DROP ZONES ── */
+  .slot-drop, .drop-zone { min-height: 44px; font-size: 12px; word-break: break-word; }
+  .match-drop { width: 100% !important; min-height: 40px; font-size: 12px; word-break: break-word; }
+  .cofactor-drop { width: 100% !important; min-height: 40px; font-size: 11px; flex-wrap: wrap; }
+
+  /* ── TEST — MATCH ROWS ── */
+  .match-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .match-info { width: 100%; }
+  .match-step-info { width: 100%; }
+  .cofactor-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cofactor-enzyme-name { width: 100%; }
+  .order-slot { flex-wrap: nowrap; gap: 8px; }
+
+  /* ── TEST — BUTTONS ── */
+  .btn-row { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn-try-again, .btn-reveal-ans,
+  .btn-try, .btn-reveal { margin-right: 0; width: auto; }
+  .check-btn, .btn-check { width: auto; }
+  .reset-btn { width: auto; }
+  .next-challenge-btn, .btn-next { width: auto; }
+
+  /* ── MCQ ── */
+  .mcq-stem { font-size: 13px; word-break: break-word; line-height: 1.6; }
+  .mcq-option { word-break: break-word; align-items: flex-start; font-size: 12px; padding: 8px 10px; }
+  .mcq-letter { flex-shrink: 0; }
+  .mcq-feedback { font-size: 12px; }
+
+  /* ── R&A ── */
+  .ra-statements { grid-template-columns: 1fr !important; }
+  .ra-statement-text { font-size: 12px; word-break: break-word; }
+  .ra-option { font-size: 12px; word-break: break-word; align-items: flex-start; }
+  .ra-letter { flex-shrink: 0; }
+  .ra-feedback { font-size: 12px; }
+
+  /* ── CLINICAL ── */
+  .clinical-detail { font-size: 13px; }
+  .comparison-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  .gsd-summary-table { font-size: 11px; }
+
+  /* ── MISC ── */
+  .reg-row { flex-wrap: wrap; }
+  .reg-tag { font-size: 11px; word-break: break-word; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .site-footer { font-size: 10px; padding: 14px; }
+
+  /* ── TOOLTIP MOBILE ── */
+  .pathway-link { position: static; }
+  .plink-tooltip {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    transform: none !important;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 9999 !important;
+  }
+  .plink-tooltip::after { display: none !important; }
+
+}
+
+
+/* ── MULTIPLE COMPLETION ── */
+.mc-question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--light-grey); }
+.mc-question:last-child { border-bottom: none; margin-bottom: 0; }
+.mc-question-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.mc-stem { font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 1.6; margin-bottom: 6px; }
+.mc-instructions { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.mc-options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.mc-option { display: flex; align-items: flex-start; gap: 10px; background: var(--off-white); border: 1.5px solid var(--light-grey); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; transition: all .15s; }
+.mc-option:hover { border-color: var(--royal); background: var(--royal-dim); }
+.mc-option.selected { background: var(--royal-dim); border-color: var(--royal); }
+.mc-option.correct { background: var(--green-dim); border-color: var(--green); }
+.mc-option.incorrect { background: var(--red-dim); border-color: var(--red); }
+.mc-option.missed { background: var(--teal-dim); border-color: var(--teal); }
+.mc-checkbox { font-size: 16px; flex-shrink: 0; margin-top: 1px; color: var(--text-muted); }
+.mc-option.selected .mc-checkbox { color: var(--royal); }
+.mc-option.correct .mc-checkbox { color: var(--green); }
+.mc-option.incorrect .mc-checkbox { color: var(--red); }
+.mc-option.missed .mc-checkbox { color: var(--teal); }
+.mc-option-text { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+.mc-feedback { background: var(--off-white); border: 1px solid var(--light-grey); border-left: 3px solid var(--royal); border-radius: var(--radius-md); padding: 12px 14px; font-size: 13px; color: var(--text-body); line-height: 1.7; margin-top: 10px; }
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+
+.mcq-option.selected { background: var(--royal-dim) !important; border-color: var(--royal) !important; color: var(--royal) !important; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Gluconeogenesis Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar" id="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Step-by-Step</button>
+    <button class="tab-btn" onclick="showTab('regulation',this)">Regulation</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">Gluco<span>neo</span>genesis Mastery</div>
+    <div class="overview-subtitle">The synthesis of new glucose from non-carbohydrate precursors. The cell's answer to fasting — running largely in the liver to keep blood glucose from falling to lethal levels.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">11</div><div class="stat-label">Total Steps</div></div>
+      <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Unique Bypass Enzymes</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">6</div><div class="stat-label">ATP Consumed</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">2</div><div class="stat-label">GTP Consumed</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">2</div><div class="stat-label">NADH Used</div></div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-label">Primary Location</div>
+      <div class="info-body"><strong>Liver</strong> (dominant site). Kidney cortex takes over during prolonged fasting and acidosis. Skeletal muscle and brain <strong>cannot</strong> perform gluconeogenesis — they lack Glucose-6-phosphatase.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Compartments</div>
+      <div class="info-body">Unlike glycolysis (entirely cytosolic), gluconeogenesis spans <strong>two compartments</strong>. Steps 1–2 begin in the <strong>mitochondria</strong>; the pathway continues in the <strong>cytosol</strong> from step 3 onward.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Overall Equation (from pyruvate)</div>
+      <div class="info-body" style="font-family:var(--font-mono);font-size:12px;line-height:1.9">
+        2 Pyruvate + 4 ATP + 2 GTP + 2 NADH + 6 H₂O<br>→ Glucose + 4 ADP + 2 GDP + 6 Pᵢ + 2 NAD⁺
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">When It Runs</div>
+      <div class="info-body">Activated during <strong>fasting, starvation, prolonged exercise, low-carbohydrate states</strong>. Stimulated by glucagon and cortisol. Inhibited by insulin. The pathway is essentially reciprocally regulated with glycolysis — when one runs, the other slows.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <div class="card-label">The Core Principle — Why Not Just Reverse Glycolysis?</div>
+    <div class="card-body">
+      Seven of glycolysis's ten steps are freely reversible under physiological conditions — gluconeogenesis simply runs those steps in reverse. But three glycolytic reactions are irreversible, catalysed by Hexokinase, PFK-1, and Pyruvate Kinase, each with a large negative ΔG that makes reversal thermodynamically impossible. Gluconeogenesis gets around each of these with a dedicated bypass enzyme (or two). <strong>This is the entire conceptual heart of gluconeogenesis</strong> — understand the four bypass enzymes and you understand the pathway.
+    </div>
+  </div>
+
+  <div class="substrate-block">
+    <div class="substrate-title">Gluconeogenic Substrates — where they enter the pathway</div>
+    <div class="substrate-items">
+      <div class="substrate-row">
+        <span class="substrate-entry">→ Pyruvate</span>
+        <div class="substrate-desc"><strong>Lactate</strong> — the major substrate during the Cori cycle. Lactate Dehydrogenase converts lactate → pyruvate in the liver. Also: <strong>glucogenic amino acids</strong> (e.g. Alanine via the glucose-alanine cycle → pyruvate by transamination).</div>
+      </div>
+      <div class="substrate-row">
+        <span class="substrate-entry">→ OAA</span>
+        <div class="substrate-desc"><strong>Glucogenic amino acids</strong> that enter the TCA cycle as oxaloacetate or are converted to OAA (e.g. Aspartate, Asparagine). Also intermediates that feed OAA via the TCA cycle.</div>
+      </div>
+      <div class="substrate-row">
+        <span class="substrate-entry">→ DHAP / G3P</span>
+        <div class="substrate-desc"><strong>Glycerol</strong> — released from fat breakdown (lipolysis of triacylglycerols). Glycerol kinase converts glycerol → glycerol-3-phosphate → DHAP, entering at step 5 of the reversed pathway.</div>
+      </div>
+      <div class="substrate-row">
+        <span class="substrate-entry">→ Succinyl-CoA</span>
+        <div class="substrate-desc"><strong>Odd-chain fatty acids</strong> — beta-oxidation of odd-chain fatty acids produces propionyl-CoA, converted to succinyl-CoA, which enters the TCA cycle and can contribute carbons to OAA and ultimately gluconeogenesis. (Even-chain fatty acids <strong>cannot</strong> be net gluconeogenic substrates.)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div class="steps-intro">
+    ⭐ Gold-bordered cards are the 4 unique bypass enzymes — the heart of gluconeogenesis. The shared steps card covers the 7 reversed glycolytic reactions. Tap any card to expand.
+  </div>
+
+  <!-- Shared Steps -->
+  <div class="shared-steps-card" id="shared-card">
+    <div class="shared-steps-header" onclick="toggleShared()">
+      <div class="shared-badge">7</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:var(--text-dark)">Shared Reversed Steps</div>
+        <div style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">Same enzymes as glycolysis, running in reverse</div>
+      </div>
+      <span class="badge badge-grey">Reversible</span>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="shared-steps-body">
+      <div style="font-size:13px;color:var(--text-body);line-height:1.7;padding:12px 0 10px;">
+        These seven steps are catalysed by the same enzymes as glycolysis — the reactions are reversible, so no new enzymes are needed. The cell's ability to run them in reverse depends on the thermodynamics being favourable (driven by removal of products downstream) and the regulatory state (gluconeogenesis active, glycolysis suppressed).
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 9r</span>
+        <span class="shared-step-enzyme">Enolase</span>
+        <span class="shared-step-rxn">PEP + H₂O → 2-Phosphoglycerate</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 8r</span>
+        <span class="shared-step-enzyme">Phosphoglycerate Mutase</span>
+        <span class="shared-step-rxn">2-PG → 3-Phosphoglycerate</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 7r</span>
+        <span class="shared-step-enzyme">Phosphoglycerate Kinase</span>
+        <span class="shared-step-rxn">3-PG + ATP → 1,3-BPG + ADP</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 6r</span>
+        <span class="shared-step-enzyme">Glyceraldehyde-3-phosphate Dehydrogenase</span>
+        <span class="shared-step-rxn">1,3-BPG + NADH → G3P + NAD⁺</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 5r</span>
+        <span class="shared-step-enzyme">Triose Phosphate Isomerase</span>
+        <span class="shared-step-rxn">G3P ⇌ DHAP</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 4r</span>
+        <span class="shared-step-enzyme">Aldolase</span>
+        <span class="shared-step-rxn">DHAP + G3P → Fructose-1,6-bisphosphate</span>
+      </div>
+      <div class="shared-step-row">
+        <span class="shared-step-num">Step 2r</span>
+        <span class="shared-step-enzyme">Phosphoglucose Isomerase</span>
+        <span class="shared-step-rxn">G6P → Glucose-6-phosphate</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:12px;padding:10px;background:var(--off-white);border-radius:var(--radius-sm);">
+        Note: Steps 6r and 7r consume ATP and NADH — this is part of why gluconeogenesis costs 6 ATP + 2 GTP total per glucose synthesised, significantly more than the 2 ATP gained from glycolysis.
+      </div>
+    </div>
+  </div>
+
+  <!-- BYPASS 1: Pyruvate Carboxylase -->
+  <div class="bypass-card" id="bc1">
+    <div class="bypass-header" onclick="toggleBypass('bc1')">
+      <div class="bypass-num-badge">B1</div>
+      <div class="bypass-header-main">
+        <div class="bypass-enzyme-name">Pyruvate Carboxylase</div>
+        <div class="bypass-rxn-preview">Pyruvate + CO₂ + ATP → Oxaloacetate (OAA)</div>
+      </div>
+      <div class="bypass-badges">
+        <span class="badge badge-gold">Bypass 1</span>
+        <span class="badge badge-red">Irreversible</span>
+        <span class="compartment-badge mito">🔴 Mitochondria</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="bypass-body">
+      <div class="bypass-callout">
+        <span>⭐</span>
+        <div><strong>Bypasses: Pyruvate Kinase (Step 10 of glycolysis).</strong> Pyruvate Kinase converts PEP → pyruvate irreversibly. Gluconeogenesis must go the other way — pyruvate → PEP — but cannot simply reverse this. Pyruvate Carboxylase is the first of two enzymes that accomplish this bypass, converting pyruvate to OAA as an obligatory intermediate.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Pyruvate + CO₂ + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Oxaloacetate (OAA) + ADP + Pᵢ</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">Biotin (CO₂ carrier) · ATP consumed</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Compartment</div><div class="detail-value">Mitochondrial matrix</div></div>
+        <div class="detail-item"><div class="detail-label">ATP Change</div><div class="detail-value" style="color:var(--red);font-weight:700">−1 ATP (×2 = −2 ATP per glucose)</div></div>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Acetyl-CoA — allosteric activator (essential — no Acetyl-CoA, no activity)</span>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ ADP — signals low energy, inhibits gluconeogenesis</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Pyruvate Carboxylase adds CO₂ to pyruvate using biotin as the CO₂ carrier — biotin first picks up the CO₂ (at the cost of one ATP), then delivers it to pyruvate to form oxaloacetate. This is why <strong>biotin is an essential cofactor</strong>: without it, this enzyme is completely non-functional, and gluconeogenesis from pyruvate and lactate stalls entirely.<br><br>
+        The <strong>Acetyl-CoA dependence</strong> is a beautifully logical regulatory checkpoint. Acetyl-CoA accumulates when fatty acid oxidation is running at high rates (exactly the situation during fasting, when the body is burning fat). This signals: "fat breakdown is active, glucose must be scarce — activate gluconeogenesis." Acetyl-CoA doesn't enter gluconeogenesis itself (even-chain fatty acids cannot be net gluconeogenic), but it acts as the metabolic signal that it's the right time to make glucose from other precursors.<br><br>
+        OAA cannot cross the inner mitochondrial membrane directly. It is either transaminated to <strong>aspartate</strong> (which can cross) or reduced to <strong>malate</strong> by mitochondrial Malate Dehydrogenase, crosses as malate, then is reoxidised to OAA in the cytosol. This shuttle also transfers reducing equivalents (NADH) to the cytosol, which are needed for step 6r.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">TCA Cycle<span class="plink-tooltip">OAA is a TCA cycle intermediate. Pyruvate Carboxylase feeds OAA into both gluconeogenesis (when glucagon is high) and the TCA cycle (anaplerosis — replenishing cycle intermediates). Which direction depends on the cell's energy state.</span></span>
+        <span class="pathway-link">Fatty Acid Oxidation<span class="plink-tooltip">Acetyl-CoA from beta-oxidation activates Pyruvate Carboxylase, linking fat breakdown to glucose synthesis during fasting. This is why fatty acid oxidation is a prerequisite for efficient gluconeogenesis from pyruvate.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BYPASS 2: PEPCK -->
+  <div class="bypass-card" id="bc2">
+    <div class="bypass-header" onclick="toggleBypass('bc2')">
+      <div class="bypass-num-badge">B2</div>
+      <div class="bypass-header-main">
+        <div class="bypass-enzyme-name">Phosphoenolpyruvate Carboxykinase (PEPCK)</div>
+        <div class="bypass-rxn-preview">OAA + GTP → PEP + CO₂ + GDP</div>
+      </div>
+      <div class="bypass-badges">
+        <span class="badge badge-gold">Bypass 2</span>
+        <span class="badge badge-red">Irreversible</span>
+        <span class="compartment-badge cyto">🔵 Cytosol</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="bypass-body">
+      <div class="bypass-callout">
+        <span>⭐</span>
+        <div><strong>Completes the bypass of Pyruvate Kinase (with Pyruvate Carboxylase).</strong> Together, these two enzymes convert pyruvate → OAA → PEP, bypassing the irreversible PEP → pyruvate step of glycolysis. PEPCK is the rate-limiting step of gluconeogenesis overall.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Oxaloacetate (OAA) + GTP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Phosphoenolpyruvate (PEP) + CO₂ + GDP</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">GTP consumed (not ATP)</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mn²⁺ or Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Compartment</div><div class="detail-value">Cytosol (primarily)</div></div>
+        <div class="detail-item"><div class="detail-label">GTP Change</div><div class="detail-value" style="color:var(--red);font-weight:700">−1 GTP (×2 = −2 GTP per glucose)</div></div>
+      </div>
+      <div class="section-label">Regulation</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Glucagon — induces PEPCK gene expression (transcriptional)</span>
+        <span class="reg-tag activator">⊕ Cortisol — induces PEPCK transcription during stress/fasting</span>
+        <span class="reg-tag inhibitor">⊖ Insulin — suppresses PEPCK gene expression</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        PEPCK simultaneously decarboxylates (removes CO₂) and phosphorylates OAA, using GTP as the phosphate donor rather than ATP — worth noting because GTP is less common as an energy currency and is a distinctive exam feature of this enzyme.<br><br>
+        <strong>PEPCK is the rate-limiting enzyme of gluconeogenesis</strong> — its activity determines the overall pace of the pathway. Critically, its regulation is primarily <strong>transcriptional</strong> rather than allosteric: glucagon and cortisol increase PEPCK mRNA levels (gene expression), while insulin decreases them. This means hormonal control of gluconeogenesis works on a slower timescale (hours) than the allosteric controls of glycolysis (seconds to minutes).<br><br>
+        This is a high-yield exam point: <strong>metformin's mechanism</strong> includes suppression of hepatic PEPCK expression (among other actions), which is why it reduces hepatic glucose output and lowers fasting blood glucose in type 2 diabetes.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis<span class="plink-tooltip">PEPCK produces PEP, which is an intermediate shared with glycolysis. The direction of flow (toward pyruvate or toward glucose) is determined by the regulatory states of Pyruvate Kinase (glycolysis) and PEPCK (gluconeogenesis).</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BYPASS 3: Fructose-1,6-bisphosphatase -->
+  <div class="bypass-card" id="bc3">
+    <div class="bypass-header" onclick="toggleBypass('bc3')">
+      <div class="bypass-num-badge">B3</div>
+      <div class="bypass-header-main">
+        <div class="bypass-enzyme-name">Fructose-1,6-bisphosphatase (FBPase-1)</div>
+        <div class="bypass-rxn-preview">Fructose-1,6-bisphosphate → Fructose-6-phosphate + Pᵢ</div>
+      </div>
+      <div class="bypass-badges">
+        <span class="badge badge-gold">Bypass 3</span>
+        <span class="badge badge-red">Irreversible</span>
+        <span class="compartment-badge cyto">🔵 Cytosol</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="bypass-body">
+      <div class="bypass-callout">
+        <span>⭐</span>
+        <div><strong>Bypasses: PFK-1 (Step 3 of glycolysis).</strong> PFK-1 phosphorylates F6P → F-1,6-BP irreversibly. FBPase-1 is the dedicated reverse bypass, simply hydrolyzing the phosphate off to regenerate F6P. Critically, FBPase-1 and PFK-1 are reciprocally regulated to prevent futile cycling.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fructose-1,6-bisphosphate + H₂O</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Fructose-6-phosphate + Pᵢ</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Compartment</div><div class="detail-value">Cytosol</div></div>
+        <div class="detail-item"><div class="detail-label">ATP Change</div><div class="detail-value" style="color:var(--text-muted)">None (hydrolysis, not kinase)</div></div>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ AMP — signals low energy; gluconeogenesis should slow</span>
+        <span class="reg-tag inhibitor">⊖ Fructose-2,6-bisphosphate (F-2,6-BP) — most potent inhibitor; same molecule that activates PFK-1</span>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ ATP — signals high energy; gluconeogenesis can proceed</span>
+        <span class="reg-tag activator">⊕ Citrate</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        FBPase-1 is a simple hydrolase — it breaks the phosphate ester bond with water, releasing free inorganic phosphate. No energy is generated or consumed directly. What makes this enzyme remarkable is its <strong>regulatory relationship with PFK-1</strong>: they are inhibited and activated by exactly opposite signals. When AMP is high, PFK-1 is activated and FBPase-1 is inhibited — glycolysis runs, gluconeogenesis stops. When ATP is high and AMP is low, PFK-1 is inhibited and FBPase-1 is activated — gluconeogenesis can proceed.<br><br>
+        The central regulator coordinating both is <strong>Fructose-2,6-bisphosphate</strong>: it activates PFK-1 and inhibits FBPase-1 simultaneously. Insulin raises F-2,6-BP (favouring glycolysis); glucagon lowers it (favouring gluconeogenesis). This reciprocal control at one metabolite is the cell's most elegant mechanism for preventing both pathways from running simultaneously.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis / Futile Cycle<span class="plink-tooltip">PFK-1 and FBPase-1 are the reciprocal pair most tightly controlled to prevent futile cycling. Their simultaneous operation would continuously convert F6P → F-1,6-BP → F6P, consuming ATP without any productive output.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BYPASS 4: Glucose-6-phosphatase -->
+  <div class="bypass-card" id="bc4">
+    <div class="bypass-header" onclick="toggleBypass('bc4')">
+      <div class="bypass-num-badge">B4</div>
+      <div class="bypass-header-main">
+        <div class="bypass-enzyme-name">Glucose-6-phosphatase</div>
+        <div class="bypass-rxn-preview">Glucose-6-phosphate + H₂O → Glucose + Pᵢ</div>
+      </div>
+      <div class="bypass-badges">
+        <span class="badge badge-gold">Bypass 4</span>
+        <span class="badge badge-red">Irreversible</span>
+        <span class="compartment-badge cyto">🔵 ER Membrane</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="bypass-body">
+      <div class="bypass-callout">
+        <span>⭐</span>
+        <div><strong>Bypasses: Hexokinase/Glucokinase (Step 1 of glycolysis).</strong> Hexokinase phosphorylates glucose → G6P irreversibly. Glucose-6-phosphatase hydrolyzes G6P → free glucose, the final step of gluconeogenesis. This enzyme is present only in liver and kidney — which is why only these organs can release glucose into the blood.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-6-phosphate + H₂O</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose + Pᵢ</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Compartment</div><div class="detail-value">Endoplasmic reticulum membrane (faces ER lumen)</div></div>
+        <div class="detail-item"><div class="detail-label">Tissue Restriction</div><div class="detail-value" style="color:var(--red);font-weight:600">Liver + Kidney cortex ONLY</div></div>
+      </div>
+      <div class="section-label">Regulation</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Glucagon — increases Glucose-6-phosphatase expression</span>
+        <span class="reg-tag activator">⊕ Cortisol — increases expression during fasting/stress</span>
+        <span class="reg-tag inhibitor">⊖ Insulin — decreases expression</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        This is the final step — the release of free glucose from the cell into the bloodstream. Glucose-6-phosphatase is embedded in the endoplasmic reticulum membrane, facing the ER lumen, which means G6P must be transported into the ER lumen before it can be dephosphorylated, and the resulting glucose and phosphate are then released.<br><br>
+        Its <strong>tissue-restricted expression</strong> is the defining feature with the most clinical and physiological consequences. The liver and kidney cortex express this enzyme; muscle, brain, heart, and essentially all other tissues do not. This means that while many tissues can produce G6P (from glycogen breakdown or partial gluconeogenesis), only the liver and kidney can complete the process and export free glucose. Muscle glycogen, for example, can fuel muscle glycolysis but <strong>cannot contribute to blood glucose</strong> — it has no Glucose-6-phosphatase to export it.<br><br>
+        This is also the enzyme deficient in <strong>Von Gierke disease</strong> — the most important clinical correlation for this step.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycogenolysis<span class="plink-tooltip">Glycogen breakdown in the liver produces G6P via phosphoglucomutase from G1P. This G6P is then dephosphorylated by Glucose-6-phosphatase for release into blood — the same final step as gluconeogenesis.</span></span>
+        <span class="pathway-link">Pentose Phosphate Pathway<span class="plink-tooltip">G6P is also the entry substrate for the PPP. In tissues without Glucose-6-phosphatase, G6P produced from gluconeogenic precursors must either feed glycolysis or the PPP — it cannot become free glucose.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ REGULATION ══ -->
+<div id="tab-regulation" class="section-panel">
+
+  <div class="reg-hero">
+    <div class="card-label" style="margin-bottom:8px">Regulatory Overview</div>
+    <div class="reg-intro">
+      Gluconeogenesis and glycolysis must never run simultaneously at full speed — doing so would create a <strong>futile cycle</strong> that burns ATP without accomplishing anything. The cell prevents this through reciprocal regulation at three pairs of opposing enzymes. Understanding these pairs, and the signals that tip the balance one way or the other, is the entire logic of gluconeogenesis regulation. The signals integrate two levels: <strong>immediate allosteric control</strong> (responding in seconds to metabolite concentrations) and <strong>hormonal transcriptional control</strong> (responding in hours to the fed/fasted state).
+    </div>
+  </div>
+
+  <!-- Futile Cycling -->
+  <div class="futile-block">
+    <div class="futile-title">⚠ Futile Cycling — What It Is and Why It Matters</div>
+    <div class="futile-body">
+      A futile cycle occurs when a biosynthetic and a degradative pathway run simultaneously, converting metabolites in a loop that consumes energy without net chemical work. The classic example in this context: if PFK-1 (glycolysis) converts F6P → F-1,6-BP while FBPase-1 (gluconeogenesis) simultaneously converts F-1,6-BP → F6P, the net result is the hydrolysis of one ATP per cycle — heat generated, no glucose produced or consumed, no useful output.<br><br>
+      <strong>How the cell prevents it:</strong> The key is that F-2,6-BP activates PFK-1 and inhibits FBPase-1 simultaneously. When glucagon is high (fasting), F-2,6-BP levels fall — PFK-1 activity drops and FBPase-1 is relieved of inhibition. Gluconeogenesis runs; glycolysis slows. When insulin is high (fed), F-2,6-BP rises — PFK-1 is activated, FBPase-1 is inhibited. Glycolysis runs; gluconeogenesis slows. The two pathways are coordinated, not independent.
+    </div>
+  </div>
+
+  <!-- PFK-1 / FBPase-1 pair -->
+  <div class="reg-enzyme-card primary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">PFK-1 ⇌ Fructose-1,6-bisphosphatase</div>
+        <div class="reg-card-subtitle">Primary reciprocal pair · Controlled by F-2,6-BP, AMP/ATP, citrate</div>
+      </div>
+      <span class="badge badge-gold">Key Pair</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label inhibit">Favours Gluconeogenesis (FBPase-1 active)</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Low F-2,6-BP — glucagon lowers F-2,6-BP via PFK-2 phosphatase domain</div>
+          <div class="reg-item inhibit">Low AMP — inhibits FBPase-1 less; PFK-1 also less active</div>
+          <div class="reg-item inhibit">High citrate — inhibits PFK-1</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Favours Glycolysis (PFK-1 active)</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">High F-2,6-BP — insulin raises F-2,6-BP via PFK-2 kinase domain</div>
+          <div class="reg-item activate">High AMP — activates PFK-1, inhibits FBPase-1</div>
+          <div class="reg-item activate">Low ATP — removes allosteric inhibition of PFK-1</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      <strong>The F-2,6-BP switch:</strong> This single molecule — Fructose-2,6-bisphosphate — is the most important regulator at this step. It is not a glycolytic or gluconeogenic intermediate itself; it exists solely as a regulatory molecule, produced and destroyed by the bifunctional enzyme PFK-2/FBPase-2. When glucagon signals through cAMP → PKA, PKA phosphorylates PFK-2/FBPase-2, activating its phosphatase domain, destroying F-2,6-BP. PFK-1 is released from activation, FBPase-1 is released from inhibition — gluconeogenesis proceeds. Insulin reverses this, restoring F-2,6-BP and shifting back to glycolysis.
+    </div>
+  </div>
+
+  <!-- Pyruvate Carboxylase / Pyruvate Kinase pair -->
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">Pyruvate Carboxylase ⇌ Pyruvate Kinase</div>
+        <div class="reg-card-subtitle">Second reciprocal pair · Controlled by Acetyl-CoA, F-1,6-BP, alanine, glucagon</div>
+      </div>
+      <span class="badge badge-royal">Key Pair</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label activate">Favours Gluconeogenesis (Pyruvate Carboxylase active)</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">High Acetyl-CoA — allosteric activator of Pyruvate Carboxylase</div>
+          <div class="reg-item activate">High alanine — inhibits Pyruvate Kinase; activates Pyruvate Carboxylase</div>
+          <div class="reg-item activate">Glucagon → PKA → phosphorylates and inactivates Pyruvate Kinase</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label inhibit">Favours Glycolysis (Pyruvate Kinase active)</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Low Acetyl-CoA — Pyruvate Carboxylase loses activation</div>
+          <div class="reg-item inhibit">High F-1,6-BP — feedforward activates Pyruvate Kinase</div>
+          <div class="reg-item inhibit">Insulin — dephosphorylates and activates Pyruvate Kinase</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      <strong>The Acetyl-CoA logic:</strong> Acetyl-CoA activating Pyruvate Carboxylase is not a coincidence — it's a deliberate metabolic signal. During fasting, fatty acids are being oxidised, generating large amounts of Acetyl-CoA. This Acetyl-CoA cannot be converted back to glucose (even-chain fatty acids are not gluconeogenic), but its accumulation signals that fat oxidation is active, which only happens when glucose is genuinely scarce. Activating Pyruvate Carboxylase in response ensures gluconeogenesis turns on precisely when it is needed most.
+    </div>
+  </div>
+
+  <!-- PEPCK regulation -->
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">PEPCK — Transcriptional Rate-Limiting Control</div>
+        <div class="reg-card-subtitle">Rate-limiting enzyme of gluconeogenesis · Regulated primarily at gene expression level</div>
+      </div>
+      <span class="badge badge-red">Rate-Limiting</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label activate">Increases PEPCK expression</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">Glucagon → cAMP → CREB → PEPCK gene transcription</div>
+          <div class="reg-item activate">Cortisol — glucocorticoid response element on PEPCK gene</div>
+          <div class="reg-item activate">Thyroid hormone, glucocorticoids</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label inhibit">Decreases PEPCK expression</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Insulin — suppresses PEPCK transcription via PI3K/Akt pathway</div>
+          <div class="reg-item inhibit">High glucose — indirect suppression</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      Because PEPCK regulation is transcriptional, its response to hormonal signals operates on a <strong>timescale of hours</strong>, not seconds. This distinguishes it from allosteric control of PFK-1 or FBPase-1, which respond in seconds. The clinical implication: after a meal, insulin suppresses PEPCK gene expression — but it takes time for existing PEPCK protein to be degraded. This is one reason why hepatic glucose output takes time to fully suppress after feeding, and why persistent hyperglucagonaemia (as in type 2 diabetes) chronically upregulates PEPCK and contributes to fasting hyperglycaemia.
+    </div>
+  </div>
+
+  <!-- Hormonal summary -->
+  <div class="hormonal-block">
+    <div class="hormonal-title">🔄 Hormonal State Summary</div>
+    <div class="two-col">
+      <div class="detail-item" style="background:var(--green-dim);border-color:var(--green-border)">
+        <div class="detail-label" style="color:var(--green)">Glucagon + Cortisol (Fasting) → Activate Gluconeogenesis</div>
+        <div class="detail-value" style="font-family:var(--font-body);font-size:13px;color:var(--text-body);line-height:1.6;">
+          ↓ F-2,6-BP → inhibits PFK-1, activates FBPase-1<br>
+          Phosphorylates + inactivates Pyruvate Kinase<br>
+          ↑ PEPCK and Glucose-6-phosphatase gene expression<br>
+          ↑ Acetyl-CoA from fat oxidation → activates Pyruvate Carboxylase
+        </div>
+      </div>
+      <div class="detail-item" style="background:var(--red-dim);border-color:var(--red-border)">
+        <div class="detail-label" style="color:var(--red)">Insulin (Fed) → Inhibit Gluconeogenesis</div>
+        <div class="detail-value" style="font-family:var(--font-body);font-size:13px;color:var(--text-body);line-height:1.6;">
+          ↑ F-2,6-BP → activates PFK-1, inhibits FBPase-1<br>
+          Dephosphorylates + activates Pyruvate Kinase<br>
+          ↓ PEPCK and Glucose-6-phosphatase expression<br>
+          Promotes glycolysis, glycogen synthesis, lipogenesis
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="intro-note">
+    ⚕️ These clinical correlations follow the biochemical chain: which enzyme is deficient → what accumulates or what process fails → why that produces the specific presentation seen.
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Von Gierke Disease (Glycogen Storage Disease Type Ia)</div>
+    <div class="clinical-enzyme-link">Deficient enzyme: Glucose-6-phosphatase (Bypass 4)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Autosomal Recessive</span><span class="clinical-tag">Most Common GSD</span><br><br>
+      Start from what Glucose-6-phosphatase does: it is the final step of both gluconeogenesis and hepatic glycogenolysis, releasing free glucose into the blood. Without it, the liver can make and store G6P — from glucose, from glycogen breakdown, from gluconeogenesis — but it cannot complete the process and export free glucose. The result is <strong>severe fasting hypoglycaemia</strong>, even after a short fast, because the liver is completely unable to maintain blood glucose between meals.<br><br>
+      G6P cannot be released, so it accumulates. This drives glycogen synthesis (more G6P → more glycogen stored), causing <strong>massive hepatomegaly</strong>. G6P also diverts into glycolysis and the pentose phosphate pathway, generating excess pyruvate and lactate — <strong>lactic acidosis</strong> is therefore a cardinal feature. Excess Acetyl-CoA from this flooding of glycolysis leads to increased fatty acid and cholesterol synthesis — <strong>hyperlipidaemia</strong> and xanthomas follow. Uric acid accumulates because G6P competes with uric acid for renal tubular secretion — <strong>hyperuricaemia and gout</strong> complete the picture.<br><br>
+      <strong>Key exam features to anchor:</strong> fasting hypoglycaemia + lactic acidosis + hepatomegaly + hyperlipidaemia + hyperuricaemia in a child. Does not respond to glucagon or adrenaline (because both work by releasing glucose from glycogen via G6P — the block is downstream of that point).
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Biotin Deficiency → Pyruvate Carboxylase Failure</div>
+    <div class="clinical-enzyme-link">Affected enzyme: Pyruvate Carboxylase (Bypass 1)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Nutritional / Acquired</span><span class="clinical-tag">Rare but Examinable</span><br><br>
+      Pyruvate Carboxylase is absolutely dependent on biotin as its CO₂-carrying prosthetic group. Without biotin, the enzyme cannot function at all — it cannot carboxylate pyruvate, and therefore cannot produce oxaloacetate, and therefore gluconeogenesis from pyruvate and lactate is completely blocked.<br><br>
+      The consequence is a combination of <strong>fasting hypoglycaemia</strong> (gluconeogenesis from amino acids and lactate fails) and <strong>lactic acidosis</strong> (pyruvate cannot be converted to OAA, accumulates, and is driven to lactate by Lactate Dehydrogenase). Biotin is also a cofactor for other carboxylases — Acetyl-CoA Carboxylase (fatty acid synthesis) and Propionyl-CoA Carboxylase (odd-chain fatty acid metabolism) — so the deficiency has effects beyond gluconeogenesis alone.<br><br>
+      <strong>Cause:</strong> rare dietary deficiency; classically described with excessive raw egg white consumption (avidin in egg white binds biotin irreversibly in the gut). Also seen in patients on prolonged total parenteral nutrition without biotin supplementation.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">PEPCK Deficiency</div>
+    <div class="clinical-enzyme-link">Deficient enzyme: Phosphoenolpyruvate Carboxykinase (Bypass 2)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Autosomal Recessive</span><span class="clinical-tag">Very Rare</span><br><br>
+      PEPCK deficiency is rare but illustrative. Without PEPCK, OAA produced by Pyruvate Carboxylase cannot be converted to PEP — gluconeogenesis stalls at the second step. The result is profound <strong>fasting hypoglycaemia</strong>, presenting in infancy, with failure to thrive. OAA accumulates in the mitochondria, which disrupts TCA cycle function (OAA is a TCA cycle intermediate) and causes <strong>lactic acidosis</strong> from backed-up pyruvate.<br><br>
+      Because PEPCK is also needed to export carbon from the TCA cycle (anaplerosis in reverse), its deficiency impairs mitochondrial function broadly, leading to hepatomegaly, hypotonia, and in severe cases, rapidly progressive liver failure. Distinguished from Von Gierke disease by the absence of glycogen accumulation and the presence of mitochondrial dysfunction.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Fasting Hypoglycaemia — General Gluconeogenic Failure</div>
+    <div class="clinical-enzyme-link">Mechanism: failure to maintain blood glucose during fasting</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Multiple Causes</span><span class="clinical-tag">High-Yield Mechanism</span><br><br>
+      Understanding the gluconeogenic pathway makes the causes of fasting hypoglycaemia logical rather than a list to memorise. Blood glucose during fasting depends on two processes: glycogenolysis (using stored glycogen) and gluconeogenesis (making new glucose). Glycogen stores last roughly 12–18 hours — after that, gluconeogenesis must sustain blood glucose entirely.<br><br>
+      Any block in gluconeogenesis produces fasting hypoglycaemia with a characteristic delay — the patient is fine initially (glycogenolysis is intact) but develops hypoglycaemia after stores run out. Key causes: <strong>alcohol intoxication</strong> (ethanol metabolism generates massive NADH, shifting the NAD⁺/NADH ratio so that oxaloacetate is driven to malate and pyruvate is driven to lactate — both gluconeogenic substrates are diverted away), <strong>enzyme deficiencies</strong> (as above), <strong>cortisol or glucagon deficiency</strong> (removing the hormonal drive for gluconeogenesis), and <strong>substrate deficiency</strong> (muscle wasting removing the amino acid supply in severe malnutrition).
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="mode-desc" id="mode-desc">Jump to any challenge freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav" id="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChallenge(1)">1 · Bypass Enzymes</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChallenge(2)">2 · Enzyme Matching</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChallenge(3)">3 · Cofactors</button>
+      <button class="challenge-nav-btn" id="cnav-4" onclick="showChallenge(4)">4 · Clinical MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-5" onclick="showChallenge(5)">5 · R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-6" onclick="showChallenge(6)">6 · Multiple Completion</button>
+    </div>
+
+    <!-- Challenge 1: Arrange bypass enzymes to correct bypasses -->
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 — Bypass Enzyme Ordering</div>
+        <div class="challenge-instructions">Each bypass enzyme circumvents a specific irreversible glycolytic step. Tap each enzyme to the glycolytic step it bypasses.</div>
+        <div class="section-label">Enzyme Bank</div>
+        <div class="tap-bank" id="bypass-bank"></div>
+        <div class="match-grid" id="bypass-match-grid"></div>
+        <button class="check-btn" onclick="checkBypass()">Check</button>
+        <button class="btn-try-again" id="c1-try" onclick="tryAgainC1()">Try Again</button>
+        <button class="btn-reveal-ans" id="c1-reveal" onclick="revealC1()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetBypass()">Reset</button>
+        <div class="result-msg" id="bypass-result"></div>
+        <div class="reveal-note-box" id="c1-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="bypass-next" onclick="completeAndNext(1)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 2: Enzyme matching to reactions -->
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 — Enzyme Matching</div>
+        <div class="challenge-instructions">Tap each enzyme from the bank to its correct reaction. Includes all 4 bypass enzymes and 3 key shared enzymes.</div>
+        <div class="section-label">Enzyme Bank</div>
+        <div class="tap-bank" id="enzyme-bank-2"></div>
+        <div class="match-grid" id="match-grid-2"></div>
+        <button class="check-btn" onclick="checkMatch()">Check</button>
+        <button class="btn-try-again" id="c2-try" onclick="tryAgainC2()">Try Again</button>
+        <button class="btn-reveal-ans" id="c2-reveal" onclick="revealC2()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetMatch()">Reset</button>
+        <div class="result-msg" id="match-result"></div>
+        <div class="reveal-note-box" id="c2-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="match-next" onclick="completeAndNext(2)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 3: Cofactor linking -->
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 — Cofactor & Coenzyme Linking</div>
+        <div class="challenge-instructions">Match each bypass enzyme to its coenzyme or cofactor. Tap from the bank.</div>
+        <div class="section-label">Cofactor Bank</div>
+        <div class="tap-bank" id="cofactor-bank"></div>
+        <div class="cofactor-grid" id="cofactor-grid"></div>
+        <button class="check-btn" onclick="checkCofactor()">Check</button>
+        <button class="btn-try-again" id="c3-try" onclick="tryAgainC3()">Try Again</button>
+        <button class="btn-reveal-ans" id="c3-reveal" onclick="revealC3()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetCofactor()">Reset</button>
+        <div class="result-msg" id="cofactor-result"></div>
+        <div class="reveal-note-box" id="c3-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="cofactor-next" onclick="completeAndNext(3)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 4: Clinical MCQ -->
+    <div class="challenge-panel" id="cp4">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 4 — Clinical Scenarios</div>
+        <div class="challenge-instructions">Select the best answer. Tap an option to reveal full feedback.</div>
+        <div id="mcq-container"></div>
+        <button class="next-challenge-btn show" onclick="completeAndNext(4)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 5: R&A -->
+    <div class="challenge-panel" id="cp5">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 5 — Reason & Assertion</div>
+        <div class="challenge-instructions">Read both statements and select the correct option using the key below.</div>
+        <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;font-family:var(--font-mono)">
+          <strong style="font-family:var(--font-body)">Options key:</strong><br>
+          A — Both TRUE; reason IS the correct explanation<br>
+          B — Both TRUE; reason is NOT the correct explanation<br>
+          C — Assertion TRUE; reason FALSE<br>
+          D — Assertion FALSE; reason TRUE<br>
+          E — Both FALSE
+        </div>
+        <div id="ra-container"></div>
+        <button class="next-challenge-btn show" style="background:var(--green)" onclick="showCompletion()">Complete All Challenges ✓</button>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="challenge-panel" id="cp6">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 6 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply, then check your answers.</div>
+        <div class="mc-question"><div class="mc-question-num">Question 1 of 3</div><div class="mc-stem">Which of the following statements regarding the bypass enzymes of gluconeogenesis are correct?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc0opt0" onclick="toggleMCOption(this,0,0)"><div class="mc-checkbox" id="mc0cb0">&#9633;</div><div class="mc-option-text">Pyruvate Carboxylase requires biotin as a cofactor and is activated by acetyl-CoA</div></div>
+<div class="mc-option" id="mc0opt1" onclick="toggleMCOption(this,0,1)"><div class="mc-checkbox" id="mc0cb1">&#9633;</div><div class="mc-option-text">PEPCK converts oxaloacetate to phosphoenolpyruvate using GTP</div></div>
+<div class="mc-option" id="mc0opt2" onclick="toggleMCOption(this,0,2)"><div class="mc-checkbox" id="mc0cb2">&#9633;</div><div class="mc-option-text">Fructose-1,6-bisphosphatase is activated by AMP</div></div>
+<div class="mc-option" id="mc0opt3" onclick="toggleMCOption(this,0,3)"><div class="mc-checkbox" id="mc0cb3">&#9633;</div><div class="mc-option-text">Glucose-6-Phosphatase is found in both liver and skeletal muscle</div></div>
+<div class="mc-option" id="mc0opt4" onclick="toggleMCOption(this,0,4)"><div class="mc-checkbox" id="mc0cb4">&#9633;</div><div class="mc-option-text">The conversion of pyruvate to PEP requires 4 high-energy phosphate bonds</div></div>
+</div><div class="mc-feedback" id="mc-feedback-0" style="display:none">Pyruvate Carboxylase is biotin-dependent and activated by acetyl-CoA (1 correct). PEPCK uses GTP (2 correct). FBPase-1 is inhibited by AMP not activated (3 wrong). G6Pase absent from skeletal muscle (4 wrong). Pyruvate to PEP requires 1 ATP + 1 GTP = 4 high-energy bonds (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 2 of 3</div><div class="mc-stem">Which of the following are true about the regulation of gluconeogenesis?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc1opt0" onclick="toggleMCOption(this,1,0)"><div class="mc-checkbox" id="mc1cb0">&#9633;</div><div class="mc-option-text">Insulin stimulates gluconeogenesis by activating PEPCK transcription</div></div>
+<div class="mc-option" id="mc1opt1" onclick="toggleMCOption(this,1,1)"><div class="mc-checkbox" id="mc1cb1">&#9633;</div><div class="mc-option-text">Glucagon promotes gluconeogenesis by raising intracellular cAMP</div></div>
+<div class="mc-option" id="mc1opt2" onclick="toggleMCOption(this,1,2)"><div class="mc-checkbox" id="mc1cb2">&#9633;</div><div class="mc-option-text">High levels of acetyl-CoA in the liver activate Pyruvate Carboxylase</div></div>
+<div class="mc-option" id="mc1opt3" onclick="toggleMCOption(this,1,3)"><div class="mc-checkbox" id="mc1cb3">&#9633;</div><div class="mc-option-text">AMP inhibits Fructose-1,6-bisphosphatase, thereby inhibiting gluconeogenesis</div></div>
+<div class="mc-option" id="mc1opt4" onclick="toggleMCOption(this,1,4)"><div class="mc-checkbox" id="mc1cb4">&#9633;</div><div class="mc-option-text">Cortisol suppresses gluconeogenesis during prolonged stress</div></div>
+</div><div class="mc-feedback" id="mc-feedback-1" style="display:none">Insulin suppresses gluconeogenesis (1 wrong). Glucagon raises cAMP activating gluconeogenic enzymes (2 correct). Acetyl-CoA signals fat oxidation and activates Pyruvate Carboxylase (3 correct). AMP inhibits FBPase-1 (4 correct). Cortisol promotes gluconeogenesis (5 wrong).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 3 of 3</div><div class="mc-stem">Which of the following substrates can directly contribute carbon skeletons to gluconeogenesis?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc2opt0" onclick="toggleMCOption(this,2,0)"><div class="mc-checkbox" id="mc2cb0">&#9633;</div><div class="mc-option-text">Lactate, via conversion to pyruvate by Lactate Dehydrogenase</div></div>
+<div class="mc-option" id="mc2opt1" onclick="toggleMCOption(this,2,1)"><div class="mc-checkbox" id="mc2cb1">&#9633;</div><div class="mc-option-text">Glycerol, via conversion to DHAP</div></div>
+<div class="mc-option" id="mc2opt2" onclick="toggleMCOption(this,2,2)"><div class="mc-checkbox" id="mc2cb2">&#9633;</div><div class="mc-option-text">Even-chain fatty acids, via acetyl-CoA entering the TCA cycle</div></div>
+<div class="mc-option" id="mc2opt3" onclick="toggleMCOption(this,2,3)"><div class="mc-checkbox" id="mc2cb3">&#9633;</div><div class="mc-option-text">Alanine, via transamination to pyruvate</div></div>
+<div class="mc-option" id="mc2opt4" onclick="toggleMCOption(this,2,4)"><div class="mc-checkbox" id="mc2cb4">&#9633;</div><div class="mc-option-text">Odd-chain fatty acids, via propionyl-CoA to succinyl-CoA</div></div>
+</div><div class="mc-feedback" id="mc-feedback-2" style="display:none">Lactate to pyruvate (Cori cycle) (1 correct). Glycerol to DHAP (2 correct). Even-chain FAs produce only acetyl-CoA which is gluconeogenically inert (3 wrong). Alanine to pyruvate via transamination (4 correct). Odd-chain FAs to succinyl-CoA which enters TCA for gluconeogenesis (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC()">Check Answers</button>
+          <button class="btn-try-again" id="mc-try-again" onclick="resetMC()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc-reveal" onclick="revealMC()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc-result"></div>
+        <div class="reveal-note-box" id="mc-reveal-note" style="display:none">Correct selections shown &mdash; review explanations above.</div>
+        <button class="next-challenge-btn" id="mc-next" onclick="completeAndNext(6)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+
+  <div id="completion-banner" style="display:none;background:linear-gradient(135deg,var(--royal-dim),var(--gold-dim));border:1px solid var(--gold-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px">
+    <div style="font-size:32px;margin-bottom:10px">🔒</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px">Gluconeogenesis Locked In</div>
+    <div style="font-size:13px;color:var(--text-muted);max-width:380px;margin:0 auto 18px">All five challenges complete. Review any section, or move on to the next pathway.</div>
+    <button onclick="exitTest()" style="background:var(--royal);color:white;border:none;padding:10px 26px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;">Restart Test Section</button>
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  © 2026 GETLOCKEDIN × DOMINANCE · Powered by GRACE-LED SYSTEMS
+</footer>
+
+<script>
+
+const bypassData = [
+  { enzyme:"Pyruvate Carboxylase", bypasses:"Pyruvate Kinase (Step 10)", short:"Pyruvate → OAA" },
+  { enzyme:"Phosphoenolpyruvate Carboxykinase (PEPCK)", bypasses:"Pyruvate Kinase (Step 10) — 2nd part", short:"OAA → PEP" },
+  { enzyme:"Fructose-1,6-bisphosphatase", bypasses:"PFK-1 (Step 3)", short:"F-1,6-BP → F6P" },
+  { enzyme:"Glucose-6-phosphatase", bypasses:"Hexokinase (Step 1)", short:"G6P → Glucose" }
+];
+const matchData = [
+  { rxn:"Pyruvate + CO₂ + ATP → OAA", enzyme:"Pyruvate Carboxylase" },
+  { rxn:"OAA + GTP → PEP + CO₂", enzyme:"Phosphoenolpyruvate Carboxykinase (PEPCK)" },
+  { rxn:"F-1,6-bisphosphate → F6P + Pᵢ", enzyme:"Fructose-1,6-bisphosphatase" },
+  { rxn:"G6P + H₂O → Glucose + Pᵢ", enzyme:"Glucose-6-phosphatase" },
+  { rxn:"1,3-BPG + NADH → G3P + NAD⁺", enzyme:"Glyceraldehyde-3-phosphate Dehydrogenase" },
+  { rxn:"3-PG + ATP → 1,3-BPG + ADP", enzyme:"Phosphoglycerate Kinase" },
+  { rxn:"PEP + H₂O → 2-Phosphoglycerate", enzyme:"Enolase" }
+];
+const cofactorData = [
+  { enzyme:"Pyruvate Carboxylase", cofactors:["Biotin","Mg²⁺"] },
+  { enzyme:"PEPCK", cofactors:["Mn²⁺"] },
+  { enzyme:"Fructose-1,6-bisphosphatase", cofactors:["Mg²⁺"] },
+  { enzyme:"Glucose-6-phosphatase", cofactors:["None"] }
+];
+const allCofactors = ["Biotin","Mg²⁺","Mn²⁺","NAD⁺","ATP","GTP","None"];
+var mcqData = [
+  {
+    stem:"A 6-month-old infant presents with severe fasting hypoglycaemia, massive hepatomegaly, lactic acidosis, and elevated triglycerides. Blood glucose does not rise after intravenous glucagon administration. Which enzyme deficiency best explains the complete clinical picture?",
+    options:[
+      "Pyruvate Carboxylase — blocks the first step of gluconeogenesis, preventing OAA formation from pyruvate",
+      "Glucose-6-phosphatase — blocks the final step shared by both glycogenolysis and gluconeogenesis, preventing free glucose export",
+      "Fructose-1,6-bisphosphatase — blocks gluconeogenesis at the PFK-1 bypass, allowing glycogenolysis to continue normally",
+      "PEPCK — blocks conversion of OAA to PEP, impairing gluconeogenesis while leaving glycogenolysis intact"
+    ],
+    answer:1,
+    feedback:"<strong>Glucose-6-phosphatase deficiency — Von Gierke disease.</strong> The glucagon unresponsiveness is the key discriminating feature: glucagon promotes glycogenolysis and gluconeogenesis, both producing G6P — but without Glucose-6-phosphatase, G6P cannot be dephosphorylated to free glucose for export. Lactic acidosis occurs because backed-up G6P floods glycolysis. Hypertriglyceridaemia follows from excess Acetyl-CoA driving lipid synthesis. Pyruvate Carboxylase deficiency presents with lactic acidosis but not the full picture. FBPase-1 deficiency would still allow glycogenolysis to produce glucose via G6Pase."
+  },
+  {
+    stem:"A researcher removes Acetyl-CoA from an isolated liver preparation and finds that gluconeogenesis from lactate stops completely, even though all other substrates and cofactors are present. Which enzyme's activity has been eliminated, and why?",
+    options:[
+      "Fructose-1,6-bisphosphatase — because Acetyl-CoA is required as a direct substrate for the FBPase-1 reaction",
+      "PEPCK — because Acetyl-CoA is required to activate the GTP-dependent decarboxylation of OAA",
+      "Pyruvate Carboxylase — because Acetyl-CoA is an obligatory allosteric activator without which the enzyme is essentially inactive",
+      "Glucose-6-phosphatase — because Acetyl-CoA provides the reducing equivalents needed for G6P hydrolysis"
+    ],
+    answer:2,
+    feedback:"<strong>Pyruvate Carboxylase</strong> requires Acetyl-CoA as an essential allosteric activator — without it, the enzyme is essentially inactive regardless of substrate availability. Lactate → pyruvate conversion is intact (LDH doesn't need Acetyl-CoA), so the block must be at Pyruvate Carboxylase, the first dedicated step of gluconeogenesis. This is the biochemical basis of why fat oxidation (which generates Acetyl-CoA) is a prerequisite for efficient gluconeogenesis from pyruvate and lactate during fasting."
+  },
+  {
+    stem:"A patient with type 2 diabetes is started on metformin, resulting in reduced fasting blood glucose. Which of the following best describes the primary hepatic mechanism by which metformin suppresses gluconeogenesis?",
+    options:[
+      "Metformin activates Fructose-1,6-bisphosphatase directly, reducing F1,6BP and slowing glucose output",
+      "Metformin inhibits mitochondrial Complex I → AMP:ATP ratio rises → AMPK activates → FBPase-1 inhibited and PEPCK expression suppressed",
+      "Metformin directly inhibits Glucose-6-phosphatase activity in the ER membrane",
+      "Metformin activates Pyruvate Carboxylase, diverting pyruvate into OAA rather than glucose"
+    ],
+    answer:1,
+    feedback:"Metformin inhibits mitochondrial Complex I, reducing ATP production and raising the AMP:ATP ratio. High AMP directly inhibits FBPase-1 and activates AMPK, which suppresses PEPCK gene expression — the key gluconeogenic enzyme. This dual mechanism (allosteric FBPase-1 inhibition + transcriptional PEPCK suppression) is why metformin specifically reduces fasting blood glucose (from hepatic gluconeogenesis) rather than postprandial glucose."
+  },
+  {
+    stem:"A nutritional biochemist explains that certain carbon sources can contribute to gluconeogenesis while others fundamentally cannot. Which of the following correctly identifies a substrate that cannot be used to synthesise glucose in humans, and explains why?",
+    options:[
+      "Alanine cannot contribute to gluconeogenesis because it is ketogenic rather than glucogenic",
+      "Palmitate (a 16-carbon even-chain fatty acid) cannot contribute to net glucose synthesis because its carbons enter as Acetyl-CoA which is lost as CO₂ in the TCA cycle",
+      "Lactate cannot contribute to gluconeogenesis because pyruvate kinase irreversibly converts PEP to pyruvate",
+      "Glycerol cannot contribute to gluconeogenesis because it cannot be phosphorylated in the liver"
+    ],
+    answer:1,
+    feedback:"<strong>Even-chain fatty acids cannot contribute to net gluconeogenesis.</strong> They are broken down exclusively to Acetyl-CoA (2C), which enters the TCA cycle but its two carbons are lost as 2×CO₂ in the Isocitrate Dehydrogenase and α-KG Dehydrogenase steps. There is no net gain of OAA or any other gluconeogenic precursor — the carbons are fully oxidised. Alanine is glucogenic (transaminated to pyruvate). Lactate is a major gluconeogenic substrate. Glycerol from triglyceride hydrolysis enters as glycerol-3-phosphate → DHAP → gluconeogenesis."
+  }
+];
+const raData = [
+  {
+    assertion:"Pyruvate Carboxylase requires Acetyl-CoA as an allosteric activator.",
+    reason:"Acetyl-CoA accumulates during fatty acid oxidation, signalling that energy substrates are available and gluconeogenesis from pyruvate should be activated.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. Acetyl-CoA is an essential allosteric activator of Pyruvate Carboxylase — without it, the enzyme is nearly inactive. The physiological logic is that Acetyl-CoA rises during fat oxidation (fasting state), signalling genuine glucose scarcity and triggering gluconeogenesis. The reason accurately captures this mechanism."
+  },
+  {
+    assertion:"Skeletal muscle can perform gluconeogenesis and release glucose into the bloodstream during prolonged fasting.",
+    reason:"Skeletal muscle contains large glycogen stores that can be converted to glucose-6-phosphate during fasting.",
+    answer:"E",
+    feedback:"Both statements are false. Skeletal muscle lacks Glucose-6-phosphatase — it cannot dephosphorylate G6P to release free glucose. It can perform partial gluconeogenesis to generate G6P, but that G6P can only be used intracellularly (for glycolysis or glycogen synthesis). The reason is also false: while muscle does contain glycogen, that glycogen cannot release free glucose into the blood precisely because of the absent Glucose-6-phosphatase. Muscle glycogen fuels muscle only. Only the liver (and kidney cortex) can release glucose into the bloodstream."
+  },
+  {
+    assertion:"Fructose-2,6-bisphosphate (F-2,6-BP) inhibits gluconeogenesis by inhibiting Fructose-1,6-bisphosphatase.",
+    reason:"F-2,6-BP is produced by PFK-2 when glucagon levels are high, simultaneously activating PFK-1 and inhibiting FBPase-1.",
+    answer:"C",
+    feedback:"The assertion is true — F-2,6-BP is the most potent inhibitor of FBPase-1 and therefore a key brake on gluconeogenesis. However, the reason is false: F-2,6-BP is produced by PFK-2 when <strong>insulin</strong> levels are high (fed state), not glucagon. When glucagon is high (fasting), PKA phosphorylates PFK-2, activating its phosphatase domain, which <em>degrades</em> F-2,6-BP — reducing PFK-1 activation and relieving FBPase-1 inhibition, thus <em>favouring</em> gluconeogenesis."
+  },
+  {
+    assertion:"PEPCK is the rate-limiting enzyme of gluconeogenesis and is primarily regulated at the level of gene expression.",
+    reason:"Glucagon increases PEPCK activity by directly binding to and allosterically activating the enzyme.",
+    answer:"C",
+    feedback:"The assertion is true — PEPCK is the rate-limiting enzyme and its primary regulation is transcriptional (gene expression), not allosteric. This is what makes it distinct from most other metabolic regulatory enzymes. The reason is false: glucagon does not directly bind PEPCK. Glucagon works through cAMP → PKA → CREB → increased PEPCK gene transcription. The regulation is indirect and hormonal, operating on a timescale of hours — not instantaneous allosteric activation."
+  },
+  {
+    assertion:"During prolonged fasting, even-chain fatty acids such as palmitate can serve as substrates for gluconeogenesis in the liver.",
+    reason:"Beta-oxidation of even-chain fatty acids generates Acetyl-CoA, which activates Pyruvate Carboxylase and can enter the TCA cycle to produce OAA for gluconeogenesis.",
+    answer:"D",
+    feedback:"The assertion is false — even-chain fatty acids cannot be net gluconeogenic substrates. Beta-oxidation produces only Acetyl-CoA, and the two carbons that enter the TCA cycle as Acetyl-CoA are lost as CO₂ (at the isocitrate dehydrogenase and α-ketoglutarate dehydrogenase steps), leaving no net carbon gain. The reason is partially true and partially the source of the confusion: Acetyl-CoA does activate Pyruvate Carboxylase (true), and does enter the TCA cycle (true), but this does not make fatty acids gluconeogenic substrates — the carbon accounting still results in net zero. The activation of Pyruvate Carboxylase by Acetyl-CoA helps gluconeogenesis from other substrates (lactate, amino acids), not from the fatty acids themselves."
+  }
+];
+
+// ══ STATE ══
+var _selectedChip = null;
+var tapgedItem = null;
+var testMode = 'free';
+var completedChallenges = new Set();
+
+// ══ TABS ══
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ SCROLL-HIDE ══
+(function(){
+  var last = 0;
+  var h = document.getElementById('site-header');
+  window.addEventListener('scroll', function() {
+    var c = window.scrollY;
+    if (c > last && c > 60) h.classList.add('hide-bar');
+    else h.classList.remove('hide-bar');
+    last = c;
+  }, {passive:true});
+})();
+
+// ══ CARD TOGGLES ══
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleShared() { document.getElementById('shared-card').classList.toggle('open'); }
+function toggleBypass(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ══ TAP-TO-PLACE CORE ══
+function tapSelectChip(chip) {
+  if (chip.classList.contains('used')) return;
+  if (_selectedChip === chip) {
+    chip.classList.remove('selected');
+    _selectedChip = null;
+    return;
+  }
+  if (_selectedChip) _selectedChip.classList.remove('selected');
+  _selectedChip = chip;
+  chip.classList.add('selected');
+}
+
+function clearTapReady() {}
+
+function makeChip(id, text, attrs) {
+  var chip = document.createElement('div');
+  chip.className = 'tap-chip';
+  chip.id = id;
+  chip.textContent = text;
+  if (attrs) Object.keys(attrs).forEach(function(k){ chip.dataset[k] = attrs[k]; });
+  chip.onclick = function(){ tapSelectChip(chip); };
+  return chip;
+}
+
+function makeSlotDrop(slotNum, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'slot-drop';
+  drop.dataset.slot = slotNum;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeMatchDrop(idx, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'match-drop';
+  drop.dataset.idx = idx;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeCofactorDrop(stepKey, placeholder, answersObj) {
+  var drop = document.createElement('div');
+  drop.className = 'cofactor-drop';
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip && _selectedChip.dataset.cofactor) {
+      var chip = _selectedChip;
+      var cf = chip.dataset.cofactor;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      if (!answersObj[stepKey]) answersObj[stepKey] = [];
+      if (answersObj[stepKey].indexOf(cf) !== -1) return;
+      answersObj[stepKey].push(cf);
+      var tag = document.createElement('span');
+      tag.className = 'reg-tag cofactor';
+      tag.style.cssText = 'font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;';
+      tag.textContent = cf + ' ✕';
+      tag.onclick = function(ev) {
+        ev.stopPropagation();
+        answersObj[stepKey] = answersObj[stepKey].filter(function(x){ return x !== cf; });
+        tag.remove();
+        if (!drop.querySelector('span')) drop.textContent = placeholder;
+      };
+      if (!drop.querySelector('span')) drop.textContent = '';
+      drop.appendChild(tag);
+    }
+  };
+  return drop;
+}
+
+// ══ TEST MODE ══
+function selectMode(mode, btn) {
+  testMode = mode;
+  document.querySelectorAll('.mode-toggle-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('mode-desc').textContent = mode === 'guided'
+    ? 'Complete each challenge in order. Each unlocks after the previous is checked.'
+    : 'All five challenges are open from the start.';
+}
+
+function startTestFree(){testMode='free';
+return startTestFree_inner();}
+function startTestFree_inner(){startTest();}
+function startTest() {
+  document.getElementById('tms').style.display = 'none';
+  document.getElementById('challenge-area').style.display = 'block';
+  document.getElementById('completion-banner').style.display = 'none';
+  completedChallenges = new Set();
+  _selectedChip = null;
+  initAllChallenges();
+  updateChallengeNav();
+  showChallenge(1);
+}
+
+function exitTest() {
+  document.getElementById('tms').style.display = 'block';
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'none';
+  _selectedChip = null;
+}
+
+function showChallenge(n) {
+  if (testMode === 'guided' && n > 1 && !completedChallenges.has(n-1)) return;
+  document.querySelectorAll('.challenge-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.challenge-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cp' + n).classList.add('active');
+  document.getElementById('cnav-' + n).classList.add('active');
+  _selectedChip = null;
+}
+
+function updateChallengeNav() {
+  for (var i = 1; i <= 5; i++) {
+    var btn = document.getElementById('cnav-' + i);
+    btn.classList.remove('done','active');
+    if (completedChallenges.has(i)) btn.classList.add('done');
+    // free mode: all challenges unlocked
+  }
+}
+
+function completeAndNext(n) {
+  completedChallenges.add(n);
+  updateChallengeNav();
+  if (n < 5) showChallenge(n + 1);
+}
+
+function showCompletion() {
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'block';
+}
+
+function initMCQ() {
+  var container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  mcqData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'mcq-item';
+    
+    var stem = document.createElement('div');
+    stem.className = 'mcq-stem';
+    stem.textContent = (qi+1) + '. ' + q.stem;
+    
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'mcq-options';
+    optsDiv.id = 'mcq-opts-' + qi;
+    q.options.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'mcq-option';
+      opt.dataset.qi = qi;
+      opt.dataset.oi = oi;
+      opt.innerHTML = '<span class="mcq-letter">' + letters[oi] + '</span>' + o;
+      opt.onclick = function() { selectMCQ(parseInt(opt.dataset.qi), parseInt(opt.dataset.oi)); };
+      optsDiv.appendChild(opt);
+    });
+    
+    var feedback = document.createElement('div');
+    feedback.className = 'mcq-feedback';
+    feedback.id = 'mcq-fb-' + qi;
+    feedback.innerHTML = q.feedback;
+    
+    div.appendChild(stem); div.appendChild(optsDiv); div.appendChild(feedback);
+    container.appendChild(div);
+  });
+}
+
+
+// ══ CHECK HELPERS ══
+function showResult(msgId, nextId, correct, total) {
+  var msg = document.getElementById(msgId);
+  msg.classList.add('show');
+  if (correct === total) {
+    msg.className = 'result-msg show pass';
+    msg.textContent = '✓ All ' + total + ' correct!';
+    document.getElementById(nextId).classList.add('show');
+  } else {
+    msg.className = 'result-msg show fail';
+    msg.textContent = correct + '/' + total + ' correct. Review the relevant section and try again.';
+  }
+}
+
+
+var bypassAnswers = {};
+var matchAnswers2 = {};
+var cofactorAnswers = {};
+
+function initAllChallenges(){ initBypass(); initMatch(); initCofactor(); initMCQ(); initRA(); }
+
+// C1: Bypass matching
+function initBypass(){
+  bypassAnswers={};
+  var bank=document.getElementById('bypass-bank');
+  var grid=document.getElementById('bypass-match-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('bypass-result').classList.remove('show');
+  document.getElementById('bypass-next').classList.remove('show');
+
+  bypassData.slice().sort(function(){return Math.random()-.5;}).forEach(function(b,si){
+    bank.appendChild(makeChip('bchip-'+si, b.enzyme, {enzyme:b.enzyme, idx:si}));
+  });
+
+  bypassData.forEach(function(b,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='brow-'+i;
+    var info=document.createElement('div'); info.className='match-step-info';
+    info.innerHTML='<strong>Bypasses:</strong> '+b.bypasses;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete bypassAnswers[idx];return;}
+      var prev=Object.keys(bypassAnswers).find(function(k){return bypassAnswers[k]===chip.dataset.enzyme;});
+      if(prev!==undefined){var pd=document.querySelector('#bypass-match-grid .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete bypassAnswers[prev];}
+      var old=bypassAnswers[idx];
+      if(old){var allChips=document.querySelectorAll('#bypass-bank .tap-chip');allChips.forEach(function(c){if(c.dataset.enzyme===old)c.classList.remove('used');});}
+      bypassAnswers[idx]=chip.dataset.enzyme;
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.enzyme; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkBypass(){
+  var correct=0;
+  bypassData.forEach(function(b,i){
+    var row=document.getElementById('brow-'+i); row.classList.remove('correct','wrong');
+    if(bypassAnswers[i]===b.enzyme){row.classList.add('correct');correct++;}
+    else if(bypassAnswers[i]) row.classList.add('wrong');
+  });
+  showResult('bypass-result','bypass-next',correct,bypassData.length);
+}
+function resetBypass(){document.getElementById('bypass-result').classList.remove('show');document.getElementById('bypass-next').classList.remove('show');initBypass();}
+
+// C2: Enzyme matching
+function initMatch(){
+  matchAnswers2={};
+  var bank=document.getElementById('enzyme-bank-2');
+  var grid=document.getElementById('match-grid-2');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('match-next').classList.remove('show');
+
+  matchData.slice().sort(function(){return Math.random()-.5;}).forEach(function(m,si){
+    bank.appendChild(makeChip('mchip-'+si, m.enzyme, {enzyme:m.enzyme, idx:si}));
+  });
+
+  matchData.forEach(function(m,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='mrow-'+i;
+    var info=document.createElement('div'); info.className='match-step-info'; info.style.fontFamily='var(--font-mono)'; info.style.fontSize='12px'; info.textContent=m.rxn;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete matchAnswers2[idx];return;}
+      var prev=Object.keys(matchAnswers2).find(function(k){return matchAnswers2[k]===chip.dataset.enzyme;});
+      if(prev!==undefined){var pd=document.querySelector('#match-grid-2 .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete matchAnswers2[prev];}
+      matchAnswers2[idx]=chip.dataset.enzyme;
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.enzyme; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  var correct=0;
+  matchData.forEach(function(m,i){
+    var row=document.getElementById('mrow-'+i); row.classList.remove('correct','wrong');
+    if(matchAnswers2[i]===m.enzyme){row.classList.add('correct');correct++;}
+    else if(matchAnswers2[i]) row.classList.add('wrong');
+  });
+  showResult('match-result','match-next',correct,matchData.length);
+}
+function resetMatch(){document.getElementById('match-result').classList.remove('show');document.getElementById('match-next').classList.remove('show');initMatch();}
+
+// C3: Cofactor linking
+function initCofactor(){
+  cofactorAnswers={};
+  var bank=document.getElementById('cofactor-bank');
+  var grid=document.getElementById('cofactor-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('cofactor-result').classList.remove('show');
+  document.getElementById('cofactor-next').classList.remove('show');
+
+  allCofactors.forEach(function(cf){
+    bank.appendChild(makeChip('cfchip-'+cf.replace(/[^a-zA-Z0-9]/g), cf, {cofactor:cf}));
+  });
+
+  cofactorData.forEach(function(c,i){
+    cofactorAnswers[i]=[];
+    var row=document.createElement('div'); row.className='cofactor-row'; row.id='cfrow-'+i;
+    var label=document.createElement('div'); label.className='cofactor-enzyme-name';
+    label.innerHTML='<span style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">Bypass '+(i+1)+'</span><br>'+c.enzyme;
+    var drop=makeCofactorDrop(i,'Tap cofactor, then tap here',cofactorAnswers);
+    row.appendChild(label); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkCofactor(){
+  var correct=0;
+  cofactorData.forEach(function(c,i){
+    var row=document.getElementById('cfrow-'+i); row.classList.remove('correct','wrong');
+    var ans=(cofactorAnswers[i]||[]).slice().sort().join(',');
+    var exp=c.cofactors.slice().sort().join(',');
+    if(ans===exp){row.classList.add('correct');correct++;}
+    else row.classList.add('wrong');
+  });
+  showResult('cofactor-result','cofactor-next',correct,cofactorData.length);
+}
+function resetCofactor(){document.getElementById('cofactor-result').classList.remove('show');document.getElementById('cofactor-next').classList.remove('show');initCofactor();}
+
+function initRA() {
+  var container = document.getElementById('ra-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D','E'];
+  var opts = [
+    'Both TRUE — reason IS the correct explanation',
+    'Both TRUE — reason is NOT the correct explanation',
+    'Assertion TRUE; reason FALSE',
+    'Assertion FALSE; reason TRUE',
+    'Both FALSE'
+  ];
+  raData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'ra-item';
+
+    var stmts = document.createElement('div');
+    stmts.className = 'ra-statements';
+    [['Assertion', q.assertion], ['Reason', q.reason]].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'ra-statement-box';
+      var lbl = document.createElement('div'); lbl.className = 'ra-statement-label'; lbl.textContent = pair[0];
+      var txt = document.createElement('div'); txt.className = 'ra-statement-text'; txt.textContent = pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'ra-options'; optsDiv.id = 'ra-opts-' + qi;
+    opts.forEach(function(o, oi) {
+      var opt = document.createElement('div'); opt.className = 'ra-option';
+      opt.dataset.qi = qi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'ra-letter'; span.textContent = letters[oi];
+      opt.appendChild(span);
+      opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() { selectRA(parseInt(this.dataset.qi), this.dataset.letter); };
+      optsDiv.appendChild(opt);
+    });
+
+    var fb = document.createElement('div');
+    fb.className = 'ra-feedback'; fb.id = 'ra-fb-' + qi; fb.innerHTML = q.feedback;
+
+    div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function tryAgainC1() {
+  document.querySelectorAll('#bypass-match-grid .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(bypassAnswers).forEach(function(k) {
+    if (!document.querySelector('#bypass-match-grid #'+'brow-'+k+'.correct')) delete bypassAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('bypass-result').classList.remove('show');
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+}
+
+function revealC1() {
+  bypassData.forEach(function(item, i) {
+    var row = document.getElementById('brow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+  document.getElementById('c1-reveal-note').classList.add('show');
+  document.getElementById('bypass-next').classList.add('show');
+  var msg=document.getElementById('bypass-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+function tryAgainC2() {
+  document.querySelectorAll('#match-grid-2 .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(matchAnswers2).forEach(function(k) {
+    if (!document.querySelector('#match-grid-2 #'+'mrow-'+k+'.correct')) delete matchAnswers2[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+}
+
+function revealC2() {
+  matchData.forEach(function(item, i) {
+    var row = document.getElementById('mrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+  document.getElementById('c2-reveal-note').classList.add('show');
+  document.getElementById('match-next').classList.add('show');
+  var msg=document.getElementById('match-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+function tryAgainC3() {
+  document.querySelectorAll('#cofactor-grid .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(cofactorAnswers).forEach(function(k) {
+    if (!document.querySelector('#cofactor-grid #'+'cfrow-'+k+'.correct')) delete cofactorAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('cofactor-result').classList.remove('show');
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+}
+
+function revealC3() {
+  cofactorData.forEach(function(item, i) {
+    var row = document.getElementById('cfrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+  document.getElementById('c3-reveal-note').classList.add('show');
+  document.getElementById('cofactor-next').classList.add('show');
+  var msg=document.getElementById('cofactor-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+
+
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.pathway-link');
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var wasActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!wasActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+
+
+// ── TOOLTIP TAP TOGGLE ──
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest ? e.target.closest('.pathway-link') : null;
+    if (!link && e.target.classList && e.target.classList.contains('pathway-link')) {
+      link = e.target;
+    }
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!isActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+// ── MULTIPLE COMPLETION ──
+var mcSelections = [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAnswers = [[true, true, false, false, true], [false, true, true, true, false], [true, true, false, true, true]];
+var mcChecked = false;
+
+function toggleMCOption(el, qIdx, optIdx) {
+  if (mcChecked) return;
+  mcSelections[qIdx][optIdx] = !mcSelections[qIdx][optIdx];
+  el.classList.toggle('selected', mcSelections[qIdx][optIdx]);
+  var cb = document.getElementById('mc' + qIdx + 'cb' + optIdx);
+  cb.textContent = mcSelections[qIdx][optIdx] ? '☑' : '□';
+}
+
+function checkMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  var score = 0;
+  for (var i = 0; i < totalQ; i++) {
+    var allCorrect = true;
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      var selected = mcSelections[i][j];
+      var correct = mcAnswers[i][j];
+      opt.classList.remove('selected');
+      if (selected && correct) { opt.classList.add('correct'); cb.textContent = '✓'; }
+      else if (selected && !correct) { opt.classList.add('incorrect'); cb.textContent = '✗'; allCorrect = false; }
+      else if (!selected && correct) { opt.classList.add('missed'); cb.textContent = '○'; allCorrect = false; }
+      else { cb.textContent = '□'; }
+    }
+    if (allCorrect) score++;
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  var res = document.getElementById('mc-result');
+  res.textContent = score + ' of ' + totalQ + ' questions fully correct.';
+  res.style.color = score === totalQ ? 'var(--green)' : 'var(--red)';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+  document.getElementById('mc-reveal').style.display = 'inline-block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+}
+
+function resetMC() {
+  mcChecked = false;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    mcSelections[i] = mcSelections[i].map(function(){ return false; });
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent = '□';
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'none';
+  }
+  document.getElementById('mc-result').textContent = '';
+  document.getElementById('mc-try-again').style.display = 'none';
+  document.getElementById('mc-reveal').style.display = 'none';
+  document.getElementById('mc-next').style.display = 'none';
+  document.getElementById('mc-reveal-note').style.display = 'none';
+}
+
+function revealMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('selected','correct','incorrect','missed');
+      if (mcAnswers[i][j]) { opt.classList.add('missed'); cb.textContent = '○'; }
+      else { cb.textContent = '□'; }
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  document.getElementById('mc-reveal-note').style.display = 'block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+}
+
+
+function selectMCQ(qi, oi) {
+  var allOpts = document.getElementById('mcq-opts-' + qi);
+  if (!allOpts) return;
+  var optEls = allOpts.querySelectorAll('.mcq-option');
+  for (var k = 0; k < optEls.length; k++) {
+    if (optEls[k].classList.contains('correct') || optEls[k].classList.contains('wrong')) return;
+  }
+  for (var j = 0; j < optEls.length; j++) optEls[j].classList.remove('selected');
+  optEls[oi].classList.add('selected');
+  setTimeout(function() {
+    var correct = mcqData[qi].answer === oi;
+    for (var j = 0; j < optEls.length; j++) {
+      optEls[j].classList.remove('selected');
+      optEls[j].style.pointerEvents = 'none';
+      if (j === oi) { optEls[j].classList.add(correct ? 'correct' : 'wrong'); }
+      else if (j === mcqData[qi].answer && !correct) { optEls[j].classList.add('correct'); }
+    }
+    var fb = document.getElementById('mcq-fb-' + qi);
+    if (fb) fb.style.display = 'block';
+  }, 300);
+}
+</script>
+</body>
+</html>

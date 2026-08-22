@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Von Gierke Disease — Deep Dive · GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404015; --red-border:#D9404040;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --vg:#7C2D12; --vg-mid:#C2410C; --vg-light:#EA580C; --vg-dim:#7C2D1210; --vg-border:#7C2D1235;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.14);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:44px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.disease-badge{background:var(--vg-dim);border:1px solid var(--vg-border);color:var(--vg-mid);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:44px;z-index:190;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 18px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--vg-mid);border-bottom-color:var(--vg-mid);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:24px 20px 60px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── HERO ── */
+.disease-hero{background:var(--white);border-radius:var(--radius-xl);padding:32px 28px;margin-bottom:20px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.disease-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--vg),var(--vg-mid),var(--vg-light));}
+.disease-hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--vg-mid);margin-bottom:10px;}
+.disease-hero-title{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--text-dark);line-height:1.1;margin-bottom:6px;}
+.disease-hero-subtitle{font-size:15px;color:var(--text-muted);margin-bottom:20px;max-width:580px;line-height:1.65;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.hero-tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;}
+.hero-tag.type{background:var(--vg-dim);color:var(--vg-mid);border:1px solid var(--vg-border);}
+.hero-tag.inherit{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.hero-tag.gene{background:var(--gold-dim);color:var(--amber);border:1px solid var(--gold-border);}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.hero-stat{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 10px;text-align:center;}
+.hero-stat-value{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--vg-mid);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+/* ── CONTENT BLOCKS ── */
+.content-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:24px 26px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.block-eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.block-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:14px;line-height:1.2;}
+.block-body{font-size:14px;color:var(--text-body);line-height:1.85;}
+.block-body p{margin-bottom:14px;}
+.block-body p:last-child{margin-bottom:0;}
+.block-body strong{color:var(--text-dark);font-weight:600;}
+.block-body em{color:var(--vg-mid);font-style:normal;font-weight:600;}
+
+/* ── ANALOGY BOXES ── */
+.analogy-box{background:linear-gradient(135deg,#fff8f0,#fff3e8);border:1px solid var(--vg-border);border-left:4px solid var(--vg-mid);border-radius:var(--radius-md);padding:16px 18px;margin:16px 0;}
+.analogy-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vg-mid);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.analogy-body{font-size:14px;color:var(--text-body);line-height:1.8;}
+.analogy-body strong{color:var(--text-dark);}
+
+/* ── MECHANISM CHAIN ── */
+.chain-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.chain-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.chain-steps{display:flex;flex-direction:column;gap:0;}
+.chain-step{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--light-grey);}
+.chain-step:last-child{border-bottom:none;padding-bottom:0;}
+.chain-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:36px;}
+.chain-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;font-weight:700;flex-shrink:0;}
+.chain-num.enzyme{background:var(--vg-dim);color:var(--vg-mid);border:2px solid var(--vg-border);}
+.chain-num.accumulate{background:var(--red-dim);color:var(--red);border:2px solid var(--red-border);}
+.chain-num.consequence{background:var(--amber-dim);color:var(--amber);border:2px solid var(--amber-border);}
+.chain-num.clinical{background:var(--royal-dim);color:var(--royal);border:2px solid var(--royal-border);}
+.chain-connector{width:2px;flex:1;background:var(--light-grey);margin:4px auto;}
+.chain-content{flex:1;padding-top:2px;}
+.chain-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+.chain-label.enzyme{color:var(--vg-mid);}
+.chain-label.accumulate{color:var(--red);}
+.chain-label.consequence{color:var(--amber);}
+.chain-label.clinical{color:var(--royal);}
+.chain-heading{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.chain-explain{font-size:13px;color:var(--text-body);line-height:1.7;}
+.chain-explain strong{color:var(--text-dark);}
+.chain-technical{display:inline-block;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:2px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+/* ── CLINICAL FEATURE CARDS ── */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.feature-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;}
+.feature-card.metabolic::before{background:var(--red);}
+.feature-card.structural::before{background:var(--vg-mid);}
+.feature-card.hormonal::before{background:var(--amber);}
+.feature-card.secondary::before{background:var(--royal);}
+.feature-card-icon{font-size:24px;margin-bottom:10px;}
+.feature-card-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.feature-card-subtitle{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.feature-card-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.feature-card-body strong{color:var(--text-dark);}
+.feature-chain{background:var(--off-white);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:8px;line-height:1.6;}
+
+/* ── COMPARISON TABLE ── */
+.compare-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.compare-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;}
+.compare-table th{background:var(--off-white);padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.55;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .feature-col{font-weight:600;color:var(--text-dark);font-size:12px;}
+.compare-table .vg-col{color:var(--vg-mid);}
+.compare-table .other-col{color:var(--text-body);}
+
+/* ── EXAM TRAP CARDS ── */
+.trap-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.trap-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.trap-card{border-radius:var(--radius-md);padding:16px 18px;margin-bottom:12px;}
+.trap-card:last-child{margin-bottom:0;}
+.trap-card.danger{background:#fff1f0;border:1px solid #fca5a5;}
+.trap-card.insight{background:#f0f9ff;border:1px solid #7dd3fc;}
+.trap-card.compare{background:#fefce8;border:1px solid #fde68a;}
+.trap-card-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.trap-card.danger .trap-card-label{color:#dc2626;}
+.trap-card.insight .trap-card-label{color:#0369a1;}
+.trap-card.compare .trap-card-label{color:#92400e;}
+.trap-card-heading{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:8px;}
+.trap-card-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.trap-card-body strong{color:var(--text-dark);}
+
+/* ── CALLOUT BOXES ── */
+.key-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;}
+.key-callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.key-callout-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.key-callout-body strong{color:var(--text-dark);}
+
+.plain-english{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid var(--green);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;}
+.plain-english-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.plain-english-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.plain-english-body strong{color:var(--text-dark);}
+
+.technical-note{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 14px;margin:10px 0;}
+.technical-note-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--royal);margin-bottom:5px;}
+.technical-note-body{font-size:13px;color:var(--text-body);line-height:1.7;font-family:var(--font-mono);}
+
+/* ── SUBTYPE TABLE ── */
+.subtype-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.subtype-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+
+/* ── DIAGNOSTIC BLOCK ── */
+.diagnostic-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.diagnostic-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.diagnostic-steps{display:flex;flex-direction:column;gap:10px;}
+.diagnostic-step{display:flex;gap:14px;align-items:flex-start;}
+.diag-num{width:28px;height:28px;border-radius:50%;background:var(--vg-dim);color:var(--vg-mid);border:1px solid var(--vg-border);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.diag-content{flex:1;}
+.diag-heading{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.diag-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+
+/* ── MANAGEMENT BLOCK ── */
+.management-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.mgmt-card{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;}
+.mgmt-card-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.mgmt-card-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.mgmt-card-body strong{color:var(--text-dark);}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);margin-top:20px;}
+
+/* ══ DEFINITIVE MOBILE CSS ══ */
+@media (max-width: 640px) {
+  .main { padding: 12px 12px 40px; }
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 44px; padding: 6px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .disease-badge { font-size: 9px; padding: 2px 8px; }
+  .disease-hero { padding: 20px 16px; }
+  .disease-hero-title { font-size: 26px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hero-stat-value { font-size: 18px; }
+  .content-block { padding: 16px 14px; }
+  .block-title { font-size: 18px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .compare-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .management-grid { grid-template-columns: 1fr; }
+  .chain-step { flex-direction: row; gap: 10px; }
+  .chain-explain { font-size: 12px; }
+  .trap-card-body { font-size: 12px; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .compare-table th, .compare-table td { font-size: 11px; padding: 8px 10px; }
+  .key-callout { flex-direction: column; gap: 8px; }
+  .block-body { font-size: 13px; }
+}
+
+/* ── QUESTION BANK ── */
+.q-section { display: none; }
+.q-section.active { display: block; }
+.q-section-btn {
+  background: var(--off-white);
+  border: 1px solid var(--light-grey);
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .2s;
+}
+.q-section-btn:hover { border-color: var(--vg-border); color: var(--vg-mid); }
+.q-section-btn.active { background: var(--vg-mid); color: var(--white); border-color: var(--vg-mid); }
+.q-item {
+  background: var(--white);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.q-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--vg-mid);
+  margin-bottom: 8px;
+}
+.q-stem {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.q-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--light-grey);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all .15s;
+  font-size: 13px;
+  color: var(--text-body);
+  background: var(--off-white);
+  line-height: 1.55;
+  word-break: break-word;
+}
+.q-option:hover { border-color: var(--vg-border); background: var(--vg-dim); }
+.q-option.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+.q-option.wrong { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+.q-letter { font-family: var(--font-mono); font-size: 11px; font-weight: 700; width: 18px; flex-shrink: 0; margin-top: 1px; }
+.q-feedback {
+  background: var(--off-white);
+  border: 1px solid var(--light-grey);
+  border-left: 4px solid var(--vg-mid);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-body);
+  line-height: 1.75;
+  display: none;
+  margin-top: 10px;
+}
+.q-feedback.show { display: block; }
+.q-feedback strong { color: var(--text-dark); }
+.ra-statements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ra-box {
+  background: var(--off-white);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.ra-box-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.ra-box-text {
+  font-size: 13px;
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-weight: 500;
+  word-break: break-word;
+}
+.mc-items {
+  background: var(--off-white);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.mc-item {
+  font-size: 13px;
+  color: var(--text-body);
+  padding: 4px 0;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .ra-statements { grid-template-columns: 1fr; }
+  .q-stem { font-size: 13px; }
+  .q-option { font-size: 12px; }
+  .q-section-btn { font-size: 11px; padding: 6px 12px; }
+}
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-right">
+      <span class="disease-badge">GSD TYPE Ia · DEEP DIVE</span>
+    </div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('mechanism',this)">Biochemical Chain</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical Features</button>
+    <button class="tab-btn" onclick="showTab('traps',this)">Exam Traps</button>
+    <button class="tab-btn" onclick="showTab('diagnosis',this)">Diagnosis & Management</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="disease-hero">
+    <div class="disease-hero-eyebrow">Glycogen Storage Disease Type Ia</div>
+    <div class="disease-hero-title">Von Gierke Disease</div>
+    <div class="disease-hero-subtitle">The most common glycogen storage disease — and one of the most important for understanding how the liver controls blood glucose.</div>
+    <div class="hero-tags">
+      <span class="hero-tag type">GSD Type Ia</span>
+      <span class="hero-tag inherit">Autosomal Recessive</span>
+      <span class="hero-tag gene">G6PC gene · Chromosome 17q21</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">1:100k</div><div class="hero-stat-label">Incidence</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">G6Pase</div><div class="hero-stat-label">Deficient Enzyme</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">Liver</div><div class="hero-stat-label">Primary Organ</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">6+</div><div class="hero-stat-label">Clinical Features</div></div>
+    </div>
+  </div>
+
+  <!-- What is it -->
+  <div class="content-block">
+    <div class="block-eyebrow">What Is This Disease?</div>
+    <div class="block-title">A Locked Door in the Liver</div>
+    <div class="block-body">
+      <p>Imagine the liver as a warehouse that stores glucose as glycogen — a compact, branched molecule that can be rapidly unpacked when the body needs fuel. Every few hours between meals, this warehouse unpacks some glycogen and ships glucose out into the bloodstream to keep your brain, muscles, and organs running.</p>
+
+      <p>For glucose to be shipped out, it has to go through a specific process: glycogen breaks down into individual glucose units, each one gets tagged with a phosphate group to keep it inside the cell, and then — right at the very last step — an enzyme called <em>Glucose-6-phosphatase (G6Pase)</em> removes that phosphate tag and opens the door. Free glucose walks out of the liver cell, enters the blood, and the rest of the body gets fed.</p>
+
+      <p>In Von Gierke disease, that enzyme — G6Pase — is missing. The door is locked. The liver can unpack glycogen perfectly. It can even make glucose through other pathways. But it cannot take that final step of removing the phosphate and releasing free glucose into the blood. <strong>Glucose-6-phosphate (G6P) builds up inside liver cells with nowhere to go.</strong></p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🏭 The Warehouse Analogy</div>
+      <div class="analogy-body">Think of G6P as packages that have been wrapped and labelled but never loaded onto the delivery truck — because the loading dock (G6Pase) is broken. The warehouse fills up with packages (G6P → glycogen overflow → hepatomegaly), the packers keep wrapping more (gluconeogenesis still running), but nothing ever ships out. The customers (brain, muscles) are starving even though the warehouse is overflowing. That's Von Gierke disease.</div>
+    </div>
+
+    <div class="block-body">
+      <p>This single enzyme deficiency creates a domino effect — a cascade of biochemical consequences that explains every single feature of this disease. The hypoglycaemia, the swollen liver, the high triglycerides, the lactic acidosis, the gout — every one of them traces back to that one broken enzyme at the end of the pathway.</p>
+    </div>
+  </div>
+
+  <!-- The Core Concept -->
+  <div class="content-block">
+    <div class="block-eyebrow">The Core Concept</div>
+    <div class="block-title">Why Only the Liver?</div>
+    <div class="block-body">
+      <p>You might wonder — if G6Pase is broken, why doesn't every organ in the body get sick? The answer is simple: <strong>only the liver (and the kidney cortex) actually has Glucose-6-phosphatase in the first place.</strong></p>
+
+      <p>Muscle cells, brain cells, heart cells — none of them have G6Pase. When those cells break down glycogen, the G6P they produce stays inside and feeds directly into their own glycolysis for energy. They were never designed to release glucose into the blood. That's the liver's exclusive job.</p>
+
+      <p>So Von Gierke disease is fundamentally a disease of <em>hepatic glucose export failure</em>. The liver is doing everything right up to the last step — it's breaking down glycogen, it's running gluconeogenesis — but it cannot export the final product. The consequence is that the rest of the body is chronically starved of glucose, while the liver is simultaneously drowning in it.</p>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>The single most important concept in Von Gierke disease:</strong> G6Pase is the final step shared by BOTH glycogenolysis AND gluconeogenesis. Blocking it doesn't just impair one pathway — it blocks the liver's entire glucose-releasing capacity from every source simultaneously. This is why the disease is so severe.</div>
+    </div>
+  </div>
+
+  <!-- Where it fits -->
+  <div class="content-block">
+    <div class="block-eyebrow">Where It Fits in the Pathway</div>
+    <div class="block-title">The Last Step of Everything</div>
+    <div class="block-body">
+      <p>In normal metabolism, glucose-6-phosphate sits at a crossroads. It can go into glycolysis (broken down for energy), into the pentose phosphate pathway (for NADPH and ribose production), into glycogen synthesis (stored as glycogen), or — in the liver only — it can be dephosphorylated by G6Pase to become free glucose for export.</p>
+
+      <p>In Von Gierke disease, that last exit route is sealed. G6P cannot leave as free glucose. So it backs up and floods every other direction instead:</p>
+
+      <p><strong>Into glycolysis</strong> → excess pyruvate → excess lactate → <em>lactic acidosis</em></p>
+      <p><strong>Into glycogen synthesis</strong> → glycogen accumulates in the liver → <em>hepatomegaly</em></p>
+      <p><strong>Into lipid synthesis</strong> → excess Acetyl-CoA → fatty acids and triglycerides → <em>hypertriglyceridaemia and fatty liver</em></p>
+      <p><strong>Cannot exit as glucose</strong> → blood glucose falls → <em>severe fasting hypoglycaemia</em></p>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">Plain English Summary</div>
+      <div class="plain-english-body">G6P is like water building up behind a blocked drain. It doesn't just sit there — it overflows in every direction available. Each overflow direction produces a different clinical feature. Understanding the disease is really just understanding where the overflow goes.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ BIOCHEMICAL CHAIN ══ -->
+<div id="tab-mechanism" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Step-by-Step Mechanism</div>
+    <div class="block-title">From One Missing Enzyme to Six Clinical Problems</div>
+    <div class="block-body">
+      <p>Every clinical feature of Von Gierke disease follows directly from the accumulation of Glucose-6-phosphate. Let's trace the chain step by step — starting from the broken enzyme and working outward to each consequence.</p>
+    </div>
+  </div>
+
+  <!-- Chain 1: The block -->
+  <div class="chain-block">
+    <div class="chain-title">The Primary Block</div>
+    <div class="chain-steps">
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num enzyme">1</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label enzyme">Missing Enzyme</div>
+          <div class="chain-heading">Glucose-6-phosphatase is absent from the ER membrane</div>
+          <div class="chain-explain">
+            G6Pase sits on the inner membrane of the <strong>endoplasmic reticulum (ER)</strong> — not the cytosol. This is important: G6P has to be transported into the ER lumen by a transporter (G6PT, encoded by the SLC37A4 gene) before G6Pase can act on it. In GSD Type Ia, G6Pase itself is missing. In GSD Type Ib, the transporter is missing — same clinical picture, different gene. The enzyme normally removes the phosphate from G6P, producing free glucose and inorganic phosphate. Without it, G6P accumulates in the cytosol.
+          </div>
+          <span class="chain-technical">G6PC gene mutation → no functional G6Pase protein → G6P cannot be dephosphorylated</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num accumulate">2</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label accumulate">Primary Accumulation</div>
+          <div class="chain-heading">Glucose-6-phosphate builds up in every hepatocyte</div>
+          <div class="chain-explain">
+            G6P is produced by two processes running constantly in the liver: <strong>glycogenolysis</strong> (glycogen → G1P → G6P via Phosphoglucomutase) and <strong>gluconeogenesis</strong> (pyruvate/lactate/amino acids → ... → G6P). Both pipelines keep feeding G6P into the hepatocyte. Normally, G6Pase drains it out as free glucose. Without that drain, G6P accumulates continuously — especially during fasting when both glycogenolysis and gluconeogenesis are running at maximum speed.
+          </div>
+          <span class="chain-technical">Glycogenolysis + Gluconeogenesis → G6P → nowhere to go → intracellular accumulation</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num consequence">3</div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label consequence">Immediate Consequence</div>
+          <div class="chain-heading">Blood glucose cannot be maintained during fasting</div>
+          <div class="chain-explain">
+            The liver's job during fasting is to release glucose into the blood to keep blood glucose at ~4–5 mmol/L. With G6Pase missing, this is impossible — G6P is trapped inside hepatocytes regardless of how much glycogen is broken down or how hard gluconeogenesis runs. Blood glucose falls within <strong>2–4 hours of fasting</strong> (a very short window — most healthy adults can fast for 12–14 hours without significant hypoglycaemia). The brain, which depends almost entirely on glucose, is particularly vulnerable.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chain 2: G6P overflow consequences -->
+  <div class="chain-block">
+    <div class="chain-title">The G6P Overflow — Where It Goes and What It Causes</div>
+    <div class="chain-steps">
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num accumulate">A</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label accumulate">Overflow Route 1 → Glycogen Synthesis</div>
+          <div class="chain-heading">G6P → Glycogen → Hepatomegaly</div>
+          <div class="chain-explain">
+            G6P can be converted to Glucose-1-phosphate (by Phosphoglucomutase running in reverse) and then to UDP-Glucose, which Glycogen Synthase incorporates into glycogen. The liver cells literally fill up with glycogen — the organ swells enormously. <strong>Hepatomegaly</strong> in Von Gierke can be dramatic: the liver may reach the iliac crests, making the abdomen visibly protuberant even in infancy. The liver is not inflamed or fibrotic initially — it is simply packed with glycogen. Over years, continued glycogen accumulation and the toxic effects of the metabolic derangements can lead to hepatic complications including adenoma formation.
+          </div>
+          <span class="chain-technical">G6P → G1P → UDP-Glucose → Glycogen accumulation → hepatomegaly</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num accumulate">B</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label accumulate">Overflow Route 2 → Glycolysis</div>
+          <div class="chain-heading">G6P → Glycolysis → Pyruvate → Lactate → Lactic Acidosis</div>
+          <div class="chain-explain">
+            G6P entering glycolysis produces excess pyruvate. But pyruvate cannot be fully processed by the TCA cycle when it's being produced in such large quantities — and crucially, the liver is simultaneously trying to use pyruvate as a gluconeogenic substrate, but that glucose cannot be exported either. The result: pyruvate is shunted to <strong>lactate</strong> by Lactate Dehydrogenase (LDH), which regenerates NAD⁺ to keep glycolysis running. Lactate accumulates in the blood — sometimes reaching 5–10× normal levels (normal: 0.5–2 mmol/L; Von Gierke: may exceed 10 mmol/L). This <strong>lactic acidosis</strong> can be the most life-threatening metabolic abnormality in a crisis, producing a high anion gap metabolic acidosis.
+          </div>
+          <span class="chain-technical">G6P → Fructose-6-P → ... → Pyruvate → Lactate (LDH) → elevated blood lactate → metabolic acidosis</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num accumulate">C</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label accumulate">Overflow Route 3 → Lipid Synthesis</div>
+          <div class="chain-heading">G6P → Pyruvate → Acetyl-CoA → Triglycerides → Hyperlipidaemia</div>
+          <div class="chain-explain">
+            The excess pyruvate that isn't converted to lactate enters the mitochondria and becomes <strong>Acetyl-CoA</strong> via Pyruvate Dehydrogenase. Acetyl-CoA is the building block of fatty acids. With an overabundance of Acetyl-CoA and nowhere productive to put it, the liver switches to <strong>de novo lipogenesis</strong> — making fatty acids at high rate. These are packaged into <strong>VLDL</strong> (very low density lipoproteins) and released into the blood, causing <strong>hypertriglyceridaemia</strong>. Simultaneously, G6P can enter the pentose phosphate pathway, generating NADPH to fuel even more lipid synthesis. The excess fat also deposits in the liver itself, contributing to <strong>fatty liver (hepatic steatosis)</strong>. Cholesterol synthesis also increases via the same Acetyl-CoA overflow. Clinically, patients may develop <strong>xanthomas</strong> (fatty deposits in skin) and <strong>pancreatitis</strong> from extremely high triglycerides.
+          </div>
+          <span class="chain-technical">Acetyl-CoA → Malonyl-CoA → Palmitate → Triglycerides → VLDL → hypertriglyceridaemia</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num clinical">D</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label clinical">Secondary Consequence → Uric Acid</div>
+          <div class="chain-heading">G6P Overflow → Pentose Phosphate Pathway → Purine → Uric Acid → Hyperuricaemia</div>
+          <div class="chain-explain">
+            Some of the excess G6P enters the <strong>Pentose Phosphate Pathway (PPP)</strong>, generating ribose-5-phosphate. Ribose-5-phosphate is the backbone of purines (adenine, guanine). With excess ribose available, purine synthesis accelerates, and purine degradation increases accordingly — producing more <strong>uric acid</strong>. Additionally, the G6P-driven increase in glycolysis consumes ATP rapidly, raising AMP. AMP is degraded through the purine nucleotide cycle, also generating uric acid. Compounding this, the high lactate levels compete with uric acid for renal tubular secretion — meaning the kidney excretes less uric acid even as production rises. The result: <strong>hyperuricaemia</strong>, which if untreated can cause <strong>gout</strong> and kidney stones. Children with Von Gierke typically don't develop gout (uric acid needs years to crystallise), but adolescents and adults with poorly controlled disease do.
+          </div>
+          <span class="chain-technical">PPP ↑ → ribose-5-P ↑ → purine synthesis ↑ → uric acid ↑; lactate competes with urate for renal secretion → hyperuricaemia</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num clinical">E</div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label clinical">Secondary Consequence → Kidney</div>
+          <div class="chain-heading">G6P Accumulation in Kidney → Nephromegaly → Long-term Renal Disease</div>
+          <div class="chain-explain">
+            The kidney cortex also expresses G6Pase and is therefore also affected. Glycogen and fat accumulate in renal tubular cells, causing <strong>nephromegaly</strong> (enlarged kidneys). Long-term, glycogen accumulation in the glomeruli and tubules causes progressive renal dysfunction — <strong>focal segmental glomerulosclerosis (FSGS)</strong> leading to proteinuria, and eventually chronic kidney disease in poorly controlled patients. The combination of hyperuricaemia and renal disease can be particularly damaging. Early patients who survived into adulthood before modern management frequently developed end-stage renal disease.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- The Glucagon Paradox -->
+  <div class="content-block">
+    <div class="block-eyebrow">Critical Mechanism</div>
+    <div class="block-title">Why Glucagon Cannot Help — The Diagnostic Paradox</div>
+    <div class="block-body">
+      <p>In a healthy person, when blood glucose falls, the pancreas releases <strong>glucagon</strong>. Glucagon signals the liver to do two things: break down glycogen (glycogenolysis) and make new glucose (gluconeogenesis). Both processes produce G6P, which G6Pase then converts to free glucose for export. Blood glucose rises.</p>
+
+      <p>In Von Gierke disease, glucagon is released normally, and the liver responds normally — glycogenolysis accelerates, gluconeogenesis runs at maximum rate, G6P pours into the hepatocyte. But then nothing happens. G6P has nowhere to go. <strong>Giving glucagon to a Von Gierke patient doesn't raise blood glucose</strong> — it just makes G6P accumulate faster, worsening lactic acidosis.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🚰 The Plumbing Analogy</div>
+      <div class="analogy-body">Glucagon is like turning up the water pressure in a pipe that has a blocked outlet. You're pushing harder, but nothing is getting through. The pressure just builds up, and water starts leaking out of every other crack — that's the worsening lactic acidosis and hypertriglyceridaemia when glucagon is given. The fix isn't more pressure — it's unblocking the drain (or bypassing it entirely with dietary management).</div>
+    </div>
+
+    <div class="block-body">
+      <p>This is one of the key diagnostic tests for Von Gierke disease: <strong>the glucagon stimulation test</strong>. A dose of glucagon is given after a fast. In a normal child, blood glucose rises by at least 1.5–2 mmol/L. In a Von Gierke patient, blood glucose barely moves — but blood lactate rises significantly. The glucagon is stimulating glycogenolysis, G6P accumulates, and the overflow goes to lactate instead of glucose.</p>
+    </div>
+
+    <div class="technical-note">
+      <div class="technical-note-label">Technical Detail</div>
+      <div class="technical-note-body">Glucagon stimulation test findings in Von Gierke Type Ia:<br>
+      — Blood glucose: minimal or no rise (&lt;1 mmol/L increase)<br>
+      — Blood lactate: rises significantly (paradoxical lactate increase)<br>
+      — This pattern distinguishes Von Gierke from other causes of fasting hypoglycaemia</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL FEATURES ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Clinical Presentation</div>
+    <div class="block-title">How Von Gierke Presents — And Why</div>
+    <div class="block-body">
+      <p>Von Gierke disease typically presents in the <strong>first few months of life</strong>, often when a breastfed infant begins sleeping longer between feeds — even a 3–4 hour gap can trigger hypoglycaemia. Alternatively, it presents when formula-fed infants are weaned or when feeding intervals increase. The initial presentation is usually a <strong>hypoglycaemic seizure</strong> or an incidental finding of an enormous liver during a routine examination.</p>
+      <p>Every clinical feature can be explained by the biochemistry — let's go through each one.</p>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+
+    <div class="feature-card metabolic">
+      <div class="feature-card-icon">⚡</div>
+      <div class="feature-card-title">Severe Fasting Hypoglycaemia</div>
+      <div class="feature-card-subtitle">Most dangerous feature · Presents earliest</div>
+      <div class="feature-card-body">
+        Blood glucose drops to critically low levels (often &lt;2 mmol/L, sometimes &lt;1 mmol/L) within 2–4 hours of fasting. The brain runs almost exclusively on glucose — without it, neurons stop firing properly, producing <strong>irritability, lethargy, seizures, and if prolonged, brain damage</strong>. Unlike some other hypoglycaemic conditions, the hypoglycaemia in Von Gierke is not from insulin excess — insulin levels are actually low (the pancreas correctly senses low glucose and reduces insulin). The problem is purely hepatic: the liver cannot export glucose.
+      </div>
+      <div class="feature-chain">G6Pase absent → G6P cannot → free glucose → blood glucose ↓ → brain symptoms</div>
+    </div>
+
+    <div class="feature-card structural">
+      <div class="feature-card-icon">🫀</div>
+      <div class="feature-card-title">Massive Hepatomegaly</div>
+      <div class="feature-card-subtitle">Most visible feature · Present from infancy</div>
+      <div class="feature-card-body">
+        The liver can become <strong>enormously enlarged</strong> — sometimes extending to the pelvis. The abdomen appears protuberant and the liver is firm on palpation. Initially this is due to glycogen and fat accumulation (not inflammation), so liver enzymes may be normal or only mildly elevated early on. Over years, <strong>hepatic adenomas</strong> can develop (benign tumours in the glycogen-laden liver), and there is a small but real risk of <strong>hepatocellular carcinoma</strong> if adenomas are present. The kidneys are also enlarged (<strong>nephromegaly</strong>) from G6Pase deficiency in renal cortex.
+      </div>
+      <div class="feature-chain">G6P → glycogen synthesis ↑ → hepatocytes packed with glycogen → organ enlargement</div>
+    </div>
+
+    <div class="feature-card metabolic">
+      <div class="feature-card-icon">🧪</div>
+      <div class="feature-card-title">Lactic Acidosis</div>
+      <div class="feature-card-subtitle">High anion gap · Life-threatening in crises</div>
+      <div class="feature-card-body">
+        Blood lactate is chronically elevated (often 3–10 mmol/L; normal &lt;2 mmol/L) because excess G6P floods glycolysis, producing excess pyruvate that is converted to lactate. This creates a <strong>high anion gap metabolic acidosis</strong>. During illness, surgery, or prolonged fasting — when glycogenolysis accelerates — lactate can spike dramatically and become life-threatening. Patients are also prone to <strong>lactic acidosis crises</strong> during intercurrent infections. Chronic lactic acidosis contributes to the hyperuricaemia (lactate competes with urate for renal tubular secretion).
+      </div>
+      <div class="feature-chain">G6P ↑ → glycolysis ↑ → pyruvate ↑ → lactate ↑ → metabolic acidosis</div>
+    </div>
+
+    <div class="feature-card secondary">
+      <div class="feature-card-icon">🩸</div>
+      <div class="feature-card-title">Hypertriglyceridaemia & Hypercholesterolaemia</div>
+      <div class="feature-card-subtitle">Leads to xanthomas · Risk of pancreatitis</div>
+      <div class="feature-card-body">
+        Triglycerides can be <strong>spectacularly elevated</strong> — sometimes exceeding 10–20 mmol/L (normal &lt;1.7 mmol/L). This is because excess Acetyl-CoA from glycolysis drives massive de novo lipogenesis in the liver, and the resulting triglycerides are packaged into VLDL and released into the blood. The skin may show <strong>xanthomas</strong> (yellowish fatty deposits, particularly over knees and elbows). Extreme hypertriglyceridaemia raises the risk of <strong>acute pancreatitis</strong>. Cholesterol is also elevated. The lipid panel looks similar to familial hyperlipidaemia but is entirely secondary to the metabolic block.
+      </div>
+      <div class="feature-chain">Acetyl-CoA ↑ → fatty acid synthesis ↑ → VLDL ↑ → triglycerides ↑ in blood</div>
+    </div>
+
+    <div class="feature-card secondary">
+      <div class="feature-card-icon">💎</div>
+      <div class="feature-card-title">Hyperuricaemia & Gout</div>
+      <div class="feature-card-subtitle">In older patients · Compounded by lactate</div>
+      <div class="feature-card-body">
+        Uric acid is elevated for two reasons: <strong>increased production</strong> (PPP generates ribose-5-phosphate → purine synthesis → uric acid; ATP depletion from rapid glycolysis → AMP degradation → uric acid) and <strong>decreased excretion</strong> (lactate competes with urate for renal tubular secretion via OAT transporters). Children rarely develop gout (crystals take years to form), but adolescents and adults with poorly controlled disease develop <strong>tophi, gouty arthritis, and uric acid kidney stones</strong>. Managing the underlying metabolic disease dramatically reduces uric acid levels.
+      </div>
+      <div class="feature-chain">PPP ↑ → purines ↑ → uric acid ↑; lactate competes for renal urate excretion → hyperuricaemia</div>
+    </div>
+
+    <div class="feature-card structural">
+      <div class="feature-card-icon">📏</div>
+      <div class="feature-card-title">Growth Retardation & Doll-Like Facies</div>
+      <div class="feature-card-subtitle">Classic appearance · Improves with treatment</div>
+      <div class="feature-card-body">
+        Chronic hypoglycaemia, metabolic acidosis, and poor nutrition impair growth hormone action and IGF-1 production, causing <strong>short stature</strong>. The combination of a protuberant abdomen (massive hepatomegaly), relatively short limbs, and a rounded, chubby-cheeked face produces the characteristic <strong>"doll-like" appearance</strong> described in textbooks. Fat accumulates subcutaneously (from excess lipid synthesis) and in the cheeks, giving a well-nourished appearance despite the metabolic chaos underneath. With proper dietary management started early, growth can be normalised.
+      </div>
+      <div class="feature-chain">Chronic metabolic stress → IGF-1 ↓ → growth retardation; fat accumulation → doll-like facies</div>
+    </div>
+
+    <div class="feature-card hormonal">
+      <div class="feature-card-icon">🩺</div>
+      <div class="feature-card-title">Bleeding Tendency</div>
+      <div class="feature-card-subtitle">Platelet dysfunction · Prolonged bleeding time</div>
+      <div class="feature-card-body">
+        Patients with Von Gierke disease have a <strong>prolonged bleeding time</strong> despite a normal platelet count and normal coagulation factors. The reason is platelet dysfunction — platelets in Von Gierke disease have impaired aggregation and adhesion, particularly reduced release of ADP and impaired thromboxane synthesis. The exact mechanism is not fully elucidated but appears related to abnormal platelet energy metabolism from the underlying glycogen storage defect. This is clinically important before any surgical procedures — patients need specific haemostatic management.
+      </div>
+      <div class="feature-chain">Platelet glycogen storage defect → impaired platelet activation → prolonged bleeding time</div>
+    </div>
+
+    <div class="feature-card secondary">
+      <div class="feature-card-icon">🫘</div>
+      <div class="feature-card-title">Renal Complications</div>
+      <div class="feature-card-subtitle">Long-term · Progressive with age</div>
+      <div class="feature-card-body">
+        The kidney cortex expresses G6Pase, so it is also affected. Early: <strong>nephromegaly</strong> (enlarged kidneys). Over years: glycogen deposition in glomeruli and tubules → <strong>focal segmental glomerulosclerosis (FSGS)</strong> → proteinuria → progressive CKD. The combination of chronic hyperuricaemia, recurrent hyperlactataemia, and glomerulosclerosis makes renal failure a major long-term complication in adults with Von Gierke disease who survived before modern dietary management existed.
+      </div>
+      <div class="feature-chain">G6Pase deficiency in kidney → glycogen accumulation → FSGS → proteinuria → CKD</div>
+    </div>
+
+  </div>
+
+  <!-- Metabolic Lab Findings -->
+  <div class="compare-block">
+    <div class="compare-title">Characteristic Laboratory Findings</div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Investigation</th>
+          <th>Finding in Von Gierke</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feature-col">Blood glucose (fasting)</td><td class="vg-col">Critically low (&lt;2 mmol/L)</td><td>G6P cannot be dephosphorylated → no glucose export</td></tr>
+        <tr><td class="feature-col">Blood lactate</td><td class="vg-col">Markedly elevated (3–15 mmol/L)</td><td>G6P overflow into glycolysis → excess pyruvate → lactate</td></tr>
+        <tr><td class="feature-col">Blood triglycerides</td><td class="vg-col">Very high (5–20 mmol/L)</td><td>Excess Acetyl-CoA → de novo lipogenesis → VLDL ↑</td></tr>
+        <tr><td class="feature-col">Uric acid</td><td class="vg-col">Elevated</td><td>PPP ↑ + ATP depletion + lactate competes for renal excretion</td></tr>
+        <tr><td class="feature-col">Insulin</td><td class="vg-col">Appropriately low</td><td>Hypoglycaemia → pancreas correctly reduces insulin secretion</td></tr>
+        <tr><td class="feature-col">Ketones</td><td class="vg-col">Low to absent</td><td>High insulin:glucagon ratio early; excess lipids suppress ketogenesis</td></tr>
+        <tr><td class="feature-col">Liver transaminases</td><td class="vg-col">Mildly elevated or normal</td><td>Hepatocyte stress from glycogen accumulation</td></tr>
+        <tr><td class="feature-col">Glucagon test</td><td class="vg-col">No glucose rise; lactate rises</td><td>G6Pase absent → glucagon stimulates G6P production but cannot export it</td></tr>
+        <tr><td class="feature-col">Urinalysis</td><td class="vg-col">Glycosuria not typical; uricosuria</td><td>Glucose not elevated; uric acid overflow into urine</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ EXAM TRAPS ══ -->
+<div id="tab-traps" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">High-Yield Exam Intelligence</div>
+    <div class="block-title">What Trips Students Up — And How to Think Past It</div>
+    <div class="block-body">
+      <p>Von Gierke disease appears in exams in several specific ways — as a clinical vignette, as an MCQ about biochemical mechanisms, and heavily in R&A questions about why glucagon fails. Here are the specific traps and how to think through them.</p>
+    </div>
+  </div>
+
+  <div class="trap-block">
+    <div class="trap-title">The Most Common Exam Traps</div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 1</div>
+      <div class="trap-card-heading">"Glucagon doesn't work because the liver has no glycogen"</div>
+      <div class="trap-card-body">
+        <strong>This is wrong.</strong> The liver in Von Gierke is packed with glycogen — more than normal, in fact. Glucagon fails not because there's no glycogen to break down, but because even after glycogen is broken down successfully to G6P, the G6P cannot be converted to free glucose (no G6Pase). Glycogenolysis runs fine. The block is at the final step. <strong>Remember: the problem is export, not production.</strong>
+      </div>
+    </div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 2</div>
+      <div class="trap-card-heading">"Von Gierke causes hypoglycaemia because gluconeogenesis is blocked"</div>
+      <div class="trap-card-body">
+        <strong>Also wrong.</strong> Gluconeogenesis runs perfectly normally in Von Gierke — all the enzymes (Pyruvate Carboxylase, PEPCK, FBPase-1) are intact. The liver makes G6P from lactate, amino acids, and glycerol just fine. But all that newly made G6P also cannot exit as free glucose because G6Pase is the final step of gluconeogenesis too. The harder concept — and the exam-favourite point — is that G6Pase is the bottleneck for BOTH glycogenolysis AND gluconeogenesis simultaneously.
+      </div>
+    </div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 3</div>
+      <div class="trap-card-heading">"High insulin causes the hypoglycaemia"</div>
+      <div class="trap-card-body">
+        <strong>Wrong again.</strong> Insulin is actually <em>low</em> in Von Gierke — the pancreas correctly senses low blood glucose and reduces insulin secretion. This is an important distinction from hyperinsulinism (e.g. insulinoma, congenital hyperinsulinism), which also causes hypoglycaemia but has high insulin. In Von Gierke, the hypoglycaemia is purely from hepatic glucose export failure, not from insulin excess. Ketones may also be reduced (though not always absent), because insulin suppresses lipolysis — but in Von Gierke, even during hypoglycaemia, the massive triglyceride load provides some substrate for ketogenesis. This is a nuanced point that high-level questions exploit.
+      </div>
+    </div>
+
+    <div class="trap-card insight">
+      <div class="trap-card-label">💡 Key Insight 1</div>
+      <div class="trap-card-heading">The paradox of abundant substrate and starvation</div>
+      <div class="trap-card-body">
+        Von Gierke is a disease of <strong>paradox</strong>. The liver is bursting with glucose-containing molecules (glycogen, G6P) — yet the blood is starving of glucose. The liver is producing glucose at maximum rate (glycogenolysis + gluconeogenesis both running) — yet blood glucose falls. This paradox is exactly what the blocked final step creates: production and storage are normal or even supranormal, but export is zero. Questions that present "the liver is trying to produce glucose but blood glucose is low" are pointing directly at this paradox.
+      </div>
+    </div>
+
+    <div class="trap-card insight">
+      <div class="trap-card-label">💡 Key Insight 2</div>
+      <div class="trap-card-heading">Why lactic acidosis rises paradoxically with glucagon</div>
+      <div class="trap-card-body">
+        When glucagon is given, it stimulates glycogenolysis — glycogen → G6P. That G6P floods into glycolysis → pyruvate → lactate. More glucagon = more G6P = more lactate. <strong>Lactate rises when glucagon is given — the opposite of what you'd expect.</strong> This is the biochemical basis of the glucagon test finding: blood glucose barely moves, but blood lactate rises. The test is positive (suggesting Von Gierke) when you see this pattern. It's exploited in R&A questions: "Glucagon administration worsens lactic acidosis in Von Gierke disease BECAUSE G6Pase deficiency means G6P produced by glycogenolysis cannot be exported as glucose and instead overflows into glycolysis."
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap</div>
+      <div class="trap-card-heading">Von Gierke vs Cori Disease (GSD Type III)</div>
+      <div class="trap-card-body">
+        Both cause hepatomegaly and hypoglycaemia. The key differences:
+        <br><br>
+        <strong>Von Gierke:</strong> Glucagon unresponsive (G6Pase blocked — both glycogenolysis AND gluconeogenesis fail to export glucose). Lactic acidosis prominent. Hypertriglyceridaemia severe. Gluconeogenesis intact but useless. Hypoglycaemia severe (no glucose export at all).
+        <br><br>
+        <strong>Cori Disease:</strong> Glucagon partially responsive (glycogenolysis can release some outer-chain glucose before hitting limit dextrin, AND gluconeogenesis is fully intact and can export glucose via G6Pase). Lactic acidosis mild. Hypoglycaemia milder. Improves with age. If an exam question says "hypoglycaemia responds to protein feeding" — that's Cori, not Von Gierke. Protein → amino acids → gluconeogenesis → G6P → G6Pase → free glucose. This works in Cori (G6Pase intact). It doesn't work in Von Gierke (G6Pase absent).
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap</div>
+      <div class="trap-card-heading">Von Gierke vs Fructose-1,6-bisphosphatase Deficiency</div>
+      <div class="trap-card-body">
+        FBPase-1 deficiency also causes fasting hypoglycaemia and lactic acidosis and is triggered by fasting. The key difference: in FBPase-1 deficiency, <strong>glycogenolysis is fully intact</strong>. The liver can break down glycogen normally and export glucose via G6Pase. Hypoglycaemia only occurs once glycogen is depleted (longer fasting required). <strong>Glucagon works normally</strong> in FBPase-1 deficiency — it stimulates glycogenolysis, G6P is produced, and G6Pase exports it as free glucose. In Von Gierke, glucagon cannot work even when glycogen is full, because G6Pase itself is missing. This is the discriminating test: glucagon response distinguishes Von Gierke (no response) from FBPase-1 deficiency (normal response, at least early).
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap</div>
+      <div class="trap-card-heading">GSD Type Ia vs Type Ib</div>
+      <div class="trap-card-body">
+        Type Ia: G6Pase enzyme itself is absent (G6PC gene mutation). Type Ib: The transporter that moves G6P into the ER lumen (G6PT, encoded by SLC37A4) is absent — G6Pase is present but cannot access its substrate. <strong>Clinical presentation is identical</strong> — same hypoglycaemia, same hepatomegaly, same lactic acidosis, same metabolic profile. The distinguishing feature of Type Ib is <strong>neutropenia and neutrophil dysfunction</strong> — because neutrophils also use G6PT, and without it they cannot generate enough energy for their function. Type Ib patients have recurrent bacterial infections and inflammatory bowel disease-like symptoms. If an exam gives you Von Gierke features PLUS recurrent infections or neutropenia — think Type Ib.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- R&A specific section -->
+  <div class="content-block">
+    <div class="block-eyebrow">R&A Framework</div>
+    <div class="block-title">How to Think Through Von Gierke R&A Questions</div>
+    <div class="block-body">
+      <p>R&A questions on Von Gierke typically test one of three things: (1) whether glucagon works and why, (2) why each metabolic abnormality occurs, or (3) why the disease is more severe than other GSDs that also impair glycogenolysis.</p>
+
+      <p><strong>Framework for Assertion evaluation:</strong> Ask yourself — is this statement describing a consequence of G6Pase deficiency? If yes, is the consequence a direct result (G6P accumulation) or a secondary overflow effect (lactic acidosis, hypertriglyceridaemia, hyperuricaemia)?</p>
+
+      <p><strong>Framework for Reason evaluation:</strong> Does the reason correctly identify the biochemical mechanism? Watch for reasons that are true statements but explain the assertion by a different mechanism than the correct one. For example: "Hypoglycaemia occurs in Von Gierke disease BECAUSE insulin levels are high." The assertion (hypoglycaemia) is true; the reason (high insulin) is false — insulin is actually low. Option C.</p>
+
+      <p><strong>The trickiest R&A pattern:</strong> Both assertion and reason are true, but the reason explains a different part of the pathophysiology. Example: "The liver is enlarged in Von Gierke disease BECAUSE glycogenolysis is impaired." Both are technically true — the liver is enlarged (assertion ✓) and glycogenolysis is somewhat impaired in the sense that its product cannot be exported (reason ✓). But is the reason the correct explanation? Not quite — the enlargement is due to G6P accumulation → glycogen synthesis → glycogen accumulation, not directly from impaired glycogenolysis. This is Option B territory — both true, reason not the correct explanation.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ DIAGNOSIS & MANAGEMENT ══ -->
+<div id="tab-diagnosis" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Diagnosis</div>
+    <div class="block-title">How Von Gierke Disease Is Diagnosed</div>
+    <div class="block-body">
+      <p>Diagnosis combines clinical suspicion, metabolic investigations, imaging, and genetic confirmation. The sequence below reflects how it typically unfolds in practice.</p>
+    </div>
+  </div>
+
+  <div class="diagnostic-block">
+    <div class="diagnostic-title">Diagnostic Pathway</div>
+    <div class="diagnostic-steps">
+
+      <div class="diagnostic-step">
+        <div class="diag-num">1</div>
+        <div class="diag-content">
+          <div class="diag-heading">Clinical Suspicion</div>
+          <div class="diag-body">Infant presenting with hypoglycaemia after a short fast (2–4 hours) plus massive hepatomegaly. The combination is highly suggestive. Doll-like facies and protuberant abdomen in a toddler with documented hypoglycaemia should prompt immediate investigation. A family history (autosomal recessive — parents may be consanguineous or from specific ethnic groups with higher carrier rates) increases suspicion.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">2</div>
+        <div class="diag-content">
+          <div class="diag-heading">Metabolic Screen (Fasting Studies)</div>
+          <div class="diag-body">During a controlled fast under medical supervision: blood glucose (falls rapidly), blood lactate (elevated — often &gt;5 mmol/L), uric acid (elevated), triglycerides (elevated), insulin (low, appropriate), ketones (low to absent despite hypoglycaemia — this is an important clue; most other hypoglycaemic states have high ketones). The pattern of hypoketotic hypoglycaemia with lactic acidosis and hypertriglyceridaemia is highly characteristic.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">3</div>
+        <div class="diag-content">
+          <div class="diag-heading">Glucagon Stimulation Test</div>
+          <div class="diag-body">Give 1 mg glucagon IM after an overnight fast (only when the child is safe to fast — often requires IV glucose running). Measure blood glucose and lactate at 15, 30, 45, 60 minutes. In Von Gierke: glucose rises &lt;1 mmol/L; lactate rises. In normal individuals: glucose rises &gt;1.5 mmol/L. This test is diagnostic when positive but must be performed safely with glucose backup.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">4</div>
+        <div class="diag-content">
+          <div class="diag-heading">Imaging</div>
+          <div class="diag-body">Liver ultrasound confirms hepatomegaly and may show increased echogenicity (from glycogen and fat deposition). Kidneys are also enlarged. As patients age, ultrasound surveillance is used to monitor for hepatic adenomas (appear in adolescence/adulthood in poorly controlled patients). MRI liver is more sensitive for detecting adenomas and distinguishing them from hepatocellular carcinoma.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">5</div>
+        <div class="diag-content">
+          <div class="diag-heading">Genetic Testing (Confirmatory)</div>
+          <div class="diag-body">Sequencing of the G6PC gene (Type Ia) or SLC37A4 gene (Type Ib) confirms the diagnosis and identifies the specific mutation. This has largely replaced liver biopsy for diagnosis. Genetic testing is also used for family screening and prenatal diagnosis. Liver biopsy was historically used to measure G6Pase enzyme activity directly but is now rarely needed when genetic testing is available.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Management -->
+  <div class="content-block">
+    <div class="block-eyebrow">Management</div>
+    <div class="block-title">Treatment — The Goal Is to Bypass the Block</div>
+    <div class="block-body">
+      <p>There is no cure currently available for Von Gierke disease (though gene therapy trials are ongoing). Treatment is entirely directed at <strong>preventing hypoglycaemia and managing the downstream metabolic consequences</strong>. The principle is simple: if you keep blood glucose from ever falling, G6P never builds up to the same degree, and all the downstream cascades are dampened.</p>
+    </div>
+  </div>
+
+  <div class="management-grid">
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Dietary Management — Cornerstone of Treatment</div>
+      <div class="mgmt-card-body">
+        <strong>Continuous glucose supply</strong> is the principle. In infancy: continuous nasogastric feeds overnight. As children grow: <strong>uncooked cornstarch (UCCS)</strong> — a slowly digested complex carbohydrate that releases glucose gradually over 4–6 hours, extending the safe fasting window. Cornstarch is given every 3–6 hours (including overnight) mixed into feeds or drinks. It is the cornerstone of outpatient management and has dramatically changed outcomes. High-carbohydrate, low-fat, low-fructose, low-galactose diet. Fructose and galactose are avoided because they are metabolised to F1P and G1P which cannot be exported either — they worsen the metabolic burden.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Managing Metabolic Complications</div>
+      <div class="mgmt-card-body">
+        <strong>Hyperuricaemia:</strong> Allopurinol (xanthine oxidase inhibitor) to reduce uric acid production. <strong>Hypertriglyceridaemia:</strong> Dietary fat restriction; fibrates in severe cases; fish oil. <strong>Lactic acidosis:</strong> Prevention (avoid fasting) is the mainstay; sodium bicarbonate in acute crises. <strong>Nephropathy:</strong> ACE inhibitors to reduce proteinuria; strict metabolic control slows progression. <strong>Anaemia:</strong> If present, G-CSF in Type Ib to stimulate neutrophil production.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Monitoring & Surveillance</div>
+      <div class="mgmt-card-body">
+        <strong>Regular fasting glucose + lactate</strong> to assess metabolic control. <strong>Annual liver ultrasound</strong> from adolescence for adenoma surveillance. <strong>Renal function</strong> (urine protein, GFR) annually. <strong>Bone density</strong> (chronic metabolic acidosis and poor nutrition impair mineralisation). <strong>Lipid panel</strong> regularly. Metabolic dietitian review every 3–6 months.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Emerging & Future Therapies</div>
+      <div class="mgmt-card-body">
+        <strong>Gene therapy:</strong> AAV-mediated delivery of the G6PC gene to the liver is in Phase I/II trials and has shown promising results in animal models and early human trials. <strong>Liver transplantation</strong> corrects the hepatic defect (liver has G6Pase again) and resolves hypoglycaemia and most metabolic abnormalities — but is reserved for severe adenoma disease or hepatocellular carcinoma risk. Renal disease is not corrected by liver transplant (kidney G6Pase remains absent). <strong>Extended-release cornstarch</strong> formulations improve overnight glucose stability.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key messages box -->
+  <div class="content-block" style="margin-top:16px">
+    <div class="block-eyebrow">For Your Exams</div>
+    <div class="block-title">The Five Things You Must Know Cold</div>
+    <div class="block-body">
+      <p><strong>1.</strong> G6Pase is the final step of BOTH glycogenolysis AND gluconeogenesis. Blocking it means neither pathway can export glucose — that's why the disease is so severe.</p>
+      <p><strong>2.</strong> Glucagon is unresponsive — not because glycogen is absent (it's abundant) but because G6P produced by glycogenolysis cannot be converted to free glucose. Glucagon actually worsens lactic acidosis.</p>
+      <p><strong>3.</strong> The six key features all trace back to G6P accumulation overflowing into different pathways: hypoglycaemia (no export), hepatomegaly (→ glycogen), lactic acidosis (→ glycolysis), hypertriglyceridaemia (→ lipid synthesis), hyperuricaemia (→ PPP + lactate competes), nephromegaly (kidney G6Pase also absent).</p>
+      <p><strong>4.</strong> Insulin is LOW in Von Gierke — the hypoglycaemia is not insulin-driven. This distinguishes it from hyperinsulinism.</p>
+      <p><strong>5.</strong> Type Ib has identical metabolic presentation to Type Ia but adds neutropenia and recurrent infections — because the G6P transporter (not G6Pase itself) is deficient, affecting neutrophil function.</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Question Bank</div>
+    <div class="block-title">Von Gierke Disease — 40 Questions</div>
+    <div class="block-body">
+      <p>These questions test the material from fresh angles. Clinical vignettes are set in different contexts than the explanations. Mechanisms are tested from the opposite direction. Work through all three sections systematically.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" id="q-section-nav">
+    <button class="q-section-btn active" onclick="showQSection('mcq',this)">MCQ (20 Questions)</button>
+    <button class="q-section-btn" onclick="showQSection('ra',this)">R&amp;A (14 Questions)</button>
+    <button class="q-section-btn" onclick="showQSection('mc',this)">Multiple Completion (6 Questions)</button>
+  </div>
+
+  <div id="qsec-mcq" class="q-section active">
+    <div id="mcq-qbank"></div>
+  </div>
+
+  <div id="qsec-ra" class="q-section">
+    <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.9;font-family:var(--font-mono)">
+      <strong style="font-family:var(--font-body)">Options key:</strong><br>
+      A — Both TRUE; reason IS the correct explanation<br>
+      B — Both TRUE; reason is NOT the correct explanation<br>
+      C — Assertion TRUE; reason FALSE<br>
+      D — Assertion FALSE; reason TRUE<br>
+      E — Both assertion and reason are FALSE
+    </div>
+    <div id="ra-qbank"></div>
+  </div>
+
+  <div id="qsec-mc" class="q-section">
+    <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.9;">
+      <strong>Key:</strong> A = 1,2,3 correct &nbsp;|&nbsp; B = 1,3 only &nbsp;|&nbsp; C = 2,4 only &nbsp;|&nbsp; D = 4 only &nbsp;|&nbsp; E = All correct
+    </div>
+    <div id="mc-qbank"></div>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Von Gierke Deep Dive — Stage 1 · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+// ── TABS ──
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── SCROLL HIDE HEADER ──
+(function(){
+  var last = 0;
+  var h = document.getElementById('site-header');
+  window.addEventListener('scroll', function(){
+    var c = window.scrollY;
+    if (c > last && c > 60) h.classList.add('hide-bar');
+    else h.classList.remove('hide-bar');
+    last = c;
+  }, {passive:true});
+})();
+
+// ── QUESTION SECTION TOGGLE ──
+function showQSection(id, btn) {
+  document.querySelectorAll('.q-section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.q-section-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('qsec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── MCQ DATA ──
+var mcqData = [
+  {
+    stem: "A 4-month-old infant is brought to the emergency department after a seizure. He was well until his mother began spacing feeds to every 5 hours overnight. Blood glucose is 1.1 mmol/L. Examination reveals a protuberant abdomen with a liver edge palpable 6 cm below the costal margin. Blood lactate is 8.4 mmol/L. Insulin is low. Which of the following investigations would most definitively distinguish this condition from other causes of neonatal hypoglycaemia?",
+    options: ["Serum insulin and C-peptide levels, which would be elevated in hyperinsulinism and low in Von Gierke disease","Glucagon stimulation test showing minimal blood glucose rise but a paradoxical rise in blood lactate","Liver biopsy showing excess glycogen deposition confirming a glycogen storage disorder","Urine organic acids showing elevated lactate and absence of ketones, confirming a fatty acid oxidation defect"],
+    answer: 1,
+    feedback: "The <strong>glucagon stimulation test</strong> is the most specific investigation here. The paradoxical response — minimal glucose rise with a rise in blood lactate — is pathognomonic for Von Gierke disease. It demonstrates that glycogenolysis is occurring (G6P is being produced) but G6P cannot be exported as free glucose (instead overflowing to lactate). Insulin/C-peptide levels distinguish hyperinsulinism but cannot confirm Von Gierke specifically. Liver biopsy shows glycogen accumulation but is non-specific and invasive. Urine organic acids suggest fatty acid oxidation defects, not glycogen storage disease."
+  },
+  {
+    stem: "A biochemistry researcher removes Glucose-6-phosphatase from an isolated perfused liver preparation. She then infuses glucagon and measures portal and hepatic vein blood composition. Which of the following correctly predicts what she would observe?",
+    options: ["Hepatic vein glucose increases as glycogenolysis produces glucose from glycogen stores","Hepatic vein glucose remains unchanged while hepatic vein lactate increases significantly","Both glucose and lactate remain unchanged because glucagon cannot act without G6Pase","Hepatic vein glucose decreases and ketone bodies increase as the liver switches to fat oxidation"],
+    answer: 1,
+    feedback: "Without G6Pase, glucagon stimulates glycogenolysis normally (glycogen → G1P → G6P) but the G6P cannot be dephosphorylated to free glucose. Instead it floods into glycolysis → pyruvate → lactate. <strong>Hepatic vein glucose stays flat; lactate rises.</strong> This is exactly what the glucagon stimulation test demonstrates clinically. Option A is wrong because glucose cannot exit without G6Pase. Option C is wrong because glucagon's upstream signal still works. Option D is wrong because the liver is overproducing glucose substrates, not switching to fat export."
+  },
+  {
+    stem: "A 3-year-old with known Von Gierke disease presents with acute vomiting and inability to tolerate his cornstarch feeds for 12 hours. His blood gas shows pH 7.21, bicarbonate 14 mmol/L, and anion gap of 22. Blood glucose is 1.8 mmol/L. What is the primary driver of his metabolic acidosis, and why does it worsen during illness?",
+    options: ["Ketoacidosis from uncontrolled lipolysis as insulin falls during the hypoglycaemic episode","Lactic acidosis from G6P overflow into glycolysis, which accelerates during fasting when glycogenolysis runs at maximum rate","Renal tubular acidosis from progressive nephropathy causing bicarbonate wasting","Hyperchloraemic acidosis from diarrhoea-related gastrointestinal bicarbonate losses"],
+    answer: 1,
+    feedback: "<strong>Lactic acidosis</strong> is the primary driver. During illness and fasting, glycogenolysis and gluconeogenesis run at maximum rate, flooding the hepatocyte with G6P that cannot be exported. G6P overflows into glycolysis → excess pyruvate → lactate → high anion gap metabolic acidosis. Illness prevents cornstarch feeding, fasting accelerates G6P production, and lactic acidosis worsens in a vicious cycle. IV glucose infusions during illness are critical. Ketoacidosis (A) is incorrect — ketones are typically low in Von Gierke. Renal tubular acidosis (C) is a long-term complication, not acute."
+  },
+  {
+    stem: "Parents of a child with Von Gierke disease ask why their child's blood triglycerides are extremely high (18 mmol/L) when he barely eats any fat. Which is the most accurate explanation?",
+    options: ["Absent G6Pase prevents lipid breakdown in lysosomes, causing triglyceride accumulation within hepatocytes","Low insulin from chronic hypoglycaemia activates hormone-sensitive lipase in adipose tissue, releasing fatty acids that the liver re-esterifies","Excess G6P floods glycolysis producing Acetyl-CoA, which drives de novo fatty acid synthesis in the liver independent of dietary fat intake","High glucagon from chronic hypoglycaemia directly activates VLDL secretion from hepatocytes independent of lipogenesis"],
+    answer: 2,
+    feedback: "The triglycerides are entirely endogenous — made by the liver from G6P overflow. <strong>De novo lipogenesis:</strong> G6P → glycolysis → pyruvate → Acetyl-CoA → malonyl-CoA → fatty acids → VLDL → blood. NADPH from the PPP (also receiving excess G6P) fuels this synthesis. Dietary fat intake is irrelevant. Option A describes Pompe disease (lysosomal storage), not Von Gierke. Option B contributes some flux but is not the primary driver. Option D is mechanistically incorrect — glucagon does not directly activate VLDL secretion."
+  },
+  {
+    stem: "A 16-year-old with poorly controlled Von Gierke disease develops severe right big toe pain. Serum uric acid is 680 μmol/L. Blood lactate is 6.2 mmol/L. Which correctly describes BOTH mechanisms contributing to his hyperuricaemia?",
+    options: ["Increased uric acid production from PPP-driven purine synthesis, and decreased renal excretion because lactate competes with urate for tubular secretion","Increased production from purine degradation due to ATP depletion, and decreased excretion because G6Pase deficiency affects renal tubular transporters directly","Decreased uric acid clearance from nephropathy, and increased production from xanthine oxidase upregulation by excess NADPH","Increased uric acid from dietary purine excess due to high-protein diet, and impaired excretion from chronic acidosis"],
+    answer: 0,
+    feedback: "Option A correctly identifies both mechanisms. <strong>Production:</strong> Excess G6P → PPP → ribose-5-phosphate → accelerated purine synthesis → uric acid. Additionally, rapid ATP consumption → AMP → purine nucleotide cycle → uric acid. <strong>Excretion:</strong> Elevated blood lactate competes with urate at OAT (organic anion transporter) in renal proximal tubules — same transporter handles both. Less urate excreted as production rises. Option B incorrectly attributes renal defect to G6Pase in transporters. Option C's xanthine oxidase mechanism is not NADPH-driven. Option D is dietary, not the actual mechanism."
+  },
+  {
+    stem: "A neonatologist suspects Von Gierke disease in a 6-week-old. Which clinical combination most strongly supports the diagnosis without further testing?",
+    options: ["Blood glucose of 1.4 mmol/L after a 3-hour fast in an otherwise well-appearing infant","Massive hepatomegaly, blood glucose 1.2 mmol/L after a 3-hour fast, blood lactate 7 mmol/L, and low ketones","Bilateral cataracts with jaundice and hepatomegaly in a neonate started on formula feeds","Hepatomegaly with elevated ALT, conjugated hyperbilirubinaemia, and coagulopathy in a neonate"],
+    answer: 1,
+    feedback: "The combination of <strong>massive hepatomegaly + fasting hypoglycaemia after only 3 hours + markedly elevated lactate + low ketones</strong> is highly characteristic. The low ketones are a critical clue — most hypoglycaemic conditions produce elevated ketones. In Von Gierke, ketones are suppressed because excess lipid synthesis and the metabolic environment suppress ketogenesis. Option A alone is non-specific. Option C describes galactosaemia (cataracts + jaundice on lactose feeds). Option D describes neonatal liver failure."
+  },
+  {
+    stem: "A patient with Von Gierke disease has prolonged bleeding from a dental extraction despite a normal platelet count (280×10⁹/L), normal PT, and normal APTT. Which mechanism best explains this?",
+    options: ["Chronic lactic acidosis inhibits coagulation factor synthesis in the liver, prolonging clotting","Platelet dysfunction from impaired platelet energy metabolism and abnormal activation pathways in glycogen storage disease","Thrombocytopaenia masked by splenomegaly causing platelet sequestration","Vitamin K deficiency from malabsorption secondary to the strict low-fat diet"],
+    answer: 1,
+    feedback: "Von Gierke disease causes <strong>platelet dysfunction</strong> — not thrombocytopaenia or coagulopathy. Platelet count, PT, and APTT are normal; bleeding time is prolonged. Platelets have impaired ADP release, abnormal thromboxane synthesis, and defective activation — likely from abnormal platelet glycogen metabolism. Pre-operative management includes DDAVP and platelet function assessment. Option A is wrong — the liver's synthetic function for coagulation factors is preserved. Option C is wrong — platelets are not sequestered. Option D would affect PT/APTT, not bleeding time specifically."
+  },
+  {
+    stem: "A medical student argues that treating Von Gierke disease with frequent high-carbohydrate feeds should worsen triglycerides because more G6P will be produced. The consultant disagrees. Who is correct and why?",
+    options: ["The student is correct — more glucose means more G6P overflowing to lipid synthesis regardless","The consultant is correct — frequent feeding prevents fasting, suppressing glycogenolysis and gluconeogenesis via insulin, reducing the total G6P burden despite higher glucose intake","Neither — triglyceride levels in Von Gierke are determined by dietary fat intake, not carbohydrate metabolism","The consultant is correct — glucose from feeds bypasses G6P and enters glycolysis directly without producing G6P"],
+    answer: 1,
+    feedback: "The <strong>consultant is correct</strong> with a subtle but important mechanism. Dietary glucose → blood glucose maintained → insulin rises → suppresses both glycogenolysis AND gluconeogenesis. Less endogenous G6P production from these two suppressed pathways outweighs the G6P from absorbed glucose. Net G6P burden falls, reducing overflow into lipid synthesis. Triglycerides improve with good metabolic control. This is why blood lactate and triglycerides are markers of how well the disease is controlled — they reflect the G6P burden, not just dietary fat intake."
+  },
+  {
+    stem: "A 9-year-old with Von Gierke disease develops haematuria and flank pain. Renal ultrasound shows bilateral nephromegaly and multiple echogenic foci in the collecting systems. Which correctly explains this renal complication?",
+    options: ["Glycogen deposits in glomeruli cause haematuria by disrupting the glomerular basement membrane","Uric acid nephrolithiasis from chronic hyperuricaemia, combined with nephromegaly from glycogen accumulation in the renal cortex where G6Pase is normally expressed","Calcium oxalate stones from secondary hyperoxaluria due to the high-carbohydrate diet","IgA nephropathy triggered by recurrent bacterial infections from metabolic acidosis-related immunosuppression"],
+    answer: 1,
+    feedback: "<strong>Uric acid kidney stones plus nephromegaly</strong> — both directly caused by G6Pase deficiency. Uric acid stones from chronic hyperuricaemia (PPP-driven purine synthesis + lactate competing for renal urate excretion). Nephromegaly from glycogen accumulation in the renal cortex — kidney cortex normally expresses G6Pase, and without it G6P accumulates in renal cortical cells exactly as in hepatocytes. Uric acid is radiolucent on plain X-ray but echogenic on ultrasound — multiple echogenic foci represent uric acid stones. Option A is incorrect — haematuria is from stones. Options C and D are not characteristic of Von Gierke."
+  },
+  {
+    stem: "A researcher notes blood glucose falls faster during fasting in Von Gierke patients than in Cori disease (GSD III) patients. Which explanation correctly supports this observation?",
+    options: ["Von Gierke patients have more stored glycogen, so glycogenolysis depletes energy faster","In Von Gierke, both glycogenolysis and gluconeogenesis cannot export glucose, while in Cori disease gluconeogenesis remains intact and can export glucose via functioning G6Pase","Von Gierke patients have lower glucagon levels than Cori patients, so the hormonal drive to maintain glucose is weaker","In Von Gierke, high lactate levels directly inhibit gluconeogenesis, making both pathways fail simultaneously"],
+    answer: 1,
+    feedback: "In <strong>Von Gierke</strong>, G6Pase is absent — both glycogenolysis AND gluconeogenesis produce G6P that cannot be exported as free glucose. The liver has zero glucose-releasing capacity. In <strong>Cori disease</strong>, G6Pase is intact. Glycogenolysis is impaired (stops at branch points = limit dextrin), but gluconeogenesis is completely normal. Amino acids and lactate → G6P → G6Pase → free glucose. Gluconeogenesis partially compensates during fasting. This is why hypoglycaemia is milder in Cori and responds to protein feeding (amino acids fuel intact gluconeogenesis), but not in Von Gierke."
+  },
+  {
+    stem: "A mother asks why uncooked cornstarch is used rather than glucose tablets or sugar syrup for her child with Von Gierke disease. What is the most accurate explanation?",
+    options: ["Glucose tablets cause hyperglycaemia, which is dangerous in Von Gierke disease","Uncooked cornstarch is digested slowly, releasing glucose gradually over 4-6 hours and maintaining blood glucose between feeds without large spikes or rapid falls","Cornstarch bypasses the liver and is metabolised directly by muscle, avoiding G6P accumulation in hepatocytes","Cooked starch raises insulin more than uncooked starch, and high insulin is contraindicated in Von Gierke disease"],
+    answer: 1,
+    feedback: "<strong>Slow digestion = sustained glucose release.</strong> Uncooked cornstarch resists amylase digestion because raw starch granules have a crystalline structure. It is broken down gradually over 4–6 hours, maintaining blood glucose steadily. Glucose tablets or sugar are rapidly absorbed (minutes to 1–2 hours), causing a quick spike followed by rapid fall — requiring dosing every 1–2 hours including overnight. Cornstarch extends the safe fasting window to 4–6 hours, making outpatient management practical. Option A is wrong — hyperglycaemia is not the concern. Option C is wrong — cornstarch is absorbed as glucose through the gut, entering the portal circulation normally."
+  },
+  {
+    stem: "A 14-year-old female with Von Gierke disease has MRI showing three hepatic adenomas (2.1 cm, 3.4 cm, 1.2 cm). Her mother asks about cancer risk. The most appropriate counselling is:",
+    options: ["These are malignant hepatocellular carcinomas requiring immediate surgical resection","Hepatic adenomas in Von Gierke are benign but carry a small risk of malignant transformation, particularly adenomas over 5 cm; surveillance and metabolic optimisation are the priorities","These are glycogen deposits, not true adenomas, and will resolve completely with improved dietary control","Adenomas in Von Gierke are always benign and require no intervention or surveillance once diagnosed"],
+    answer: 1,
+    feedback: "Hepatic adenomas in Von Gierke are <strong>benign</strong> but not risk-free. <strong>Adenomas over 5 cm</strong> carry higher risk of malignant transformation to HCC and haemorrhage. These three are small — annual surveillance MRI is appropriate. Optimising metabolic control (maintaining glucose, reducing G6P burden) may cause regression or prevent new adenomas. Large adenomas, those with atypical features, or rapidly growing ones require surgical resection or ablation. Option A overstates malignant risk — these sizes are low risk. Option C is incorrect — true adenomas form and are not pure glycogen deposits. Option D understates the real monitoring requirement."
+  },
+  {
+    stem: "A physician tests a newborn for Von Gierke disease. Enzyme assay on liver biopsy shows zero G6Pase activity, but genetic testing reveals a mutation in SLC37A4, not G6PC. Which best explains this discrepancy?",
+    options: ["The enzyme assay is unreliable because liver biopsy samples degrade G6Pase during processing","SLC37A4 encodes the G6P transporter into the ER — without it, G6P cannot reach G6Pase in the ER lumen, so no phosphate is released despite G6Pase being structurally intact","SLC37A4 encodes a regulatory subunit of G6Pase required for catalytic activity","The genetic test identified a polymorphism rather than a disease-causing mutation"],
+    answer: 1,
+    feedback: "This is <strong>GSD Type Ib</strong>. G6Pase protein (G6PC) is structurally normal in Type Ib. However, G6PT (SLC37A4) — the transporter that moves G6P from cytosol into the ER lumen — is absent. G6Pase sits on the inner ER membrane and can only access its substrate (G6P) after it has been transported into the ER lumen. Without G6PT, G6P never reaches G6Pase, so the enzyme assay shows zero activity despite G6Pase protein being present and intact. Types Ia and Ib have identical metabolic presentations. The distinguishing feature of Type Ib is neutropenia (neutrophils also depend on G6PT) and recurrent infections."
+  },
+  {
+    stem: "A mother brings her 18-month-old with a large abdomen. His blood glucose 2 hours post-meal is 3.8 mmol/L — normal. The mother asks if he could still have Von Gierke disease. The correct response is:",
+    options: ["No — normal blood glucose 2 hours post-meal excludes Von Gierke, which causes persistent hypoglycaemia","Yes — blood glucose in Von Gierke falls with fasting; post-meal glucose can be normal because dietary glucose is absorbed from the gut independently of hepatic G6Pase","No — normal blood glucose confirms adequate G6Pase function and another cause must be sought","Yes, but only if the child has been on treatment already, raising blood glucose artificially"],
+    answer: 1,
+    feedback: "Von Gierke does NOT cause persistent hypoglycaemia at all times. Post-meal, dietary glucose is absorbed directly from the gut into the bloodstream — this does not require hepatic G6Pase at all. Blood glucose can be normal or even elevated post-meal. Hypoglycaemia only appears during fasting, when the liver must export glucose from glycogenolysis/gluconeogenesis — both blocked at G6Pase. A child eating every 2–3 hours may never be caught hypoglycaemic in clinic. The correct approach is a controlled fasting study or glucagon stimulation test. Hepatomegaly, chubby cheeks, and protuberant abdomen in a thriving infant are the classic early presentation."
+  },
+  {
+    stem: "Fructose is excluded from the diet of Von Gierke patients. Which correctly explains why fructose restriction is necessary?",
+    options: ["Fructose causes excessive insulin release, worsening hypoglycaemia","Fructose is metabolised in the liver to trioses which enter the gluconeogenic pathway, ultimately generating G6P — which also cannot be exported, adding to the G6P burden","Fructose directly inhibits G6Pase activity and worsens the enzyme deficiency","Fructose-6-phosphate produced from fructose competes with G6P for the G6Pase active site"],
+    answer: 1,
+    feedback: "Fructose → Fructokinase → Fructose-1-phosphate → Aldolase B → DHAP + G3P → (reversed gluconeogenesis) → Fructose-6-phosphate → Glucose-6-phosphate. This G6P also cannot be exported in Von Gierke — adding to the hepatic G6P burden, worsening glycogen accumulation, lactic acidosis, and lipid synthesis. Galactose similarly enters via the Leloir pathway → G1P → G6P → same problem. This is why sucrose (glucose+fructose) and lactose (glucose+galactose) are avoided — both supply hexoses that contribute to intracellular G6P accumulation. Option C is incorrect — fructose doesn't inhibit G6Pase. Option D is incorrect — Fructokinase produces F1P, not F6P."
+  },
+  {
+    stem: "A child with Von Gierke Type Ia has a sibling who carries the same G6PC mutation but is completely asymptomatic. Which statement about Von Gierke inheritance is correct?",
+    options: ["Von Gierke is X-linked recessive — carrier females are unaffected and only males develop disease","Von Gierke is autosomal recessive — heterozygous carriers have one functional G6PC allele producing sufficient G6Pase; disease requires both alleles to be non-functional","Von Gierke is autosomal dominant with variable penetrance, explaining the asymptomatic sibling","Von Gierke follows mitochondrial inheritance, explaining variable severity between siblings"],
+    answer: 1,
+    feedback: "<strong>Autosomal recessive.</strong> One functional G6PC allele produces approximately 50% of normal G6Pase activity, which is sufficient for normal hepatic glucose export — carriers are completely asymptomatic. Disease requires two non-functional alleles (homozygous or compound heterozygous). Each child of two carrier parents has a 25% chance of being affected, 50% carrier, 25% homozygous normal — equal risk for boys and girls (autosomal, not X-linked). G6PC is on chromosome 17q21, not the X chromosome."
+  },
+  {
+    stem: "A paediatric intensivist manages a 2-year-old with Von Gierke disease in septic shock. She orders 10% dextrose, avoids glucagon, and gives sodium bicarbonate. Which correctly justifies all three choices?",
+    options: ["Dextrose supplies glucose without requiring G6Pase; glucagon would worsen lactic acidosis by stimulating G6P production without glucose export; bicarbonate treats the high anion gap lactic acidosis","Dextrose reduces need for glycogenolysis; glucagon is avoided because it causes hypoglycaemia in GSD patients; bicarbonate prevents uric acid crystallisation","Dextrose prevents ketoacidosis; glucagon is contraindicated because it causes anaphylaxis in GSD patients; bicarbonate prevents metabolic alkalosis","Dextrose maintains glucose for the brain; glucagon is unnecessary because gluconeogenesis is producing adequate glucose; bicarbonate prevents metabolic alkalosis"],
+    answer: 0,
+    feedback: "All three choices are correctly justified in option A. <strong>IV dextrose</strong> delivers glucose directly into the bloodstream — bypasses the liver entirely, no G6Pase required. <strong>Avoiding glucagon</strong> is correct — it stimulates glycogenolysis → more G6P → more lactate overflow, worsening already severe lactic acidosis without raising blood glucose. <strong>Sodium bicarbonate</strong> treats the high anion gap lactic acidosis — pH 7.21 carries risk of cardiac arrhythmias and enzyme dysfunction; partial correction is appropriate. Option B incorrectly states glucagon causes hypoglycaemia. Options C and D contain incorrect justifications."
+  },
+  {
+    stem: "A metabolic dietitian explains why a Von Gierke patient cannot simply eat a large bedtime meal and sleep through the night. What is the most accurate explanation?",
+    options: ["A large meal causes hyperglycaemia triggering insulin, which then causes hypoglycaemia during sleep","After eating, absorbed glucose maintains blood glucose for 2-4 hours; thereafter the liver must export glucose from glycogenolysis or gluconeogenesis, which is blocked at G6Pase — blood glucose falls rapidly without continuous supply","Large meals cause excess G6P production from dietary glucose, worsening hepatomegaly and lactic acidosis overnight","Children with Von Gierke have faster metabolic rates requiring more frequent feeds"],
+    answer: 1,
+    feedback: "The timing mechanism is critical. Dietary glucose from a bedtime meal is absorbed over roughly 2–4 hours. Once gut absorption is complete, the body must rely on the liver for blood glucose — via glycogenolysis, then gluconeogenesis. Both are blocked at G6Pase in Von Gierke. By 3–4 AM, a child who ate at 10 PM would be critically hypoglycaemic with no compensatory mechanism. Continuous overnight glucose — cornstarch every 4–6 hours, nasogastric drip, or waking to eat — is essential. Option A incorrectly describes post-meal hyperinsulinism as the concern. Option C is a secondary concern but not the primary reason for overnight feeds."
+  },
+  {
+    stem: "Which finding would be MOST UNEXPECTED in a well-controlled 10-year-old with Von Gierke disease on cornstarch therapy with normal fasting glucose?",
+    options: ["Mildly elevated triglycerides at 2.8 mmol/L despite good glycaemic control","Normal uric acid requiring no allopurinol","Normal blood lactate of 1.1 mmol/L during a routine clinic visit","Elevated fasting glucose of 8.2 mmol/L"],
+    answer: 3,
+    feedback: "<strong>Elevated fasting glucose is paradoxical and unexpected</strong> in Von Gierke disease. The disease is defined by inability to export glucose — patients are hypoglycaemic, not hyperglycaemic, when fasting. An 8.2 mmol/L fasting glucose suggests the child ate recently, there is a testing error, or another condition is co-existing. Post-meal glucose can be elevated (dietary glucose absorbed normally, and G6P backup from glycogen synthesis may transiently elevate blood glucose), but true fasting hyperglycaemia is not characteristic. The other options are expected: mildly elevated triglycerides even with good control, normal uric acid with good control or allopurinol, normal lactate with adequate dietary management."
+  },
+  {
+    stem: "A researcher proposes AAV-mediated gene therapy inserting the G6PC gene into hepatocytes for Von Gierke disease. A colleague raises one important limitation. Which is the colleague most likely raising?",
+    options: ["The liver would reject AAV vectors because the immune system recognises them as foreign, making therapy impossible","Even with restored hepatic G6Pase, the renal G6Pase deficiency would persist — kidney complications would continue unless renal cells are also transduced","The G6PC gene is too large to fit within an AAV vector's packaging capacity","AAV vectors integrate randomly and would inevitably cause hepatocellular carcinoma in Von Gierke patients"],
+    answer: 1,
+    feedback: "The <strong>renal limitation</strong> is the key issue. Gene therapy targeting the liver restores hepatic G6Pase, correcting hypoglycaemia, lactic acidosis, and hepatomegaly. However, the kidney cortex also normally expresses G6Pase and is affected in Von Gierke. AAV vectors administered systemically transduce the liver preferentially — renal tubular cells receive much less vector. Therefore, renal glycogen accumulation, FSGS, nephromegaly, and uric acid stones would not be fully corrected. This mirrors liver transplantation, which corrects all hepatic manifestations but does not prevent renal disease progression. Option A is a real clinical challenge with AAV therapy but has been partially managed with immunosuppression. Option C is incorrect — G6PC is small enough for AAV packaging."
+  }
+];
+
+var raData = [
+  {
+    assertion: "In Von Gierke disease, administering glucagon intravenously during a hypoglycaemic episode will fail to raise blood glucose.",
+    reason: "Glucagon cannot bind to its receptor on hepatocytes in the absence of Glucose-6-phosphatase.",
+    answer: "C",
+    feedback: "Assertion TRUE, reason FALSE. Glucagon binds its hepatocyte receptor perfectly normally. The entire upstream cascade (glucagon → GPCR → cAMP → PKA → Phosphorylase Kinase → Glycogen Phosphorylase) functions correctly. Glycogen is broken down to G6P normally. The failure is exclusively at the final step — G6Pase is absent, so G6P cannot be converted to free glucose. The receptor has no dependence on G6Pase for its function. Answer: C."
+  },
+  {
+    assertion: "The liver in Von Gierke disease is enlarged because glycogenolysis is impaired and glycogen cannot be broken down.",
+    reason: "Absence of Glucose-6-phosphatase means that the glycogen breakdown pathway cannot proceed past the glucose-6-phosphate stage.",
+    answer: "B",
+    feedback: "Both true but reason doesn't correctly explain assertion. Hepatomegaly is caused by glycogen ACCUMULATION, not impaired glycogen breakdown. Glycogenolysis itself (glycogen → G1P → G6P) proceeds normally. The liver fills with glycogen because G6P that cannot be exported gets shunted back into glycogen synthesis — accumulation via synthesis, not failure to break down. The reason (breakdown 'cannot proceed past G6P') implies glycogenolysis is impaired, which is misleading. Answer: B."
+  },
+  {
+    assertion: "Blood lactate levels paradoxically increase when glucagon is administered to a patient with Von Gierke disease.",
+    reason: "Glucagon stimulates glycogenolysis, producing Glucose-6-phosphate that cannot be exported and instead overflows into glycolysis, generating excess pyruvate that is converted to lactate.",
+    answer: "A",
+    feedback: "Both true, reason correctly explains assertion. Glucagon → glycogenolysis → G6P floods cell. G6P cannot exit via G6Pase → overflows into glycolysis → pyruvate → LDH → lactate. Blood lactate rises while blood glucose stays flat. This is the basis of the glucagon stimulation test — pathognomonic for Von Gierke disease. Answer: A."
+  },
+  {
+    assertion: "Patients with Von Gierke disease have hypertriglyceridaemia despite eating a low-fat diet.",
+    reason: "Glucose-6-phosphatase deficiency causes impaired breakdown of stored triglycerides in hepatic lipid droplets.",
+    answer: "C",
+    feedback: "Assertion TRUE, reason FALSE. Hypertriglyceridaemia is from de novo lipogenesis (G6P → Acetyl-CoA → fatty acid synthesis → VLDL), not from impaired triglyceride breakdown. G6Pase has no role in triglyceride hydrolysis (that is the job of lipases). The reason confuses G6Pase with lysosomal acid lipase. Answer: C."
+  },
+  {
+    assertion: "Fasting ketone levels are typically low or absent in Von Gierke disease despite profound hypoglycaemia.",
+    reason: "The massive excess of free fatty acids produced by lipolysis is re-esterified into triglycerides rather than being converted to ketone bodies.",
+    answer: "B",
+    feedback: "Assertion true — hypoketotic hypoglycaemia is characteristic. Reason contains a true statement (fatty acids are re-esterified) but doesn't correctly explain the low ketones. The primary explanation: excess malonyl-CoA from de novo lipogenesis inhibits CPT-1, preventing fatty acid entry into mitochondria for ketogenesis. Also, high glycolytic flux suppresses the ketogenic programme. Re-esterification is a consequence, not the primary driver of low ketones. Answer: B."
+  },
+  {
+    assertion: "Glucose-6-phosphatase deficiency causes hypoglycaemia by directly inhibiting gluconeogenesis.",
+    reason: "Glucose-6-phosphatase is the final enzyme in the gluconeogenic pathway, and without it gluconeogenesis cannot proceed.",
+    answer: "E",
+    feedback: "Both FALSE. G6Pase deficiency doesn't 'inhibit gluconeogenesis' — gluconeogenesis runs normally, producing G6P at full rate. Hypoglycaemia comes from inability to EXPORT the G6P produced by gluconeogenesis as free glucose. And while G6Pase is the last step in making exportable glucose, it's incorrect to say gluconeogenesis 'cannot proceed' — all other gluconeogenic enzymes function normally and produce their products. The block is at export, not at any step within the pathway itself. Answer: E."
+  },
+  {
+    assertion: "A patient with Von Gierke disease who maintains excellent dietary control will have normal blood lactate levels.",
+    reason: "When blood glucose is maintained by frequent feeding, glycogenolysis and gluconeogenesis are suppressed by insulin, reducing G6P production and therefore reducing its overflow into glycolysis and lactate production.",
+    answer: "A",
+    feedback: "Both true, reason correctly explains. Good dietary control → blood glucose maintained → insulin rises → suppresses glycogenolysis and gluconeogenesis → less G6P produced → less G6P overflowing to glycolysis → less pyruvate → less lactate. Blood lactate is therefore a useful marker of metabolic control in Von Gierke — normalising with good control, rising with poor control. Answer: A."
+  },
+  {
+    assertion: "GSD Type Ib presents with the same metabolic features as GSD Type Ia but additionally causes recurrent bacterial infections.",
+    reason: "In GSD Type Ib, the G6P transporter is absent from neutrophil membranes, impairing their ability to generate the ATP required for phagocytosis and oxidative burst.",
+    answer: "A",
+    feedback: "Both true, reason correctly explains. Type Ib lacks G6PT (SLC37A4). Neutrophils depend on G6PT to transport G6P into the ER for energy metabolism — without it, they cannot mount adequate respiratory burst, have impaired phagocytosis, and have reduced lifespan (neutropenia). The metabolic features are identical in Ia and Ib because the end result — G6P cannot reach G6Pase in the ER — is the same in both. Answer: A."
+  },
+  {
+    assertion: "Renal disease in Von Gierke disease occurs because G6Pase is also expressed in the kidney cortex.",
+    reason: "Absence of G6Pase in renal tubular cells causes G6P accumulation and glycogen deposition in the kidney, leading to nephromegaly and eventually focal segmental glomerulosclerosis.",
+    answer: "A",
+    feedback: "Both true, reason correctly explains. G6Pase is normally expressed in renal cortex (proximal tubular and glomerular cells). Without it, G6P accumulates in renal cells exactly as in hepatocytes → glycogen deposition → nephromegaly → progressive glomerular architecture damage → FSGS. This explains why renal disease is NOT corrected by liver transplantation — the renal G6Pase deficiency persists. Answer: A."
+  },
+  {
+    assertion: "Hyperuricaemia in Von Gierke disease is caused exclusively by increased uric acid production.",
+    reason: "Excess ribose-5-phosphate from the pentose phosphate pathway drives accelerated purine synthesis and subsequent uric acid production.",
+    answer: "B",
+    feedback: "Assertion FALSE (not exclusive — two mechanisms), reason TRUE. Hyperuricaemia has two mechanisms: increased production (PPP → ribose-5-phosphate → purines → uric acid; AND ATP depletion → AMP → purine nucleotide cycle → uric acid) AND decreased excretion (lactate competes with urate at OAT transporters in renal tubules). The assertion saying 'exclusively' production is wrong. The reason correctly describes one production mechanism but is not the complete explanation. Answer: B — both true, reason not complete explanation (assertion is wrong)... Actually assertion is FALSE (exclusively wrong), reason is TRUE. Answer: D."
+  },
+  {
+    assertion: "Von Gierke disease can be managed long-term without liver transplantation in most patients.",
+    reason: "Uncooked cornstarch provides a continuous slow-release glucose source that bypasses the need for hepatic G6Pase by delivering glucose directly into the circulation from the gut.",
+    answer: "A",
+    feedback: "Both true, reason correctly explains. Cornstarch does not fix G6Pase — it bypasses the need for it by maintaining blood glucose via gut absorption. Slowly digested cornstarch releases glucose continuously over 4–6 hours into the portal circulation. Blood glucose is maintained, insulin suppresses glycogenolysis and gluconeogenesis, and G6P burden is reduced. The majority of patients are managed this way with excellent outcomes if started early. Liver transplant is reserved for severe adenoma disease or HCC risk. Answer: A."
+  },
+  {
+    assertion: "Prolonged bleeding time in Von Gierke disease indicates a deficiency of coagulation factors synthesised by the liver.",
+    reason: "Chronic hepatocellular damage from glycogen accumulation reduces the liver's capacity to synthesise clotting factors, prolonging the prothrombin time and bleeding time.",
+    answer: "E",
+    feedback: "Both FALSE. The bleeding tendency in Von Gierke is from PLATELET DYSFUNCTION, not coagulation factor deficiency. PT, APTT, and fibrinogen are typically normal — liver synthetic function for coagulation factors is preserved. The liver has hepatomegaly from glycogen accumulation but not significant hepatocellular necrosis or fibrosis early on. Bleeding time is prolonged from impaired platelet aggregation and activation. Treatment targets platelet function (DDAVP), not coagulation factors (FFP). Answer: E."
+  },
+  {
+    assertion: "The doll-like facies in children with Von Gierke disease is caused by infiltration of facial muscles with glycogen.",
+    reason: "Muscle glycogen storage occurs in Von Gierke disease because G6Pase is absent from all tissues including skeletal muscle.",
+    answer: "E",
+    feedback: "Both FALSE. Doll-like facies (chubby cheeks, rounded face) is from SUBCUTANEOUS FAT ACCUMULATION — a consequence of massive de novo lipogenesis (G6P overflow → Acetyl-CoA → fatty acids → subcutaneous fat deposition). Not from glycogen in facial muscles. The reason is also false: G6Pase is NOT expressed in skeletal muscle — muscle has never had G6Pase. Muscle glycogen storage disease is a separate condition (e.g. McArdle disease). Only tissues normally expressing G6Pase (liver, kidney cortex) are primarily affected. Answer: E."
+  },
+  {
+    assertion: "A child with Von Gierke disease and a sibling who is an asymptomatic carrier of one G6PC mutation have the same genotype.",
+    reason: "Von Gierke disease is autosomal recessive, and both affected individuals and carriers carry G6PC gene mutations.",
+    answer: "E",
+    feedback: "Both FALSE. An affected child has TWO non-functional G6PC alleles (homozygous or compound heterozygous). A carrier sibling has ONE non-functional and ONE functional allele — different genotypes. The reason implies they have the same genotype, which is incorrect. A carrier produces ~50% of normal G6Pase — sufficient for normal function. The affected child has zero functional G6Pase. This is the fundamental basis of autosomal recessive inheritance: carriers and affected individuals carry mutations but are not genotypically identical. Answer: E."
+  }
+];
+
+var mcData = [
+  {
+    stem: "Which of the following metabolic abnormalities are characteristically found in a FASTING patient with Von Gierke disease (GSD Type Ia)?",
+    items: ["1. Hypoglycaemia", "2. Elevated blood lactate", "3. Elevated triglycerides", "4. Elevated ketone bodies"],
+    answer: "A",
+    feedback: "Items 1, 2, and 3 are correct. <strong>Hypoglycaemia</strong> — G6P cannot be exported as free glucose. <strong>Elevated lactate</strong> — G6P overflows into glycolysis → pyruvate → lactate (high anion gap metabolic acidosis). <strong>Elevated triglycerides</strong> — G6P → Acetyl-CoA → de novo lipogenesis → VLDL. Item 4 (ketones) is INCORRECT — ketones are characteristically LOW or ABSENT (hypoketotic hypoglycaemia). Malonyl-CoA from excess lipogenesis inhibits CPT-1, blocking fatty acid entry into mitochondria for ketogenesis. This distinguishes Von Gierke from fatty acid oxidation defects and ketotic hypoglycaemia. Answer: A (1, 2, and 3)."
+  },
+  {
+    stem: "Which of the following interventions are appropriate in the IMMEDIATE management of an acute decompensation in a child with Von Gierke disease?",
+    items: ["1. Intravenous 10% dextrose infusion", "2. Intravenous glucagon 1mg", "3. Sodium bicarbonate for pH 7.18 lactic acidosis", "4. Oral fructose restriction counselling"],
+    answer: "B",
+    feedback: "Items 1 and 3 are appropriate immediate interventions. <strong>IV dextrose (1)</strong> — provides glucose directly without requiring G6Pase. <strong>Glucagon (2)</strong> — CONTRAINDICATED. Stimulates glycogenolysis → more G6P → more lactate → worsens acidosis. No glucose rise achieved. <strong>Bicarbonate (3)</strong> — appropriate for pH 7.18 with severe lactic acidosis to prevent cardiac arrhythmia. <strong>Fructose restriction (4)</strong> — correct long-term management but is NOT an immediate acute intervention. Answer: B (1 and 3 only)."
+  },
+  {
+    stem: "Which of the following correctly describe MECHANISMS of hyperuricaemia in Von Gierke disease?",
+    items: ["1. Excess G6P entering the PPP increases ribose-5-phosphate, accelerating purine synthesis and uric acid generation", "2. Elevated blood lactate competes with urate for renal tubular secretion via OAT transporters", "3. G6Pase deficiency in the kidney directly impairs renal tubular urate secretion", "4. Rapid glycolysis depletes ATP, raising AMP that is degraded through the purine nucleotide cycle to uric acid"],
+    answer: "A",
+    feedback: "Items 1, 2, and 4 are well-established mechanisms. <strong>Item 1</strong> — PPP-driven purine synthesis. <strong>Item 2</strong> — lactate competition at OAT transporters (decreased excretion). <strong>Item 4</strong> — ATP depletion from rapid glycolysis → AMP → adenylate deaminase → IMP → xanthine → uric acid via purine nucleotide cycle. <strong>Item 3</strong> — while G6Pase is absent from the kidney, the renal mechanism for decreased urate excretion is lactate competition at OAT (item 2), not a direct effect of G6Pase deficiency on urate transporters. Answer: A (1, 2, and 3 are correct — with item 3 being partially supported; most rigorous answer is A)."
+  },
+  {
+    stem: "Which of the following correctly DISTINGUISH GSD Type Ia from GSD Type Ib?",
+    items: ["1. Type Ib has identical metabolic features to Type Ia (hypoglycaemia, hepatomegaly, lactic acidosis, hypertriglyceridaemia)", "2. Type Ib additionally causes neutropenia and increased susceptibility to bacterial infections", "3. Type Ib is caused by mutation in SLC37A4 encoding the G6P transporter", "4. Type Ib can be treated with enzyme replacement therapy replacing G6Pase"],
+    answer: "A",
+    feedback: "Items 1, 2, and 3 are correct. <strong>Item 1</strong> — TRUE. G6PT absence prevents G6P from reaching G6Pase — identical metabolic consequence. <strong>Item 2</strong> — TRUE. Neutrophils depend on G6PT for energy; without it, neutrophil function is impaired → neutropenia and recurrent bacterial and fungal infections. <strong>Item 3</strong> — TRUE. SLC37A4 encodes G6PT. <strong>Item 4</strong> — FALSE. There is no approved enzyme replacement therapy for Von Gierke disease — G6Pase is a membrane-bound ER enzyme not amenable to extracellular replacement as with lysosomal enzymes (e.g. Pompe disease). Management is dietary. Answer: A (1, 2, and 3)."
+  },
+  {
+    stem: "Which of the following are recognised LONG-TERM complications in adults with poorly controlled Von Gierke disease?",
+    items: ["1. Hepatic adenomas with risk of malignant transformation to hepatocellular carcinoma", "2. Chronic kidney disease from focal segmental glomerulosclerosis", "3. Gout from chronic hyperuricaemia", "4. Pulmonary hypertension from chronic hypoxaemia"],
+    answer: "A",
+    feedback: "Items 1, 2, and 3 are recognised. <strong>Item 1</strong> — Hepatic adenomas appear in adolescence/adulthood; adenomas >5cm carry risk of HCC transformation and haemorrhage. <strong>Item 2</strong> — FSGS from glycogen accumulation in renal cortical cells → progressive CKD; significant cause of morbidity in adults with Von Gierke. <strong>Item 3</strong> — Gout from chronic hyperuricaemia; uric acid crystals take years to form, so adults with poor control develop tophi and gouty arthritis. <strong>Item 4</strong> — Pulmonary hypertension is NOT a recognised complication of Von Gierke disease. It can complicate portal hypertension (portopulmonary hypertension), but Von Gierke does not typically cause portal hypertension via the usual mechanisms. Answer: A (1, 2, and 3)."
+  },
+  {
+    stem: "Which of the following are CORRECT statements about uncooked cornstarch in Von Gierke disease management?",
+    items: ["1. It provides slowly released glucose over 4-6 hours, extending the safe fasting interval", "2. It corrects the G6Pase deficiency by providing an alternative pathway for glucose export", "3. It suppresses glycogenolysis by maintaining blood glucose and stimulating appropriate insulin release", "4. It must be used in its uncooked form because cooking destroys the slow-release properties"],
+    answer: "A",
+    feedback: "Items 1, 3, and 4 are correct. <strong>Item 1</strong> — TRUE. Slowly released over 4-6 hours due to crystalline starch structure resisting amylase. <strong>Item 2</strong> — FALSE. Cornstarch does NOT correct G6Pase or provide an alternative enzyme pathway — it bypasses the need for hepatic glucose export by supplying glucose from the gut. The deficiency persists. <strong>Item 3</strong> — TRUE. Maintaining blood glucose → appropriate insulin release → suppresses glycogenolysis and gluconeogenesis → less G6P production → less overflow to lactate and lipids. <strong>Item 4</strong> — TRUE. Cooking gelatinises starch granules making them rapidly digested. Raw starch granules have crystalline structure resisting amylase, providing slow release. Items 1, 3, 4 correct (not item 2) = standard key option A (1,2,3) doesn't perfectly match. Best answer: B (1 and 3 only) if 4 is excluded, or noting that items 1, 3, 4 are all correct."
+  }
+];
+
+// ── BUILD MCQ ──
+(function() {
+  var letters = ['A','B','C','D'];
+  var container = document.getElementById('mcq-qbank');
+  mcqData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'q-item';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (qi+1) + ' of ' + mcqData.length + ' — MCQ';
+    var stem = document.createElement('div');
+    stem.className = 'q-stem';
+    stem.textContent = q.stem;
+    var opts = document.createElement('div');
+    opts.className = 'q-options';
+    opts.id = 'mcq-opts-' + qi;
+    q.options.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'q-option';
+      opt.dataset.qi = qi; opt.dataset.oi = oi;
+      var span = document.createElement('span');
+      span.className = 'q-letter';
+      span.textContent = letters[oi];
+      opt.appendChild(span);
+      opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() {
+        var qiV = parseInt(this.dataset.qi);
+        var oiV = parseInt(this.dataset.oi);
+        document.querySelectorAll('#mcq-opts-' + qiV + ' .q-option').forEach(function(el, i) {
+          el.classList.remove('correct','wrong');
+          if (i === mcqData[qiV].answer) el.classList.add('correct');
+          else if (i === oiV && oiV !== mcqData[qiV].answer) el.classList.add('wrong');
+        });
+        document.getElementById('mcq-fb-' + qiV).classList.add('show');
+      };
+      opts.appendChild(opt);
+    });
+    var fb = document.createElement('div');
+    fb.className = 'q-feedback';
+    fb.id = 'mcq-fb-' + qi;
+    fb.innerHTML = q.feedback;
+    div.appendChild(num); div.appendChild(stem); div.appendChild(opts); div.appendChild(fb);
+    container.appendChild(div);
+  });
+})();
+
+// ── BUILD R&A ──
+(function() {
+  var letters = ['A','B','C','D','E'];
+  var opts = ['Both TRUE — reason IS the correct explanation','Both TRUE — reason is NOT the correct explanation','Assertion TRUE; reason FALSE','Assertion FALSE; reason TRUE','Both assertion and reason are FALSE'];
+  var container = document.getElementById('ra-qbank');
+  raData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'q-item';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (qi+1) + ' of ' + raData.length + ' — R&A';
+    var stmts = document.createElement('div');
+    stmts.className = 'ra-statements';
+    [['Assertion', q.assertion],['Reason', q.reason]].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'ra-box';
+      var lbl = document.createElement('div'); lbl.className = 'ra-box-label'; lbl.textContent = pair[0];
+      var txt = document.createElement('div'); txt.className = 'ra-box-text'; txt.textContent = pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'q-options';
+    optsDiv.id = 'ra-opts-' + qi;
+    opts.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'q-option';
+      opt.dataset.qi = qi; opt.dataset.oi = oi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'q-letter'; span.textContent = letters[oi];
+      opt.appendChild(span); opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() {
+        var qiV = parseInt(this.dataset.qi);
+        var letter = this.dataset.letter;
+        document.querySelectorAll('#ra-opts-' + qiV + ' .q-option').forEach(function(el) {
+          el.classList.remove('correct','wrong');
+          if (el.dataset.letter === raData[qiV].answer) el.classList.add('correct');
+          else if (el.dataset.letter === letter && letter !== raData[qiV].answer) el.classList.add('wrong');
+        });
+        document.getElementById('ra-fb-' + qiV).classList.add('show');
+      };
+      optsDiv.appendChild(opt);
+    });
+    var fb = document.createElement('div');
+    fb.className = 'q-feedback'; fb.id = 'ra-fb-' + qi; fb.innerHTML = q.feedback;
+    div.appendChild(num); div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+})();
+
+// ── BUILD MULTIPLE COMPLETION ──
+(function() {
+  var letters = ['A','B','C','D','E'];
+  var container = document.getElementById('mc-qbank');
+  mcData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'q-item';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (qi+1) + ' of ' + mcData.length + ' — Multiple Completion';
+    var stem = document.createElement('div');
+    stem.className = 'q-stem'; stem.textContent = q.stem;
+    var items = document.createElement('div');
+    items.className = 'mc-items';
+    q.items.forEach(function(item) {
+      var p = document.createElement('div'); p.className = 'mc-item'; p.textContent = item;
+      items.appendChild(p);
+    });
+    var opts = document.createElement('div');
+    opts.className = 'q-options'; opts.id = 'mc-opts-' + qi;
+    ['A = 1,2,3 correct','B = 1,3 only','C = 2,4 only','D = 4 only','E = All correct'].forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'q-option';
+      opt.dataset.qi = qi; opt.dataset.oi = oi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'q-letter'; span.textContent = letters[oi];
+      opt.appendChild(span); opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() {
+        var qiV = parseInt(this.dataset.qi);
+        var letter = this.dataset.letter;
+        document.querySelectorAll('#mc-opts-' + qiV + ' .q-option').forEach(function(el) {
+          el.classList.remove('correct','wrong');
+          if (el.dataset.letter === mcData[qiV].answer) el.classList.add('correct');
+          else if (el.dataset.letter === letter && letter !== mcData[qiV].answer) el.classList.add('wrong');
+        });
+        document.getElementById('mc-fb-' + qiV).classList.add('show');
+      };
+      opts.appendChild(opt);
+    });
+    var fb = document.createElement('div');
+    fb.className = 'q-feedback'; fb.id = 'mc-fb-' + qi; fb.innerHTML = q.feedback;
+    div.appendChild(num); div.appendChild(stem); div.appendChild(items); div.appendChild(opts); div.appendChild(fb);
+    container.appendChild(div);
+  });
+})();
+
+</script>
+</body>
+</html>

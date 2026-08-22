@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fructose & Galactose Metabolism Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOOLTIP SYSTEM ── */
+.pathway-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
+  vertical-align: middle;
+  font-family: var(--font-body);
+  user-select: none;
+}
+.plink-tooltip {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F1623;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  padding: 11px 14px;
+  border-radius: 10px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 9000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.plink-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0F1623;
+}
+/* Show on hover (desktop) */
+.pathway-link:hover .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Show on tap (mobile + desktop click) */
+.pathway-link.active-tip .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404012; --red-border:#D9404035;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --purple:#7C3AED; --purple-dim:#7C3AED12; --purple-border:#7C3AED35;
+  --orange:#C2580A; --orange-dim:#C2580A12; --orange-border:#C2580A35;
+  --teal:#0D7A6B; --teal-dim:#0D7A6B12; --teal-border:#0D7A6B35;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.13);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.65;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:18px 16px 50px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── SHARED ── */
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-grey{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-orange{background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange-border);}
+.badge-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+
+.section-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;}
+.reg-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;}
+.reg-tag{font-size:12px;padding:5px 11px;border-radius:var(--radius-sm);font-weight:500;}
+.reg-tag.inhibitor{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-tag.activator{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-tag.cofactor{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.step-explanation{font-size:14px;color:var(--text-body);line-height:1.75;margin-top:10px;}
+.step-explanation strong{color:var(--text-dark);font-weight:600;}
+
+/* ── OVERVIEW ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange),var(--teal));}
+.overview-title{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title .fruc{color:var(--orange);}
+.overview-title .galac{color:var(--teal);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;max-width:600px;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+.bypass-highlight{background:var(--white);border:1.5px solid var(--gold-border);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.bypass-highlight-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.bypass-highlight-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.bypass-highlight-body strong{color:var(--text-dark);}
+
+/* ── STEPS ── */
+.steps-intro{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:14px;font-weight:500;}
+.pathway-divider{border-radius:var(--radius-md);padding:12px 18px;margin:16px 0 12px;display:flex;align-items:center;gap:12px;}
+.pathway-divider.fructose{background:var(--orange-dim);border:1px solid var(--orange-border);}
+.pathway-divider.galactose{background:var(--teal-dim);border:1px solid var(--teal-border);}
+.pathway-divider-title{font-size:14px;font-weight:700;}
+.pathway-divider-title.fructose{color:var(--orange);}
+.pathway-divider-title.galactose{color:var(--teal);}
+.pathway-divider-sub{font-size:12px;color:var(--text-muted);}
+
+.step-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s;}
+.step-card:hover{box-shadow:var(--shadow-md);}
+.step-card.fructose-card{border-left:3px solid var(--orange);}
+.step-card.galactose-card{border-left:3px solid var(--teal);}
+.step-card.key-enzyme{border-color:var(--gold-border);border-width:1.5px;}
+.step-card.key-enzyme.fructose-card{border-left:3px solid var(--gold);}
+.step-card.key-enzyme.galactose-card{border-left:3px solid var(--gold);}
+
+.step-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.step-header:hover{background:var(--off-white);}
+.step-num-badge{width:32px;height:32px;border-radius:50%;font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-num-badge.fruc{background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange-border);}
+.step-num-badge.fruc-key{background:var(--gold);color:var(--white);}
+.step-num-badge.galac{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.step-num-badge.galac-key{background:var(--gold);color:var(--white);}
+
+.step-header-main{flex:1;min-width:0;}
+.step-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;}
+.step-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.step-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.step-card.open .step-chevron{transform:rotate(180deg);}
+.step-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.step-card.open .step-body{display:block;}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--gold);}
+
+.muscle-route-card{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:10px;}
+.muscle-route-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.muscle-route-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.muscle-route-body strong{color:var(--text-dark);}
+
+/* ── REGULATION ── */
+.reg-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);}
+.reg-intro{font-size:14px;color:var(--text-body);line-height:1.75;}
+.reg-intro strong{color:var(--text-dark);}
+.reg-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.reg-block.fructose::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--orange);}
+.reg-block.galactose::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);}
+.reg-block-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.reg-block-sub{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:14px;}
+.reg-mechanism{font-size:14px;color:var(--text-body);line-height:1.75;background:var(--off-white);border-radius:var(--radius-md);padding:14px 16px;}
+.reg-mechanism strong{color:var(--text-dark);}
+
+/* ── CLINICAL ── */
+.intro-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;}
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-card.orange-border{border-left-color:var(--orange);}
+.clinical-card.teal-border{border-left-color:var(--teal);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-enzyme-link.orange{color:var(--orange);}
+.clinical-enzyme-link.teal{color:var(--teal);}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+.clinical-tag.orange{background:var(--orange-dim);border-color:var(--orange-border);color:var(--orange);}
+.clinical-tag.teal{background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal);}
+
+/* Comparison table */
+.comparison-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0;}
+.comparison-table th{background:var(--off-white);padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);}
+.comparison-table td{padding:10px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.6;}
+.comparison-table tr:last-child td{border-bottom:none;}
+.comparison-table .feature{font-weight:600;color:var(--text-dark);font-size:12px;}
+.comparison-table .benign{color:var(--green);}
+.comparison-table .danger{color:var(--red);}
+
+/* ── TEST ── */
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-md);text-align:center;}
+.test-mode-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:inline-flex;background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:4px;gap:4px;margin-bottom:16px;}
+.mode-toggle-btn{background:none;border:none;padding:7px 20px;border-radius:16px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);box-shadow:var(--shadow-sm);}
+.mode-desc{font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 16px;line-height:1.6;}
+.start-btn{background:var(--royal);color:var(--white);border:none;padding:12px 32px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-md);}
+.start-btn:hover{background:var(--royal-light);transform:translateY(-1px);}
+.exit-test-btn{background:none;border:none;color:var(--royal);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s;}
+.exit-test-btn:hover{opacity:.7;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.done{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-nav-btn.locked{opacity:.45;cursor:not-allowed;}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;}
+.tap-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.tap-chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:grab;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.tap-chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.tap-chip.tapging{opacity:.45;}
+.tap-chip.used{opacity:.3;pointer-events:none;}
+.match-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.match-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.match-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.match-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.match-step-info{flex:1;font-size:12px;color:var(--text-muted);min-width:120px;line-height:1.5;}
+.match-drop{width:220px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.match-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.match-drop.filled{border-style:solid;border-color:var(--mid-grey);color:var(--text-dark);font-weight:600;background:var(--white);}
+.mcq-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mcq-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.65;margin-bottom:12px;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.mcq-option{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:13px;color:var(--text-body);background:var(--off-white);}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.mcq-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.mcq-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.mcq-feedback.show{display:block;}
+.mcq-feedback strong{color:var(--text-dark);}
+.ra-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-statements{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ra-statement-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.ra-statement-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-statement-text{font-size:13px;color:var(--text-dark);line-height:1.6;font-weight:500;}
+.ra-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.ra-option{display:flex;align-items:flex-start;gap:10px;padding:8px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text-body);background:var(--off-white);}
+.ra-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.ra-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.ra-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.ra-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.ra-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.ra-feedback.show{display:block;}
+.ra-feedback strong{color:var(--text-dark);}
+.check-btn{background:var(--royal);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-right:8px;}
+.check-btn:hover{background:var(--royal-light);}
+.reset-btn{background:var(--off-white);color:var(--text-muted);border:1px solid var(--light-grey);padding:10px 20px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.reset-btn:hover{border-color:var(--mid-grey);color:var(--text-body);}
+.result-msg{margin-top:14px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;display:none;}
+.result-msg.show{display:block;}
+.result-msg.pass{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.result-msg.fail{background:var(--gold-dim);color:#8a6c1a;border:1px solid var(--gold-border);}
+.next-challenge-btn{background:var(--gold);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:10px;display:none;}
+.next-challenge-btn.show{display:inline-block;}
+.next-challenge-btn:hover{filter:brightness(1.08);}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ── TAP-TO-PLACE INTERACTION ── */
+.tap-chip { cursor: pointer; user-select: none; transition: all .15s; }
+.tap-chip.selected {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+  color: var(--royal) !important;
+  box-shadow: 0 0 0 2px var(--royal);
+  transform: translateY(-2px);
+}
+.tap-chip.used { opacity: .3; pointer-events: none; }
+.slot-drop, .match-drop, .cofactor-drop {
+  cursor: pointer;
+  transition: all .15s;
+}
+.slot-drop.tap-ready, .match-drop.tap-ready, .cofactor-drop.tap-ready {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+}
+
+/* ── TRY AGAIN / REVEAL ── */
+.btn-try-again{background:#B4530912;color:#B45309;border:1px solid #B4530935;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-try-again:hover{background:#B45309;color:#fff;}
+.btn-try-again.show{display:inline-block;}
+.btn-reveal-ans{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-reveal-ans:hover{background:#0D7A6B;color:#fff;}
+.btn-reveal-ans.show{display:inline-block;}
+.slot-drop.revealed,.match-drop.revealed,.drop-zone.revealed{border-color:#0D7A6B!important;background:#0D7A6B15!important;color:#0D7A6B!important;pointer-events:none;}
+.match-row.revealed{background:#0D7A6B12!important;border-color:#0D7A6B40!important;}
+.reveal-note-box{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
+.reveal-note-box.show{display:block;}
+
+/* ── Cross-file CSS aliases for consistency ── */
+.chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.chip.used{opacity:.3;pointer-events:none;}
+.chip-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.btn-check{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-check:hover{background:var(--royal-light);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;margin-top:10px;}
+.btn-next.show{display:inline-block;}
+.btn-next:hover{filter:brightness(1.08);}
+
+/* ══ DEFINITIVE MOBILE CSS — max-width: 640px ══ */
+@media (max-width: 640px) {
+
+  /* ── LAYOUT & PADDING ── */
+  .main { padding: 10px 12px 40px; }
+  .overview-hero { padding: 14px 14px; }
+  .challenge-card { padding: 16px 14px; }
+  .info-card, .reg-enzyme-card, .clinical-card { padding: 14px 14px; }
+  .reg-hero { padding: 14px 14px; }
+
+  /* ── HEADER ── */
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── OVERVIEW ── */
+  .overview-title { font-size: 22px !important; }
+  .overview-subtitle { font-size: 13px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 8px; }
+
+  /* ── GRIDS → SINGLE COLUMN ── */
+  .info-grid,
+  .detail-grid,
+  .two-col,
+  .reg-columns,
+  .reg-cols,
+  .ra-statements,
+  .nadph-grid,
+  .structure-grid,
+  .tissue-cols,
+  .amphibolic-cols,
+  .comparison-cols,
+  .modes-reg-block .tissue-cols { grid-template-columns: 1fr !important; }
+
+  /* ── STEP CARDS ── */
+  .step-card,
+  .bypass-card,
+  .pdc-card,
+  .nonox-card,
+  .shared-steps-card,
+  .nonox-card { overflow: visible !important; }
+
+  .step-header,
+  .bypass-header,
+  .pdc-header,
+  .nonox-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+
+  .step-header-main,
+  .bypass-header-main { width: calc(100% - 50px); min-width: 0; }
+
+  .step-enzyme-name,
+  .bypass-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+
+  .step-rxn-preview,
+  .bypass-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; max-width: 100%; }
+
+  .step-badges,
+  .bypass-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-num-badge { flex-shrink: 0; }
+
+  .step-body,
+  .bypass-body,
+  .pdc-body,
+  .nonox-body { padding: 0 12px 16px; }
+
+  .step-callout { flex-direction: column; gap: 6px; }
+
+  /* ── REGULATION ── */
+  .reg-card-header { flex-direction: column; gap: 8px; }
+  .reg-card-title { font-size: 15px; }
+  .reg-col-items { gap: 6px; }
+  .cascade-step { flex-direction: column; gap: 6px; }
+  .cascade-arrow { flex-direction: row; width: auto; }
+  .mode-row { flex-direction: column; gap: 6px; }
+  .mode-pill { align-self: flex-start; }
+
+  /* ── TEST — NAVIGATION ── */
+  .challenge-nav { flex-wrap: wrap; gap: 6px; }
+  .challenge-nav-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* ── TEST — CHIP BANK ── */
+  .chip-bank, .tap-bank, .arrange-bank { flex-wrap: wrap; min-height: 44px; }
+  .chip, .tap-chip { font-size: 11px; padding: 6px 10px; word-break: break-word; max-width: 100%; box-sizing: border-box; }
+
+  /* ── TEST — DROP ZONES ── */
+  .slot-drop, .drop-zone { min-height: 44px; font-size: 12px; word-break: break-word; }
+  .match-drop { width: 100% !important; min-height: 40px; font-size: 12px; word-break: break-word; }
+  .cofactor-drop { width: 100% !important; min-height: 40px; font-size: 11px; flex-wrap: wrap; }
+
+  /* ── TEST — MATCH ROWS ── */
+  .match-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .match-info { width: 100%; }
+  .match-step-info { width: 100%; }
+  .cofactor-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cofactor-enzyme-name { width: 100%; }
+  .order-slot { flex-wrap: nowrap; gap: 8px; }
+
+  /* ── TEST — BUTTONS ── */
+  .btn-row { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn-try-again, .btn-reveal-ans,
+  .btn-try, .btn-reveal { margin-right: 0; width: auto; }
+  .check-btn, .btn-check { width: auto; }
+  .reset-btn { width: auto; }
+  .next-challenge-btn, .btn-next { width: auto; }
+
+  /* ── MCQ ── */
+  .mcq-stem { font-size: 13px; word-break: break-word; line-height: 1.6; }
+  .mcq-option { word-break: break-word; align-items: flex-start; font-size: 12px; padding: 8px 10px; }
+  .mcq-letter { flex-shrink: 0; }
+  .mcq-feedback { font-size: 12px; }
+
+  /* ── R&A ── */
+  .ra-statements { grid-template-columns: 1fr !important; }
+  .ra-statement-text { font-size: 12px; word-break: break-word; }
+  .ra-option { font-size: 12px; word-break: break-word; align-items: flex-start; }
+  .ra-letter { flex-shrink: 0; }
+  .ra-feedback { font-size: 12px; }
+
+  /* ── CLINICAL ── */
+  .clinical-detail { font-size: 13px; }
+  .comparison-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  .gsd-summary-table { font-size: 11px; }
+
+  /* ── MISC ── */
+  .reg-row { flex-wrap: wrap; }
+  .reg-tag { font-size: 11px; word-break: break-word; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .site-footer { font-size: 10px; padding: 14px; }
+
+  /* ── TOOLTIP MOBILE ── */
+  .pathway-link { position: static; }
+  .plink-tooltip {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    transform: none !important;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 9999 !important;
+  }
+  .plink-tooltip::after { display: none !important; }
+
+}
+
+
+/* ── MULTIPLE COMPLETION ── */
+.mc-question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--light-grey); }
+.mc-question:last-child { border-bottom: none; margin-bottom: 0; }
+.mc-question-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.mc-stem { font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 1.6; margin-bottom: 6px; }
+.mc-instructions { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.mc-options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.mc-option { display: flex; align-items: flex-start; gap: 10px; background: var(--off-white); border: 1.5px solid var(--light-grey); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; transition: all .15s; }
+.mc-option:hover { border-color: var(--royal); background: var(--royal-dim); }
+.mc-option.selected { background: var(--royal-dim); border-color: var(--royal); }
+.mc-option.correct { background: var(--green-dim); border-color: var(--green); }
+.mc-option.incorrect { background: var(--red-dim); border-color: var(--red); }
+.mc-option.missed { background: var(--teal-dim); border-color: var(--teal); }
+.mc-checkbox { font-size: 16px; flex-shrink: 0; margin-top: 1px; color: var(--text-muted); }
+.mc-option.selected .mc-checkbox { color: var(--royal); }
+.mc-option.correct .mc-checkbox { color: var(--green); }
+.mc-option.incorrect .mc-checkbox { color: var(--red); }
+.mc-option.missed .mc-checkbox { color: var(--teal); }
+.mc-option-text { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+.mc-feedback { background: var(--off-white); border: 1px solid var(--light-grey); border-left: 3px solid var(--royal); border-radius: var(--radius-md); padding: 12px 14px; font-size: 13px; color: var(--text-body); line-height: 1.7; margin-top: 10px; }
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+
+.mcq-option.selected { background: var(--royal-dim) !important; border-color: var(--royal) !important; color: var(--royal) !important; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Fructose & Galactose Metabolism Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar" id="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Step-by-Step</button>
+    <button class="tab-btn" onclick="showTab('regulation',this)">Regulation</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title"><span class="fruc">Fructose</span> & <span class="galac">Galactose</span> Metabolism Mastery</div>
+    <div class="overview-subtitle">Two dietary monosaccharides that enter the body's energy pathways via dedicated routes — both converging into glycolysis or glycogen synthesis, each with clinically important enzyme deficiencies.</div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-label">Fructose — Sources & Entry</div>
+      <div class="info-body">Found in <strong>fruit, honey, sucrose</strong> (glucose + fructose), and high-fructose corn syrup. Absorbed in the small intestine via GLUT5 (fructose-specific). Primarily metabolised in the <strong>liver</strong> via fructokinase; minor metabolism in muscle and adipose tissue via hexokinase. Enters glycolysis <strong>below PFK-1</strong> — bypassing the main regulatory checkpoint.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Galactose — Sources & Entry</div>
+      <div class="info-body">Found primarily in <strong>lactose</strong> (glucose + galactose) from dairy. Absorbed via SGLT1 and GLUT2. Metabolised mainly in the <strong>liver, intestinal mucosa, and RBCs</strong> via the Leloir pathway, converting galactose → glucose-1-phosphate → enters glycolysis or glycogen synthesis.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Why These Pathways Matter</div>
+      <div class="info-body">Both pathways exist because <strong>fructose and galactose cannot directly enter glycolysis at step 1</strong> the way glucose can — they lack the right structural features for the first glycolytic steps. Each requires dedicated enzymes to convert them into glycolytic intermediates. Defects in these enzymes cause the pathway's characteristic clinical disorders.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Convergence Points</div>
+      <div class="info-body">
+        <strong>Fructose</strong> → DHAP + G3P → enters glycolysis at steps 4–6<br><br>
+        <strong>Galactose</strong> → Glucose-1-phosphate → G6P → enters glycolysis at step 1 (post-phosphorylation), or enters glycogen synthesis
+      </div>
+    </div>
+  </div>
+
+  <div class="bypass-highlight">
+    <div class="bypass-highlight-title">⭐ The Critical Regulatory Implication of Fructose Metabolism</div>
+    <div class="bypass-highlight-body">
+      Glucose enters glycolysis at step 1 (Hexokinase) and is controlled at step 3 by <strong>PFK-1</strong> — the major rate-limiting enzyme that acts as the cell's energy sensor. Fructose, when metabolised in the liver via Fructokinase and Aldolase B, enters glycolysis as DHAP and G3P — <strong>below PFK-1</strong>. This means fructose bypasses the main regulatory checkpoint entirely. The liver cannot slow down fructose metabolism when energy is abundant in the same way it can throttle glucose. This unregulated entry leads to: excess Acetyl-CoA → de novo lipogenesis → elevated triglycerides and VLDL, contributing to metabolic syndrome, fatty liver disease, and dyslipidaemia with high fructose intake.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div class="steps-intro">💡 Orange-accented cards = Fructose metabolism. Teal-accented cards = Galactose (Leloir) pathway. Gold border = key enzyme with clinical/exam significance. Tap to expand.</div>
+
+  <!-- ═══ FRUCTOSE ═══ -->
+  <div class="pathway-divider fructose">
+    <div>
+      <div class="pathway-divider-title fructose">🟠 Fructose Metabolism — Liver Route</div>
+      <div class="pathway-divider-sub">Fructokinase → Aldolase B → Triokinase → Glycolysis. Bypasses PFK-1 regulation.</div>
+    </div>
+  </div>
+
+  <!-- F1: Fructokinase -->
+  <div class="step-card fructose-card key-enzyme" id="fc1">
+    <div class="step-header" onclick="toggleCard('fc1')">
+      <div class="step-num-badge fruc-key">F1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Fructokinase (Ketohexokinase)</div>
+        <div class="step-rxn-preview">Fructose + ATP → Fructose-1-phosphate + ADP</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-orange">Liver specific</span>
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>The committed step of hepatic fructose metabolism.</strong> Unlike Hexokinase (which phosphorylates fructose at C6), Fructokinase phosphorylates fructose specifically at <strong>C1</strong>, producing Fructose-1-phosphate — not Fructose-6-phosphate. This is the key distinction — Fructose-1-phosphate cannot enter glycolysis directly, cannot be converted to G6P, and is not subject to G6PD or PFK-1 regulation.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fructose + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Fructose-1-phosphate + ADP</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">ATP Change</div><div class="detail-value" style="color:var(--red);font-weight:700">−1 ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Tissue</div><div class="detail-value">Liver (primary) · Kidney · Small intestine</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Phosphorylation at C1</div></div>
+      </div>
+      <div class="section-label">Regulation</div>
+      <div class="step-explanation">
+        Fructokinase has <strong>no allosteric regulation</strong> — it runs at a rate determined purely by fructose availability. This is the biochemical root of fructose's problematic metabolic effects at high intake: there is no feedback mechanism to slow Fructokinase when the liver has enough energy, unlike glucose metabolism which is tightly controlled at PFK-1.<br><br>
+        Deficiency of Fructokinase causes <strong>Essential Fructosuria</strong> — a benign, asymptomatic condition where fructose accumulates in blood and spills into urine (fructosuria). Since Fructose-1-phosphate is never formed, none of the downstream toxic accumulation occurs.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis<span class="plink-tooltip">Fructose-1-phosphate cannot directly enter glycolysis. It must first be cleaved by Aldolase B (step F2) into DHAP and glyceraldehyde, which then enter glycolysis at steps 4–6.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- F2: Aldolase B -->
+  <div class="step-card fructose-card key-enzyme" id="fc2">
+    <div class="step-header" onclick="toggleCard('fc2')">
+      <div class="step-num-badge fruc-key">F2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Aldolase B (Fructose-1-phosphate Aldolase)</div>
+        <div class="step-rxn-preview">Fructose-1-phosphate → DHAP + Glyceraldehyde</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-orange">Liver specific</span>
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>Cleaves Fructose-1-phosphate into two 3-carbon fragments.</strong> Aldolase B is the liver-specific isoform — distinct from Aldolase A (muscle/most tissues, cleaves Fructose-1,6-bisphosphate) and Aldolase C (brain). Aldolase B can cleave both F-1-P and F-1,6-BP, but its primary substrate in the liver is F-1-P from fructose metabolism. Deficiency causes Hereditary Fructose Intolerance — dangerous, not benign.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fructose-1-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Products</div><div class="detail-value">DHAP + Glyceraldehyde (D-glyceraldehyde)</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme / Cofactor</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Tissue</div><div class="detail-value">Liver · Kidney · Small intestine</div></div>
+        <div class="detail-item"><div class="detail-label">Isoform</div><div class="detail-value">Aldolase B (liver-specific)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Aldol cleavage (C–C bond)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Aldolase B cleaves Fructose-1-phosphate into <strong>dihydroxyacetone phosphate (DHAP)</strong> and <strong>D-glyceraldehyde</strong> (not glyceraldehyde-3-phosphate). The DHAP can directly enter glycolysis at step 4. The glyceraldehyde must first be phosphorylated to glyceraldehyde-3-phosphate by Triokinase (step F3) before it can proceed.<br><br>
+        <strong>Why Aldolase B deficiency is dangerous:</strong> when Aldolase B is absent, Fructose-1-phosphate accumulates massively in liver cells. F-1-P traps inorganic phosphate, depleting the cell's phosphate pool. This inhibits Phosphorylase and glycogen breakdown, and critically <strong>sequesters Pi away from oxidative phosphorylation and ATP synthesis</strong>. Simultaneously, the liver cell accumulates a toxic compound it cannot process, directly damaging hepatocytes.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis Step 4<span class="plink-tooltip">DHAP produced here is identical to the DHAP produced by Aldolase in glycolysis step 4. It feeds directly into the payoff phase of glycolysis via Triose Phosphate Isomerase.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- F3: Triokinase -->
+  <div class="step-card fructose-card" id="fc3">
+    <div class="step-header" onclick="toggleCard('fc3')">
+      <div class="step-num-badge fruc">F3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Triokinase (Glyceraldehyde Kinase)</div>
+        <div class="step-rxn-preview">Glyceraldehyde + ATP → Glyceraldehyde-3-phosphate + ADP</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-grey">Reversible context</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">D-Glyceraldehyde + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glyceraldehyde-3-phosphate (G3P)</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">ATP Change</div><div class="detail-value" style="color:var(--red);font-weight:700">−1 ATP</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Phosphorylates glyceraldehyde at C3 to produce glyceraldehyde-3-phosphate, which directly enters glycolysis at step 6 (GAPDH). This is the final step connecting fructose to the glycolytic payoff phase. Together with DHAP from step F2, both 3-carbon fragments are now in the glycolytic stream.<br><br>
+        Note the net ATP cost of the liver fructose route: <strong>steps F1 and F3 each consume one ATP</strong>, meaning two ATPs are invested before glycolysis begins — similar to glucose's 2-ATP investment in the glycolytic investment phase. However, since the products enter below PFK-1, the cell proceeds directly to the payoff phase without the regulatory gatekeeping that glucose faces.
+      </div>
+    </div>
+  </div>
+
+  <!-- Muscle route note -->
+  <div class="muscle-route-card">
+    <div class="muscle-route-label">Fructose in Muscle & Adipose Tissue — Alternative Route</div>
+    <div class="muscle-route-body">
+      In muscle and adipose tissue, <strong>Hexokinase</strong> phosphorylates fructose at C6 (not C1), producing Fructose-6-phosphate directly — which enters glycolysis at step 2. However, Hexokinase has a much <strong>lower affinity for fructose than for glucose</strong> (fructose is a poor substrate), so this route is minor under normal dietary conditions. It only becomes significant when very large amounts of fructose reach peripheral tissues, which rarely occurs because the liver captures most dietary fructose on first pass. This route does not produce F-1-P and cannot cause HFI-like toxicity.
+    </div>
+  </div>
+
+  <!-- ═══ GALACTOSE ═══ -->
+  <div class="pathway-divider galactose">
+    <div>
+      <div class="pathway-divider-title galactose">🩵 Galactose Metabolism — Leloir Pathway</div>
+      <div class="pathway-divider-sub">4 enzymes convert Galactose → Glucose-1-phosphate → Glycolysis / Glycogen synthesis</div>
+    </div>
+  </div>
+
+  <!-- G1: Galactokinase -->
+  <div class="step-card galactose-card" id="gc1">
+    <div class="step-header" onclick="toggleCard('gc1')">
+      <div class="step-num-badge galac">G1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Galactokinase</div>
+        <div class="step-rxn-preview">Galactose + ATP → Galactose-1-phosphate + ADP</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Galactose + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Galactose-1-phosphate + ADP</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">ATP Change</div><div class="detail-value" style="color:var(--red);font-weight:700">−1 ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Tissue</div><div class="detail-value">Liver · Intestine · RBCs · Most tissues</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Phosphorylation at C1</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        The committed entry step of galactose metabolism — phosphorylates galactose at C1, trapping it in the cell and committing it to the Leloir pathway. Galactose-1-phosphate cannot proceed to glycolysis without the next enzyme (GALT).<br><br>
+        <strong>Galactokinase deficiency</strong> is the mildest galactosaemia — Gal-1-P cannot form, so galactose accumulates and is instead reduced to <strong>galactitol</strong> by Aldose Reductase. Galactitol accumulates in the lens, causing <strong>cataracts</strong>. This is the only significant manifestation — no liver disease, no intellectual disability. Important exam distinction from classic galactosaemia.
+      </div>
+    </div>
+  </div>
+
+  <!-- G2: GALT -->
+  <div class="step-card galactose-card key-enzyme" id="gc2">
+    <div class="step-header" onclick="toggleCard('gc2')">
+      <div class="step-num-badge galac-key">G2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Galactose-1-phosphate Uridyltransferase (GALT)</div>
+        <div class="step-rxn-preview">Gal-1-P + UDP-Glucose → Glucose-1-phosphate + UDP-Galactose</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Classic Galactosaemia</span>
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>The key enzyme of classic galactosaemia.</strong> GALT transfers the uridyl group from UDP-Glucose to Galactose-1-phosphate, producing Glucose-1-phosphate (which enters glycolysis) and UDP-Galactose (which feeds step G3). Deficiency causes Gal-1-P and galactitol to accumulate with devastating multi-system consequences.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Gal-1-P + UDP-Glucose</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-1-phosphate + UDP-Galactose</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">UDP (uridine diphosphate) — sugar carrier</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Uridyltransfer (group transfer)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        GALT is a transferase — it swaps the uridyl-glucose group from UDP-Glucose onto Galactose-1-phosphate. The products are Glucose-1-phosphate (which Phosphoglucomutase converts to G6P for glycolysis) and UDP-Galactose (which feeds the next step for recycling the UDP carrier).<br><br>
+        <strong>Why GALT deficiency is so serious:</strong> both Galactose-1-phosphate and galactitol accumulate. Gal-1-P is directly toxic to hepatocytes (causing liver damage → jaundice, cirrhosis), brain cells (causing intellectual disability), and the lens (cataracts). Galactitol accumulates in the lens. Together they produce the classic galactosaemia triad of <strong>jaundice, cataracts, and intellectual disability</strong> in a newborn presenting within days of lactose feeding.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycogen Synthesis<span class="plink-tooltip">Glucose-1-phosphate produced here can be converted to UDP-Glucose (by UTP:G1P Uridylyltransferase) and incorporated into glycogen — providing an alternative fate for galactose-derived carbon beyond glycolysis.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- G3: UDP-Galactose-4-Epimerase -->
+  <div class="step-card galactose-card" id="gc3">
+    <div class="step-header" onclick="toggleCard('gc3')">
+      <div class="step-num-badge galac">G3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">UDP-Galactose-4-Epimerase (GALE)</div>
+        <div class="step-rxn-preview">UDP-Galactose → UDP-Glucose</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-grey">Reversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">UDP-Galactose</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">UDP-Glucose</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">NAD⁺ (tightly bound — not consumed net)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Epimerisation (C4 inversion)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Converts UDP-Galactose back to UDP-Glucose by inverting the configuration at C4 — an epimerisation reaction. This regenerates the UDP-Glucose consumed in step G2, making the UDP carrier available for the next cycle. NAD⁺ is used transiently as part of the reaction mechanism (oxidation then reduction at C4) but is not consumed net.<br><br>
+        This step is also important for <strong>galactose biosynthesis</strong> — when the body needs galactose for glycoprotein or glycolipid synthesis (even in people who have never consumed dairy), GALE can run in reverse, converting UDP-Glucose to UDP-Galactose. This is why classic galactosaemia patients can still synthesise galactose-containing glycoproteins, albeit imperfectly.<br><br>
+        <strong>GALE deficiency</strong>: a rare, usually milder form of galactosaemia. In the peripheral (benign) form, only RBCs are affected — not clinically significant. In the generalised form, it resembles classic galactosaemia.
+      </div>
+    </div>
+  </div>
+
+  <!-- G4: Phosphoglucomutase -->
+  <div class="step-card galactose-card" id="gc4">
+    <div class="step-header" onclick="toggleCard('gc4')">
+      <div class="step-num-badge galac">G4</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Phosphoglucomutase</div>
+        <div class="step-rxn-preview">Glucose-1-phosphate → Glucose-6-phosphate</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-grey">Reversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-1-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-6-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Mechanistic Intermediate</div><div class="detail-value">Glucose-1,6-bisphosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Mutase (phosphate group shift C1→C6)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Shifts the phosphate from C1 to C6, converting Glucose-1-phosphate to Glucose-6-phosphate — the form that enters glycolysis at step 2 (Phosphoglucose Isomerase), or can feed the PPP via G6PD, or can be dephosphorylated by Glucose-6-phosphatase for blood glucose release (in liver).<br><br>
+        This same enzyme runs in reverse during <strong>glycogenolysis</strong> — converting G6P back to G1P for glycogen synthesis — making Phosphoglucomutase a bidirectional link between glycolysis and glycogen metabolism. The same enzyme serves both fructose and galactose metabolism, as well as glycogen turnover.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis<span class="plink-tooltip">G6P produced here enters glycolysis at step 2, or the PPP at G6PD. Galactose-derived carbon is now fully integrated into the mainstream of carbohydrate metabolism.</span></span>
+        <span class="pathway-link">Glycogenolysis<span class="plink-tooltip">In glycogen breakdown, Glycogen Phosphorylase releases G1P from glycogen. Phosphoglucomutase converts G1P → G6P, which then either enters glycolysis or (in liver) is dephosphorylated for blood glucose release.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ REGULATION ══ -->
+<div id="tab-regulation" class="section-panel">
+
+  <div class="reg-hero">
+    <div class="info-label" style="margin-bottom:8px">Regulatory Overview</div>
+    <div class="reg-intro">
+      These pathways have relatively limited allosteric regulation compared to glycolysis — the critical regulatory story here is <strong>what these pathways bypass</strong> (fructose) and <strong>substrate-driven flux</strong> (galactose). The major regulatory concept is fructose's circumvention of PFK-1, and the hormonal/nutritional control of the enzymes involved.
+    </div>
+  </div>
+
+  <div class="reg-block fructose">
+    <div class="reg-block-title">Fructose Metabolism Regulation</div>
+    <div class="reg-block-sub">Key concept: bypasses PFK-1 · Fructokinase has no allosteric regulation · Insulin-responsive at expression level</div>
+    <div class="reg-mechanism">
+      <strong>Fructokinase</strong> has essentially no allosteric regulation — it is not inhibited by its product (Fructose-1-phosphate) and is not sensitive to the cell's energy status (ATP:ADP ratio). This is the fundamental problem with high fructose intake: the liver processes fructose at a rate proportional to its concentration, regardless of the cell's energetic needs.<br><br>
+      <strong>Consequences of unregulated fructose metabolism:</strong><br>
+      1. Rapid conversion to Acetyl-CoA and glycerol-3-phosphate → excessive triglyceride synthesis → <strong>non-alcoholic fatty liver disease (NAFLD)</strong> and elevated VLDL<br>
+      2. Uric acid production — the rapid phosphorylation of fructose by Fructokinase depletes ATP and raises AMP → AMP is degraded to uric acid → <strong>hyperuricaemia and gout</strong><br>
+      3. Unregulated entry into glycolysis at the triose level drives excess pyruvate → Acetyl-CoA → lipogenesis<br><br>
+      <strong>Hormonal modulation:</strong> Insulin upregulates expression of hepatic enzymes involved in fructose metabolism, and promotes lipogenic use of the resulting Acetyl-CoA. High-fructose diets in the context of hyperinsulinaemia (insulin resistance) are particularly lipogenic.
+    </div>
+  </div>
+
+  <div class="reg-block galactose">
+    <div class="reg-block-title">Galactose Metabolism Regulation</div>
+    <div class="reg-block-sub">Primarily substrate-driven · GALT is the key enzyme · UDP-glucose availability limits flux</div>
+    <div class="reg-mechanism">
+      Galactose metabolism via the Leloir pathway is primarily <strong>substrate-driven</strong> — flux through the pathway depends on the availability of galactose (dietary lactose) and UDP-Glucose (the galactose acceptor in step G2). There is no major allosteric regulatory mechanism comparable to PFK-1 in glycolysis.<br><br>
+      <strong>UDP-Glucose availability</strong> is the practical rate-limiter: GALT requires UDP-Glucose as the acceptor, and if UDP-Glucose is depleted (e.g. high galactose load relative to UDP-Glucose synthesis), Gal-1-P begins to accumulate. This is the biochemical situation that leads to toxicity in classic galactosaemia patients — even small amounts of dietary galactose overwhelm the remaining enzyme capacity.<br><br>
+      <strong>Developmental regulation:</strong> Lactase (intestinal galactosidase that cleaves lactose into glucose + galactose) is high at birth and declines after weaning in most human populations (lactase non-persistence / adult hypolactasia). This means galactose exposure naturally decreases as infants move away from breast milk — which is protective in galactosaemia patients once the diagnosis is made and lactose is excluded from the diet.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="intro-note">⚕️ The clinical correlations here are among the most commonly tested in first-year biochemistry. The fructosuria comparison and the galactosaemia severity spectrum are high-yield for both MCQs and clinical scenario questions.</div>
+
+  <!-- Fructosuria comparison -->
+  <div class="clinical-card orange-border">
+    <div class="clinical-disease">Essential Fructosuria vs Hereditary Fructose Intolerance — The Critical Comparison</div>
+    <div class="clinical-enzyme-link orange">Both involve fructose metabolism — separated by which enzyme is deficient and what accumulates</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag orange">High-Yield Exam Comparison</span><br><br>
+      This is the most commonly tested distinction in fructose metabolism. The two conditions sound similar but are clinically worlds apart.
+      <br><br>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Essential Fructosuria</th>
+            <th>Hereditary Fructose Intolerance (HFI)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature">Deficient Enzyme</td>
+            <td>Fructokinase</td>
+            <td>Aldolase B</td>
+          </tr>
+          <tr>
+            <td class="feature">What Accumulates</td>
+            <td>Fructose (blood + urine)</td>
+            <td>Fructose-1-phosphate (in liver cells)</td>
+          </tr>
+          <tr>
+            <td class="feature">Severity</td>
+            <td class="benign">Benign — asymptomatic</td>
+            <td class="danger">Dangerous — potentially fatal if untreated</td>
+          </tr>
+          <tr>
+            <td class="feature">Symptoms</td>
+            <td>None. Fructosuria on urinalysis (may cause false-positive reducing sugar tests)</td>
+            <td>Severe hypoglycaemia, vomiting, jaundice, liver failure, renal tubular acidosis after fructose ingestion</td>
+          </tr>
+          <tr>
+            <td class="feature">Mechanism of Harm</td>
+            <td>None — fructose is simply not phosphorylated and is excreted</td>
+            <td>F-1-P accumulates → sequesters Pi → inhibits glycogenolysis and gluconeogenesis → profound hypoglycaemia; F-1-P also directly toxic to hepatocytes</td>
+          </tr>
+          <tr>
+            <td class="feature">Treatment</td>
+            <td>None required</td>
+            <td>Eliminate fructose, sucrose, and sorbitol from diet. Strict and lifelong.</td>
+          </tr>
+          <tr>
+            <td class="feature">Inheritance</td>
+            <td>Autosomal Recessive</td>
+            <td>Autosomal Recessive</td>
+          </tr>
+          <tr>
+            <td class="feature">Key Exam Clue</td>
+            <td>Incidental finding on urine dipstick or reducing sugar test</td>
+            <td>Infant with severe symptoms shortly after weaning / introduction of fruit or sucrose. Often self-limited aversion to sweet foods develops as a protective behaviour.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <strong>Why HFI causes hypoglycaemia:</strong> Fructose-1-phosphate accumulation depletes inorganic phosphate (Pi). Without Pi, Glycogen Phosphorylase cannot release glucose from glycogen (the reaction requires Pi as a substrate). Gluconeogenesis is also impaired because Pi depletion disrupts oxidative phosphorylation, reducing ATP for gluconeogenic reactions. The liver cannot mobilise glucose from any source — profound hypoglycaemia follows every fructose exposure.
+    </div>
+  </div>
+
+  <!-- Classic Galactosaemia -->
+  <div class="clinical-card teal-border">
+    <div class="clinical-disease">Classic Galactosaemia — GALT Deficiency</div>
+    <div class="clinical-enzyme-link teal">Deficient enzyme: Galactose-1-phosphate Uridyltransferase (GALT · Step G2)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag teal">Autosomal Recessive</span><span class="clinical-tag teal">Newborn Screening Target</span><span class="clinical-tag teal">Medical Emergency in Neonates</span><br><br>
+      Classic galactosaemia presents in a neonate who appears well at birth but deteriorates within days of milk feeding (breast milk or standard formula both contain lactose → galactose). The biochemical chain: dietary galactose → Galactokinase produces Gal-1-P → GALT absent → Gal-1-P cannot be converted → accumulates massively → toxicity.<br><br>
+      <strong>Two toxic compounds:</strong><br>
+      — <strong>Galactose-1-phosphate</strong>: directly toxic to liver, brain, and kidneys. In liver → hepatocellular damage → jaundice, elevated transaminases, progressive cirrhosis. In brain → intellectual disability, speech delay, cerebral atrophy.<br>
+      — <strong>Galactitol</strong>: galactose reduced by Aldose Reductase (the same enzyme involved in diabetic complications). Accumulates in the lens → osmotic swelling → <strong>cataracts</strong>. Also accumulates in the brain, contributing to neurological damage.<br><br>
+      <strong>Classic triad: jaundice + cataracts + intellectual disability</strong> in a neonate exposed to lactose.<br><br>
+      <strong>Additional features:</strong> E. coli sepsis is classically associated — galactosaemia impairs neutrophil function, predisposing to overwhelming neonatal sepsis. Renal tubular disease (Fanconi syndrome — aminoaciduria, phosphaturia, glycosuria) from Gal-1-P accumulation in renal tubular cells.<br><br>
+      <strong>Treatment:</strong> Immediate elimination of all galactose from the diet (galactose-free formula, lifelong avoidance of dairy and lactose-containing foods). Early treatment prevents liver disease and worsening of cataracts, but neurological outcomes and ovarian failure (premature ovarian insufficiency in females — XX gonadal dysgenesis) often persist despite treatment, suggesting intrauterine galactose toxicity or ongoing endogenous galactose production.<br><br>
+      <strong>Diagnosis:</strong> Newborn screening detects elevated Gal-1-P or absent GALT activity in RBCs. Confirmatory enzyme assay and gene sequencing.
+    </div>
+  </div>
+
+  <!-- Galactokinase deficiency -->
+  <div class="clinical-card teal-border">
+    <div class="clinical-disease">Galactokinase Deficiency</div>
+    <div class="clinical-enzyme-link teal">Deficient enzyme: Galactokinase (Step G1)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag teal">Autosomal Recessive</span><span class="clinical-tag teal">Milder than Classic Galactosaemia</span><br><br>
+      When Galactokinase is absent, galactose cannot be phosphorylated to Gal-1-P. Instead, galactose is reduced by Aldose Reductase to <strong>galactitol</strong>, which accumulates — especially in the lens. The sole significant clinical manifestation is <strong>bilateral cataracts</strong>, appearing in infancy or early childhood.<br><br>
+      There is no liver disease, no intellectual disability, and no sepsis risk — because Gal-1-P never forms, the toxic accumulation of classic galactosaemia does not occur. Galactokinase deficiency is the <strong>mildest form of galactosaemia</strong>. Treatment is dietary galactose restriction. This condition is an important exam contrast to GALT deficiency — same sugar, very different outcome depending on which enzyme is deficient and therefore which compound accumulates.
+    </div>
+  </div>
+
+  <!-- GALE deficiency -->
+  <div class="clinical-card teal-border">
+    <div class="clinical-disease">UDP-Galactose-4-Epimerase (GALE) Deficiency</div>
+    <div class="clinical-enzyme-link teal">Deficient enzyme: UDP-Galactose-4-Epimerase (Step G3)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag teal">Autosomal Recessive</span><span class="clinical-tag teal">Variable Severity</span><br><br>
+      GALE deficiency exists on a spectrum. The <strong>peripheral (benign) form</strong> — the most common — affects only red blood cells and is clinically silent, discovered incidentally on newborn screening. The <strong>generalised form</strong> is rare but serious, resembling classic galactosaemia in presentation (jaundice, liver disease, intellectual disability), because Gal-1-P accumulates when GALE cannot regenerate UDP-Glucose for the GALT reaction.<br><br>
+      Paradoxically, patients with generalised GALE deficiency require a small amount of dietary galactose — unlike classic galactosaemia patients — because GALE is also responsible for synthesising UDP-Galactose for glycoprotein and glycolipid synthesis. Without any dietary galactose, they cannot make these essential molecules.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="mode-desc" id="mode-desc">Jump to any challenge freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav" id="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChallenge(1)">1 · Enzyme Match</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChallenge(2)">2 · Pathway Match</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChallenge(3)">3 · What Accumulates</button>
+      <button class="challenge-nav-btn" id="cnav-4" onclick="showChallenge(4)">4 · Clinical MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-5" onclick="showChallenge(5)">5 · R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-6" onclick="showChallenge(6)">6 · Multiple Completion</button>
+    </div>
+
+    <!-- Challenge 1: Enzyme matching to reactions -->
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 — Enzyme Matching</div>
+        <div class="challenge-instructions">Match each enzyme to its reaction. Covers both fructose and galactose pathways.</div>
+        <div class="section-label">Enzyme Bank</div>
+        <div class="tap-bank" id="enzyme-bank-1"></div>
+        <div class="match-grid" id="match-grid-1"></div>
+        <button class="check-btn" onclick="checkMatch1()">Check Matches</button>
+        <button class="btn-try-again" id="c1-try" onclick="tryAgainC1()">Try Again</button>
+        <button class="btn-reveal-ans" id="c1-reveal" onclick="revealC1()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetMatch1()">Reset</button>
+        <div class="result-msg" id="match1-result"></div>
+        <div class="reveal-note-box" id="c1-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="match1-next" onclick="completeAndNext(1)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 2: Pathway step ordering -->
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 — Pathway Sequence</div>
+        <div class="challenge-instructions">For each pathway, tap the steps into the correct order.</div>
+        <div class="section-label" style="color:var(--orange)">Fructose Pathway (Liver Route) — Steps F1 → F3</div>
+        <div class="tap-bank" id="fruc-bank"></div>
+        <div class="match-grid" id="fruc-order-grid"></div>
+        <div class="section-label" style="color:var(--teal);margin-top:14px">Galactose Pathway (Leloir) — Steps G1 → G4</div>
+        <div class="tap-bank" id="galac-bank"></div>
+        <div class="match-grid" id="galac-order-grid"></div>
+        <button class="check-btn" onclick="checkOrder()">Check Order</button>
+        <button class="btn-try-again" id="c2-try" onclick="tryAgainC2()">Try Again</button>
+        <button class="btn-reveal-ans" id="c2-reveal" onclick="revealC2()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetOrder()">Reset</button>
+        <div class="result-msg" id="order-result"></div>
+        <div class="reveal-note-box" id="c2-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="order-next" onclick="completeAndNext(2)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 3: What accumulates -->
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 — What Accumulates?</div>
+        <div class="challenge-instructions">Match each enzyme deficiency to the compound that accumulates as a result.</div>
+        <div class="section-label">Compound Bank</div>
+        <div class="tap-bank" id="accum-bank"></div>
+        <div class="match-grid" id="accum-grid"></div>
+        <button class="check-btn" onclick="checkAccum()">Check</button>
+        <button class="btn-try-again" id="c3-try" onclick="tryAgainC3()">Try Again</button>
+        <button class="btn-reveal-ans" id="c3-reveal" onclick="revealC3()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetAccum()">Reset</button>
+        <div class="result-msg" id="accum-result"></div>
+        <div class="reveal-note-box" id="c3-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="accum-next" onclick="completeAndNext(3)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 4: Clinical MCQ -->
+    <div class="challenge-panel" id="cp4">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 4 — Clinical Scenarios</div>
+        <div class="challenge-instructions">Select the best answer. Tap an option to reveal full feedback.</div>
+        <div id="mcq-container"></div>
+        <button class="next-challenge-btn show" onclick="completeAndNext(4)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 5: R&A -->
+    <div class="challenge-panel" id="cp5">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 5 — Reason & Assertion</div>
+        <div class="challenge-instructions">Read both statements and select the correct option.</div>
+        <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;font-family:var(--font-mono)">
+          <strong style="font-family:var(--font-body)">Options key:</strong><br>
+          A — Both TRUE; reason IS the correct explanation<br>
+          B — Both TRUE; reason is NOT the correct explanation<br>
+          C — Assertion TRUE; reason FALSE<br>
+          D — Assertion FALSE; reason TRUE<br>
+          E — Both FALSE
+        </div>
+        <div id="ra-container"></div>
+        <button class="next-challenge-btn show" style="background:var(--green)" onclick="showCompletion()">Complete All Challenges ✓</button>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="challenge-panel" id="cp6">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 6 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply, then check your answers.</div>
+        <div class="mc-question"><div class="mc-question-num">Question 1 of 3</div><div class="mc-stem">Which of the following statements about fructose metabolism are correct?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc0opt0" onclick="toggleMCOption(this,0,0)"><div class="mc-checkbox" id="mc0cb0">&#9633;</div><div class="mc-option-text">Fructose is phosphorylated to Fructose-1-phosphate by Fructokinase in the liver</div></div>
+<div class="mc-option" id="mc0opt1" onclick="toggleMCOption(this,0,1)"><div class="mc-checkbox" id="mc0cb1">&#9633;</div><div class="mc-option-text">Aldolase B cleaves Fructose-1-phosphate into DHAP and Glyceraldehyde</div></div>
+<div class="mc-option" id="mc0opt2" onclick="toggleMCOption(this,0,2)"><div class="mc-checkbox" id="mc0cb2">&#9633;</div><div class="mc-option-text">Hereditary Fructose Intolerance is caused by a deficiency of Fructokinase</div></div>
+<div class="mc-option" id="mc0opt3" onclick="toggleMCOption(this,0,3)"><div class="mc-checkbox" id="mc0cb3">&#9633;</div><div class="mc-option-text">In HFI, Fructose-1-phosphate accumulation inhibits Glycogen Phosphorylase causing hypoglycaemia</div></div>
+<div class="mc-option" id="mc0opt4" onclick="toggleMCOption(this,0,4)"><div class="mc-checkbox" id="mc0cb4">&#9633;</div><div class="mc-option-text">Fructose bypasses PFK-1 regulation allowing it to be converted to fat more readily</div></div>
+</div><div class="mc-feedback" id="mc-feedback-0" style="display:none">Fructokinase phosphorylates at C1 in liver (1 correct). Aldolase B cleaves F1P to DHAP and glyceraldehyde (2 correct). HFI is caused by Aldolase B deficiency not Fructokinase (3 wrong). F1P accumulation inhibits Glycogen Phosphorylase and Aldolase A causing hypoglycaemia (4 correct). Fructose enters glycolysis below PFK-1 bypassing the main regulatory checkpoint (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 2 of 3</div><div class="mc-stem">Which of the following are true regarding galactose metabolism via the Leloir pathway?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc1opt0" onclick="toggleMCOption(this,1,0)"><div class="mc-checkbox" id="mc1cb0">&#9633;</div><div class="mc-option-text">Galactokinase phosphorylates galactose to Galactose-1-phosphate</div></div>
+<div class="mc-option" id="mc1opt1" onclick="toggleMCOption(this,1,1)"><div class="mc-checkbox" id="mc1cb1">&#9633;</div><div class="mc-option-text">GALT transfers a UMP group from UDP-Glucose to Galactose-1-phosphate</div></div>
+<div class="mc-option" id="mc1opt2" onclick="toggleMCOption(this,1,2)"><div class="mc-checkbox" id="mc1cb2">&#9633;</div><div class="mc-option-text">Classic galactosaemia is caused by deficiency of GALT</div></div>
+<div class="mc-option" id="mc1opt3" onclick="toggleMCOption(this,1,3)"><div class="mc-checkbox" id="mc1cb3">&#9633;</div><div class="mc-option-text">UDP-Galactose 4-Epimerase converts UDP-Galactose to UDP-Glucose</div></div>
+<div class="mc-option" id="mc1opt4" onclick="toggleMCOption(this,1,4)"><div class="mc-checkbox" id="mc1cb4">&#9633;</div><div class="mc-option-text">Galactose-1-phosphate accumulation causes cataracts, liver damage, and intellectual disability</div></div>
+</div><div class="mc-feedback" id="mc-feedback-1" style="display:none">Galactokinase phosphorylates galactose to Gal-1-P (1 correct). GALT exchanges glucose-1-phosphate for galactose-1-phosphate on the UDP carrier - not a simple UMP transfer (2 wrong). Classic galactosaemia is GALT deficiency (3 correct). Epimerase interconverts UDP-Galactose and UDP-Glucose (4 correct). Accumulated Gal-1-P and galactitol toxic to liver, lens, and brain (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 3 of 3</div><div class="mc-stem">Which of the following correctly distinguish essential fructosuria from Hereditary Fructose Intolerance?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc2opt0" onclick="toggleMCOption(this,2,0)"><div class="mc-checkbox" id="mc2cb0">&#9633;</div><div class="mc-option-text">Essential fructosuria is caused by Fructokinase deficiency</div></div>
+<div class="mc-option" id="mc2opt1" onclick="toggleMCOption(this,2,1)"><div class="mc-checkbox" id="mc2cb1">&#9633;</div><div class="mc-option-text">Both conditions result in fructosuria</div></div>
+<div class="mc-option" id="mc2opt2" onclick="toggleMCOption(this,2,2)"><div class="mc-checkbox" id="mc2cb2">&#9633;</div><div class="mc-option-text">HFI is a benign condition with no clinical consequences</div></div>
+<div class="mc-option" id="mc2opt3" onclick="toggleMCOption(this,2,3)"><div class="mc-checkbox" id="mc2cb3">&#9633;</div><div class="mc-option-text">Essential fructosuria is asymptomatic because fructose is metabolised by alternative routes</div></div>
+<div class="mc-option" id="mc2opt4" onclick="toggleMCOption(this,2,4)"><div class="mc-checkbox" id="mc2cb4">&#9633;</div><div class="mc-option-text">HFI requires strict lifelong avoidance of fructose and sucrose</div></div>
+</div><div class="mc-feedback" id="mc-feedback-2" style="display:none">Essential fructosuria is Fructokinase deficiency (1 correct). Both present with fructose in urine (2 correct). HFI is severe - hypoglycaemia, liver failure, potentially fatal (3 wrong). Without Fructokinase, fructose metabolised slowly by Hexokinase elsewhere causing no harm (4 correct). HFI requires permanent dietary avoidance (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC()">Check Answers</button>
+          <button class="btn-try-again" id="mc-try-again" onclick="resetMC()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc-reveal" onclick="revealMC()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc-result"></div>
+        <div class="reveal-note-box" id="mc-reveal-note" style="display:none">Correct selections shown &mdash; review explanations above.</div>
+        <button class="next-challenge-btn" id="mc-next" onclick="completeAndNext(6)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+
+  <div id="completion-banner" style="display:none;background:linear-gradient(135deg,var(--orange-dim),var(--teal-dim));border:1px solid var(--gold-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px">
+    <div style="font-size:32px;margin-bottom:10px">🔒</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px">All Pathways Locked In</div>
+    <div style="font-size:13px;color:var(--text-muted);max-width:420px;margin:0 auto 18px">You have completed the full GETLOCKEDIN × DOMINANCE Metabolic Pathways series. Glycolysis · Gluconeogenesis · Krebs Cycle · Pentose Phosphate Pathway · Fructose & Galactose Metabolism.</div>
+    <button onclick="exitTest()" style="background:var(--royal);color:white;border:none;padding:10px 26px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;">Restart Test Section</button>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+
+const matchData1 = [
+  {rxn:"Fructose + ATP → Fructose-1-phosphate", enzyme:"Fructokinase"},
+  {rxn:"Fructose-1-phosphate → DHAP + Glyceraldehyde", enzyme:"Aldolase B"},
+  {rxn:"Glyceraldehyde + ATP → Glyceraldehyde-3-phosphate", enzyme:"Triokinase"},
+  {rxn:"Galactose + ATP → Galactose-1-phosphate", enzyme:"Galactokinase"},
+  {rxn:"Gal-1-P + UDP-Glucose → G1P + UDP-Galactose", enzyme:"Galactose-1-phosphate Uridyltransferase (GALT)"},
+  {rxn:"UDP-Galactose → UDP-Glucose", enzyme:"UDP-Galactose-4-Epimerase (GALE)"},
+  {rxn:"Glucose-1-phosphate → Glucose-6-phosphate", enzyme:"Phosphoglucomutase"}
+];
+const frucSteps = [
+  {pos:1, label:"Fructose → Fructose-1-phosphate"},
+  {pos:2, label:"Fructose-1-phosphate → DHAP + Glyceraldehyde"},
+  {pos:3, label:"Glyceraldehyde → Glyceraldehyde-3-phosphate"}
+];
+const galacSteps = [
+  {pos:1, label:"Galactose → Galactose-1-phosphate"},
+  {pos:2, label:"Gal-1-P + UDP-Glucose → G1P + UDP-Galactose"},
+  {pos:3, label:"UDP-Galactose → UDP-Glucose"},
+  {pos:4, label:"Glucose-1-phosphate → Glucose-6-phosphate"}
+];
+const accumData = [
+  {deficiency:"Fructokinase deficiency", accumulates:"Fructose (in blood + urine)"},
+  {deficiency:"Aldolase B deficiency (HFI)", accumulates:"Fructose-1-phosphate"},
+  {deficiency:"Galactokinase deficiency", accumulates:"Galactitol"},
+  {deficiency:"GALT deficiency (Classic Galactosaemia)", accumulates:"Galactose-1-phosphate + Galactitol"},
+  {deficiency:"GALE deficiency (generalised)", accumulates:"Galactose-1-phosphate + UDP-Galactose"}
+];
+var mcqData = [
+  {
+    stem:"A 3-month-old infant presents with jaundice, vomiting, poor feeding, and bilateral cataracts days after starting standard infant formula. Liver enzymes are markedly elevated, blood galactose is high, and urine contains reducing substances. Newborn screening is positive for galactosaemia. Which enzyme deficiency and toxic accumulation best explain the liver damage?",
+    options:[
+      "Galactokinase deficiency — galactitol accumulates in the liver and causes progressive hepatocellular damage",
+      "GALT deficiency — Galactose-1-phosphate accumulates and is directly toxic to hepatocytes",
+      "GALE deficiency — UDP-Galactose accumulates in the liver and triggers inflammatory cell death",
+      "Galactokinase deficiency — Galactose-1-phosphate forms in excess and overwhelms liver detoxification"
+    ],
+    answer:1,
+    feedback:"<strong>Classic galactosaemia — GALT deficiency.</strong> Galactokinase is intact, so Galactose-1-phosphate forms normally; but GALT cannot convert it to G1P + UDP-Galactose. Gal-1-P accumulates and is directly hepatotoxic. The full triad — jaundice (liver damage), cataracts (galactitol in lens from Aldose Reductase), and risk of intellectual disability — is classic. Galactokinase deficiency alone does not cause liver disease because Gal-1-P never forms. GALE deficiency is rare and would present differently. Option D is mechanistically impossible — Galactokinase deficiency means no Gal-1-P is ever produced."
+  },
+  {
+    stem:"A 6-month-old infant is found incidentally to have reducing substances in the urine. The child is entirely asymptomatic, growing normally, and has no hepatomegaly or jaundice. Urine testing confirms the reducing sugar is fructose. Which enzyme deficiency best explains this benign presentation?",
+    options:[
+      "Aldolase B deficiency — Fructose-1-phosphate accumulates slowly and causes only mild fructosuria without symptoms",
+      "Triokinase deficiency — glyceraldehyde cannot be phosphorylated, accumulates, and spills into urine as fructose",
+      "Fructokinase deficiency — fructose cannot be phosphorylated to F-1-P, so no toxic intermediate forms and fructose is simply excreted",
+      "Hexokinase deficiency — fructose cannot be phosphorylated to F-6-P in peripheral tissues, causing fructose to accumulate"
+    ],
+    answer:2,
+    feedback:"<strong>Essential fructosuria — Fructokinase deficiency.</strong> Without Fructokinase, fructose cannot be phosphorylated to Fructose-1-phosphate in the liver. It circulates and spills into urine, but since F-1-P never forms, there is no phosphate sequestration, no enzyme inhibition, and no toxicity. The condition is entirely benign. Contrast with Aldolase B deficiency (HFI), where Fructokinase is intact — F-1-P does form and accumulates to toxic levels. Triokinase deficiency would not produce fructosuria. Hexokinase has very low affinity for fructose."
+  },
+  {
+    stem:"A 9-month-old with confirmed hereditary fructose intolerance (Aldolase B deficiency) develops profound hypoglycaemia within 30 minutes of ingesting fruit puree. What is the primary biochemical mechanism by which Fructose-1-phosphate accumulation causes this hypoglycaemia?",
+    options:[
+      "Fructose-1-phosphate competitively inhibits Glucokinase, directly blocking hepatic glucose phosphorylation and glucose uptake",
+      "Fructose-1-phosphate sequesters inorganic phosphate, depleting the Pi needed for Glycogen Phosphorylase and oxidative phosphorylation, collapsing hepatic glucose output",
+      "Aldolase B deficiency prevents DHAP formation, blocking gluconeogenesis at the triose phosphate level",
+      "Fructose-1-phosphate allosterically activates Pyruvate Kinase, diverting PEP away from gluconeogenesis"
+    ],
+    answer:1,
+    feedback:"<strong>Phosphate sequestration</strong> is the mechanism. F-1-P accumulates massively and traps inorganic phosphate (Pi) in its structure. Pi depletion has two consequences: (1) Glycogen Phosphorylase cannot release glucose from glycogen — its reaction requires Pi as a substrate to produce G1P; (2) oxidative phosphorylation is impaired from Pi shortage, reducing ATP for gluconeogenesis. The liver cannot mobilise glucose from any source, causing profound hypoglycaemia after every fructose exposure. F-1-P also directly inhibits Aldolase A and B, further impairing triose generation."
+  },
+  {
+    stem:"High dietary fructose intake is associated with hypertriglyceridaemia and hepatic steatosis. Which of the following best explains this metabolic consequence at the level of enzyme regulation?",
+    options:[
+      "Fructose inhibits Pyruvate Kinase, diverting PEP toward OAA synthesis and then into lipid precursors",
+      "Fructose enters glycolysis below PFK-1 via Fructokinase and Aldolase B, bypassing the main regulatory checkpoint and generating unregulated triose flux that drives excess lipogenesis",
+      "Fructose activates AMPK in the liver, promoting fatty acid synthesis while inhibiting beta-oxidation simultaneously",
+      "Fructose competitively inhibits GLUT4-mediated glucose uptake in adipose tissue, redirecting circulating glucose into hepatic lipogenesis"
+    ],
+    answer:1,
+    feedback:"The key mechanism: Fructokinase phosphorylates fructose to F-1-P, Aldolase B cleaves it to DHAP and glyceraldehyde — both entering glycolysis <strong>below PFK-1</strong>. PFK-1 is the cell's energy sensor for carbohydrate flux; fructose completely bypasses it. DHAP and G3P generate pyruvate and Acetyl-CoA at a rate determined only by fructose supply, not cellular energy status. Excess Acetyl-CoA drives <strong>de novo lipogenesis</strong> → triglycerides → VLDL → hypertriglyceridaemia. Hepatic lipid accumulation leads to NAFLD. Additionally, rapid ATP consumption by Fructokinase raises AMP → uric acid production."
+  }
+];
+const raData = [
+  {
+    assertion:"Hereditary Fructose Intolerance (HFI) is more clinically dangerous than Essential Fructosuria despite both conditions involving impaired fructose metabolism.",
+    reason:"In HFI, Aldolase B deficiency allows Fructose-1-phosphate to accumulate, which sequesters inorganic phosphate and is directly hepatotoxic, whereas in Essential Fructosuria, no toxic intermediate is formed.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. In Essential Fructosuria (Fructokinase deficiency), fructose is never phosphorylated — no F-1-P forms, no phosphate is sequestered, and fructose is simply excreted. In HFI (Aldolase B deficiency), F-1-P forms normally (Fructokinase is intact) but cannot be cleaved — it accumulates, traps Pi, inhibits glycogenolysis and gluconeogenesis causing hypoglycaemia, and directly damages hepatocytes. The reason accurately identifies both the mechanism and the key compound responsible."
+  },
+  {
+    assertion:"Galactokinase deficiency and GALT deficiency (Classic Galactosaemia) both cause cataracts because both result in galactitol accumulation in the lens.",
+    reason:"In both conditions, excess galactose is reduced to galactitol by Aldose Reductase, which accumulates in the lens and causes osmotic swelling.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. In Galactokinase deficiency, galactose cannot be phosphorylated, so it accumulates and Aldose Reductase reduces it to galactitol → lens cataracts. In Classic Galactosaemia (GALT deficiency), galactose also accumulates upstream (Galactokinase still works but GALT blocks further metabolism), and Aldose Reductase again reduces the excess galactose to galactitol → cataracts. The mechanism is identical — both conditions lead to galactose excess that is diverted to galactitol."
+  },
+  {
+    assertion:"In classic galactosaemia, complete elimination of dietary galactose fully prevents all long-term complications, including intellectual disability and ovarian failure.",
+    reason:"Galactose-1-phosphate is only produced from dietary galactose, so its elimination removes the toxic substrate entirely.",
+    answer:"C",
+    feedback:"The assertion is false — dietary galactose elimination prevents liver disease and worsening cataracts, but does NOT fully prevent intellectual disability or premature ovarian insufficiency (POI) in females. The reason is partially true but incomplete: while dietary galactose is the major source of Gal-1-P, cells also produce galactose endogenously via UDP-Galactose-4-Epimerase running in reverse (producing UDP-Galactose, which can be hydrolysed to galactose). This endogenous galactose continues to generate low levels of Gal-1-P even on a galactose-free diet, which may explain the persistent neurological and ovarian complications despite strict dietary treatment."
+  },
+  {
+    assertion:"Fructose metabolism in the liver bypasses the main regulatory checkpoint of glycolysis.",
+    reason:"Fructokinase produces Fructose-1-phosphate, which after cleavage by Aldolase B enters glycolysis as DHAP and glyceraldehyde — downstream of Phosphofructokinase-1 (PFK-1).",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. PFK-1 at step 3 of glycolysis is the primary rate-limiting and regulatory enzyme — the cell's energy sensor for carbohydrate flux. Fructose enters glycolysis via Fructokinase → Aldolase B → DHAP + G3P, which enter at steps 4–6 of glycolysis, well downstream of PFK-1. This means fructose cannot be throttled by the same energy-sensing mechanism that controls glucose — a key reason why high fructose intake leads to unregulated lipogenesis and metabolic dysregulation."
+  },
+  {
+    assertion:"UDP-Galactose-4-Epimerase (GALE) is required only for galactose catabolism, and its deficiency would have no effect on galactose synthesis.",
+    reason:"GALE catalyses the conversion of UDP-Galactose to UDP-Glucose, which is the direction needed to process dietary galactose.",
+    answer:"E",
+    feedback:"Both statements are false. GALE is a reversible enzyme — it catalyses both UDP-Galactose → UDP-Glucose (catabolism) AND UDP-Glucose → UDP-Galactose (synthesis). The latter is essential for the biosynthesis of galactose-containing glycoproteins and glycolipids, even in individuals who consume no dietary galactose. GALE deficiency therefore impairs galactose synthesis as well as catabolism. This is clinically relevant: patients with generalised GALE deficiency need a small amount of dietary galactose precisely because their cells cannot synthesise UDP-Galactose endogenously for glycoprotein production."
+  }
+];
+
+// ══ STATE ══
+var _selectedChip = null;
+var tapgedItem = null;
+var testMode = 'free';
+var completedChallenges = new Set();
+
+// ══ TABS ══
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ SCROLL-HIDE ══
+(function(){
+  var last = 0;
+  var h = document.getElementById('site-header');
+  window.addEventListener('scroll', function() {
+    var c = window.scrollY;
+    if (c > last && c > 60) h.classList.add('hide-bar');
+    else h.classList.remove('hide-bar');
+    last = c;
+  }, {passive:true});
+})();
+
+// ══ CARD TOGGLES ══
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleShared() { document.getElementById('shared-card').classList.toggle('open'); }
+function toggleBypass(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ══ TAP-TO-PLACE CORE ══
+function tapSelectChip(chip) {
+  if (chip.classList.contains('used')) return;
+  if (_selectedChip === chip) {
+    chip.classList.remove('selected');
+    _selectedChip = null;
+    return;
+  }
+  if (_selectedChip) _selectedChip.classList.remove('selected');
+  _selectedChip = chip;
+  chip.classList.add('selected');
+}
+
+function clearTapReady() {}
+
+function makeChip(id, text, attrs) {
+  var chip = document.createElement('div');
+  chip.className = 'tap-chip';
+  chip.id = id;
+  chip.textContent = text;
+  if (attrs) Object.keys(attrs).forEach(function(k){ chip.dataset[k] = attrs[k]; });
+  chip.onclick = function(){ tapSelectChip(chip); };
+  return chip;
+}
+
+function makeSlotDrop(slotNum, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'slot-drop';
+  drop.dataset.slot = slotNum;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeMatchDrop(idx, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'match-drop';
+  drop.dataset.idx = idx;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeCofactorDrop(stepKey, placeholder, answersObj) {
+  var drop = document.createElement('div');
+  drop.className = 'cofactor-drop';
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip && _selectedChip.dataset.cofactor) {
+      var chip = _selectedChip;
+      var cf = chip.dataset.cofactor;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      if (!answersObj[stepKey]) answersObj[stepKey] = [];
+      if (answersObj[stepKey].indexOf(cf) !== -1) return;
+      answersObj[stepKey].push(cf);
+      var tag = document.createElement('span');
+      tag.className = 'reg-tag cofactor';
+      tag.style.cssText = 'font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;';
+      tag.textContent = cf + ' ✕';
+      tag.onclick = function(ev) {
+        ev.stopPropagation();
+        answersObj[stepKey] = answersObj[stepKey].filter(function(x){ return x !== cf; });
+        tag.remove();
+        if (!drop.querySelector('span')) drop.textContent = placeholder;
+      };
+      if (!drop.querySelector('span')) drop.textContent = '';
+      drop.appendChild(tag);
+    }
+  };
+  return drop;
+}
+
+// ══ TEST MODE ══
+function selectMode(mode, btn) {
+  testMode = mode;
+  document.querySelectorAll('.mode-toggle-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('mode-desc').textContent = mode === 'guided'
+    ? 'Complete each challenge in order. Each unlocks after the previous is checked.'
+    : 'All five challenges are open from the start.';
+}
+
+function startTestFree(){testMode='free';
+return startTestFree_inner();}
+function startTestFree_inner(){startTest();}
+function startTest() {
+  document.getElementById('tms').style.display = 'none';
+  document.getElementById('challenge-area').style.display = 'block';
+  document.getElementById('completion-banner').style.display = 'none';
+  completedChallenges = new Set();
+  _selectedChip = null;
+  initAllChallenges();
+  updateChallengeNav();
+  showChallenge(1);
+}
+
+function exitTest() {
+  document.getElementById('tms').style.display = 'block';
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'none';
+  _selectedChip = null;
+}
+
+function showChallenge(n) {
+  if (testMode === 'guided' && n > 1 && !completedChallenges.has(n-1)) return;
+  document.querySelectorAll('.challenge-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.challenge-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cp' + n).classList.add('active');
+  document.getElementById('cnav-' + n).classList.add('active');
+  _selectedChip = null;
+}
+
+function updateChallengeNav() {
+  for (var i = 1; i <= 5; i++) {
+    var btn = document.getElementById('cnav-' + i);
+    btn.classList.remove('done','active');
+    if (completedChallenges.has(i)) btn.classList.add('done');
+    // free mode: all challenges unlocked
+  }
+}
+
+function completeAndNext(n) {
+  completedChallenges.add(n);
+  updateChallengeNav();
+  if (n < 5) showChallenge(n + 1);
+}
+
+function showCompletion() {
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'block';
+}
+
+function initMCQ() {
+  var container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  mcqData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'mcq-item';
+    
+    var stem = document.createElement('div');
+    stem.className = 'mcq-stem';
+    stem.textContent = (qi+1) + '. ' + q.stem;
+    
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'mcq-options';
+    optsDiv.id = 'mcq-opts-' + qi;
+    q.options.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'mcq-option';
+      opt.dataset.qi = qi;
+      opt.dataset.oi = oi;
+      opt.innerHTML = '<span class="mcq-letter">' + letters[oi] + '</span>' + o;
+      opt.onclick = function() { selectMCQ(parseInt(opt.dataset.qi), parseInt(opt.dataset.oi)); };
+      optsDiv.appendChild(opt);
+    });
+    
+    var feedback = document.createElement('div');
+    feedback.className = 'mcq-feedback';
+    feedback.id = 'mcq-fb-' + qi;
+    feedback.innerHTML = q.feedback;
+    
+    div.appendChild(stem); div.appendChild(optsDiv); div.appendChild(feedback);
+    container.appendChild(div);
+  });
+}
+
+
+// ══ CHECK HELPERS ══
+function showResult(msgId, nextId, correct, total) {
+  var msg = document.getElementById(msgId);
+  msg.classList.add('show');
+  if (correct === total) {
+    msg.className = 'result-msg show pass';
+    msg.textContent = '✓ All ' + total + ' correct!';
+    document.getElementById(nextId).classList.add('show');
+  } else {
+    msg.className = 'result-msg show fail';
+    msg.textContent = correct + '/' + total + ' correct. Review the relevant section and try again.';
+  }
+}
+
+
+var matchAnswers1={};
+var frucOrderAnswers={};
+var galacOrderAnswers={};
+var accumAnswers={};
+
+function initAllChallenges(){initMatch1();initOrder();initAccum();initMCQ();initRA();}
+
+function initMatch1(){
+  matchAnswers1={};
+  var bank=document.getElementById('enzyme-bank-1');
+  var grid=document.getElementById('match-grid-1');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('match1-result').classList.remove('show');
+  document.getElementById('match1-next').classList.remove('show');
+
+  matchData1.slice().sort(function(){return Math.random()-.5;}).forEach(function(m,si){
+    bank.appendChild(makeChip('m1chip-'+si, m.enzyme, {idx:si, enzyme:m.enzyme}));
+  });
+
+  matchData1.forEach(function(m,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='m1row-'+i;
+    var info=document.createElement('div'); info.className='match-step-info'; info.style.fontFamily='var(--font-mono)'; info.style.fontSize='12px'; info.textContent=m.rxn;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete matchAnswers1[idx];return;}
+      var prev=Object.keys(matchAnswers1).find(function(k){return matchAnswers1[k]===chip.dataset.enzyme;});
+      if(prev!==undefined){var pd=document.querySelector('#match-grid-1 .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete matchAnswers1[prev];}
+      matchAnswers1[idx]=chip.dataset.enzyme;
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.enzyme; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkMatch1(){
+  var correct=0;
+  matchData1.forEach(function(m,i){
+    var row=document.getElementById('m1row-'+i); row.classList.remove('correct','wrong');
+    if(matchAnswers1[i]===m.enzyme){row.classList.add('correct');correct++;}
+    else if(matchAnswers1[i]) row.classList.add('wrong');
+  });
+  showResult('match1-result','match1-next',correct,matchData1.length);
+}
+function resetMatch1(){document.getElementById('match1-result').classList.remove('show');document.getElementById('match1-next').classList.remove('show');initMatch1();}
+
+function buildOrderSection(bankId,gridId,steps,answersObj,prefix){
+  var bank=document.getElementById(bankId);
+  var grid=document.getElementById(gridId);
+  bank.innerHTML=''; grid.innerHTML='';
+
+  steps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    bank.appendChild(makeChip(prefix+'chip-'+s.pos, s.label, {pos:s.pos, label:s.label}));
+  });
+
+  steps.forEach(function(s,i){
+    var slotNum=i+1;
+    (function(sn){
+      var row=document.createElement('div'); row.className='match-row'; row.id=prefix+'row-'+sn;
+      var info=document.createElement('div'); info.className='match-step-info'; info.textContent='Step '+sn;
+      var drop=makeMatchDrop(sn,'Tap to place',function(drop,chip){
+        if(!chip){delete answersObj[sn];return;}
+        var prev=Object.keys(answersObj).find(function(k){return answersObj[k]==parseInt(chip.dataset.pos);});
+        if(prev!==undefined){var pd=document.querySelector('#'+gridId+' .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete answersObj[prev];}
+        var old=answersObj[sn];if(old){var oc=document.getElementById(prefix+'chip-'+old);if(oc)oc.classList.remove('used');}
+        answersObj[sn]=parseInt(chip.dataset.pos);
+        chip.classList.add('used');
+        drop.textContent=chip.dataset.label; drop.classList.add('filled');
+      });
+      row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+    })(slotNum);
+  });
+}
+
+function initOrder(){
+  frucOrderAnswers={}; galacOrderAnswers={};
+  document.getElementById('order-result').classList.remove('show');
+  document.getElementById('order-next').classList.remove('show');
+  buildOrderSection('fruc-bank','fruc-order-grid',frucSteps,frucOrderAnswers,'fruc');
+  buildOrderSection('galac-bank','galac-order-grid',galacSteps,galacOrderAnswers,'galac');
+}
+
+function checkOrder(){
+  var correct=0; var total=frucSteps.length+galacSteps.length;
+  frucSteps.forEach(function(s,i){
+    var row=document.getElementById('frucrow-'+(i+1)); row.classList.remove('correct','wrong');
+    if(frucOrderAnswers[i+1]==s.pos){row.classList.add('correct');correct++;}
+    else if(frucOrderAnswers[i+1]) row.classList.add('wrong');
+  });
+  galacSteps.forEach(function(s,i){
+    var row=document.getElementById('galacrow-'+(i+1)); row.classList.remove('correct','wrong');
+    if(galacOrderAnswers[i+1]==s.pos){row.classList.add('correct');correct++;}
+    else if(galacOrderAnswers[i+1]) row.classList.add('wrong');
+  });
+  showResult('order-result','order-next',correct,total);
+}
+function resetOrder(){document.getElementById('order-result').classList.remove('show');document.getElementById('order-next').classList.remove('show');initOrder();}
+
+function initAccum(){
+  accumAnswers={};
+  var bank=document.getElementById('accum-bank');
+  var grid=document.getElementById('accum-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('accum-result').classList.remove('show');
+  document.getElementById('accum-next').classList.remove('show');
+
+  accumData.slice().sort(function(){return Math.random()-.5;}).forEach(function(a,si){
+    bank.appendChild(makeChip('acchip-'+si, a.accumulates, {idx:si, accumulates:a.accumulates}));
+  });
+
+  accumData.forEach(function(a,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='acrow-'+i;
+    var info=document.createElement('div'); info.className='match-step-info'; info.style.fontSize='13px'; info.style.fontWeight='600'; info.style.color='var(--text-dark)'; info.textContent=a.deficiency;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete accumAnswers[idx];return;}
+      var prev=Object.keys(accumAnswers).find(function(k){return accumAnswers[k]===chip.dataset.accumulates;});
+      if(prev!==undefined){var pd=document.querySelector('#accum-grid .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete accumAnswers[prev];}
+      accumAnswers[idx]=chip.dataset.accumulates;
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.accumulates; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkAccum(){
+  var correct=0;
+  accumData.forEach(function(a,i){
+    var row=document.getElementById('acrow-'+i); row.classList.remove('correct','wrong');
+    if(accumAnswers[i]===a.accumulates){row.classList.add('correct');correct++;}
+    else if(accumAnswers[i]) row.classList.add('wrong');
+  });
+  showResult('accum-result','accum-next',correct,accumData.length);
+}
+function resetAccum(){document.getElementById('accum-result').classList.remove('show');document.getElementById('accum-next').classList.remove('show');initAccum();}
+
+function initRA() {
+  var container = document.getElementById('ra-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D','E'];
+  var opts = [
+    'Both TRUE — reason IS the correct explanation',
+    'Both TRUE — reason is NOT the correct explanation',
+    'Assertion TRUE; reason FALSE',
+    'Assertion FALSE; reason TRUE',
+    'Both FALSE'
+  ];
+  raData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'ra-item';
+
+    var stmts = document.createElement('div');
+    stmts.className = 'ra-statements';
+    [['Assertion', q.assertion], ['Reason', q.reason]].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'ra-statement-box';
+      var lbl = document.createElement('div'); lbl.className = 'ra-statement-label'; lbl.textContent = pair[0];
+      var txt = document.createElement('div'); txt.className = 'ra-statement-text'; txt.textContent = pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'ra-options'; optsDiv.id = 'ra-opts-' + qi;
+    opts.forEach(function(o, oi) {
+      var opt = document.createElement('div'); opt.className = 'ra-option';
+      opt.dataset.qi = qi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'ra-letter'; span.textContent = letters[oi];
+      opt.appendChild(span);
+      opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() { selectRA(parseInt(this.dataset.qi), this.dataset.letter); };
+      optsDiv.appendChild(opt);
+    });
+
+    var fb = document.createElement('div');
+    fb.className = 'ra-feedback'; fb.id = 'ra-fb-' + qi; fb.innerHTML = q.feedback;
+
+    div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function tryAgainC1() {
+  document.querySelectorAll('#match-grid-1 .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(matchAnswers1).forEach(function(k) {
+    if (!document.querySelector('#match-grid-1 #'+'m1row-'+k+'.correct')) delete matchAnswers1[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('match1-result').classList.remove('show');
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+}
+
+function revealC1() {
+  matchData1.forEach(function(item, i) {
+    var row = document.getElementById('m1row-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+  document.getElementById('c1-reveal-note').classList.add('show');
+  document.getElementById('match1-next').classList.add('show');
+  var msg=document.getElementById('match1-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+function tryAgainC2() {
+  ['fruc','galac'].forEach(function(prefix) {
+    var gridId = prefix+'-order-grid';
+    var answersObj = prefix==='fruc' ? frucOrderAnswers : galacOrderAnswers;
+    document.querySelectorAll('#'+gridId+' .match-drop,.match-row').forEach(function(el) {
+      if (el.classList.contains('correct')||el.classList.contains('revealed')) return;
+      if (el.classList.contains('match-drop')) {
+        var sn=parseInt(el.dataset.idx||0);
+        var old=answersObj[sn];
+        if(old){var oc=document.getElementById(prefix+'chip-'+old);if(oc)oc.classList.remove('used');delete answersObj[sn];}
+        el.textContent='Tap to place'; el.classList.remove('filled','wrong');
+      } else { el.classList.remove('wrong'); }
+    });
+  });
+  document.getElementById('order-result').classList.remove('show');
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+}
+
+function revealC2() {
+  frucSteps.forEach(function(s) {
+    var drop=document.querySelector('#fruc-order-grid .match-drop[data-idx="'+s.pos+'"]');
+    if(!drop||drop.classList.contains('correct')) return;
+    var old=frucOrderAnswers[s.pos]; if(old){var oc=document.getElementById('frucchip-'+old);if(oc)oc.classList.remove('used');}
+    frucOrderAnswers[s.pos]=s.pos;
+    var chip=document.getElementById('frucchip-'+s.pos); if(chip){chip.classList.add('used');chip.classList.remove('selected');}
+    drop.textContent=s.label; drop.classList.remove('wrong','filled'); drop.classList.add('revealed');
+  });
+  galacSteps.forEach(function(s) {
+    var drop=document.querySelector('#galac-order-grid .match-drop[data-idx="'+s.pos+'"]');
+    if(!drop||drop.classList.contains('correct')) return;
+    var old=galacOrderAnswers[s.pos]; if(old){var oc=document.getElementById('galacchip-'+old);if(oc)oc.classList.remove('used');}
+    galacOrderAnswers[s.pos]=s.pos;
+    var chip=document.getElementById('galacchip-'+s.pos); if(chip){chip.classList.add('used');chip.classList.remove('selected');}
+    drop.textContent=s.label; drop.classList.remove('wrong','filled'); drop.classList.add('revealed');
+  });
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+  document.getElementById('c2-reveal-note').classList.add('show');
+  document.getElementById('order-next').classList.add('show');
+  var msg=document.getElementById('order-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study both pathway orders, then try a fresh run.';
+}
+
+function tryAgainC3() {
+  document.querySelectorAll('#accum-grid .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(accumAnswers).forEach(function(k) {
+    if (!document.querySelector('#accum-grid #'+'acrow-'+k+'.correct')) delete accumAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('accum-result').classList.remove('show');
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+}
+
+function revealC3() {
+  accumData.forEach(function(item, i) {
+    var row = document.getElementById('acrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['accumulates'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+  document.getElementById('c3-reveal-note').classList.add('show');
+  document.getElementById('accum-next').classList.add('show');
+  var msg=document.getElementById('accum-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+
+
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.pathway-link');
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var wasActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!wasActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+
+
+// ── TOOLTIP TAP TOGGLE ──
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest ? e.target.closest('.pathway-link') : null;
+    if (!link && e.target.classList && e.target.classList.contains('pathway-link')) {
+      link = e.target;
+    }
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!isActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+// ── MULTIPLE COMPLETION ──
+var mcSelections = [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAnswers = [[true, true, false, true, true], [true, false, true, true, true], [true, true, false, true, true]];
+var mcChecked = false;
+
+function toggleMCOption(el, qIdx, optIdx) {
+  if (mcChecked) return;
+  mcSelections[qIdx][optIdx] = !mcSelections[qIdx][optIdx];
+  el.classList.toggle('selected', mcSelections[qIdx][optIdx]);
+  var cb = document.getElementById('mc' + qIdx + 'cb' + optIdx);
+  cb.textContent = mcSelections[qIdx][optIdx] ? '☑' : '□';
+}
+
+function checkMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  var score = 0;
+  for (var i = 0; i < totalQ; i++) {
+    var allCorrect = true;
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      var selected = mcSelections[i][j];
+      var correct = mcAnswers[i][j];
+      opt.classList.remove('selected');
+      if (selected && correct) { opt.classList.add('correct'); cb.textContent = '✓'; }
+      else if (selected && !correct) { opt.classList.add('incorrect'); cb.textContent = '✗'; allCorrect = false; }
+      else if (!selected && correct) { opt.classList.add('missed'); cb.textContent = '○'; allCorrect = false; }
+      else { cb.textContent = '□'; }
+    }
+    if (allCorrect) score++;
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  var res = document.getElementById('mc-result');
+  res.textContent = score + ' of ' + totalQ + ' questions fully correct.';
+  res.style.color = score === totalQ ? 'var(--green)' : 'var(--red)';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+  document.getElementById('mc-reveal').style.display = 'inline-block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+}
+
+function resetMC() {
+  mcChecked = false;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    mcSelections[i] = mcSelections[i].map(function(){ return false; });
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent = '□';
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'none';
+  }
+  document.getElementById('mc-result').textContent = '';
+  document.getElementById('mc-try-again').style.display = 'none';
+  document.getElementById('mc-reveal').style.display = 'none';
+  document.getElementById('mc-next').style.display = 'none';
+  document.getElementById('mc-reveal-note').style.display = 'none';
+}
+
+function revealMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('selected','correct','incorrect','missed');
+      if (mcAnswers[i][j]) { opt.classList.add('missed'); cb.textContent = '○'; }
+      else { cb.textContent = '□'; }
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  document.getElementById('mc-reveal-note').style.display = 'block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+}
+
+
+function selectMCQ(qi, oi) {
+  var allOpts = document.getElementById('mcq-opts-' + qi);
+  if (!allOpts) return;
+  var optEls = allOpts.querySelectorAll('.mcq-option');
+  for (var k = 0; k < optEls.length; k++) {
+    if (optEls[k].classList.contains('correct') || optEls[k].classList.contains('wrong')) return;
+  }
+  for (var j = 0; j < optEls.length; j++) optEls[j].classList.remove('selected');
+  optEls[oi].classList.add('selected');
+  setTimeout(function() {
+    var correct = mcqData[qi].answer === oi;
+    for (var j = 0; j < optEls.length; j++) {
+      optEls[j].classList.remove('selected');
+      optEls[j].style.pointerEvents = 'none';
+      if (j === oi) { optEls[j].classList.add(correct ? 'correct' : 'wrong'); }
+      else if (j === mcqData[qi].answer && !correct) { optEls[j].classList.add('correct'); }
+    }
+    var fb = document.getElementById('mcq-fb-' + qi);
+    if (fb) fb.style.display = 'block';
+  }, 300);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETC Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off-white:#F7F8FA;--light-grey:#EEF0F4;--mid-grey:#C8CDD8;
+  --text-muted:#8892A0;--text-body:#2D3648;--text-dark:#0F1623;
+  --gold:#C9A84C;--gold-dim:#C9A84C18;--gold-border:#C9A84C40;
+  --royal:#1A3FBF;--royal-light:#2D5FE8;--royal-dim:#1A3FBF12;--royal-border:#1A3FBF35;
+  --red:#D94040;--red-dim:#D9404015;--red-border:#D9404040;
+  --green:#1A8C5B;--green-dim:#1A8C5B12;--green-border:#1A8C5B35;
+  --amber:#B45309;--amber-dim:#B4530912;--amber-border:#B4530935;
+  --purple:#7C3AED;--purple-dim:#7C3AED12;--purple-border:#7C3AED35;
+  --teal:#0891B2;--teal-dim:#0891B212;--teal-border:#0891B235;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07);--shadow-md:0 4px 16px rgba(15,22,35,.10);--shadow-lg:0 8px 32px rgba(15,22,35,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);}.brand-main .b2{color:var(--gold);}.brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;letter-spacing:.04em;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:20px 20px 60px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── HERO ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:28px 26px;margin-bottom:16px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--royal),var(--teal),var(--green),var(--gold),var(--red));}
+.overview-title{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--teal);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:18px;max-width:620px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--royal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+/* ── SHARED ── */
+.section-lbl{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:16px 0 8px;}
+.content-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.content-card-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:10px;line-height:1.2;}
+.content-body{font-size:14px;color:var(--text-body);line-height:1.85;}
+.content-body p{margin-bottom:12px;}
+.content-body p:last-child{margin-bottom:0;}
+.content-body strong{color:var(--text-dark);font-weight:600;}
+.content-body em{color:var(--teal);font-style:normal;font-weight:600;}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+.analogy-box{background:linear-gradient(135deg,#f0f7ff,#e8f4ff);border:1px solid var(--teal-border);border-left:4px solid var(--teal);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;}
+.analogy-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:7px;}
+.analogy-body{font-size:13px;color:var(--text-body);line-height:1.8;}
+.analogy-body strong{color:var(--text-dark);}
+
+.plain-english{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid var(--green);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;}
+.plain-english-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+.plain-english-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.plain-english-body strong{color:var(--text-dark);}
+
+.key-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;}
+.key-callout-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.key-callout-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.key-callout-body strong{color:var(--text-dark);}
+
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.badge-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+
+/* ── MITOCHONDRIA COMPARTMENTS ── */
+.mito-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.mito-compartment{border-radius:var(--radius-md);padding:14px 16px;border:1px solid;}
+.mito-compartment.outer{background:#f0f7ff;border-color:var(--teal-border);}
+.mito-compartment.inner{background:#fff8f0;border-color:var(--amber-border);}
+.mito-compartment.matrix{background:#f0fdf4;border-color:var(--green-border);}
+.mito-compartment.ims{background:#faf0ff;border-color:var(--purple-border);}
+.mito-compartment-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.mito-compartment.outer .mito-compartment-label{color:var(--teal);}
+.mito-compartment.inner .mito-compartment-label{color:var(--amber);}
+.mito-compartment.matrix .mito-compartment-label{color:var(--green);}
+.mito-compartment.ims .mito-compartment-label{color:var(--purple);}
+.mito-compartment-body{font-size:12px;color:var(--text-body);line-height:1.65;}
+.mito-compartment-body strong{color:var(--text-dark);}
+
+/* ── COMPLEX CARDS ── */
+.complex-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-sm);overflow:visible;}
+.complex-card:hover{box-shadow:var(--shadow-md);}
+.complex-header{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;position:relative;}
+.complex-header:hover{background:var(--off-white);}
+.complex-badge-num{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;font-weight:900;flex-shrink:0;}
+.c1 .complex-badge-num{background:var(--royal-dim);color:var(--royal);border:2px solid var(--royal-border);}
+.c2 .complex-badge-num{background:var(--green-dim);color:var(--green);border:2px solid var(--green-border);}
+.c3 .complex-badge-num{background:var(--amber-dim);color:var(--amber);border:2px solid var(--amber-border);}
+.c4 .complex-badge-num{background:var(--red-dim);color:var(--red);border:2px solid var(--red-border);}
+.catphos .complex-badge-num{background:var(--gold-dim);color:var(--gold);border:2px solid var(--gold-border);}
+.complex-header-main{flex:1;min-width:0;}
+.complex-name{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;word-break:break-word;}
+.complex-alt-name{font-size:11px;color:var(--text-muted);font-family:var(--font-mono);}
+.complex-badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.complex-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.complex-card.open .complex-chevron{transform:rotate(180deg);}
+.complex-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.complex-card.open .complex-body{display:block;}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.explanation{font-size:14px;color:var(--text-body);line-height:1.8;margin-top:12px;}
+.explanation strong{color:var(--text-dark);}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--amber);}
+
+/* ── MOBILE CARRIER ── */
+.carrier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.carrier-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);}
+.carrier-icon{font-size:28px;margin-bottom:8px;}
+.carrier-name{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.carrier-aka{font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:8px;}
+.carrier-body{font-size:12px;color:var(--text-body);line-height:1.65;}
+.carrier-body strong{color:var(--text-dark);}
+
+/* ── PROTON PUMPING SUMMARY ── */
+.pump-summary{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-lg);padding:16px 18px;margin:14px 0;}
+.pump-summary-title{font-size:13px;font-weight:700;color:var(--royal);margin-bottom:12px;}
+.pump-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--royal-border);}
+.pump-row:last-child{border-bottom:none;}
+.pump-complex{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--royal);width:90px;flex-shrink:0;}
+.pump-arrow{font-size:18px;flex-shrink:0;}
+.pump-desc{font-size:12px;color:var(--text-body);flex:1;}
+.pump-h{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--red);flex-shrink:0;}
+
+/* ── CHEMIOSMOSIS ── */
+.chemio-steps{display:flex;flex-direction:column;gap:0;}
+.chemio-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--light-grey);}
+.chemio-step:last-child{border-bottom:none;padding-bottom:0;}
+.chemio-num{width:32px;height:32px;border-radius:50%;background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);font-family:var(--font-mono);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.chemio-content{flex:1;}
+.chemio-heading{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.chemio-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+.chemio-body strong{color:var(--text-dark);}
+
+/* ── SHUTTLE COMPARISON ── */
+.shuttle-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.shuttle-col{border-radius:var(--radius-md);padding:14px 16px;}
+.shuttle-col.efficient{background:#f0fdf4;border:1px solid var(--green-border);}
+.shuttle-col.inefficient{background:#fef3e8;border:1px solid var(--amber-border);}
+.shuttle-col-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
+.shuttle-col.efficient .shuttle-col-label{color:var(--green);}
+.shuttle-col.inefficient .shuttle-col-label{color:var(--amber);}
+.shuttle-col-body{font-size:12px;color:var(--text-body);line-height:1.7;}
+.shuttle-col-body strong{color:var(--text-dark);}
+
+/* ── ATP TABLE ── */
+.atp-table{width:100%;border-collapse:collapse;font-size:12px;margin:14px 0;}
+.atp-table th{background:var(--royal-dim);padding:9px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--royal);border-bottom:2px solid var(--royal-border);white-space:nowrap;}
+.atp-table td{padding:8px 12px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;}
+.atp-table tr:last-child td{border-bottom:none;}
+.atp-table tr.section-header td{background:var(--off-white);font-weight:700;color:var(--text-dark);font-size:11px;}
+.atp-table tr.total-row td{background:var(--royal-dim);font-weight:700;color:var(--royal);font-size:13px;}
+.atp-old{font-family:var(--font-mono);color:var(--text-muted);text-decoration:line-through;}
+.atp-new{font-family:var(--font-mono);font-weight:700;color:var(--green);}
+
+/* ── INHIBITOR CARDS ── */
+.inhibitor-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.inhibitor-table th{background:var(--red-dim);padding:9px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border-bottom:2px solid var(--red-border);white-space:nowrap;}
+.inhibitor-table td{padding:9px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;font-size:12px;}
+.inhibitor-table tr:last-child td{border-bottom:none;}
+.inhibitor-table .name-col{font-weight:700;color:var(--text-dark);font-family:var(--font-mono);font-size:11px;}
+.inhibitor-table .target-col{color:var(--red);font-weight:600;}
+
+.uncoupler-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.uncoupler-table th{background:var(--amber-dim);padding:9px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);border-bottom:2px solid var(--amber-border);}
+.uncoupler-table td{padding:9px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;font-size:12px;}
+.uncoupler-table tr:last-child td{border-bottom:none;}
+.uncoupler-table .name-col{font-weight:700;color:var(--text-dark);font-family:var(--font-mono);font-size:11px;}
+
+/* ── CLINICAL CARDS ── */
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-subtitle{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+
+/* ── TOOLTIP ── */
+.pathway-link{display:inline-flex;align-items:center;gap:4px;background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;cursor:pointer;position:relative;margin:2px;vertical-align:middle;font-family:var(--font-body);user-select:none;}
+.plink-tooltip{display:block;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:#0F1623;color:#fff;font-size:12px;line-height:1.55;padding:11px 14px;border-radius:10px;width:230px;opacity:0;pointer-events:none;transition:opacity .18s;z-index:9000;box-shadow:0 6px 24px rgba(0,0,0,.22);}
+.plink-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0F1623;}
+.pathway-link:hover .plink-tooltip,.pathway-link.active-tip .plink-tooltip{opacity:1;pointer-events:auto;}
+
+/* ── COMPARE TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.compare-table th{background:var(--off-white);padding:9px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);}
+.compare-table td{padding:9px 12px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;font-size:12px;}
+.compare-table tr:last-child td{border-bottom:none;}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ══ DEFINITIVE MOBILE CSS ══ */
+@media(max-width:640px){
+  .main{padding:10px 12px 40px;}
+  .header-inner{flex-wrap:wrap;height:auto;min-height:40px;padding:5px 0;gap:4px;}
+  .brand-main{font-size:11px!important;}
+  .brand-dominance{font-size:11px!important;}
+  .header-page-title{font-size:10px!important;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .overview-title{font-size:22px!important;}
+  .stats-row{grid-template-columns:repeat(3,1fr)!important;}
+  .info-grid,.detail-grid,.mito-grid,.carrier-grid,.shuttle-cols{grid-template-columns:1fr!important;}
+  .complex-card{overflow:visible!important;}
+  .complex-header{flex-wrap:wrap;gap:8px;padding:12px 14px;position:relative;}
+  .complex-header-main{width:calc(100% - 66px);min-width:0;}
+  .complex-name{font-size:15px;word-break:break-word;}
+  .complex-badges{width:100%;justify-content:flex-start;margin-left:66px;flex-wrap:wrap;gap:4px;}
+  .complex-chevron{position:absolute!important;right:14px;top:16px;}
+  .complex-body{padding:0 12px 16px;}
+  .tab-btn{padding:10px 12px;font-size:11px;}
+  .inhibitor-table,.uncoupler-table,.atp-table,.compare-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:11px;}
+  .content-body{font-size:13px;}
+  .key-callout{flex-direction:column;gap:6px;}
+  .step-callout{flex-direction:column;gap:6px;}
+  .pump-row{flex-wrap:wrap;}
+  .pathway-link{position:static;}
+  .plink-tooltip{position:fixed!important;left:12px!important;right:12px!important;bottom:72px!important;top:auto!important;width:auto!important;max-width:calc(100vw - 24px)!important;transform:none!important;font-size:13px;line-height:1.6;padding:14px 16px;z-index:9999!important;}
+  .plink-tooltip::after{display:none!important;}
+}
+
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:28px;text-align:center;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.test-mode-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:14px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+.mode-toggle-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 20px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.mode-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;}
+.start-btn{background:var(--royal);color:var(--white);border:none;border-radius:24px;padding:12px 32px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;}
+.exit-test-btn{background:none;border:none;color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;padding:8px 0;margin-bottom:12px;display:block;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 18px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.completed{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+.check-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;}
+.btn-try-again{background:var(--off-white);border:1px solid var(--mid-grey);color:var(--text-body);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.btn-reveal-ans{background:var(--teal-dim);border:1px solid var(--teal-border);color:var(--teal);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.next-challenge-btn{background:var(--green);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;display:none;}
+.result-msg{font-size:14px;font-weight:600;margin-top:12px;min-height:20px;}
+.reveal-note-box{background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--teal);margin-top:10px;display:none;}
+.completion-banner-div{background:linear-gradient(135deg,var(--royal-dim),#e8f0ff);border:1px solid var(--royal-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px;}
+.completion-banner-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--royal);margin-bottom:8px;}
+.completion-banner-sub{font-size:14px;color:var(--text-muted);}
+.mcq-option{background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;margin-bottom:8px;font-size:13px;color:var(--text-body);transition:all .15s;line-height:1.5;}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mcq-option.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.mcq-option.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;display:none;}
+.mcq-next-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:9px 22px;font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.mc-qnum{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.mc-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.6;margin-bottom:6px;}
+.mc-instr{font-size:11px;color:var(--text-muted);margin-bottom:12px;font-style:italic;}
+.mc-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.mc-opt{display:flex;align-items:flex-start;gap:10px;background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;transition:all .15s;}
+.mc-opt:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mc-opt.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mc-opt.correct{background:var(--green-dim);border-color:var(--green);}
+.mc-opt.incorrect{background:var(--red-dim);border-color:var(--red);}
+.mc-opt.missed{background:var(--teal-dim);border-color:var(--teal);}
+.mc-cb{font-size:16px;flex-shrink:0;margin-top:1px;color:var(--text-muted);}
+.mc-opt.selected .mc-cb{color:var(--royal);}
+.mc-opt.correct .mc-cb{color:var(--green);}
+.mc-opt.incorrect .mc-cb{color:var(--red);}
+.mc-opt.missed .mc-cb{color:var(--teal);}
+.mc-opttext{font-size:13px;color:var(--text-body);line-height:1.6;}
+.mc-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;}
+.mc-qblock{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mc-qblock:last-child{border-bottom:none;margin-bottom:0;}
+.ra-item{margin-bottom:10px;padding-bottom:28px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-stmts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.ra-sbox{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;}
+.ra-slbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-stxt{font-size:13px;color:var(--text-body);line-height:1.6;}
+.ra-opts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.ra-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+.ra-btn:hover{border-color:var(--royal);color:var(--royal);}
+.ra-btn.selected{background:var(--royal-dim);border-color:var(--royal);color:var(--royal);}
+.ra-btn.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.ra-btn.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.ra-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:11px 13px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:6px;}
+@media(max-width:640px){.ra-stmts{grid-template-columns:1fr;}.challenge-nav-btn{padding:7px 12px;font-size:11px;}}
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">ETC Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('chain',this)">The Chain</button>
+    <button class="tab-btn" onclick="showTab('chemio',this)">Chemiosmosis</button>
+    <button class="tab-btn" onclick="showTab('atp',this)">ATP Yield</button>
+    <button class="tab-btn" onclick="showTab('inhibitors',this)">Inhibitors</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">The Electron <span>Transport Chain</span></div>
+    <div class="overview-subtitle">The final and most energy-efficient stage of cellular respiration. Glycolysis and the Krebs cycle are the warm-up acts — the ETC is where the bulk of ATP is made. It converts the chemical potential energy stored in NADH and FADH₂ into the electrical potential energy of a proton gradient, and then into the mechanical and chemical energy of ATP synthesis.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Complexes</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--teal)">~28</div><div class="stat-label">ATP from ETC</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--green)">~30-32</div><div class="stat-label">Total per glucose</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--amber)">10H⁺</div><div class="stat-label">Pumped per NADH</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">O₂</div><div class="stat-label">Final e⁻ acceptor</div></div>
+    </div>
+  </div>
+
+  <!-- Why the ETC exists -->
+  <div class="content-card">
+    <div class="content-card-title">Why Does the ETC Exist? The Big Picture</div>
+    <div class="content-body">
+      <p>Glycolysis produces 2 ATP per glucose. The Krebs cycle produces 2 more. That's 4 ATP from all the enzymatic reactions you've studied so far. But cells need enormous amounts of ATP — a resting human uses roughly 40 kg of ATP per day. <strong>4 ATP from one glucose is nowhere near enough.</strong></p>
+      <p>The key insight: glycolysis and the Krebs cycle don't just make ATP directly — they also make <strong>NADH and FADH₂</strong>. These are electron carriers that have captured high-energy electrons from the oxidation of glucose carbons. Those electrons contain potential energy. The ETC's job is to extract that potential energy in a controlled way and use it to make ATP.</p>
+      <p>Think of it this way: NADH is like a charged battery. The ETC is the circuit that allows the battery to discharge in a controlled, useful manner — instead of releasing all the energy as heat at once, the ETC releases it stepwise, using each step to do work (pumping protons). The proton gradient is then used by ATP Synthase like a turbine uses flowing water — to generate rotational mechanical energy that drives ATP synthesis.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🌊 The Dam and Turbine Analogy</div>
+      <div class="analogy-body">
+        <strong>NADH/FADH₂</strong> = water held at height behind a dam (stored potential energy)<br>
+        <strong>The ETC complexes</strong> = the controlled channels in the dam — electrons flow through them "downhill" to oxygen, releasing energy at each step<br>
+        <strong>Proton pumping</strong> = water flowing through a channel, driving a turbine (the proton gradient is the turbine position — potential energy now stored as an ion gradient)<br>
+        <strong>ATP Synthase</strong> = the turbine itself — protons flowing back down the gradient spin its rotor, generating ATP<br>
+        <strong>Oxygen</strong> = the drain at the bottom — accepts the electrons at the end and combines with protons to form water<br><br>
+        The key concept: <strong>the energy is NOT released all at once</strong> — it's controlled and stepwise, which is what makes it so efficient. A fire releases all the energy in glucose as heat at once. Cellular respiration extracts most of it as useful ATP.
+      </div>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>The First Law of Thermodynamics</strong> applies here: energy cannot be created or destroyed, only transformed. The chemical energy in C–H bonds of glucose is transformed → into chemical energy of NADH/FADH₂ → into electrical energy of the proton gradient → into mechanical energy of ATP synthase rotation → into chemical energy of the ATP phosphoanhydride bond. Each transformation loses some energy as heat — this is why the process is not 100% efficient.</div>
+    </div>
+  </div>
+
+  <!-- Mitochondria structure -->
+  <div class="content-card">
+    <div class="content-card-title">Mitochondrial Structure — Form Fits Function</div>
+    <div class="content-body">
+      <p>The mitochondrion is a double-membraned organelle. Its structure is perfectly engineered for its function — every compartment has a specific role in energy metabolism. Understanding the structure explains why the ETC works the way it does.</p>
+    </div>
+    <div class="mito-grid">
+      <div class="mito-compartment outer">
+        <div class="mito-compartment-label">🔵 Outer Membrane</div>
+        <div class="mito-compartment-body">
+          <strong>Freely permeable</strong> to small molecules and ions via protein channels called <strong>porins</strong> (limit ~10,000 Daltons). Contains enzymes for phospholipid synthesis, fatty acid desaturation, and elongation. Not a major barrier — the outer membrane is relatively leaky.
+        </div>
+      </div>
+      <div class="mito-compartment inner">
+        <div class="mito-compartment-label">🟠 Inner Membrane</div>
+        <div class="mito-compartment-body">
+          <strong>Highly impermeable</strong> — the most protein-rich biological membrane known (4:1 protein:lipid ratio). Contains the entire ETC (Complexes I–IV), ATP Synthase, and specific metabolite transporters. <strong>Impermeability is essential</strong> — the proton gradient can only be maintained if protons cannot leak through the membrane except via ATP Synthase. Highly folded into <strong>cristae</strong> to maximise surface area for ETC complexes and ATP Synthase.
+        </div>
+      </div>
+      <div class="mito-compartment matrix">
+        <div class="mito-compartment-label">🟢 Matrix</div>
+        <div class="mito-compartment-body">
+          <strong>Protein-rich</strong> (~500 mg/mL — almost gel-like). Contains: TCA cycle enzymes, Pyruvate Dehydrogenase Complex, beta-oxidation enzymes, amino acid oxidation enzymes, mitochondrial DNA (mtDNA), ribosomes for translating mtDNA-encoded proteins. The matrix is where NADH and FADH₂ are produced — right next to where they are used by the ETC.
+        </div>
+      </div>
+      <div class="mito-compartment ims">
+        <div class="mito-compartment-label">🟣 Intermembrane Space (IMS)</div>
+        <div class="mito-compartment-body">
+          The space between the outer and inner membranes. <strong>Composition similar to cytosol</strong> (because the outer membrane is freely permeable). This is where protons (H⁺) accumulate as the ETC pumps them out of the matrix — creating the proton concentration gradient. Also contains Cytochrome c (a mobile electron carrier).
+        </div>
+      </div>
+    </div>
+
+    <div class="key-callout" style="margin-top:0;">
+      <div class="key-callout-icon">💡</div>
+      <div class="key-callout-body"><strong>Why are cristae so important?</strong> The highly folded inner membrane dramatically increases the surface area available for embedding ETC complexes and ATP Synthase. Muscle cells (which have very high ATP demand) have mitochondria with many densely packed cristae. Liver cells have fewer, less dense cristae — their ATP demand per mitochondrion is lower. This explains why muscle mitochondria produce more ATP per unit volume.</div>
+    </div>
+  </div>
+
+  <!-- Thermodynamics -->
+  <div class="content-card">
+    <div class="content-card-title">Thermodynamics — Why Electrons Flow "Downhill"</div>
+    <div class="content-body">
+      <p>The ETC works because electrons spontaneously flow from carriers with <strong>more negative reduction potentials</strong> to carriers with <strong>more positive reduction potentials</strong>. This is exactly like water flowing downhill — it's thermodynamically spontaneous because it moves to lower potential energy.</p>
+
+      <p><strong>Reduction potential (E°′)</strong> measures the tendency of a molecule to gain electrons. The more positive the E°′, the stronger the molecule's tendency to accept electrons (gain electrons = be reduced).</p>
+
+      <p>Key values from the slides:<br>
+      <strong>NADH: E°′ = −0.32 V</strong> — strongly negative, meaning NADH readily <em>gives up</em> its electrons (it's a strong reducing agent)<br>
+      <strong>O₂: E°′ = +0.82 V</strong> — strongly positive, meaning O₂ readily <em>accepts</em> electrons (it's a strong oxidising agent)</p>
+
+      <p>The difference: ΔE°′ = 0.82 − (−0.32) = +1.14 V. A positive ΔE°′ means the reaction is spontaneous. The electrons fall from NADH (−0.32 V) down through the ETC complexes in stepwise fashion, each step releasing some energy, until they reach O₂ (+0.82 V) — the terminal electron acceptor.</p>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">Plain English</div>
+      <div class="plain-english-body">Think of the reduction potentials as a staircase. NADH is at the top (−0.32 V, high energy, wants to give electrons). O₂ is at the bottom (+0.82 V, low energy, wants to accept electrons). The four complexes are the steps in between — each one is at a slightly higher reduction potential than the previous one. Electrons fall down the stairs step by step, releasing energy at each step. The formula <strong>ΔG°′ = −nFΔE°′</strong> converts this electrical potential difference into the free energy available for ATP synthesis.</div>
+    </div>
+  </div>
+
+  <!-- Oxidative phosphorylation summary -->
+  <div class="content-card">
+    <div class="content-card-title">Substrate-Level vs Oxidative Phosphorylation — The Key Distinction</div>
+    <div class="content-body">
+      <p><strong>Substrate-level phosphorylation</strong>: ATP is made directly when a phosphate group is transferred from a high-energy substrate molecule to ADP. No proton gradient required. Examples: Phosphoglycerate Kinase and Pyruvate Kinase in glycolysis; Succinyl-CoA Synthetase in the TCA cycle. Can occur in both aerobic and anaerobic conditions. Produces only a small amount of ATP.</p>
+
+      <p><strong>Oxidative phosphorylation</strong>: ATP is made indirectly — the energy from electron transfer through the ETC is first stored as a proton gradient, and that gradient drives ATP Synthase. Requires O₂ as the final electron acceptor. Produces the vast majority of ATP (28 out of ~30–32 total). This is why inhibiting the ETC or removing O₂ is so catastrophic — it shuts down the source of ~90% of the cell's ATP.</p>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">The Critical Difference</div>
+      <div class="plain-english-body">Substrate-level phosphorylation is like being paid in cash at each step of work. Oxidative phosphorylation is like putting all your earnings in a bank (the proton gradient) and then cashing out in bulk via ATP Synthase. The bank system is far more efficient and produces far more total ATP — but it requires the infrastructure (the ETC, the proton-impermeable inner membrane, and O₂).</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ THE CHAIN ══ -->
+<div id="tab-chain" class="section-panel">
+
+  <div style="background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:14px;font-weight:500;">
+    ⚡ Electron flow: NADH → Complex I → CoQ → Complex III → Cyt c → Complex IV → O₂<br>
+    FADH₂ → Complex II → CoQ → (same path onwards). Tap any complex to expand.
+  </div>
+
+  <!-- Mobile carriers first -->
+  <div class="content-card">
+    <div class="content-card-title">The Two Mobile Electron Carriers — CoQ and Cytochrome c</div>
+    <div class="content-body">
+      <p>The four complexes are large, fixed protein assemblies embedded in the inner mitochondrial membrane. Electrons cannot jump directly from one complex to the next — they need <strong>mobile carriers</strong> to ferry electrons between complexes. There are exactly two: Coenzyme Q (Ubiquinone) and Cytochrome c.</p>
+    </div>
+    <div class="carrier-grid">
+      <div class="carrier-card">
+        <div class="carrier-icon">🔶</div>
+        <div class="carrier-name">Coenzyme Q (Ubiquinone / CoQ)</div>
+        <div class="carrier-aka">Also: UQ, Ubiquinone, CoQ10</div>
+        <div class="carrier-body">
+          A <strong>lipid-soluble</strong> small molecule that can diffuse freely within the hydrophobic core of the inner mitochondrial membrane. It collects electrons from both Complex I (from NADH) and Complex II (from FADH₂) and delivers them to Complex III. Because it is lipid-soluble, it can move laterally within the membrane. It shuttles between oxidised (ubiquinone, Q) and reduced (ubiquinol, QH₂) forms.<br><br>
+          <strong>Key: CoQ accepts 2 electrons at a time (from FADH₂ or via FMN in Complex I) but passes them one at a time to Complex III via the Q cycle.</strong>
+        </div>
+      </div>
+      <div class="carrier-card">
+        <div class="carrier-icon">🔷</div>
+        <div class="carrier-name">Cytochrome c (Cyt c)</div>
+        <div class="carrier-aka">Water-soluble · Located in IMS</div>
+        <div class="carrier-body">
+          A small <strong>water-soluble</strong> protein located in the intermembrane space. It carries electrons from Complex III to Complex IV — one electron at a time (it contains a single heme iron that alternates between Fe²⁺ and Fe³⁺). Because it is water-soluble, it diffuses freely through the aqueous IMS.<br><br>
+          <strong>Key: Cytochrome c carries only ONE electron at a time.</strong> This is why Complex III must run a special mechanism (the Q cycle) to convert the 2-electron transfer from CoQ into sequential 1-electron transfers to cytochrome c.<br><br>
+          Cytochrome c is also released from the IMS into the cytosol during apoptosis (programmed cell death) — it activates caspases and triggers the death cascade.
+          <span class="pathway-link" onclick="this.classList.toggle('active-tip')">Apoptosis Link<span class="plink-tooltip">Cytochrome c release from the IMS is a trigger for the intrinsic apoptosis pathway. When the mitochondrial membrane is permeabilised (by pro-apoptotic signals), Cyt c floods into the cytosol and binds Apaf-1, forming the apoptosome, which activates Caspase-9 and the caspase cascade.</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complex I -->
+  <div class="complex-card c1" id="cx1">
+    <div class="complex-header" onclick="toggleCard('cx1')">
+      <div class="complex-badge-num">I</div>
+      <div class="complex-header-main">
+        <div class="complex-name">NADH Dehydrogenase (NADH-CoQ Reductase)</div>
+        <div class="complex-alt-name">NADH → FMN → Fe-S clusters → CoQ</div>
+      </div>
+      <div class="complex-badges">
+        <span class="badge badge-royal">Entry: NADH</span>
+        <span class="badge badge-red">Pumps 4H⁺</span>
+        <span class="badge badge-gold">Largest complex</span>
+      </div>
+      <span class="complex-chevron">▼</span>
+    </div>
+    <div class="complex-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>Entry point for electrons from NADH.</strong> This is where most of the electrons from glycolysis, PDC, and the TCA cycle enter the chain. Complex I is the largest and most complicated of the four complexes — over 46 protein subunits with a total mass of ~850 kDa. It pumps 4 protons for every 2 electrons transferred.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Electron donor</div><div class="detail-value">NADH (from matrix)</div></div>
+        <div class="detail-item"><div class="detail-label">Electron acceptor</div><div class="detail-value">Coenzyme Q (CoQ / Ubiquinone)</div></div>
+        <div class="detail-item"><div class="detail-label">Prosthetic groups</div><div class="detail-value">FMN + 9 Fe-S centres</div></div>
+        <div class="detail-item"><div class="detail-label">Protons pumped</div><div class="detail-value">4 H⁺ per 2 electrons (4 H⁺/NADH)</div></div>
+        <div class="detail-item"><div class="detail-label">Protein subunits</div><div class="detail-value">&gt;46 subunits · ~850 kDa</div></div>
+        <div class="detail-item"><div class="detail-label">Product donated to</div><div class="detail-value">CoQ → QH₂ (ubiquinol)</div></div>
+      </div>
+      <div class="explanation">
+        <strong>The mechanism step by step:</strong><br>
+        1. NADH donates 2 electrons and a proton (H⁺) to <strong>FMN (Flavin Mononucleotide)</strong> — the prosthetic group of Complex I. NADH → NAD⁺ + H⁺ + 2e⁻; FMN → FMNH₂.<br><br>
+        2. FMNH₂ then passes electrons one at a time through a series of <strong>iron-sulfur (Fe-S) clusters</strong> — protein-bound clusters of iron and sulfur atoms that alternate between Fe²⁺ (reduced) and Fe³⁺ (oxidised) states, each passing one electron at a time. This converts the 2-electron transfer from NADH into sequential 1-electron transfers.<br><br>
+        3. The electrons eventually reduce <strong>Coenzyme Q</strong> (ubiquinone → ubiquinol, QH₂).<br><br>
+        4. Simultaneously, the energy from this electron transfer is used to pump <strong>4 protons</strong> from the matrix to the IMS. The mechanism involves conformational changes in the protein complex driven by the electron transfer.<br><br>
+        <strong>Inhibited by:</strong> Rotenone (insecticide/rat poison), Amytal (barbiturate), MPP⁺ (neurotoxin — mechanism of MPTP-induced Parkinson's disease), Piericidin A (antibiotic). Metformin also mildly inhibits Complex I.
+      </div>
+    </div>
+  </div>
+
+  <!-- Complex II -->
+  <div class="complex-card c2" id="cx2">
+    <div class="complex-header" onclick="toggleCard('cx2')">
+      <div class="complex-badge-num">II</div>
+      <div class="complex-header-main">
+        <div class="complex-name">Succinate Dehydrogenase (Succinate-CoQ Reductase)</div>
+        <div class="complex-alt-name">Succinate → FADH₂ → Fe-S clusters → CoQ</div>
+      </div>
+      <div class="complex-badges">
+        <span class="badge badge-green">Entry: FADH₂</span>
+        <span class="badge badge-amber">NO protons pumped</span>
+        <span class="badge badge-teal">TCA cycle enzyme</span>
+      </div>
+      <span class="complex-chevron">▼</span>
+    </div>
+    <div class="complex-body">
+      <div class="step-callout">
+        <span>🔗</span>
+        <div><strong>The direct link between the TCA cycle and the ETC.</strong> Complex II is actually Succinate Dehydrogenase — the same enzyme that catalyses the oxidation of succinate to fumarate in the TCA cycle. It is the only TCA cycle enzyme embedded in the inner mitochondrial membrane. It provides a direct entry point for electrons from FADH₂ — but crucially, it does NOT pump protons, which is why FADH₂ produces less ATP than NADH.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Electron donor</div><div class="detail-value">FADH₂ (from Succinate → Fumarate)</div></div>
+        <div class="detail-item"><div class="detail-label">Electron acceptor</div><div class="detail-value">Coenzyme Q (CoQ)</div></div>
+        <div class="detail-item"><div class="detail-label">Prosthetic groups</div><div class="detail-value">FAD + Cyt b₅₆₀ + 3 Fe-S centres</div></div>
+        <div class="detail-item"><div class="detail-label">Protons pumped</div><div class="detail-value">NONE — zero protons pumped</div></div>
+        <div class="detail-item"><div class="detail-label">Protein subunits</div><div class="detail-value">4–5 subunits</div></div>
+        <div class="detail-item"><div class="detail-label">TCA role</div><div class="detail-value">Succinate → Fumarate (TCA Step 6)</div></div>
+      </div>
+      <div class="explanation">
+        Complex II has 4 main subunits: two large subunits contain the Fe-S proteins and the FAD prosthetic group; the other subunits anchor the complex to the membrane and connect it to CoQ.<br><br>
+        <strong>Why no proton pumping?</strong> The electrons from FADH₂ enter the chain at a lower energy level than those from NADH — the energy released when FADH₂ is oxidised is less than when NADH is oxidised (because the succinate/fumarate couple has a reduction potential closer to that of CoQ than the NAD⁺/NADH couple). There simply isn't enough energy released at this step to drive proton pumping. This is why FADH₂ yields fewer ATP than NADH (1.5 vs 2.5 in the new system; 2 vs 3 in the old system).<br><br>
+        <strong>Inhibited by:</strong> 3-Nitropropionate, Thenoyltrifluoroacetone (TTFA).
+      </div>
+    </div>
+  </div>
+
+  <!-- Complex III -->
+  <div class="complex-card c3" id="cx3">
+    <div class="complex-header" onclick="toggleCard('cx3')">
+      <div class="complex-badge-num">III</div>
+      <div class="complex-header-main">
+        <div class="complex-name">CoQ-Cytochrome c Reductase (Cytochrome bc₁ Complex)</div>
+        <div class="complex-alt-name">QH₂ → Cyt b → Rieske Fe-S → Cyt c₁ → Cyt c</div>
+      </div>
+      <div class="complex-badges">
+        <span class="badge badge-amber">Entry: CoQH₂</span>
+        <span class="badge badge-red">Pumps 4H⁺</span>
+        <span class="badge badge-gold">Q Cycle</span>
+      </div>
+      <span class="complex-chevron">▼</span>
+    </div>
+    <div class="complex-body">
+      <div class="step-callout">
+        <span>🔄</span>
+        <div><strong>The Q cycle — the most mechanistically complex step in the ETC.</strong> Complex III must convert 2-electron transfers from CoQ into 1-electron transfers to Cytochrome c (which only handles one electron at a time). It does this through a clever recycling mechanism called the Q cycle, which also doubles the proton pumping efficiency.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Electron donor</div><div class="detail-value">Ubiquinol (QH₂ / CoQH₂)</div></div>
+        <div class="detail-item"><div class="detail-label">Electron acceptor</div><div class="detail-value">Cytochrome c (one at a time)</div></div>
+        <div class="detail-item"><div class="detail-label">Prosthetic groups</div><div class="detail-value">Cyt bH + Cyt bL + Cyt c₁ + Rieske Fe-S</div></div>
+        <div class="detail-item"><div class="detail-label">Protons pumped</div><div class="detail-value">4 H⁺ per 2 electrons (2 from QH₂ + 2 via Q cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Protein subunits</div><div class="detail-value">11 subunits</div></div>
+        <div class="detail-item"><div class="detail-label">Mobile carrier output</div><div class="detail-value">Reduced Cytochrome c (Cyt c Fe²⁺)</div></div>
+      </div>
+      <div class="explanation">
+        <strong>The Q Cycle simplified:</strong><br>
+        QH₂ (ubiquinol) from Complex I or II binds to Complex III. One of its two electrons goes to Cyt c (via the Rieske Fe-S cluster and Cyt c₁) — this is the "useful" electron going forward. The other electron goes backwards through Cyt bH and Cyt bL to partially re-reduce another CoQ molecule. On the second pass, the same thing happens — another electron goes to Cyt c, and the partially reduced CoQ gets fully reduced and picks up 2 protons from the matrix to regenerate QH₂.<br><br>
+        The result: for every 2 electrons passing through Complex III to Cytochrome c, 4 protons are pumped into the IMS (2 released from QH₂ at the outer face + 2 consumed from the matrix to re-reduce CoQ). The Q cycle amplifies proton pumping.<br><br>
+        <strong>Inhibited by:</strong> Antimycin A (blocks the electron transfer between Cyt bH and CoQ), Dimercaprol (also called BAL — British Anti-Lewisite), TTFA.
+      </div>
+    </div>
+  </div>
+
+  <!-- Complex IV -->
+  <div class="complex-card c4" id="cx4">
+    <div class="complex-header" onclick="toggleCard('cx4')">
+      <div class="complex-badge-num">IV</div>
+      <div class="complex-header-main">
+        <div class="complex-name">Cytochrome c Oxidase</div>
+        <div class="complex-alt-name">Cyt c → CuA → Cyt a → Cyt a₃ + CuB → O₂ → H₂O</div>
+      </div>
+      <div class="complex-badges">
+        <span class="badge badge-red">Entry: Cyt c</span>
+        <span class="badge badge-red">Pumps 2H⁺</span>
+        <span class="badge badge-amber">Terminal: O₂ → H₂O</span>
+      </div>
+      <span class="complex-chevron">▼</span>
+    </div>
+    <div class="complex-body">
+      <div class="step-callout">
+        <span>🎯</span>
+        <div><strong>The terminal oxidase — where electrons meet oxygen.</strong> Complex IV receives electrons from Cytochrome c and uses them to reduce molecular O₂ to water. This is the final step of the ETC. Without O₂ at this point, the entire chain backs up — no electrons can flow, no protons are pumped, and ATP production from oxidative phosphorylation stops completely.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Electron donor</div><div class="detail-value">Reduced Cytochrome c (Fe²⁺)</div></div>
+        <div class="detail-item"><div class="detail-label">Terminal electron acceptor</div><div class="detail-value">O₂ → 2H₂O (4 electrons + 4H⁺ needed)</div></div>
+        <div class="detail-item"><div class="detail-label">Prosthetic groups</div><div class="detail-value">Cyt a + Cyt a₃ + CuA (2 Cu) + CuB (1 Cu)</div></div>
+        <div class="detail-item"><div class="detail-label">Protons pumped</div><div class="detail-value">2 H⁺ per 2 electrons (from matrix to IMS)</div></div>
+        <div class="detail-item"><div class="detail-label">Protein subunits</div><div class="detail-value">13 subunits</div></div>
+        <div class="detail-item"><div class="detail-label">Overall reaction</div><div class="detail-value">4 Cyt c (Fe²⁺) + O₂ + 4H⁺ → 4 Cyt c (Fe³⁺) + 2H₂O</div></div>
+      </div>
+      <div class="explanation">
+        <strong>Why copper centres?</strong> The reduction of O₂ to water requires a 4-electron transfer (O₂ + 4e⁻ + 4H⁺ → 2H₂O). But Cytochrome c only delivers one electron at a time. Complex IV must accumulate 4 electrons before reducing one O₂ molecule. The two copper centres (CuA and CuB) and two cytochrome a centres (Cyt a and Cyt a₃) act as a holding reservoir — electrons from Cyt c pass through CuA → Cyt a → Cyt a₃/CuB, which is where the actual O₂ binding and reduction occurs.<br><br>
+        <strong>Why is this important?</strong> Partially reduced oxygen intermediates (superoxide, hydrogen peroxide, hydroxyl radical) are extremely reactive and damaging. By accumulating 4 electrons before reducing O₂, Complex IV ensures O₂ is reduced all the way to water in a controlled manner, minimising the production of reactive oxygen species (ROS).<br><br>
+        <strong>Inhibited by:</strong> Cyanide (CN⁻), Carbon monoxide (CO), Hydrogen sulphide (H₂S), Azide (N₃⁻) — all bind to the iron in Cyt a₃ or the copper in CuB, blocking O₂ binding and reducing. This is why these are all deadly poisons — they shut down the entire ETC by blocking the terminal step.
+      </div>
+    </div>
+  </div>
+
+  <!-- Proton pumping summary -->
+  <div class="pump-summary">
+    <div class="pump-summary-title">⚡ Proton Pumping Summary — Who Pumps What</div>
+    <div class="pump-row">
+      <span class="pump-complex">Complex I</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">4 H⁺ pumped per 2 electrons (per NADH). Matrix → IMS.</span>
+      <span class="pump-h">4H⁺</span>
+    </div>
+    <div class="pump-row">
+      <span class="pump-complex">Complex II</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">ZERO protons pumped. This is why FADH₂ produces less ATP.</span>
+      <span class="pump-h" style="color:var(--text-muted)">0H⁺</span>
+    </div>
+    <div class="pump-row">
+      <span class="pump-complex">Complex III</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">4 H⁺ pumped per 2 electrons (Q cycle amplification). Matrix → IMS.</span>
+      <span class="pump-h">4H⁺</span>
+    </div>
+    <div class="pump-row">
+      <span class="pump-complex">Complex IV</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">2 H⁺ pumped per 2 electrons (plus 2H⁺ consumed from matrix to form water). Matrix → IMS.</span>
+      <span class="pump-h">2H⁺</span>
+    </div>
+    <div class="pump-row">
+      <span class="pump-complex" style="color:var(--gold)">Per NADH</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">Total: Complex I (4) + Complex III (4) + Complex IV (2) = 10 H⁺ per NADH</span>
+      <span class="pump-h" style="color:var(--gold)">10H⁺</span>
+    </div>
+    <div class="pump-row">
+      <span class="pump-complex" style="color:var(--green)">Per FADH₂</span>
+      <span class="pump-arrow">→</span>
+      <span class="pump-desc">Complex II contributes 0. FADH₂ enters at CoQ → Complex III (4) + Complex IV (2) = 6 H⁺ per FADH₂</span>
+      <span class="pump-h" style="color:var(--green)">6H⁺</span>
+    </div>
+  </div>
+
+  <!-- Complex components table -->
+  <div class="content-card">
+    <div class="content-card-title">ETC Components — Reference Table</div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr><th>Complex</th><th>Name</th><th>Subunits</th><th>Prosthetic Groups</th><th>H⁺ Pumped</th><th>Inhibited By</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:700;color:var(--royal)">I</td><td>NADH Dehydrogenase</td><td>46</td><td>FMN, 9 Fe-S centres</td><td style="color:var(--red);font-weight:700">4 H⁺</td><td>Rotenone, Amytal, MPP⁺, Piericidin A</td></tr>
+        <tr><td style="font-weight:700;color:var(--green)">II</td><td>Succinate-CoQ Reductase</td><td>4–5</td><td>FAD, Cyt b₅₆₀, 3 Fe-S</td><td style="color:var(--text-muted)">0 H⁺</td><td>3-Nitropropionate, TTFA</td></tr>
+        <tr><td style="font-weight:700;color:var(--amber)">III</td><td>CoQ-Cyt c Reductase</td><td>11</td><td>Cyt bH, bL, c₁, Rieske Fe-S</td><td style="color:var(--red);font-weight:700">4 H⁺</td><td>Antimycin A, Dimercaprol, TTFA</td></tr>
+        <tr><td style="font-weight:700;color:var(--red)">IV</td><td>Cytochrome c Oxidase</td><td>13</td><td>Cyt a, Cyt a₃, CuA, CuB</td><td style="color:var(--red);font-weight:700">2 H⁺</td><td>Cyanide, CO, H₂S, Azide</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CHEMIOSMOSIS ══ -->
+<div id="tab-chemio" class="section-panel">
+
+  <div class="content-card">
+    <div class="content-card-title">Mitchell's Chemiosmotic Theory — The Founding Idea</div>
+    <div class="content-body">
+      <p>Before 1961, no one knew how the ETC was coupled to ATP synthesis. The prevailing hypothesis was that there must be a high-energy chemical intermediate — a mysterious "~X" that captured energy from electron transport and used it to make ATP. Nobody could find it.</p>
+
+      <p><strong>Peter Mitchell</strong> proposed a radically different idea in 1961: <em>the coupling is not chemical but osmotic</em>. The energy of electron transport is stored as an <strong>electrochemical proton gradient</strong> across the inner mitochondrial membrane — not in a chemical intermediate. This gradient is then used to drive ATP synthesis. Mitchell called this <strong>chemiosmosis</strong>, and won the Nobel Prize for it in 1978.</p>
+
+      <p>The chemiosmotic theory states: coupling of electron transfer to ATP synthesis is indirect, via a H⁺ electrochemical gradient. There are three components:</p>
+    </div>
+    <div class="chemio-steps">
+      <div class="chemio-step">
+        <div class="chemio-num">1</div>
+        <div class="chemio-content">
+          <div class="chemio-heading">Respiration creates the gradient</div>
+          <div class="chemio-body">Spontaneous electron flow through Complexes I, III, and IV is coupled to non-spontaneous H⁺ ejection from the matrix. <strong>The matrix becomes alkaline and negatively charged</strong> relative to the IMS (which becomes acidic and positively charged). This creates two components of the proton motive force: a <strong>chemical gradient (ΔpH)</strong> and an <strong>electrical gradient (Δψ, membrane potential)</strong>. Together they form the <strong>proton motive force (PMF)</strong>.</div>
+        </div>
+      </div>
+      <div class="chemio-step">
+        <div class="chemio-num">2</div>
+        <div class="chemio-content">
+          <div class="chemio-heading">ATP Synthase uses the gradient</div>
+          <div class="chemio-body">Non-spontaneous ATP synthesis is coupled to spontaneous H⁺ transport back into the matrix via ATP Synthase. The pH and electrical gradients created by respiration are together the driving force for H⁺ uptake through the Fₒ subunit of ATP Synthase. Return of protons to the matrix "uses up" the gradient — and each proton returning drives a conformational change in the F₁ subunit that synthesises ATP.</div>
+        </div>
+      </div>
+      <div class="chemio-step">
+        <div class="chemio-num">3</div>
+        <div class="chemio-content">
+          <div class="chemio-heading">ATP/ADP exchange across the membrane</div>
+          <div class="chemio-body">ATP produced in the matrix must exit to the cytosol where it is used. ADP and Pᵢ from cytosolic ATP hydrolysis must re-enter the matrix. This exchange is carried out by the <strong>ADP/ATP Translocase (adenine nucleotide translocase)</strong> — an antiporter in the inner membrane that exchanges ATP (out) for ADP (in). Pᵢ enters via a separate phosphate carrier. <strong>Atractyloside</strong> inhibits this translocase, trapping ADP in the cytosol and blocking all oxidative phosphorylation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proton Motive Force -->
+  <div class="content-card">
+    <div class="content-card-title">The Proton Motive Force — Two Gradients in One</div>
+    <div class="content-body">
+      <p>The proton motive force (PMF) is the total driving force for proton re-entry into the matrix through ATP Synthase. It has two components that both pull protons back into the matrix:</p>
+
+      <p><strong>Chemical gradient (ΔpH):</strong> The IMS has a higher concentration of H⁺ (lower pH) than the matrix. Protons naturally flow down this concentration gradient from IMS to matrix — this is diffusion.</p>
+
+      <p><strong>Electrical gradient (Δψ, membrane potential):</strong> The IMS is positively charged (excess H⁺) and the matrix is negatively charged. Protons (which are positively charged) are attracted toward the negative matrix — this is an electrostatic force.</p>
+
+      <p>Both components act in the same direction — both drive protons from IMS back into the matrix. Together they make the PMF a very powerful driving force. The PMF is analogous to the voltage across a battery — it represents stored electrical potential energy that can be converted into work (ATP synthesis) when protons are allowed to flow through ATP Synthase.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🔋 The Battery Analogy</div>
+      <div class="analogy-body">
+        The proton gradient across the inner mitochondrial membrane IS the battery. The ETC charges the battery (pumps protons against their gradient). ATP Synthase is the device that uses the battery (allows protons to flow back down, converting the electrical potential energy to mechanical → chemical energy). If you remove ATP Synthase (e.g. with oligomycin), the battery stays charged but no work is done — the gradient builds up but no ATP is made. If you add an uncoupler (e.g. DNP), you short-circuit the battery — protons leak back through the membrane directly, energy is lost as heat, and no ATP is made even though the ETC continues running.
+      </div>
+    </div>
+  </div>
+
+  <!-- ATP Synthase -->
+  <div class="content-card">
+    <div class="content-card-title">ATP Synthase (Complex V) — The Molecular Power Generator</div>
+    <div class="content-body">
+      <p>ATP Synthase is one of the most remarkable molecular machines in biology — a nanoscale rotary motor that directly converts the flow of protons into the mechanical rotation of a protein subunit, which then drives the chemical synthesis of ATP. It is embedded in the inner mitochondrial membrane and is the <em>only pathway</em> for proton re-entry into the matrix (when the ETC is operating normally).</p>
+
+      <p>ATP Synthase has two major domains:</p>
+
+      <p><strong>Fₒ subunit (the rotor, embedded in the membrane):</strong> A ring of c subunits embedded in the inner mitochondrial membrane. Protons from the IMS bind to the c ring, causing it to rotate. The more protons flow through, the faster it spins. The c ring is connected to a central stalk that passes into the F₁ domain.</p>
+
+      <p><strong>F₁ subunit (the catalytic head, in the matrix):</strong> A hexamer of alternating α and β subunits arranged around the central stalk (γ subunit). The β subunits contain the catalytic sites where ATP is synthesised. As the γ stalk rotates (driven by the Fₒ rotation below), it causes conformational changes in the β subunits in a sequential, three-phase cycle — each β subunit cycles through: empty → ADP+Pᵢ bound → ATP synthesised → ATP released. This is Paul Boyer's <strong>binding-change mechanism</strong> (Nobel Prize 1997).</p>
+
+      <p>Approximately <strong>3–4 protons must pass through ATP Synthase to synthesise one ATP molecule</strong>. Given that NADH generates 10 protons and FADH₂ generates 6 protons, this gives the new ATP yields of 2.5 per NADH and 1.5 per FADH₂.</p>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">⚙️</div>
+      <div class="key-callout-body"><strong>ATP Synthase inhibited by Oligomycin</strong> — Oligomycin binds to the Fₒ subunit and physically blocks the proton channel. Protons cannot flow back into the matrix → PMF builds up → the ETC slows and stops (because the gradient becomes so large that pumping more protons is thermodynamically impossible — the ETC is "backed up" by its own product). This is why ATP synthase inhibitors also inhibit the ETC — the two are tightly coupled. <strong>DCCD (Dicyclohexylcarbodiimide)</strong> also blocks the Fₒ proton channel.</div>
+    </div>
+  </div>
+
+  <!-- NADH Shuttles -->
+  <div class="content-card">
+    <div class="content-card-title">Shuttling Cytoplasmic NADH into the Mitochondria</div>
+    <div class="content-body">
+      <p>NADH produced in the cytoplasm (by glycolysis at the Glyceraldehyde-3-Phosphate Dehydrogenase step) cannot cross the inner mitochondrial membrane — it is too large and the membrane is impermeable to it. Its electrons must be "shuttled" in using one of two systems. The shuttle chosen determines whether the cytoplasmic NADH effectively becomes mitochondrial NADH (efficient) or mitochondrial FADH₂ (less efficient).</p>
+    </div>
+    <div class="shuttle-cols">
+      <div class="shuttle-col efficient">
+        <div class="shuttle-col-label">✅ Malate-Aspartate Shuttle (Efficient)</div>
+        <div class="shuttle-col-body">
+          Used primarily in <strong>liver, heart, and kidney</strong>.<br><br>
+          <strong>How it works:</strong><br>
+          1. Cytoplasmic NADH reduces OAA → Malate (Malate Dehydrogenase)<br>
+          2. Malate enters the matrix via the malate-α-ketoglutarate antiporter<br>
+          3. Inside the matrix, Malate is oxidised back to OAA → generating <strong>mitochondrial NADH</strong> (NAD⁺ + H⁺)<br>
+          4. OAA is transaminated to Aspartate → exits the matrix<br>
+          5. Aspartate is converted back to OAA in the cytoplasm to continue the cycle<br><br>
+          <strong>Result:</strong> Each cytoplasmic NADH generates 1 mitochondrial NADH → <strong>2.5 ATP</strong> (new values). This shuttle doesn't bypass Complex I, so the full 10 protons are pumped. <strong>Efficient.</strong>
+        </div>
+      </div>
+      <div class="shuttle-col inefficient">
+        <div class="shuttle-col-label">⚠️ Glycerol-3-Phosphate Shuttle (Inefficient)</div>
+        <div class="shuttle-col-body">
+          Used primarily in <strong>brain and skeletal muscle</strong>.<br><br>
+          <strong>How it works:</strong><br>
+          1. Cytoplasmic NADH reduces DHAP → Glycerol-3-Phosphate (cytoplasmic G3P Dehydrogenase, uses NAD⁺)<br>
+          2. Glycerol-3-Phosphate is reoxidised back to DHAP by mitochondrial G3P Dehydrogenase (on the outer face of the inner membrane) — this enzyme uses <strong>FAD as cofactor</strong>, producing <strong>FADH₂</strong><br>
+          3. FADH₂ passes electrons directly to CoQ (bypassing Complex I)<br><br>
+          <strong>Result:</strong> Each cytoplasmic NADH generates 1 mitochondrial FADH₂ → only <strong>1.5 ATP</strong> (new values). This shuttle bypasses Complex I, losing the 4 protons that Complex I would normally pump. <strong>Less efficient — but faster and irreversible.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>This shuttle difference affects total ATP yield from glucose.</strong> If the malate-aspartate shuttle is used (liver): 2 cytoplasmic NADH × 2.5 ATP = 5 ATP from glycolytic NADH. If glycerol-3-phosphate shuttle (muscle/brain): 2 × 1.5 ATP = 3 ATP. This is why the total ATP yield from glucose varies depending on tissue — it's not a fixed number.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ATP YIELD ══ -->
+<div id="tab-atp" class="section-panel">
+
+  <div class="content-card">
+    <div class="content-card-title">Complete ATP Yield from Glucose — Old vs New Values</div>
+    <div class="content-body">
+      <p>Your lecturer's slides show both the classical values (NADH = 3 ATP, FADH₂ = 2 ATP, ~36 ATP total) and the modern P/O ratio values (NADH = 2.5, FADH₂ = 1.5, ~30–32 ATP total). The modern values are based on measured proton stoichiometries and are considered more accurate. Know both for exams — but the modern values are what your KNUST slides emphasise.</p>
+
+      <p>The complete calculation combines four stages: Glycolysis → Pyruvate Dehydrogenase → Krebs Cycle → Oxidative Phosphorylation.</p>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;">
+  <table class="atp-table">
+    <thead>
+      <tr><th>Pathway</th><th>Reaction/Enzyme</th><th>Cofactor</th><th>Moles per Glucose</th><th>Old ATP (×3/×2)</th><th>New ATP (×2.5/×1.5)</th></tr>
+    </thead>
+    <tbody>
+      <tr class="section-header"><td colspan="6">GLYCOLYSIS (Cytoplasm)</td></tr>
+      <tr>
+        <td>Glycolysis</td>
+        <td>Glyceraldehyde-3-P Dehydrogenase</td>
+        <td>2 NADH (cytoplasmic)</td>
+        <td>2</td>
+        <td class="atp-old">6 (M-A) or 4 (G3P)</td>
+        <td class="atp-new">5 (M-A) or 3 (G3P)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Phosphoglycerate Kinase</td>
+        <td>Substrate-level ATP</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Pyruvate Kinase</td>
+        <td>Substrate-level ATP</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Hexokinase + PFK-1 (cost)</td>
+        <td>−2 ATP consumed</td>
+        <td>−2</td>
+        <td>−2</td>
+        <td>−2</td>
+      </tr>
+      <tr class="section-header"><td colspan="6">PYRUVATE DEHYDROGENASE (Mitochondria)</td></tr>
+      <tr>
+        <td>PDC</td>
+        <td>Pyruvate Dehydrogenase Complex</td>
+        <td>2 NADH</td>
+        <td>2</td>
+        <td class="atp-old">6</td>
+        <td class="atp-new">5</td>
+      </tr>
+      <tr class="section-header"><td colspan="6">TCA CYCLE (Mitochondria — ×2 per glucose)</td></tr>
+      <tr>
+        <td>TCA</td>
+        <td>Isocitrate Dehydrogenase</td>
+        <td>2 NADH</td>
+        <td>2</td>
+        <td class="atp-old">6</td>
+        <td class="atp-new">5</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>α-Ketoglutarate Dehydrogenase</td>
+        <td>2 NADH</td>
+        <td>2</td>
+        <td class="atp-old">6</td>
+        <td class="atp-new">5</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Succinyl-CoA Synthetase</td>
+        <td>2 GTP (substrate-level)</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Succinate Dehydrogenase</td>
+        <td>2 FADH₂</td>
+        <td>2</td>
+        <td class="atp-old">4</td>
+        <td class="atp-new">3</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Malate Dehydrogenase</td>
+        <td>2 NADH</td>
+        <td>2</td>
+        <td class="atp-old">6</td>
+        <td class="atp-new">5</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4">GRAND TOTAL (Malate-Aspartate shuttle)</td>
+        <td>~36–38 ATP</td>
+        <td>~30–32 ATP</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="key-callout">
+    <div class="key-callout-icon">📊</div>
+    <div class="key-callout-body">
+      <strong>Summary breakdown:</strong><br>
+      Glycolysis: 2 ATP (substrate-level, net) + 2 NADH<br>
+      PDC: 2 NADH<br>
+      TCA cycle: 2 GTP + 6 NADH + 2 FADH₂<br>
+      Oxidative phosphorylation: accounts for the rest (~28 new; ~34 old)<br><br>
+      <strong>Why the discrepancy between old and new?</strong> Classical values assumed exact stoichiometry (NADH → exactly 3 ATP, FADH₂ → exactly 2 ATP). Modern values use measured proton stoichiometries — approximately 10 H⁺ per NADH, 6 H⁺ per FADH₂, ~3.7 H⁺ per ATP synthesised by ATP Synthase. 10/3.7 ≈ 2.5 ATP per NADH. These fractional values are more accurate but harder to work with in calculations.
+    </div>
+  </div>
+
+  <div class="content-card" style="margin-top:14px;">
+    <div class="content-card-title">Role of Oxygen — Why We Breathe</div>
+    <div class="content-body">
+      <p>Oxygen is the <strong>terminal electron acceptor</strong> of the ETC. At Complex IV, electrons combine with O₂ and H⁺ to form water. Without O₂:</p>
+      <p>→ Complex IV cannot accept electrons → electron flow through the entire ETC backs up → no protons are pumped → no PMF → no ATP from oxidative phosphorylation → cells run out of energy → cell death</p>
+      <p>This is why oxygen deprivation is lethal within minutes. Cells that are most dependent on oxidative phosphorylation (neurons, cardiomyocytes) die the fastest — neurons can tolerate only about 4–6 minutes of complete oxygen deprivation before irreversible damage begins.</p>
+      <p>In the absence of O₂, cells can generate ATP only via <strong>substrate-level phosphorylation</strong> in glycolysis and the TCA cycle — but the TCA cycle itself requires NAD⁺ regeneration via the ETC, so without O₂, the TCA cycle also stops. Only glycolysis remains, generating 2 ATP per glucose — woefully insufficient for sustained cell function.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ INHIBITORS ══ -->
+<div id="tab-inhibitors" class="section-panel">
+
+  <div style="background:#fff1f0;border:1px solid #fca5a5;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#dc2626;margin-bottom:14px;font-weight:500;">
+    ⚠️ Inhibitors of oxidative phosphorylation include some of the most lethal poisons known to medicine. Understanding their mechanism explains both their toxicity and (in some cases) their therapeutic use.
+  </div>
+
+  <div class="content-card">
+    <div class="content-card-title">Two Classes — Inhibitors vs Uncouplers</div>
+    <div class="content-body">
+      <p><strong>Respiration Inhibitors</strong> block a specific step in the ETC or ATP synthesis. They prevent electron flow or proton pumping. The result: the ETC stops, the proton gradient cannot be built, and ATP synthesis ceases. Both ETC activity and ATP synthesis are inhibited simultaneously.</p>
+
+      <p><strong>Uncouplers</strong> do NOT block electron flow — they allow the ETC to continue running normally. Instead, they dissipate the proton gradient by providing an alternative pathway for protons to re-enter the matrix (bypassing ATP Synthase). The result: ETC runs, O₂ is consumed, NADH is oxidised — but no ATP is made. The energy that would have driven ATP synthesis is released as <strong>heat</strong>.</p>
+
+      <p>The distinction is important: with an inhibitor, you can tell if ATP Synthase coupling is intact by adding an uncoupler (if the ETC then runs, coupling was intact but the ETC was blocked). With an uncoupler, the ETC keeps running but ATP isn't made.</p>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="content-card-title">ETC and ATP Synthase Inhibitors</div>
+    <div style="overflow-x:auto;">
+    <table class="inhibitor-table">
+      <thead>
+        <tr><th>Inhibitor</th><th>Target</th><th>Mechanism</th><th>Clinical / Context</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name-col">Rotenone</td>
+          <td class="target-col">Complex I</td>
+          <td>Blocks electron transfer from Fe-S clusters to CoQ</td>
+          <td>Insecticide, pesticide. Used in fishing (fish kill). Associated with MPTP-related Parkinson's-like syndromes in animal models.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Amytal (Amobarbital)</td>
+          <td class="target-col">Complex I</td>
+          <td>Blocks NADH → CoQ transfer, same site as rotenone</td>
+          <td>Barbiturate sedative. Toxicity at high doses involves ETC inhibition as part of mechanism.</td>
+        </tr>
+        <tr>
+          <td class="name-col">MPP⁺ (Methylphenylpyridinium)</td>
+          <td class="target-col">Complex I</td>
+          <td>Selective Complex I inhibitor in substantia nigra dopaminergic neurons</td>
+          <td>Active metabolite of MPTP (a contaminant in illicit drug synthesis). Causes irreversible Parkinson's disease by selectively destroying dopaminergic neurons.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Piericidin A</td>
+          <td class="target-col">Complex I</td>
+          <td>Competes with CoQ at the CoQ binding site</td>
+          <td>Antibiotic. Used in research.</td>
+        </tr>
+        <tr>
+          <td class="name-col">3-Nitropropionate</td>
+          <td class="target-col">Complex II</td>
+          <td>Irreversibly inhibits Succinate Dehydrogenase (FAD site)</td>
+          <td>Found in certain plants. Causes neurodegeneration (models Huntington's disease in animals).</td>
+        </tr>
+        <tr>
+          <td class="name-col">Antimycin A</td>
+          <td class="target-col">Complex III</td>
+          <td>Blocks electron transfer between Cyt bH and CoQ in the Q cycle</td>
+          <td>Antibiotic / piscicide (fish killer). Used in research to block Complex III specifically.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Dimercaprol (BAL)</td>
+          <td class="target-col">Complex III</td>
+          <td>Chelates Fe-S groups, disrupting electron transfer</td>
+          <td>Ironically also used as an antidote for heavy metal poisoning (arsenic, mercury, gold). At toxic doses it inhibits the ETC.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Cyanide (CN⁻)</td>
+          <td class="target-col">Complex IV</td>
+          <td>Binds to Fe³⁺ in Cyt a₃, preventing O₂ binding and reduction</td>
+          <td>Classic rapid-acting poison. Used in suicide, warfare, industrial accidents. Death within minutes. Antidotes: hydroxocobalamin (binds cyanide), sodium thiosulfate (converts CN⁻ to thiocyanate), nitrites (generate methaemoglobin which competes for cyanide binding).</td>
+        </tr>
+        <tr>
+          <td class="name-col">Carbon Monoxide (CO)</td>
+          <td class="target-col">Complex IV</td>
+          <td>Binds Cyt a₃ copper centre (CuB), blocking O₂ reduction. Also binds haemoglobin.</td>
+          <td>Colourless, odourless gas from incomplete combustion. "Silent killer." Both haemoglobin poisoning AND ETC poisoning contribute to toxicity. Treatment: 100% O₂ (competes with CO binding).</td>
+        </tr>
+        <tr>
+          <td class="name-col">Hydrogen Sulphide (H₂S)</td>
+          <td class="target-col">Complex IV</td>
+          <td>Binds Cyt a₃, blocking O₂ reduction</td>
+          <td>Rotten egg gas. Industrial hazard (sewage, mines). Rapid onset at high concentrations. Same antidote approach as cyanide.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Azide (N₃⁻)</td>
+          <td class="target-col">Complex IV</td>
+          <td>Binds Cyt a₃, same site as cyanide</td>
+          <td>Preservative in laboratory buffers (sodium azide). Toxic — wear gloves when handling.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Oligomycin</td>
+          <td class="target-col">ATP Synthase (Fₒ)</td>
+          <td>Blocks the proton channel in Fₒ, preventing H⁺ re-entry and ATP synthesis</td>
+          <td>Antibiotic from Streptomyces. The key point: oligomycin inhibits ATP synthase → proton gradient builds up → ETC also slows and stops (backed up by gradient). Used experimentally to study coupling.</td>
+        </tr>
+        <tr>
+          <td class="name-col">DCCD (Dicyclohexylcarbodiimide)</td>
+          <td class="target-col">ATP Synthase (Fₒ)</td>
+          <td>Covalently modifies a key aspartate residue in the c subunit of Fₒ, blocking proton channel</td>
+          <td>Research tool. Used to map the ATP Synthase proton channel.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Atractyloside</td>
+          <td class="target-col">ADP/ATP Translocase</td>
+          <td>Blocks exchange of ADP (in) for ATP (out), trapping ADP in the cytosol</td>
+          <td>Plant toxin (from the Mediterranean thistle). Blocks ATP export from mitochondria — ATP is made but cannot get out to do work.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Uncouplers -->
+  <div class="content-card">
+    <div class="content-card-title">Uncouplers — Breaking the Link Between ETC and ATP</div>
+    <div class="content-body">
+      <p>Uncouplers are <strong>hydrophobic molecules with a dissociable proton</strong>. They can pick up a proton on one side of the inner mitochondrial membrane, diffuse through the hydrophobic membrane (because they are lipid-soluble), and release the proton on the other side. This effectively provides a "leak" pathway for protons — they flow back into the matrix without going through ATP Synthase. The proton gradient is continuously dissipated as the ETC pumps protons out and uncouplers bring them straight back in. Energy is released as <strong>heat</strong>.</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="uncoupler-table">
+      <thead>
+        <tr><th>Uncoupler</th><th>Mechanism</th><th>Effect</th><th>Clinical/Context</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name-col">2,4-Dinitrophenol (DNP)</td>
+          <td>Lipophilic weak acid — picks up H⁺ in IMS, diffuses to matrix, releases H⁺. Cycles continuously.</td>
+          <td>ETC runs faster (NADH and O₂ consumed rapidly), no ATP made, energy lost as heat. Body temperature rises dramatically.</td>
+          <td>Used as a weight-loss drug in the 1930s — worked by burning fat as heat. Withdrawn after deaths from hyperthermia (107°F / 41.7°C). Russian soldiers given DNP in WWII to stay warm. Still sold illegally online — occasionally causes fatal hyperthermia.</td>
+        </tr>
+        <tr>
+          <td class="name-col">CCCP / FCCP</td>
+          <td>Carbonyl cyanide phenylhydrazone — lipophilic weak acids, same mechanism as DNP</td>
+          <td>Potent uncouplers. ETC runs, no ATP, energy as heat.</td>
+          <td>Research tools. Used to measure maximum ETC capacity (uncoupled respiration rate) in mitochondrial bioenergetics assays.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Valinomycin</td>
+          <td>Ionophore for K⁺ ions — carries K⁺ across the inner membrane, dissipating the membrane potential component of PMF (Δψ)</td>
+          <td>Collapses the electrical component of the PMF. Partially uncouples ETC from ATP synthesis.</td>
+          <td>Research tool. Antibiotic. Demonstrates the importance of the electrical gradient component of PMF.</td>
+        </tr>
+        <tr>
+          <td class="name-col">Thermogenin (UCP1)</td>
+          <td>Uncoupling Protein 1 — a natural H⁺ channel in the inner mitochondrial membrane of brown adipose tissue. Allows controlled proton leak.</td>
+          <td>ETC runs, no ATP made, energy released as heat. Physiological thermogenesis.</td>
+          <td>Found in brown adipose tissue (BAT) of newborns (to prevent hypothermia) and hibernating mammals. Activated by free fatty acids during cold exposure. The basis of "non-shivering thermogenesis." Studied for potential obesity treatment (increasing UCP expression to burn more calories as heat).</td>
+        </tr>
+        <tr>
+          <td class="name-col">Salicylate</td>
+          <td>Weak acid uncoupler mechanism (similar to DNP)</td>
+          <td>Mild uncoupling at therapeutic doses, significant at toxic doses</td>
+          <td>Aspirin overdose can cause hyperthermia and metabolic acidosis partly through mitochondrial uncoupling in addition to other mechanisms.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🌡️</div>
+      <div class="key-callout-body"><strong>Why uncouplers are dangerous as diet drugs:</strong> They work — fat is burned as heat instead of being stored. But the body cannot regulate the uncoupling. If you take too much, the ETC runs at maximum speed burning all available fuel as heat, core body temperature rises uncontrollably (malignant hyperthermia), and the cell has no ATP for any function. Death occurs from a combination of hyperthermia, cardiovascular collapse from lack of cardiac ATP, and seizures. The therapeutic window is essentially zero.</div>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">Inhibitors vs Uncouplers — The Key Distinction for Exams</div>
+      <div class="plain-english-body">
+        <strong>Inhibitor (e.g. cyanide, rotenone):</strong> The ETC STOPS. No O₂ consumed. No protons pumped. No PMF. No ATP. If you add an uncoupler now — still nothing happens (the chain is blocked upstream).<br><br>
+        <strong>Uncoupler (e.g. DNP):</strong> The ETC runs FASTER. More O₂ consumed. More NADH oxidised. But protons leak back without making ATP. No PMF maintained. No ATP. If you add oligomycin (ATP synthase inhibitor) — the ETC slows because the PMF can no longer be dissipated via ATP Synthase, so it builds up and back-pressure stops pumping.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="clinical-card" style="border-left-color:var(--red)">
+    <div class="clinical-disease">Cyanide and Carbon Monoxide Poisoning</div>
+    <div class="clinical-subtitle" style="color:var(--red)">Complex IV inhibitors — block terminal electron acceptance</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Medical Emergency</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Minutes to death without treatment</span><br><br>
+      <strong>Cyanide (CN⁻):</strong> Binds to Fe³⁺ in Cytochrome a₃ of Complex IV with extremely high affinity, preventing O₂ binding. The entire ETC backs up — no protons pumped, no ATP made. Cells cannot use O₂ even though it is present — a state sometimes called "histotoxic hypoxia" (the tissue is hypoxic at the cellular level despite normal blood O₂). Cells switch to anaerobic glycolysis → massive lactic acidosis. Clinical features: rapid unconsciousness, seizures, cardiovascular collapse, cherry-red skin (venous blood is well-oxygenated because tissues can't extract O₂). Treatment: Hydroxocobalamin (binds cyanide → cyanocobalamin, excreted); Sodium thiosulfate (converts CN⁻ → thiocyanate via rhodanase); Nitrites (generate methaemoglobin which competes with Complex IV for cyanide binding — Dicobalt EDTA is an alternative).<br><br>
+      <strong>Carbon Monoxide (CO):</strong> Also inhibits Complex IV (binds CuB) AND binds haemoglobin (forming carboxyhaemoglobin, which cannot carry O₂). Double toxicity — O₂ cannot be delivered (haemoglobin poisoning) AND cannot be used (ETC poisoning). Treatment: 100% O₂ by mask or hyperbaric O₂ (displaces CO from both haemoglobin and Complex IV by mass action).
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--amber)">
+    <div class="clinical-disease">Metformin and Lactic Acidosis</div>
+    <div class="clinical-subtitle" style="color:var(--amber)">Mild Complex I inhibitor — relevant at toxic doses or in renal failure</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber)">Type 2 DM treatment</span><span class="clinical-tag" style="background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber)">Risk in renal failure</span><br><br>
+      Metformin, the most widely used oral antidiabetic drug, mildly inhibits mitochondrial Complex I. At therapeutic doses, this reduces hepatic gluconeogenesis (by raising the AMP:ATP ratio, activating AMPK) and improves insulin sensitivity — beneficial effects. However, at toxic doses (especially in renal failure where metformin accumulates), the Complex I inhibition becomes significant: reduced ETC activity → less oxidative phosphorylation → cells shift toward anaerobic glycolysis → lactate accumulates → <strong>life-threatening lactic acidosis</strong>. This is why metformin is contraindicated in significant renal impairment (eGFR &lt;30 mL/min).
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Mitochondrial Diseases — Maternal Inheritance</div>
+    <div class="clinical-subtitle">Mutations in mitochondrial DNA (mtDNA) affecting ETC components</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Non-Mendelian inheritance</span><span class="clinical-tag">Maternal transmission</span><span class="clinical-tag">Heteroplasmy</span><br><br>
+      Mitochondrial diseases are caused by mutations in mitochondrial DNA (mtDNA) — which encodes 13 proteins (all components of the ETC and ATP Synthase), 22 tRNAs, and 2 rRNAs. Mutations in these genes impair oxidative phosphorylation.<br><br>
+      <strong>Maternal inheritance:</strong> Mitochondria are inherited almost exclusively from the mother — the egg contains ~100,000 mitochondria; the sperm's few mitochondria are actively destroyed after fertilisation. Therefore:<br>
+      — Only the mother transmits mitochondrial DNA to offspring<br>
+      — <strong>Both males and females can be affected</strong><br>
+      — All offspring of an affected mother are affected (or at least carry the mutation)<br>
+      — Affected fathers do NOT transmit the disease to any children<br><br>
+      <strong>Heteroplasmy:</strong> A cell may contain a mix of normal and mutant mitochondria. The proportion of mutant mitochondria determines whether the disease threshold is crossed. This explains variable expressivity — even siblings from the same mother may have different severity.<br><br>
+      <strong>Why brain and muscle are affected most:</strong> Neurons and cardiomyocytes are the most energy-demanding cells in the body — they rely almost entirely on oxidative phosphorylation. Any impairment of the ETC hits them hardest. This is why mitochondrial diseases typically present as <strong>neuropathies</strong> (peripheral nerve disease) and <strong>myopathies</strong> (muscle disease), particularly affecting the brain, heart, and skeletal muscle.<br><br>
+      <strong>Examples of mitochondrial diseases:</strong><br>
+      — <strong>MELAS</strong> (Mitochondrial Encephalomyopathy, Lactic Acidosis, Stroke-like episodes) — mutation in mtDNA tRNA genes<br>
+      — <strong>MERRF</strong> (Myoclonic Epilepsy with Ragged Red Fibres) — tRNA Lys mutation<br>
+      — <strong>Leber's Hereditary Optic Neuropathy (LHON)</strong> — Complex I subunit mutations → sudden bilateral vision loss in young adults
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--green)">
+    <div class="clinical-disease">Statins and Mitochondrial Function</div>
+    <div class="clinical-subtitle" style="color:var(--green)">HMG-CoA Reductase inhibitors — multiple mitochondrial effects</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green)">Widely prescribed</span><span class="clinical-tag" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green)">Myopathy risk</span><br><br>
+      Your lecturer's slides specifically mention statins. Statins (HMG-CoA Reductase inhibitors — atorvastatin, simvastatin, etc.) reduce cholesterol synthesis by blocking the mevalonate pathway. However, the same mevalonate pathway produces <strong>Coenzyme Q10 (ubiquinone)</strong> — a critical ETC component. Statins therefore reduce CoQ10 levels in mitochondria, impairing electron transfer from Complexes I and II to Complex III.<br><br>
+      Additional mitochondrial effects from the slides: inhibition of respiratory chain complexes directly, induction of mitochondrial apoptosis, dysregulation of Ca²⁺ metabolism, reduced CPT-2 expression (impairs fatty acid transport).<br><br>
+      <strong>Clinical consequence:</strong> Statin-induced myopathy — muscle pain, weakness, and in severe cases rhabdomyolysis — is partly explained by mitochondrial dysfunction in muscle cells (which are highly dependent on oxidative phosphorylation). CoQ10 supplementation is sometimes recommended for patients with statin-induced myopathy, though evidence is mixed.
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--teal)">
+    <div class="clinical-disease">Thermogenin (UCP1) and Brown Adipose Tissue</div>
+    <div class="clinical-subtitle" style="color:var(--teal)">Physiological uncoupling — non-shivering thermogenesis</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Newborns</span><span class="clinical-tag" style="background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Hibernating mammals</span><span class="clinical-tag" style="background:var(--teal-dim);border-color:var(--teal-border);color:var(--teal)">Obesity research target</span><br><br>
+      <strong>Thermogenin (Uncoupling Protein 1 / UCP1)</strong> is a physiological uncoupler found in brown adipose tissue (BAT). Unlike white adipose tissue (which stores fat), BAT is packed with mitochondria and is specialised for heat generation.<br><br>
+      UCP1 is a proton channel in the inner mitochondrial membrane of brown adipocytes. When activated by free fatty acids (released during cold exposure or sympathetic stimulation), it allows protons to flow back into the matrix without going through ATP Synthase — uncoupling the ETC from ATP synthesis and converting the proton gradient energy directly into heat. This <strong>non-shivering thermogenesis</strong> is critically important for:<br>
+      — <strong>Newborns</strong> (who cannot shiver effectively and have a high body surface area:volume ratio — they lose heat rapidly)<br>
+      — <strong>Hibernating mammals</strong> (generating heat during arousal from hibernation)<br><br>
+      Adult humans have small amounts of metabolically active BAT (detectable by PET scanning), and UCP1 is a major research target for anti-obesity therapy — increasing BAT activity could increase caloric expenditure without exercise.
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="content-card-title">Assignment Questions from Your Lecturer</div>
+    <div class="content-body">
+      <p><strong>Mechanistic questions to think through:</strong></p>
+      <p><strong>1.</strong> "What is the mechanistic basis for the observation that inhibitors of ATP synthase also lead to inhibition of the electron transport chain?" <em>Answer: When ATP Synthase is blocked (e.g. by oligomycin), protons cannot re-enter the matrix. The proton gradient (PMF) builds up to its maximum. Eventually, the ETC complexes cannot pump any more protons against this maximal gradient — the "back-pressure" stops electron flow. The ETC is inhibited by its own product (the gradient) when the gradient cannot be relieved by ATP Synthase.</em></p>
+
+      <p><strong>2.</strong> "How does inhibition of ADP-ATP translocase affect the citric acid cycle and glycolysis?" <em>Answer: If ADP cannot enter the mitochondria, ADP is not available for ATP Synthase → ATP cannot be made → PMF builds up → ETC stops → NADH cannot be reoxidised → TCA cycle stops (needs NAD⁺). Glycolysis also slows as its ATP product builds up (ATP inhibits PFK-1) and NADH cannot be reoxidised (in aerobic conditions). The entire respiratory machinery backs up from the translocase block.</em></p>
+
+      <p><strong>3.</strong> "Why do mitochondria in muscle cells often have more cristae than liver cells?" <em>Answer: Muscle cells (especially cardiac muscle) have far higher ATP demand per unit volume than liver cells. More cristae = more inner membrane surface area = more space to embed ETC complexes and ATP Synthase = higher ATP production capacity per mitochondrion. Form fits function — the number and density of cristae directly reflect the cell's oxidative phosphorylation demand.</em></p>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true" style="display:none">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="test-mode-subtitle" id="mode-desc">Three challenge types — jump to any freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChal(1)">1 &middot; MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChal(2)">2 &middot; R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChal(3)">3 &middot; Multiple Completion</button>
+    </div>
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 &mdash; Multiple Choice</div>
+        <div class="challenge-instructions">Select the single best answer for each question.</div>
+        <div class="mcq-item" id="qi0" style="display:block"><div class="mc-qnum">Question 1 of 5</div><div class="mc-stem">A patient who ingested cyanide has normal arterial PO2 but shows severe hypoxia signs. Which best explains this paradox?</div><div class="mcq-option" id="qo0_0" onclick="pickMCQ(0,0)">Cyanide binds haemoglobin preventing oxygen loading in the lungs</div>
+<div class="mcq-option" id="qo0_1" onclick="pickMCQ(0,1)">Cyanide inhibits Complex IV by binding Cytochrome a3, preventing oxygen utilisation at cellular level</div>
+<div class="mcq-option" id="qo0_2" onclick="pickMCQ(0,2)">Cyanide uncouples oxidative phosphorylation by allowing proton leakage</div>
+<div class="mcq-option" id="qo0_3" onclick="pickMCQ(0,3)">Cyanide inhibits Complex I preventing NADH from donating electrons</div>
+<div class="mcq-feedback" id="qf0">Cyanide causes histotoxic hypoxia - tissues cannot use oxygen even though it is delivered normally. CN- binds Fe3+ of Cytochrome a3 in Complex IV, blocking oxygen binding and reduction. The entire ETC backs up - no electrons flow, no protons pumped, no PMF, no ATP. Arterial PO2 normal because O2 is absorbed in lungs; venous PO2 paradoxically high because tissues cannot extract O2. CO also binds Cytochrome a3 but additionally binds haemoglobin. Cyanide does not uncouple - it inhibits.</div><button class="mcq-next-btn" id="qn0" onclick="nextMCQ(0)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi1" style="display:none"><div class="mc-qnum">Question 2 of 5</div><div class="mc-stem">Which correctly explains why FADH2 produces less ATP than NADH in oxidative phosphorylation?</div><div class="mcq-option" id="qo1_0" onclick="pickMCQ(1,0)">FADH2 carries fewer electrons than NADH and has less reducing power</div>
+<div class="mcq-option" id="qo1_1" onclick="pickMCQ(1,1)">FADH2 enters the ETC at Complex II which does not pump protons, so fewer protons are translocated per FADH2</div>
+<div class="mcq-option" id="qo1_2" onclick="pickMCQ(1,2)">FADH2 is oxidised by a different less efficient ATP Synthase</div>
+<div class="mcq-option" id="qo1_3" onclick="pickMCQ(1,3)">FADH2 is directly oxidised by oxygen without passing through Complexes III and IV</div>
+<div class="mcq-feedback" id="qf1">FADH2 donates electrons to CoQ via Complex II which pumps ZERO protons. NADH enters at Complex I which pumps 4 protons. Both then go through Complex III (4H+) and Complex IV (2H+). Per NADH: 4+4+2=10 protons. Per FADH2: 0+4+2=6 protons. Fewer protons = less PMF = less ATP. Modern values: NADH gives ~2.5 ATP, FADH2 gives ~1.5 ATP.</div><button class="mcq-next-btn" id="qn1" onclick="nextMCQ(1)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi2" style="display:none"><div class="mc-qnum">Question 3 of 5</div><div class="mc-stem">DNP was withdrawn as a weight-loss drug due to fatal hyperthermia. What is its mechanism?</div><div class="mcq-option" id="qo2_0" onclick="pickMCQ(2,0)">DNP inhibits ATP Synthase preventing proton re-entry</div>
+<div class="mcq-option" id="qo2_1" onclick="pickMCQ(2,1)">DNP is a lipophilic weak acid carrying protons across the inner membrane dissipating the gradient as heat</div>
+<div class="mcq-option" id="qo2_2" onclick="pickMCQ(2,2)">DNP inhibits Complex I reducing electron flow</div>
+<div class="mcq-option" id="qo2_3" onclick="pickMCQ(2,3)">DNP activates UCP1 in brown adipose tissue</div>
+<div class="mcq-feedback" id="qf2">DNP is a lipophilic weak acid that picks up protons in the acidic IMS, diffuses through the hydrophobic membrane, and releases them into the matrix. This bypasses ATP Synthase. The ETC continues running (faster) but the gradient is continuously dissipated as heat not ATP. At toxic doses, uncontrolled heat generation causes lethal hyperthermia. Oligomycin inhibits ATP Synthase directly. UCP1 is the physiological equivalent in brown fat but DNP acts in all tissues.</div><button class="mcq-next-btn" id="qn2" onclick="nextMCQ(2)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi3" style="display:none"><div class="mc-qnum">Question 4 of 5</div><div class="mc-stem">Which correctly states a key component of Mitchell's chemiosmotic theory?</div><div class="mcq-option" id="qo3_0" onclick="pickMCQ(3,0)">Energy of electron transfer is stored in a high-energy chemical intermediate that phosphorylates ADP</div>
+<div class="mcq-option" id="qo3_1" onclick="pickMCQ(3,1)">Electron transfer through the ETC directly phosphorylates ADP by substrate-level phosphorylation</div>
+<div class="mcq-option" id="qo3_2" onclick="pickMCQ(3,2)">Energy of electron transfer is stored as an electrochemical proton gradient that drives ATP synthesis when protons flow back through ATP Synthase</div>
+<div class="mcq-option" id="qo3_3" onclick="pickMCQ(3,3)">ATP synthesis requires direct contact between ETC complexes and ATP Synthase in a supercomplex</div>
+<div class="mcq-feedback" id="qf3">Mitchell proposed that coupling is indirect via an electrochemical proton gradient - not via a chemical intermediate. ETC complexes pump protons from matrix to IMS building a PMF (delta pH + delta psi). This PMF drives protons back through the Fo subunit of ATP Synthase causing Fo rotation, which drives conformational changes in F1 that synthesise ATP. No chemical intermediate needed - the gradient IS the intermediate. Nobel Prize 1978.</div><button class="mcq-next-btn" id="qn3" onclick="nextMCQ(3)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi4" style="display:none"><div class="mc-qnum">Question 5 of 5</div><div class="mc-stem">Which statement about ATP Synthase (Complex V) is correct?</div><div class="mcq-option" id="qo4_0" onclick="pickMCQ(4,0)">The F1 subunit is embedded in the inner membrane and forms the proton channel</div>
+<div class="mcq-option" id="qo4_1" onclick="pickMCQ(4,1)">The Fo subunit rotates as protons flow through it, driving conformational changes in F1 that synthesise ATP</div>
+<div class="mcq-option" id="qo4_2" onclick="pickMCQ(4,2)">Oligomycin inhibits F1 by competing with ADP at the catalytic site</div>
+<div class="mcq-option" id="qo4_3" onclick="pickMCQ(4,3)">ATP Synthase can only synthesise ATP and cannot hydrolyse it under any circumstances</div>
+<div class="mcq-feedback" id="qf4">ATP Synthase: Fo is embedded in the membrane forming the proton channel and rotating as protons flow. F1 is in the matrix with catalytic beta subunits. Fo rotation turns the gamma subunit (central stalk) inside F1, driving sequential conformational changes (binding-change mechanism of Boyer) that synthesise ATP. Oligomycin blocks the Fo proton channel not the F1 catalytic site. ATP Synthase CAN hydrolyse ATP running in reverse - exploited in bacteria.</div><button class="mcq-next-btn" id="qn4" onclick="nextMCQ(4)">Finish MCQ</button></div>
+
+        <button class="btn-try-again" id="mcq-reset" onclick="resetMCQ()" style="display:none">Try Again</button>
+        <div class="result-msg" id="mcq-res"></div>
+        <button class="next-challenge-btn" id="mcq-nxt" onclick="doneAndNext(1)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 &mdash; Reason &amp; Assertion</div>
+        <div class="challenge-instructions"><strong>A</strong>&nbsp;Both true, reason explains &nbsp;<strong>B</strong>&nbsp;Both true, reason does not explain &nbsp;<strong>C</strong>&nbsp;Assertion true, reason false &nbsp;<strong>D</strong>&nbsp;Assertion false, reason true &nbsp;<strong>E</strong>&nbsp;Both false</div>
+        <div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Inhibition of the ADP/ATP translocase by atractyloside also leads to inhibition of the electron transport chain.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">When ADP cannot enter the mitochondria, ATP Synthase has no substrate, causing the proton gradient to build up until back-pressure stops electron flow.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb0_A" onclick="pickRA(0,'A')">A</button><button class="ra-btn" id="rb0_B" onclick="pickRA(0,'B')">B</button><button class="ra-btn" id="rb0_C" onclick="pickRA(0,'C')">C</button><button class="ra-btn" id="rb0_D" onclick="pickRA(0,'D')">D</button><button class="ra-btn" id="rb0_E" onclick="pickRA(0,'E')">E</button></div><div class="ra-fb" id="rf0">Both correct. Atractyloside blocks the ADP/ATP translocase trapping ADP in the cytosol. Without ADP in the matrix, ATP Synthase cannot synthesise ATP, so protons cannot re-enter through it. The PMF builds to maximum. ETC complexes pump protons against this maximal gradient - when gradient is maximal, pumping becomes thermodynamically impossible. The ETC backs up and stops. This demonstrates tight coupling between ATP Synthase and the ETC.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Mitochondrial diseases caused by mtDNA mutations are inherited exclusively through the maternal line.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Mitochondria in the fertilised egg are derived almost entirely from the egg cell, as paternal mitochondria from sperm are actively degraded after fertilisation.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb1_A" onclick="pickRA(1,'A')">A</button><button class="ra-btn" id="rb1_B" onclick="pickRA(1,'B')">B</button><button class="ra-btn" id="rb1_C" onclick="pickRA(1,'C')">C</button><button class="ra-btn" id="rb1_D" onclick="pickRA(1,'D')">D</button><button class="ra-btn" id="rb1_E" onclick="pickRA(1,'E')">E</button></div><div class="ra-fb" id="rf1">Both correct. The egg contains approximately 100,000 mitochondria while sperm contributes very few - and those are actively destroyed by ubiquitin-mediated proteolysis after fertilisation. Therefore mtDNA is transmitted essentially only from the mother. Both sons and daughters can be affected, but only daughters pass the mitochondria on. Affected fathers do not transmit mitochondrial disease to any children.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Adding an uncoupler to mitochondria treated with oligomycin will cause oxygen consumption to increase.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Uncouplers dissipate the proton gradient by providing an alternative proton re-entry pathway, relieving the back-pressure on the ETC and allowing electron flow to resume.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb2_A" onclick="pickRA(2,'A')">A</button><button class="ra-btn" id="rb2_B" onclick="pickRA(2,'B')">B</button><button class="ra-btn" id="rb2_C" onclick="pickRA(2,'C')">C</button><button class="ra-btn" id="rb2_D" onclick="pickRA(2,'D')">D</button><button class="ra-btn" id="rb2_E" onclick="pickRA(2,'E')">E</button></div><div class="ra-fb" id="rf2">Both correct. Oligomycin blocks ATP Synthase causing PMF to build to maximum and stopping the ETC. When an uncoupler (DNP) is added, it dissipates the gradient providing an alternative proton pathway. With the gradient removed, back-pressure on ETC complexes is relieved and electron flow resumes. O2 consumption increases. This is a classic experimental approach distinguishing ETC inhibition from ATP Synthase inhibition.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Complex II of the ETC pumps 2 protons per pair of electrons transferred from FADH2 to CoQ.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Complex II is embedded in the inner mitochondrial membrane and contains FAD, iron-sulfur clusters, and cytochrome b560 that facilitate proton translocation.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb3_A" onclick="pickRA(3,'A')">A</button><button class="ra-btn" id="rb3_B" onclick="pickRA(3,'B')">B</button><button class="ra-btn" id="rb3_C" onclick="pickRA(3,'C')">C</button><button class="ra-btn" id="rb3_D" onclick="pickRA(3,'D')">D</button><button class="ra-btn" id="rb3_E" onclick="pickRA(3,'E')">E</button></div><div class="ra-fb" id="rf3">The assertion is FALSE - Complex II pumps ZERO protons. This is a critical commonly tested fact. Complex II transfers electrons from FADH2 to CoQ without any proton pumping - precisely why FADH2 produces fewer ATP than NADH. The reason contains accurate structural information but the claim about proton translocation is wrong. Both assertion and reason are false = D.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">The malate-aspartate shuttle is more efficient than the glycerol-3-phosphate shuttle for transferring cytoplasmic NADH.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">The malate-aspartate shuttle produces mitochondrial NADH yielding 2.5 ATP per cytoplasmic NADH, whereas the glycerol-3-phosphate shuttle produces mitochondrial FADH2 yielding only 1.5 ATP per cytoplasmic NADH.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb4_A" onclick="pickRA(4,'A')">A</button><button class="ra-btn" id="rb4_B" onclick="pickRA(4,'B')">B</button><button class="ra-btn" id="rb4_C" onclick="pickRA(4,'C')">C</button><button class="ra-btn" id="rb4_D" onclick="pickRA(4,'D')">D</button><button class="ra-btn" id="rb4_E" onclick="pickRA(4,'E')">E</button></div><div class="ra-fb" id="rf4">Both correct. Malate-aspartate shuttle: cytoplasmic NADH reduces OAA to malate, malate enters matrix and is reoxidised generating mitochondrial NADH = 2.5 ATP. Glycerol-3-phosphate shuttle: cytoplasmic NADH reduces DHAP to G3P, mitochondrial G3P dehydrogenase (FAD-linked) reoxidises it producing FADH2 = 1.5 ATP. The shuttle chosen affects total ATP yield from glucose and explains why yield varies between tissues.</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+          <button class="check-btn" onclick="checkRA()">Check Answers</button>
+          <button class="btn-try-again" id="ra-reset" onclick="resetRA()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="ra-rev" onclick="revRA()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="ra-res"></div>
+        <div class="reveal-note-box" id="ra-rnote">Correct answers shown in green.</div>
+        <button class="next-challenge-btn" id="ra-nxt" onclick="doneAndNext(2)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply.</div>
+        <div class="mc-qblock"><div class="mc-qnum">Question 1 of 3</div><div class="mc-stem">Which of the following statements about the four ETC complexes are correct?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo0_0" onclick="pickMC(this,0,0)"><div class="mc-cb" id="mb0_0">&#9633;</div><div class="mc-opttext">Complex I uses FMN and iron-sulfur clusters to transfer electrons from NADH to CoQ pumping 4 protons</div></div>
+<div class="mc-opt" id="mo0_1" onclick="pickMC(this,0,1)"><div class="mc-cb" id="mb0_1">&#9633;</div><div class="mc-opttext">Complex II pumps 2 protons per pair of electrons and links the TCA cycle to the ETC</div></div>
+<div class="mc-opt" id="mo0_2" onclick="pickMC(this,0,2)"><div class="mc-cb" id="mb0_2">&#9633;</div><div class="mc-opttext">Complex III uses the Q cycle to pump 4 protons and transfers electrons one at a time to Cytochrome c</div></div>
+<div class="mc-opt" id="mo0_3" onclick="pickMC(this,0,3)"><div class="mc-cb" id="mb0_3">&#9633;</div><div class="mc-opttext">Complex IV reduces oxygen to water using 4 electrons and 4 protons, pumping 2 additional protons</div></div>
+<div class="mc-opt" id="mo0_4" onclick="pickMC(this,0,4)"><div class="mc-cb" id="mb0_4">&#9633;</div><div class="mc-opttext">FADH2 produces less ATP than NADH because it enters at Complex II which does not pump protons</div></div>
+</div><div class="mc-fb" id="mf0" style="display:none">Complex I: FMN and 9 Fe-S clusters, 4H+ pumped (1 correct). Complex II pumps ZERO protons (2 wrong). Complex III Q cycle converts 2-electron CoQ transfers into 1-electron Cyt c transfers pumping 4H+ (3 correct). Complex IV uses 4e- and 4 matrix protons to reduce O2, pumping 2 additional protons (4 correct). FADH2 enters at Complex II which pumps nothing (5 correct).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 2 of 3</div><div class="mc-stem">Which of the following are true regarding ETC inhibitors and uncouplers?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo1_0" onclick="pickMC(this,1,0)"><div class="mc-cb" id="mb1_0">&#9633;</div><div class="mc-opttext">Cyanide inhibits Complex IV by binding iron in Cytochrome a3 blocking oxygen reduction</div></div>
+<div class="mc-opt" id="mo1_1" onclick="pickMC(this,1,1)"><div class="mc-cb" id="mb1_1">&#9633;</div><div class="mc-opttext">Rotenone inhibits Complex I and was used historically as an insecticide</div></div>
+<div class="mc-opt" id="mo1_2" onclick="pickMC(this,1,2)"><div class="mc-cb" id="mb1_2">&#9633;</div><div class="mc-opttext">Uncouplers such as DNP increase oxygen consumption while decreasing ATP production</div></div>
+<div class="mc-opt" id="mo1_3" onclick="pickMC(this,1,3)"><div class="mc-cb" id="mb1_3">&#9633;</div><div class="mc-opttext">Oligomycin inhibits the ETC directly by blocking electron transfer at Complex III</div></div>
+<div class="mc-opt" id="mo1_4" onclick="pickMC(this,1,4)"><div class="mc-cb" id="mb1_4">&#9633;</div><div class="mc-opttext">Adding an uncoupler to mitochondria treated with oligomycin restores oxygen consumption</div></div>
+</div><div class="mc-fb" id="mf1" style="display:none">Cyanide binds Cyt a3 iron preventing O2 binding (1 correct). Rotenone is a Complex I inhibitor used as insecticide and fish poison (2 correct). Uncouplers dissipate gradient so ETC runs faster but no ATP made (3 correct). Oligomycin blocks the Fo proton channel of ATP Synthase not Complex III (4 wrong). Uncoupler relieves back-pressure caused by oligomycin allowing ETC to run again (5 correct).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 3 of 3</div><div class="mc-stem">Which of the following correctly describe features of chemiosmosis and ATP Synthase?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo2_0" onclick="pickMC(this,2,0)"><div class="mc-cb" id="mb2_0">&#9633;</div><div class="mc-opttext">The proton motive force has two components: a chemical gradient (delta pH) and an electrical gradient (membrane potential)</div></div>
+<div class="mc-opt" id="mo2_1" onclick="pickMC(this,2,1)"><div class="mc-cb" id="mb2_1">&#9633;</div><div class="mc-opttext">ATP Synthase is a rotary molecular machine where proton flow through Fo drives rotation synthesising ATP in F1</div></div>
+<div class="mc-opt" id="mo2_2" onclick="pickMC(this,2,2)"><div class="mc-cb" id="mb2_2">&#9633;</div><div class="mc-opttext">Approximately 10 protons are pumped per NADH oxidised through the complete ETC</div></div>
+<div class="mc-opt" id="mo2_3" onclick="pickMC(this,2,3)"><div class="mc-cb" id="mb2_3">&#9633;</div><div class="mc-opttext">The matrix becomes positively charged relative to the IMS due to proton pumping</div></div>
+<div class="mc-opt" id="mo2_4" onclick="pickMC(this,2,4)"><div class="mc-cb" id="mb2_4">&#9633;</div><div class="mc-opttext">Approximately 3-4 protons must pass through ATP Synthase to synthesise one ATP molecule</div></div>
+</div><div class="mc-fb" id="mf2" style="display:none">PMF = delta pH + delta psi (1 correct). ATP Synthase is a rotary machine - Boyer and Walker won Nobel Prize (2 correct). Complex I (4) + Complex III (4) + Complex IV (2) = 10H+ per NADH (3 correct). Matrix becomes NEGATIVE and alkaline - protons pumped OUT to IMS which becomes positive and acidic (4 wrong). 10H+ per NADH divided by ~3.7H+ per ATP gives ~2.5 ATP (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC2()">Check Answers</button>
+          <button class="btn-try-again" id="mc2-reset" onclick="resetMC2()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc2-rev" onclick="revMC2()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc2-res"></div>
+        <div class="reveal-note-box" id="mc2-rnote" style="display:none">Correct selections shown.</div>
+        <button class="next-challenge-btn" id="mc2-nxt" onclick="doneAndNext(3)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+    <div id="cb" style="display:none" class="completion-banner-div">
+      <div class="completion-banner-title">All Challenges Complete!</div>
+      <div class="completion-banner-sub">Return to the content tabs to review anything that needs reinforcement.</div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Electron Transport Chain Mastery · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+// ── UI ──
+function showTab(id,btn){document.querySelectorAll('.section-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+(function(){var last=0;var h=document.getElementById('site-header');window.addEventListener('scroll',function(){var cur=window.scrollY;if(cur>last&&cur>60)h.classList.add('hide-bar');else h.classList.remove('hide-bar');last=cur;},{passive:true});})();
+function toggleCard(id){document.getElementById(id).classList.toggle('open');}
+(function(){document.addEventListener('click',function(e){var link=e.target.closest?e.target.closest('.pathway-link'):null;if(!link&&e.target.classList&&e.target.classList.contains('pathway-link'))link=e.target;if(link){e.preventDefault();e.stopPropagation();var isActive=link.classList.contains('active-tip');document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});if(!isActive)link.classList.add('active-tip');}else{document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});}});})();
+// ── TEST - FREE MODE ──
+var chalDone=[false,false,false];
+function startTestFree(){var t=document.getElementById('tms');if(t)t.style.display='none';document.getElementById('challenge-area').style.display='block';showChal(1);}
+function exitTest(){document.getElementById('tms').style.display='none';document.getElementById('challenge-area').style.display='none';document.getElementById('tms').style.display='block';}
+function showChal(n){document.querySelectorAll('.challenge-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('[id^="cnav-"]').forEach(function(b){b.classList.remove('active');});document.getElementById('cp'+n).classList.add('active');var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('active');}
+function doneAndNext(n){chalDone[n-1]=true;var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('completed');if(n>=3){var cb=document.getElementById('cb');if(cb)cb.style.display='block';}else{showChal(n+1);}}
+// ── MCQ ──
+var mqAns=[1, 1, 1, 2, 1];
+var mqSel=new Array(5).fill(-1);
+var mqDone=new Array(5).fill(false);
+var mqScore=0;
+function pickMCQ(qi,oi){
+  if(mqDone[qi])return;
+  var qblock=document.getElementById('qi'+qi);
+  if(qblock){
+    var sopts=qblock.querySelectorAll('.mcq-option');
+    for(var ks=0;ks<sopts.length;ks++) sopts[ks].classList.remove('selected');
+    if(sopts[oi]) sopts[oi].classList.add('selected');
+  }
+  setTimeout(function(){
+    mqDone[qi]=true;mqSel[qi]=oi;
+    var ok=(mqAns[qi]===oi);
+    if(ok)mqScore++;
+    if(qblock){
+      var opts=qblock.querySelectorAll('.mcq-option');
+      for(var j=0;j<opts.length;j++){
+        opts[j].classList.remove('selected','correct','wrong');
+        if(j===oi){opts[j].classList.add(ok?'correct':'wrong');}
+        else if(j===mqAns[qi]&&!ok){opts[j].classList.add('correct');}
+        opts[j].style.pointerEvents='none';
+      }
+    }
+    document.getElementById('qf'+qi).style.display='block';
+    document.getElementById('qn'+qi).style.display='inline-block';
+    if(qi===mqAns.length-1){
+      setTimeout(function(){
+        var r=document.getElementById('mcq-res');
+        r.textContent=mqScore+' of '+mqAns.length+' correct.';
+        r.style.color=mqScore===mqAns.length?'var(--green)':'var(--red)';
+        document.getElementById('mcq-reset').style.display='inline-block';
+        document.getElementById('mcq-nxt').style.display='inline-block';
+      },400);
+    }
+  },300);
+}
+function nextMCQ(qi){
+  document.getElementById('qi'+qi).style.display='none';
+  if(qi+1<5){document.getElementById('qi'+(qi+1)).style.display='block';}
+}
+function resetMCQ(){
+  mqSel=new Array(5).fill(-1);mqDone=new Array(5).fill(false);mqScore=0;
+  for(var i=0;i<5;i++){
+    document.getElementById('qi'+i).style.display=(i===0)?'block':'none';
+    document.getElementById('qf'+i).style.display='none';
+    document.getElementById('qn'+i).style.display='none';
+    var opts=document.getElementById('qi'+i).querySelectorAll('.mcq-option');
+    for(var j=0;j<opts.length;j++){opts[j].classList.remove('correct','wrong','selected');opts[j].style.pointerEvents='';}
+  }
+  document.getElementById('mcq-res').textContent='';
+  document.getElementById('mcq-reset').style.display='none';
+  document.getElementById('mcq-nxt').style.display='none';
+}
+// ── RA ──
+var raAns=['A', 'A', 'A', 'D', 'A'];
+var raSel=new Array(5).fill('');
+var raChk=false;
+function pickRA(qi,o){
+  if(raChk)return;
+  raSel[qi]=o;
+  ['A','B','C','D','E'].forEach(function(x){document.getElementById('rb'+qi+'_'+x).classList.remove('selected');});
+  document.getElementById('rb'+qi+'_'+o).classList.add('selected');
+}
+function checkRA(){
+  raChk=true;var sc=0;
+  for(var i=0;i<5;i++){
+    var s=raSel[i];var cor=raAns[i];
+    ['A','B','C','D','E'].forEach(function(o){
+      var b=document.getElementById('rb'+i+'_'+o);
+      b.classList.remove('selected');
+      if(o===cor){b.classList.add('correct');}
+      else if(o===s&&s!==cor){b.classList.add('wrong');}
+    });
+    if(s===cor)sc++;
+    document.getElementById('rf'+i).style.display='block';
+  }
+  var r=document.getElementById('ra-res');
+  r.textContent=sc+' of 5 correct.';
+  r.style.color=(sc===5)?'var(--green)':'var(--red)';
+  document.getElementById('ra-reset').style.display='inline-block';
+  document.getElementById('ra-rev').style.display='inline-block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+}
+function resetRA(){
+  raChk=false;raSel=new Array(5).fill('');
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');});
+    document.getElementById('rf'+i).style.display='none';
+  }
+  document.getElementById('ra-res').textContent='';
+  document.getElementById('ra-reset').style.display='none';
+  document.getElementById('ra-rev').style.display='none';
+  document.getElementById('ra-nxt').style.display='none';
+  document.getElementById('ra-rnote').style.display='none';
+}
+function revRA(){
+  raChk=true;
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');if(o===raAns[i])b.classList.add('correct');});
+    document.getElementById('rf'+i).style.display='block';
+  }
+  document.getElementById('ra-rnote').style.display='block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+  document.getElementById('ra-reset').style.display='inline-block';
+}
+// ── MC ──
+var mcSel=[[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAns=[[true, false, true, true, true], [true, true, true, false, true], [true, true, true, false, true]];
+var mcSz=[5, 5, 5];
+var mcChk=false;
+function pickMC(el,qi,oi){
+  if(mcChk)return;
+  mcSel[qi][oi]=!mcSel[qi][oi];
+  el.classList.toggle('selected',mcSel[qi][oi]);
+  document.getElementById('mb'+qi+'_'+oi).textContent=mcSel[qi][oi]?'[x]':'[ ]';
+}
+function checkMC2(){
+  mcChk=true;var sc=0;
+  for(var i=0;i<3;i++){
+    var ok=true;
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      var s=mcSel[i][j];var cor=mcAns[i][j];
+      o.classList.remove('selected');
+      if(s&&cor){o.classList.add('correct');cb.textContent='+';}
+      else if(s&&!cor){o.classList.add('incorrect');cb.textContent='x';ok=false;}
+      else if(!s&&cor){o.classList.add('missed');cb.textContent='o';ok=false;}
+      else{cb.textContent='[ ]';}
+    }
+    if(ok)sc++;
+    document.getElementById('mf'+i).style.display='block';
+  }
+  var r=document.getElementById('mc2-res');
+  r.textContent=sc+' of 3 fully correct.';
+  r.style.color=(sc===3)?'var(--green)':'var(--red)';
+  document.getElementById('mc2-reset').style.display='inline-block';
+  document.getElementById('mc2-rev').style.display='inline-block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+}
+function resetMC2(){
+  mcChk=false;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      mcSel[i][j]=false;
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent='[ ]';
+    }
+    document.getElementById('mf'+i).style.display='none';
+  }
+  document.getElementById('mc2-res').textContent='';
+  document.getElementById('mc2-reset').style.display='none';
+  document.getElementById('mc2-rev').style.display='none';
+  document.getElementById('mc2-nxt').style.display='none';
+  document.getElementById('mc2-rnote').style.display='none';
+}
+function revMC2(){
+  mcChk=true;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('selected','correct','incorrect','missed');
+      if(mcAns[i][j]){o.classList.add('missed');cb.textContent='o';}
+      else{cb.textContent='[ ]';}
+    }
+    document.getElementById('mf'+i).style.display='block';
+  }
+  document.getElementById('mc2-rnote').style.display='block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+  document.getElementById('mc2-reset').style.display='inline-block';
+}
+</script>
+</body>
+</html>

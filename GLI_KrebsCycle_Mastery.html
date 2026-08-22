@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krebs Cycle Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOOLTIP SYSTEM ── */
+.pathway-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
+  vertical-align: middle;
+  font-family: var(--font-body);
+  user-select: none;
+}
+.plink-tooltip {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F1623;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  padding: 11px 14px;
+  border-radius: 10px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 9000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.plink-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0F1623;
+}
+/* Show on hover (desktop) */
+.pathway-link:hover .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Show on tap (mobile + desktop click) */
+.pathway-link.active-tip .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404012; --red-border:#D9404035;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --purple:#7C3AED; --purple-dim:#7C3AED12; --purple-border:#7C3AED35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.13);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.65;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:18px 16px 50px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── SHARED ── */
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-grey{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+
+.section-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;}
+.reg-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;}
+.reg-tag{font-size:12px;padding:5px 11px;border-radius:var(--radius-sm);font-weight:500;}
+.reg-tag.inhibitor{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-tag.activator{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-tag.cofactor{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.step-explanation{font-size:14px;color:var(--text-body);line-height:1.75;margin-top:10px;}
+.step-explanation strong{color:var(--text-dark);font-weight:600;}
+
+/* ── OVERVIEW ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--royal),var(--gold));}
+.overview-title{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--gold);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:18px;max-width:600px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--royal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+.yield-table{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.yield-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+.yield-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--light-grey);font-size:13px;}
+.yield-row:last-child{border-bottom:none;}
+.yield-name{color:var(--text-body);font-family:var(--font-mono);font-size:12px;}
+.yield-val{font-weight:700;font-family:var(--font-mono);font-size:12px;}
+.yield-val.nadh{color:var(--royal);}
+.yield-val.fadh{color:var(--amber);}
+.yield-val.gtp{color:var(--green);}
+.yield-val.co2{color:var(--text-muted);}
+
+/* Amphibolic block */
+.amphibolic-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.amphibolic-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.amphibolic-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.amphibolic-col{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px;}
+.amphibolic-col-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
+.amphibolic-col-label.cata{color:var(--red);}
+.amphibolic-col-label.ana{color:var(--green);}
+.amphibolic-items{font-size:12px;color:var(--text-body);line-height:1.8;}
+
+/* ── PDC SECTION ── */
+.pdc-card{background:var(--white);border:1.5px solid var(--amber-border);border-radius:var(--radius-lg);margin-bottom:12px;box-shadow:var(--shadow-sm);overflow:hidden;position:relative;}
+.pdc-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--amber);}
+.pdc-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.pdc-header:hover{background:var(--off-white);}
+.pdc-badge{width:36px;height:36px;border-radius:50%;background:var(--amber);color:var(--white);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pdc-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.pdc-card.open .pdc-body{display:block;}
+.pdc-card.open .step-chevron{transform:rotate(180deg);}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+
+.cofactors-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0;}
+.cofactor-pill{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.cofactor-pill-name{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--royal);margin-bottom:3px;}
+.cofactor-pill-full{font-size:10px;color:var(--text-muted);line-height:1.3;}
+
+.comparison-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:14px 16px;margin:14px 0;}
+.comparison-title{font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.comparison-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.comparison-col{background:var(--white);border-radius:var(--radius-md);padding:10px 12px;border:1px solid var(--light-grey);}
+.comparison-col-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.comparison-col-items{font-size:12px;color:var(--text-body);line-height:1.8;font-family:var(--font-mono);}
+
+/* ── STEP CARDS ── */
+.steps-intro{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:14px;font-weight:500;}
+.cycle-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;}
+
+.step-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s;}
+.step-card:hover{box-shadow:var(--shadow-md);}
+.step-card.rate-limiting{border-color:var(--gold-border);border-width:1.5px;}
+.step-card.regulated-step{border-left:3px solid var(--royal);}
+.step-card.rate-limiting.regulated-step{border-left:3px solid var(--gold);}
+
+.step-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.step-header:hover{background:var(--off-white);}
+.step-num-badge{width:32px;height:32px;border-radius:50%;background:var(--light-grey);color:var(--text-body);font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-card.rate-limiting .step-num-badge{background:var(--gold);color:var(--white);}
+.step-card.regulated-step:not(.rate-limiting) .step-num-badge{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.step-header-main{flex:1;min-width:0;}
+.step-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;}
+.step-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.step-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+
+.step-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.step-card.open .step-body{display:block;}
+.step-card.open .step-chevron{transform:rotate(180deg);}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--gold);}
+
+/* Yield tag inline */
+.yield-tag{display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin:2px;}
+.yield-tag.nadh{background:#1A3FBF18;color:var(--royal);border:1px solid var(--royal-border);}
+.yield-tag.fadh2{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.yield-tag.gtp{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.yield-tag.co2{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+
+/* ── REGULATION ── */
+.reg-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);}
+.reg-intro{font-size:14px;color:var(--text-body);line-height:1.75;}
+.reg-intro strong{color:var(--text-dark);}
+.reg-enzyme-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.reg-enzyme-card.primary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);}
+.reg-enzyme-card.secondary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--royal);}
+.reg-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.reg-card-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);}
+.reg-card-subtitle{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:3px;}
+.reg-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.reg-col-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.reg-col-label.inhibit{color:var(--red);}
+.reg-col-label.activate{color:var(--green);}
+.reg-col-items{display:flex;flex-direction:column;gap:6px;}
+.reg-item{font-size:12px;padding:6px 12px;border-radius:var(--radius-sm);line-height:1.5;font-weight:500;}
+.reg-item.inhibit{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-item.activate{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-mechanism{font-size:14px;color:var(--text-body);line-height:1.75;background:var(--off-white);border-radius:var(--radius-md);padding:14px 16px;}
+.reg-mechanism strong{color:var(--text-dark);}
+
+/* Anaplerosis */
+.ana-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.ana-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:8px;}
+.ana-intro{font-size:14px;color:var(--text-body);line-height:1.75;margin-bottom:12px;}
+.ana-intro strong{color:var(--text-dark);}
+.ana-rows{display:flex;flex-direction:column;gap:8px;}
+.ana-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);}
+.ana-entry{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--green);background:var(--green-dim);border:1px solid var(--green-border);padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.ana-desc{font-size:13px;color:var(--text-body);line-height:1.5;}
+.ana-desc strong{color:var(--text-dark);}
+
+/* ── CLINICAL ── */
+.intro-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;}
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+
+/* ── TEST SECTION ── */
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-md);text-align:center;}
+.test-mode-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:inline-flex;background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:4px;gap:4px;margin-bottom:16px;}
+.mode-toggle-btn{background:none;border:none;padding:7px 20px;border-radius:16px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);box-shadow:var(--shadow-sm);}
+.mode-desc{font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 16px;line-height:1.6;}
+.start-btn{background:var(--royal);color:var(--white);border:none;padding:12px 32px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-md);}
+.start-btn:hover{background:var(--royal-light);transform:translateY(-1px);}
+.exit-test-btn{background:none;border:none;color:var(--royal);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s;}
+.exit-test-btn:hover{opacity:.7;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.done{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-nav-btn.locked{opacity:.45;cursor:not-allowed;}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;}
+.tap-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.tap-chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:grab;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.tap-chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.tap-chip.tapging{opacity:.45;}
+.tap-chip.used{opacity:.3;pointer-events:none;}
+.arrange-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.arrange-slot{display:flex;align-items:center;gap:10px;}
+.slot-num{width:26px;height:26px;border-radius:50%;background:var(--light-grey);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.slot-drop{flex:1;min-height:40px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-md);display:flex;align-items:center;padding:6px 12px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.slot-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);color:var(--royal);}
+.slot-drop.filled{border-style:solid;border-color:var(--mid-grey);background:var(--off-white);color:var(--text-body);font-weight:500;}
+.slot-drop.correct{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.slot-drop.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);animation:shake .3s;}
+.match-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.match-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.match-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.match-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.match-step-info{flex:1;font-size:12px;font-family:var(--font-mono);color:var(--text-muted);min-width:120px;}
+.match-drop{width:220px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.match-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.match-drop.filled{border-style:solid;border-color:var(--mid-grey);color:var(--text-dark);font-weight:600;background:var(--white);}
+.cofactor-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.cofactor-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.cofactor-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.cofactor-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.cofactor-enzyme-name{flex:1;font-size:13px;font-weight:600;color:var(--text-dark);min-width:150px;}
+.cofactor-drop{width:200px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);flex-wrap:wrap;gap:4px;}
+.cofactor-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mcq-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.65;margin-bottom:12px;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.mcq-option{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:13px;color:var(--text-body);background:var(--off-white);}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.mcq-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.mcq-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.mcq-feedback.show{display:block;}
+.mcq-feedback strong{color:var(--text-dark);}
+.ra-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-statements{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ra-statement-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.ra-statement-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-statement-text{font-size:13px;color:var(--text-dark);line-height:1.6;font-weight:500;}
+.ra-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.ra-option{display:flex;align-items:flex-start;gap:10px;padding:8px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text-body);background:var(--off-white);}
+.ra-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.ra-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.ra-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.ra-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.ra-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.ra-feedback.show{display:block;}
+.ra-feedback strong{color:var(--text-dark);}
+.check-btn{background:var(--royal);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-right:8px;}
+.check-btn:hover{background:var(--royal-light);}
+.reset-btn{background:var(--off-white);color:var(--text-muted);border:1px solid var(--light-grey);padding:10px 20px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.reset-btn:hover{border-color:var(--mid-grey);color:var(--text-body);}
+.result-msg{margin-top:14px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;display:none;}
+.result-msg.show{display:block;}
+.result-msg.pass{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.result-msg.fail{background:var(--gold-dim);color:#8a6c1a;border:1px solid var(--gold-border);}
+.next-challenge-btn{background:var(--gold);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:10px;display:none;}
+.next-challenge-btn.show{display:inline-block;}
+.next-challenge-btn:hover{filter:brightness(1.08);}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ── TAP-TO-PLACE INTERACTION ── */
+.tap-chip { cursor: pointer; user-select: none; transition: all .15s; }
+.tap-chip.selected {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+  color: var(--royal) !important;
+  box-shadow: 0 0 0 2px var(--royal);
+  transform: translateY(-2px);
+}
+.tap-chip.used { opacity: .3; pointer-events: none; }
+.slot-drop, .match-drop, .cofactor-drop {
+  cursor: pointer;
+  transition: all .15s;
+}
+.slot-drop.tap-ready, .match-drop.tap-ready, .cofactor-drop.tap-ready {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+}
+
+/* ── TRY AGAIN / REVEAL ── */
+.btn-try-again{background:#B4530912;color:#B45309;border:1px solid #B4530935;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-try-again:hover{background:#B45309;color:#fff;}
+.btn-try-again.show{display:inline-block;}
+.btn-reveal-ans{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-reveal-ans:hover{background:#0D7A6B;color:#fff;}
+.btn-reveal-ans.show{display:inline-block;}
+.slot-drop.revealed,.match-drop.revealed,.drop-zone.revealed{border-color:#0D7A6B!important;background:#0D7A6B15!important;color:#0D7A6B!important;pointer-events:none;}
+.match-row.revealed{background:#0D7A6B12!important;border-color:#0D7A6B40!important;}
+.reveal-note-box{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
+.reveal-note-box.show{display:block;}
+
+/* ── Cross-file CSS aliases for consistency ── */
+.chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.chip.used{opacity:.3;pointer-events:none;}
+.chip-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.btn-check{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-check:hover{background:var(--royal-light);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;margin-top:10px;}
+.btn-next.show{display:inline-block;}
+.btn-next:hover{filter:brightness(1.08);}
+
+/* ══ DEFINITIVE MOBILE CSS — max-width: 640px ══ */
+@media (max-width: 640px) {
+
+  /* ── LAYOUT & PADDING ── */
+  .main { padding: 10px 12px 40px; }
+  .overview-hero { padding: 14px 14px; }
+  .challenge-card { padding: 16px 14px; }
+  .info-card, .reg-enzyme-card, .clinical-card { padding: 14px 14px; }
+  .reg-hero { padding: 14px 14px; }
+
+  /* ── HEADER ── */
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── OVERVIEW ── */
+  .overview-title { font-size: 22px !important; }
+  .overview-subtitle { font-size: 13px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 8px; }
+
+  /* ── GRIDS → SINGLE COLUMN ── */
+  .info-grid,
+  .detail-grid,
+  .two-col,
+  .reg-columns,
+  .reg-cols,
+  .ra-statements,
+  .nadph-grid,
+  .structure-grid,
+  .tissue-cols,
+  .amphibolic-cols,
+  .comparison-cols,
+  .modes-reg-block .tissue-cols { grid-template-columns: 1fr !important; }
+
+  /* ── STEP CARDS ── */
+  .step-card,
+  .bypass-card,
+  .pdc-card,
+  .nonox-card,
+  .shared-steps-card,
+  .nonox-card { overflow: visible !important; }
+
+  .step-header,
+  .bypass-header,
+  .pdc-header,
+  .nonox-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+
+  .step-header-main,
+  .bypass-header-main { width: calc(100% - 50px); min-width: 0; }
+
+  .step-enzyme-name,
+  .bypass-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+
+  .step-rxn-preview,
+  .bypass-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; max-width: 100%; }
+
+  .step-badges,
+  .bypass-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-num-badge { flex-shrink: 0; }
+
+  .step-body,
+  .bypass-body,
+  .pdc-body,
+  .nonox-body { padding: 0 12px 16px; }
+
+  .step-callout { flex-direction: column; gap: 6px; }
+
+  /* ── REGULATION ── */
+  .reg-card-header { flex-direction: column; gap: 8px; }
+  .reg-card-title { font-size: 15px; }
+  .reg-col-items { gap: 6px; }
+  .cascade-step { flex-direction: column; gap: 6px; }
+  .cascade-arrow { flex-direction: row; width: auto; }
+  .mode-row { flex-direction: column; gap: 6px; }
+  .mode-pill { align-self: flex-start; }
+
+  /* ── TEST — NAVIGATION ── */
+  .challenge-nav { flex-wrap: wrap; gap: 6px; }
+  .challenge-nav-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* ── TEST — CHIP BANK ── */
+  .chip-bank, .tap-bank, .arrange-bank { flex-wrap: wrap; min-height: 44px; }
+  .chip, .tap-chip { font-size: 11px; padding: 6px 10px; word-break: break-word; max-width: 100%; box-sizing: border-box; }
+
+  /* ── TEST — DROP ZONES ── */
+  .slot-drop, .drop-zone { min-height: 44px; font-size: 12px; word-break: break-word; }
+  .match-drop { width: 100% !important; min-height: 40px; font-size: 12px; word-break: break-word; }
+  .cofactor-drop { width: 100% !important; min-height: 40px; font-size: 11px; flex-wrap: wrap; }
+
+  /* ── TEST — MATCH ROWS ── */
+  .match-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .match-info { width: 100%; }
+  .match-step-info { width: 100%; }
+  .cofactor-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cofactor-enzyme-name { width: 100%; }
+  .order-slot { flex-wrap: nowrap; gap: 8px; }
+
+  /* ── TEST — BUTTONS ── */
+  .btn-row { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn-try-again, .btn-reveal-ans,
+  .btn-try, .btn-reveal { margin-right: 0; width: auto; }
+  .check-btn, .btn-check { width: auto; }
+  .reset-btn { width: auto; }
+  .next-challenge-btn, .btn-next { width: auto; }
+
+  /* ── MCQ ── */
+  .mcq-stem { font-size: 13px; word-break: break-word; line-height: 1.6; }
+  .mcq-option { word-break: break-word; align-items: flex-start; font-size: 12px; padding: 8px 10px; }
+  .mcq-letter { flex-shrink: 0; }
+  .mcq-feedback { font-size: 12px; }
+
+  /* ── R&A ── */
+  .ra-statements { grid-template-columns: 1fr !important; }
+  .ra-statement-text { font-size: 12px; word-break: break-word; }
+  .ra-option { font-size: 12px; word-break: break-word; align-items: flex-start; }
+  .ra-letter { flex-shrink: 0; }
+  .ra-feedback { font-size: 12px; }
+
+  /* ── CLINICAL ── */
+  .clinical-detail { font-size: 13px; }
+  .comparison-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  .gsd-summary-table { font-size: 11px; }
+
+  /* ── MISC ── */
+  .reg-row { flex-wrap: wrap; }
+  .reg-tag { font-size: 11px; word-break: break-word; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .site-footer { font-size: 10px; padding: 14px; }
+
+  /* ── TOOLTIP MOBILE ── */
+  .pathway-link { position: static; }
+  .plink-tooltip {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    transform: none !important;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 9999 !important;
+  }
+  .plink-tooltip::after { display: none !important; }
+
+}
+
+
+/* ── MULTIPLE COMPLETION ── */
+.mc-question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--light-grey); }
+.mc-question:last-child { border-bottom: none; margin-bottom: 0; }
+.mc-question-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.mc-stem { font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 1.6; margin-bottom: 6px; }
+.mc-instructions { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.mc-options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.mc-option { display: flex; align-items: flex-start; gap: 10px; background: var(--off-white); border: 1.5px solid var(--light-grey); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; transition: all .15s; }
+.mc-option:hover { border-color: var(--royal); background: var(--royal-dim); }
+.mc-option.selected { background: var(--royal-dim); border-color: var(--royal); }
+.mc-option.correct { background: var(--green-dim); border-color: var(--green); }
+.mc-option.incorrect { background: var(--red-dim); border-color: var(--red); }
+.mc-option.missed { background: var(--teal-dim); border-color: var(--teal); }
+.mc-checkbox { font-size: 16px; flex-shrink: 0; margin-top: 1px; color: var(--text-muted); }
+.mc-option.selected .mc-checkbox { color: var(--royal); }
+.mc-option.correct .mc-checkbox { color: var(--green); }
+.mc-option.incorrect .mc-checkbox { color: var(--red); }
+.mc-option.missed .mc-checkbox { color: var(--teal); }
+.mc-option-text { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+.mc-feedback { background: var(--off-white); border: 1px solid var(--light-grey); border-left: 3px solid var(--royal); border-radius: var(--radius-md); padding: 12px 14px; font-size: 13px; color: var(--text-body); line-height: 1.7; margin-top: 10px; }
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+
+.mcq-option.selected { background: var(--royal-dim) !important; border-color: var(--royal) !important; color: var(--royal) !important; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Krebs Cycle Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar" id="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Step-by-Step</button>
+    <button class="tab-btn" onclick="showTab('regulation',this)">Regulation</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">Krebs <span>Cycle</span> Mastery</div>
+    <div class="overview-subtitle">The central metabolic hub. A cyclic series of 8 reactions in the mitochondrial matrix that extracts energy from Acetyl-CoA, feeds electrons to the electron transport chain, and provides carbon skeletons for biosynthesis.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">8</div><div class="stat-label">Steps/Turn</div></div>
+      <div class="stat-box"><div class="stat-value">2</div><div class="stat-label">Turns/Glucose</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--royal)">3</div><div class="stat-label">NADH/Turn</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--amber)">1</div><div class="stat-label">FADH₂/Turn</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--green)">1</div><div class="stat-label">GTP/Turn</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--text-muted)">2</div><div class="stat-label">CO₂/Turn</div></div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-label">Location</div>
+      <div class="info-body"><strong>Mitochondrial matrix.</strong> The enzymes are dissolved in the matrix or, in the case of Succinate Dehydrogenase (Step 6), embedded in the inner mitochondrial membrane — the only TCA enzyme that is membrane-bound.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Entry Substrate</div>
+      <div class="info-body"><strong>Acetyl-CoA (2C)</strong> condenses with Oxaloacetate (4C) to form Citrate (6C). Acetyl-CoA comes primarily from: pyruvate (via PDC), fatty acid β-oxidation, and ketogenic amino acid catabolism.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Net Per Turn (one Acetyl-CoA)</div>
+      <div class="info-body" style="font-family:var(--font-mono);font-size:12px;line-height:1.9">
+        3 NADH + 1 FADH₂ + 1 GTP + 2 CO₂<br>
+        OAA is regenerated (cycle continues)
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Per Glucose (2 turns)</div>
+      <div class="info-body" style="font-family:var(--font-mono);font-size:12px;line-height:1.9">
+        6 NADH + 2 FADH₂ + 2 GTP + 4 CO₂<br>
+        (×2 because glucose → 2 pyruvate → 2 Acetyl-CoA)
+      </div>
+    </div>
+  </div>
+
+  <div class="yield-table">
+    <div class="yield-title">Step-by-Step Yield Summary — per turn</div>
+    <div class="yield-row"><span class="yield-name">Step 1 — Citrate Synthase</span><span class="yield-val">—</span></div>
+    <div class="yield-row"><span class="yield-name">Step 2 — Aconitase</span><span class="yield-val">—</span></div>
+    <div class="yield-row"><span class="yield-name">Step 3 — Isocitrate Dehydrogenase</span><span class="yield-val nadh">NADH + CO₂</span></div>
+    <div class="yield-row"><span class="yield-name">Step 4 — α-Ketoglutarate Dehydrogenase Complex</span><span class="yield-val nadh">NADH + CO₂</span></div>
+    <div class="yield-row"><span class="yield-name">Step 5 — Succinyl-CoA Synthetase</span><span class="yield-val gtp">GTP</span></div>
+    <div class="yield-row"><span class="yield-name">Step 6 — Succinate Dehydrogenase</span><span class="yield-val fadh">FADH₂</span></div>
+    <div class="yield-row"><span class="yield-name">Step 7 — Fumarase</span><span class="yield-val">—</span></div>
+    <div class="yield-row"><span class="yield-name">Step 8 — Malate Dehydrogenase</span><span class="yield-val nadh">NADH</span></div>
+  </div>
+
+  <div class="amphibolic-block">
+    <div class="amphibolic-title">Amphibolic Nature — The Cycle Does Two Jobs</div>
+    <div class="amphibolic-cols">
+      <div class="amphibolic-col">
+        <div class="amphibolic-col-label cata">Catabolic (Energy Extraction)</div>
+        <div class="amphibolic-items">
+          Oxidises Acetyl-CoA completely<br>
+          Generates NADH and FADH₂ for ETC<br>
+          Releases CO₂ (carbon disposal)<br>
+          Produces GTP (substrate-level)
+        </div>
+      </div>
+      <div class="amphibolic-col">
+        <div class="amphibolic-col-label ana">Anabolic (Biosynthesis)</div>
+        <div class="amphibolic-items">
+          α-Ketoglutarate → glutamate, other amino acids<br>
+          Succinyl-CoA → haem synthesis (porphyrins)<br>
+          OAA → gluconeogenesis (via PEPCK)<br>
+          Citrate → fatty acid synthesis (exported to cytosol)<br>
+          OAA → aspartate → nucleotide synthesis
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div class="steps-intro">💡 Tap any card to expand. Gold-bordered cards are the 3 regulated irreversible steps. The PDC card covers the gateway step before the cycle begins.</div>
+
+  <div class="cycle-note">🔄 <strong>Remember:</strong> The cycle runs twice per glucose. Step 8 regenerates Oxaloacetate, which immediately re-enters Step 1 for the next turn. The 2 carbons that entered as Acetyl-CoA leave as CO₂ at Steps 3 and 4 — the OAA carbons are not the same ones lost.</div>
+
+  <!-- PDC -->
+  <div class="pdc-card" id="pdc-card">
+    <div class="pdc-header" onclick="toggleCard('pdc-card')">
+      <div class="pdc-badge">PDC</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:var(--text-dark)">Pyruvate Dehydrogenase Complex (PDC)</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">Pyruvate + CoA + NAD⁺ → Acetyl-CoA + CO₂ + NADH</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="badge badge-amber">Gateway Step</span>
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="pdc-body">
+      <div class="step-callout">
+        <span>🔑</span>
+        <div><strong>The gateway to the Krebs cycle.</strong> PDC converts pyruvate (3C) irreversibly into Acetyl-CoA (2C), releasing one CO₂. It is a multi-enzyme complex — one of the largest known — and requires five distinct cofactors. Committing pyruvate here means it cannot re-enter gluconeogenesis directly, making PDC regulation critical.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Pyruvate + CoA + NAD⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Acetyl-CoA + CO₂ + NADH</div></div>
+        <div class="detail-item"><div class="detail-label">Location</div><div class="detail-value">Mitochondrial matrix</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidative decarboxylation</div></div>
+      </div>
+
+      <div class="section-label">The 5 Cofactors of PDC</div>
+      <div class="cofactors-grid">
+        <div class="cofactor-pill"><div class="cofactor-pill-name">TPP</div><div class="cofactor-pill-full">Thiamine Pyrophosphate (Vit B₁)</div></div>
+        <div class="cofactor-pill"><div class="cofactor-pill-name">Lipoic acid</div><div class="cofactor-pill-full">Carries acyl group; oxidised/reduced</div></div>
+        <div class="cofactor-pill"><div class="cofactor-pill-name">CoA</div><div class="cofactor-pill-full">Coenzyme A (Vit B₅ / pantothenate)</div></div>
+        <div class="cofactor-pill"><div class="cofactor-pill-name">FAD</div><div class="cofactor-pill-full">Flavin adenine dinucleotide (Vit B₂)</div></div>
+        <div class="cofactor-pill"><div class="cofactor-pill-name">NAD⁺</div><div class="cofactor-pill-full">Nicotinamide adenine dinucleotide (Vit B₃)</div></div>
+      </div>
+
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ Acetyl-CoA (product — signals CoA saturation)</span>
+        <span class="reg-tag inhibitor">⊖ NADH (product — signals electron carrier saturation)</span>
+        <span class="reg-tag inhibitor">⊖ ATP (high energy state)</span>
+        <span class="reg-tag inhibitor">⊖ PDC Kinase — phosphorylates and inactivates PDC (activated by Acetyl-CoA, NADH, ATP)</span>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Pyruvate (substrate — inhibits PDC Kinase)</span>
+        <span class="reg-tag activator">⊕ CoA (substrate)</span>
+        <span class="reg-tag activator">⊕ NAD⁺ (substrate)</span>
+        <span class="reg-tag activator">⊕ ADP (low energy state)</span>
+        <span class="reg-tag activator">⊕ Ca²⁺ (activates PDC Phosphatase → dephosphorylates → activates complex)</span>
+        <span class="reg-tag activator">⊕ Insulin (activates PDC Phosphatase in adipose tissue)</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        PDC is a massive complex made of three enzyme components (E1: pyruvate decarboxylase, E2: dihydrolipoyl transacetylase, E3: dihydrolipoyl dehydrogenase) working in an ordered sequence. Understanding the cofactor roles is high-yield: <strong>TPP</strong> (derived from thiamine, Vitamin B₁) decarboxylates pyruvate; <strong>lipoic acid</strong> swings between the enzyme active sites carrying the intermediate and gets oxidised in the process; <strong>CoA</strong> accepts the acetyl group to form Acetyl-CoA; <strong>FAD</strong> reoxidises lipoic acid; <strong>NAD⁺</strong> accepts electrons from FADH₂ to regenerate FAD and produce NADH.<br><br>
+        PDC regulation is by <strong>covalent modification</strong>: PDC Kinase phosphorylates and inactivates the complex; PDC Phosphatase dephosphorylates and activates it. This is why Ca²⁺ activates PDC — Ca²⁺ activates PDC Phosphatase, shifting the complex to its active dephosphorylated form. This is particularly relevant in muscle during exercise, where Ca²⁺ release during contraction simultaneously stimulates muscle work and activates PDC to provide the fuel.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Gluconeogenesis<span class="plink-tooltip">PDC's irreversibility is why even-chain fatty acids cannot be gluconeogenic — Acetyl-CoA cannot be converted back to pyruvate, so the 2 carbons entering via Acetyl-CoA cannot contribute net carbon to glucose.</span></span>
+        <span class="pathway-link">Fatty Acid Synthesis<span class="plink-tooltip">Acetyl-CoA produced by PDC can be used for fatty acid synthesis (in the cytosol, after export as citrate). High carbohydrate intake drives PDC activity and therefore lipogenesis.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-card rate-limiting regulated-step" id="sc1">
+    <div class="step-header" onclick="toggleCard('sc1')">
+      <div class="step-num-badge">1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Citrate Synthase</div>
+        <div class="step-rxn-preview">Acetyl-CoA + OAA → Citrate + CoA</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-red">Irreversible</span>
+        <span class="badge badge-royal">Regulated</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Acetyl-CoA + Oxaloacetate</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Citrate + CoA-SH</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme / Cofactor</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Condensation (C–C bond formation)</div></div>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ NADH — signals ETC saturation; no need for more substrate</span>
+        <span class="reg-tag inhibitor">⊖ Succinyl-CoA — downstream product feedback</span>
+        <span class="reg-tag inhibitor">⊖ ATP — high energy state</span>
+        <span class="reg-tag inhibitor">⊖ Citrate (product inhibition)</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        This is the committed entry step — the point where Acetyl-CoA's two carbons are incorporated into the cycle. Citrate Synthase condenses Acetyl-CoA with OAA in a reaction that is highly exergonic and therefore essentially irreversible under cellular conditions.<br><br>
+        The logic behind its inhibitors is unified: NADH, succinyl-CoA, ATP, and citrate all signal that the cycle's products are already abundant — the cell is energy-replete and does not need more flux through the pathway. When these signals are all low (active muscle, fasted liver), Citrate Synthase runs freely.<br><br>
+        <strong>Note on OAA availability:</strong> The cycle's speed is also limited by how much OAA is present. OAA levels fall when gluconeogenesis is active (OAA is diverted to PEPCK) and rise during the fed state. This is one reason why fat oxidation in the complete absence of carbohydrates is inefficient — insufficient OAA to condense with all the Acetyl-CoA generated, leading to ketone body formation instead.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Fatty Acid Synthesis<span class="plink-tooltip">Citrate produced here can be exported from the mitochondria to the cytosol, where it is cleaved by ATP-Citrate Lyase back into Acetyl-CoA and OAA. The cytosolic Acetyl-CoA feeds fatty acid synthesis.</span></span>
+        <span class="pathway-link">Gluconeogenesis<span class="plink-tooltip">Citrate in the cytosol is an inhibitor of PFK-1, slowing glycolysis when the TCA cycle is running well-fed — a cross-pathway signal preventing futile cycling.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card" id="sc2">
+    <div class="step-header" onclick="toggleCard('sc2')">
+      <div class="step-num-badge">2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Aconitase</div>
+        <div class="step-rxn-preview">Citrate → Isocitrate (via cis-Aconitate)</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-grey">Reversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Citrate</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Isocitrate (via cis-Aconitate)</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Fe²⁺ (iron-sulfur cluster)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Isomerisation (dehydration + rehydration)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Aconitase isomerises citrate to isocitrate by removing and re-adding water — first dehydrating citrate to the intermediate cis-Aconitate, then rehydrating to produce isocitrate. This repositions the hydroxyl group to make isocitrate a suitable substrate for oxidative decarboxylation in step 3.<br><br>
+        <strong>Iron-sulfur cluster:</strong> Aconitase contains a [4Fe-4S] cluster that is essential for its catalytic activity. This makes Aconitase sensitive to oxidative stress — reactive oxygen species can damage the iron-sulfur cluster, inactivating the enzyme and slowing the TCA cycle.<br><br>
+        <strong>Fluoroacetate poisoning:</strong> Fluoroacetate (used in rodenticide) is converted in the cell to fluorocitrate, which is a potent inhibitor of Aconitase. The TCA cycle blocks at step 2, citrate accumulates massively, and energy production collapses — lethal in sufficient doses. This is a high-yield clinical correlation.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card rate-limiting regulated-step" id="sc3">
+    <div class="step-header" onclick="toggleCard('sc3')">
+      <div class="step-num-badge">3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Isocitrate Dehydrogenase</div>
+        <div class="step-rxn-preview">Isocitrate + NAD⁺ → α-Ketoglutarate + CO₂ + NADH</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Rate-Limiting</span>
+        <span class="badge badge-red">Irreversible</span>
+        <span class="badge badge-royal">Regulated</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>Primary rate-limiting step of the Krebs cycle.</strong> First oxidative decarboxylation — first CO₂ and NADH produced. Most heavily regulated enzyme of the cycle; controls the overall pace of TCA flux.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Isocitrate + NAD⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">α-Ketoglutarate + CO₂</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">NAD⁺ → NADH (1st NADH of cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺ or Mn²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidative decarboxylation</div></div>
+        <div class="detail-item"><div class="detail-label">CO₂ Released</div><div class="detail-value" style="color:var(--text-muted)">1st CO₂ per turn</div></div>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ NADH (product — signals ETC saturation)</span>
+        <span class="reg-tag inhibitor">⊖ ATP (high energy state)</span>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ ADP (low energy — cell needs more ATP)</span>
+        <span class="reg-tag activator">⊕ Ca²⁺ (exercise/muscle contraction signal)</span>
+        <span class="reg-tag activator">⊕ NAD⁺ (substrate availability)</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Isocitrate Dehydrogenase catalyses an oxidative decarboxylation — isocitrate is simultaneously oxidised (losing electrons to NAD⁺) and decarboxylated (losing CO₂), producing α-Ketoglutarate. This is a large energy-releasing step with a strongly negative ΔG, making it irreversible.<br><br>
+        <strong>NADH as the universal brake:</strong> When NADH rises (either from active TCA cycling or from fatty acid oxidation feeding NADH into the ETC), it inhibits Isocitrate Dehydrogenase, slowing the cycle. This prevents NADH from accumulating to levels that would overwhelm the ETC and generate excessive reactive oxygen species.<br><br>
+        <strong>Ca²⁺ activation</strong> is physiologically elegant: during muscle contraction, Ca²⁺ released from the sarcoplasmic reticulum simultaneously triggers muscle work (via troponin) and activates Isocitrate Dehydrogenase, increasing ATP production to match the increased demand.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Amino Acid Metabolism<span class="plink-tooltip">α-Ketoglutarate is the direct precursor of glutamate (via transamination or glutamate dehydrogenase). Glutamate is the major nitrogen carrier in amino acid metabolism and feeds into many amino acid biosynthetic pathways.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-card rate-limiting regulated-step" id="sc4">
+    <div class="step-header" onclick="toggleCard('sc4')">
+      <div class="step-num-badge">4</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">α-Ketoglutarate Dehydrogenase Complex</div>
+        <div class="step-rxn-preview">α-Ketoglutarate + CoA + NAD⁺ → Succinyl-CoA + CO₂ + NADH</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-red">Irreversible</span>
+        <span class="badge badge-royal">Regulated</span>
+        <span class="badge badge-amber">5 Cofactors</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⚡</span>
+        <div><strong>Second oxidative decarboxylation — second CO₂ and NADH.</strong> Structurally identical to PDC in its mechanism and cofactor requirements. Uses the same 5 cofactors. This is a high-yield exam comparison point.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">α-Ketoglutarate + CoA + NAD⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Succinyl-CoA + CO₂ + NADH</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">NAD⁺ → NADH (2nd NADH of cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidative decarboxylation</div></div>
+        <div class="detail-item"><div class="detail-label">CO₂ Released</div><div class="detail-value" style="color:var(--text-muted)">2nd CO₂ per turn</div></div>
+        <div class="detail-item"><div class="detail-label">Shares cofactors with</div><div class="detail-value">Pyruvate Dehydrogenase Complex</div></div>
+      </div>
+
+      <!-- PDC comparison box -->
+      <div class="comparison-box">
+        <div class="comparison-title">⚡ Exam Favourite — PDC vs α-KG Dehydrogenase Complex</div>
+        <div class="comparison-cols">
+          <div class="comparison-col">
+            <div class="comparison-col-label">Pyruvate Dehydrogenase Complex</div>
+            <div class="comparison-col-items">
+              Pyruvate → Acetyl-CoA<br>
+              Substrate: pyruvate (3C)<br>
+              Product: Acetyl-CoA (2C)<br>
+              Same 5 cofactors ↓
+            </div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-col-label">α-KG Dehydrogenase Complex</div>
+            <div class="comparison-col-items">
+              α-KG → Succinyl-CoA<br>
+              Substrate: α-KG (5C)<br>
+              Product: Succinyl-CoA (4C)<br>
+              Same 5 cofactors ↓
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-md);padding:10px 12px;margin-top:10px;border:1px solid var(--light-grey);">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Shared Cofactors (both complexes)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span class="reg-tag cofactor">TPP (Thiamine Pyrophosphate)</span>
+            <span class="reg-tag cofactor">Lipoic Acid</span>
+            <span class="reg-tag cofactor">CoA (Pantothenate)</span>
+            <span class="reg-tag cofactor">FAD (Riboflavin B₂)</span>
+            <span class="reg-tag cofactor">NAD⁺ (Niacin B₃)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ Succinyl-CoA (product feedback)</span>
+        <span class="reg-tag inhibitor">⊖ NADH (product feedback)</span>
+        <span class="reg-tag inhibitor">⊖ ATP (high energy state)</span>
+        <span class="reg-tag inhibitor">⊖ Arsenic — inhibits lipoic acid (binds sulfhydryl groups)</span>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Ca²⁺ (muscle contraction signal)</span>
+        <span class="reg-tag activator">⊕ ADP</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        α-Ketoglutarate Dehydrogenase Complex operates by exactly the same mechanism as PDC — oxidative decarboxylation using the same five cofactors in the same sequence. This is not a coincidence: these reactions share the same chemical challenge (removing CO₂ from an α-keto acid and linking the resulting group to CoA), and evolution solved it the same way twice.<br><br>
+        The <strong>arsenic connection</strong> is clinically important: arsenic and arsenite inhibit this complex (and PDC) by binding to the sulfhydryl groups of lipoic acid, preventing it from cycling between its oxidised and reduced forms. This effectively blocks both oxidative decarboxylation steps, collapsing TCA cycle flux and causing severe cellular energy failure — the basis of arsenic toxicity.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Haem Synthesis<span class="plink-tooltip">Succinyl-CoA produced here condenses with glycine (catalysed by ALA Synthase, the rate-limiting step of haem synthesis) to form δ-Aminolevulinate (ALA), the first committed step of porphyrin and haem synthesis.</span></span>
+        <span class="pathway-link">Odd-chain Fatty Acids<span class="plink-tooltip">Propionyl-CoA from odd-chain fatty acid oxidation is converted to succinyl-CoA (via methylmalonyl-CoA, requiring Vitamin B₁₂), which enters the TCA cycle here.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-card" id="sc5">
+    <div class="step-header" onclick="toggleCard('sc5')">
+      <div class="step-num-badge">5</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Succinyl-CoA Synthetase (Succinate Thiokinase)</div>
+        <div class="step-rxn-preview">Succinyl-CoA + GDP + Pᵢ → Succinate + GTP + CoA</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-grey">Reversible</span>
+        <span class="badge badge-green">GTP produced</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Succinyl-CoA + GDP + Pᵢ</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Succinate + GTP + CoA</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Energy Yield</div><div class="detail-value" style="color:var(--green);font-weight:600">1 GTP per turn</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Substrate-level phosphorylation</div></div>
+        <div class="detail-item"><div class="detail-label">CoA Released</div><div class="detail-value">CoA-SH (free for reuse)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        The only step in the TCA cycle that directly generates a high-energy nucleotide — <strong>GTP</strong>, not ATP. GTP is readily interconvertible with ATP via Nucleoside Diphosphate Kinase (GTP + ADP ⇌ GDP + ATP), so this effectively represents 1 ATP per turn in energetic terms.<br><br>
+        The energy comes from breaking the high-energy thioester bond of Succinyl-CoA — the same type of bond used at step 7 of glycolysis (1,3-BPG → 3-PG) — and coupling the released energy to GTP synthesis. This is substrate-level phosphorylation, producing energy directly without the electron transport chain.<br><br>
+        CoA is released here and is free to participate in other reactions — it returns to step 4 to accept the next acyl group.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step-card" id="sc6">
+    <div class="step-header" onclick="toggleCard('sc6')">
+      <div class="step-num-badge">6</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Succinate Dehydrogenase (Complex II)</div>
+        <div class="step-rxn-preview">Succinate + FAD → Fumarate + FADH₂</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-grey">Reversible</span>
+        <span class="badge badge-amber">FADH₂ produced</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Succinate + FAD</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Fumarate + FADH₂</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--amber);font-weight:600">FAD → FADH₂ (only FADH₂ of cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Fe²⁺ (iron-sulfur cluster)</div></div>
+        <div class="detail-item"><div class="detail-label">Location</div><div class="detail-value">Inner mitochondrial membrane</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidation (trans-dehydrogenation)</div></div>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ Malonate — competitive inhibitor (structural analogue of succinate)</span>
+        <span class="reg-tag inhibitor">⊖ Oxaloacetate (product of cycle — feedback)</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        Succinate Dehydrogenase is unique among TCA cycle enzymes: it is <strong>embedded in the inner mitochondrial membrane</strong> as Complex II of the electron transport chain, rather than dissolved in the matrix. This means FADH₂ does not need to be transported — it immediately passes its electrons to ubiquinone (CoQ) within the membrane, directly feeding the ETC.<br><br>
+        FAD is used instead of NAD⁺ here because the oxidation of succinate to fumarate is not energetically sufficient to reduce NAD⁺ (which requires more energy). FAD, with its lower reduction potential, can accept electrons from this reaction where NAD⁺ cannot — a good example of how coenzyme choice is dictated by thermodynamics, not convenience.<br><br>
+        <strong>Malonate inhibition</strong> is the classic competitive inhibition example in biochemistry — malonate is structurally similar to succinate (both are dicarboxylates) and competes for the active site without being oxidised.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step-card" id="sc7">
+    <div class="step-header" onclick="toggleCard('sc7')">
+      <div class="step-num-badge">7</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Fumarase (Fumarate Hydratase)</div>
+        <div class="step-rxn-preview">Fumarate + H₂O → Malate</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-grey">Reversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Fumarate + H₂O</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">L-Malate</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme / Cofactor</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Hydration (addition of H₂O)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        A simple hydration reaction — water is added across the double bond of fumarate to produce L-Malate. Fumarase is stereospecific: it produces only the L-form of malate, not the D-form. No energy is generated or consumed. This step primarily exists to set up the final oxidation in step 8.<br><br>
+        Worth knowing: fumarate is also produced in the urea cycle (from argininosuccinate → arginine + fumarate) and in purine synthesis. The fumarate generated in these pathways enters the TCA cycle at this step, connecting nitrogen metabolism to energy metabolism — a cross-pathway link examiners like to test.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Urea Cycle<span class="plink-tooltip">Fumarate is released in the urea cycle when argininosuccinate is cleaved to arginine + fumarate. This fumarate enters the TCA cycle at step 7, linking the urea cycle and TCA cycle — sometimes called the 'Krebs bicycle'.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step-card" id="sc8">
+    <div class="step-header" onclick="toggleCard('sc8')">
+      <div class="step-num-badge">8</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Malate Dehydrogenase</div>
+        <div class="step-rxn-preview">Malate + NAD⁺ → Oxaloacetate + NADH</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-grey">Reversible</span>
+        <span class="badge badge-royal">NADH produced</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">L-Malate + NAD⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Oxaloacetate + NADH + H⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">NAD⁺ → NADH (3rd NADH of cycle)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidation</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        The final step of the cycle — malate is oxidised to regenerate oxaloacetate, producing the third NADH of the turn. The regenerated OAA immediately re-enters step 1 to condense with the next Acetyl-CoA, completing the cycle.<br><br>
+        This reaction is thermodynamically unfavourable under standard conditions (ΔG°' is positive) — OAA is a high-energy compound that doesn't form easily. In the cell, it proceeds because OAA is continuously removed by Citrate Synthase (step 1), driving the reaction forward by Le Chatelier's principle. This is a perfect example of how metabolic pathways are pulled forward by coupling to subsequent favourable reactions.<br><br>
+        <strong>Malate-Aspartate Shuttle:</strong> Malate Dehydrogenase exists in both the mitochondrial matrix and the cytosol. The cytosolic enzyme plays a key role in the malate-aspartate shuttle — the primary mechanism by which cytosolic NADH (from glycolysis step 6) transfers its electrons into the mitochondria for ETC processing.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Gluconeogenesis<span class="plink-tooltip">OAA regenerated here can be diverted to gluconeogenesis: exported as malate (or aspartate) from the mitochondria, reoxidised to OAA in the cytosol, then converted to PEP by PEPCK. This is why the TCA cycle feeds gluconeogenesis during fasting.</span></span>
+        <span class="pathway-link">Malate-Aspartate Shuttle<span class="plink-tooltip">Cytosolic NADH is converted to malate by cytosolic Malate Dehydrogenase running in reverse. Malate crosses the inner mitochondrial membrane and is reoxidised to OAA by mitochondrial Malate Dehydrogenase, regenerating mitochondrial NADH for the ETC.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ REGULATION ══ -->
+<div id="tab-regulation" class="section-panel">
+
+  <div class="reg-hero">
+    <div class="info-label" style="margin-bottom:8px">Regulatory Overview</div>
+    <div class="reg-intro">
+      The Krebs cycle is regulated at three irreversible steps — Citrate Synthase (step 1), Isocitrate Dehydrogenase (step 3), and α-Ketoglutarate Dehydrogenase Complex (step 4). All three respond to the same fundamental signals: the cell's energy state (NADH/NAD⁺ ratio and ATP/ADP ratio) and Ca²⁺ in excitable tissues. The dominant theme is <strong>product inhibition by NADH</strong> — when NADH accumulates because the ETC cannot keep up, all three regulatory enzymes slow down, pulling the cycle back to match the pace the ETC can sustain. Flooding the ETC with more electrons than it can process would generate reactive oxygen species and damage the cell.
+    </div>
+  </div>
+
+  <!-- Isocitrate Dehydrogenase -->
+  <div class="reg-enzyme-card primary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">Isocitrate Dehydrogenase</div>
+        <div class="reg-card-subtitle">Step 3 · Primary Rate-Limiting Enzyme · Most Heavily Regulated</div>
+      </div>
+      <span class="badge badge-gold">Rate-Limiting</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label inhibit">Inhibitors</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">NADH — product inhibition; ETC saturation signal</div>
+          <div class="reg-item inhibit">ATP — high energy state</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Activators</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">ADP — low energy; urgent ATP need</div>
+          <div class="reg-item activate">Ca²⁺ — muscle contraction; simultaneous work + fuel demand</div>
+          <div class="reg-item activate">NAD⁺ — substrate availability</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      Isocitrate Dehydrogenase sits at the first major branch-point after citrate formation — it is the step that commits isocitrate to continuing through the cycle rather than being exported or used elsewhere. Its inhibition by NADH and ATP is the cell's primary brake on TCA cycle speed. When the ADP:ATP ratio rises (active muscle, low energy), this enzyme is released from inhibition and speeds up dramatically, matching ATP synthesis to demand.
+    </div>
+  </div>
+
+  <!-- Citrate Synthase -->
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">Citrate Synthase</div>
+        <div class="reg-card-subtitle">Step 1 · Entry Control · Sensitive to Downstream Product Buildup</div>
+      </div>
+      <span class="badge badge-red">Irreversible</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label inhibit">Inhibitors</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">NADH — signals downstream congestion</div>
+          <div class="reg-item inhibit">Succinyl-CoA — downstream intermediate buildup</div>
+          <div class="reg-item inhibit">ATP — energy repletion</div>
+          <div class="reg-item inhibit">Citrate — product inhibition</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Factors That Increase Activity</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">OAA availability — driven by substrate supply</div>
+          <div class="reg-item activate">ADP/AMP — low energy state</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      Citrate Synthase is controlled primarily by the availability of its substrates (Acetyl-CoA and OAA) and by product/downstream inhibition. When succinyl-CoA and NADH accumulate — meaning the cycle's products are backing up because the ETC is saturated — Citrate Synthase slows down, preventing further entry of Acetyl-CoA into an already congested cycle.
+    </div>
+  </div>
+
+  <!-- α-KG Dehydrogenase -->
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">α-Ketoglutarate Dehydrogenase Complex</div>
+        <div class="reg-card-subtitle">Step 4 · Product Feedback · Same Logic as PDC Regulation</div>
+      </div>
+      <span class="badge badge-red">Irreversible</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label inhibit">Inhibitors</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Succinyl-CoA (product feedback)</div>
+          <div class="reg-item inhibit">NADH (product feedback)</div>
+          <div class="reg-item inhibit">ATP</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Activators</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">Ca²⁺ — in muscle and heart</div>
+          <div class="reg-item activate">ADP</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      The regulatory logic mirrors PDC exactly — product inhibition by Succinyl-CoA (analogous to Acetyl-CoA inhibiting PDC) and NADH, activated by Ca²⁺. The consistency across both dehydrogenase complexes is not coincidental: wherever an oxidative decarboxylation step exists, the cell applies the same regulatory logic to prevent overproduction of reduced coenzymes.
+    </div>
+  </div>
+
+  <!-- Anaplerosis -->
+  <div class="ana-block">
+    <div class="ana-title">Anaplerosis — Replenishing Cycle Intermediates</div>
+    <div class="ana-intro">
+      Because TCA cycle intermediates are constantly being drawn off for biosynthesis (α-ketoglutarate for amino acids, succinyl-CoA for haem, OAA for gluconeogenesis, citrate for fatty acid synthesis), the cycle would gradually deplete its own intermediates and grind to a halt without replenishment. <strong>Anaplerotic reactions</strong> top up the pool of cycle intermediates, keeping the cycle running even when substrates are being diverted. The most important entry points:
+    </div>
+    <div class="ana-rows">
+      <div class="ana-row">
+        <span class="ana-entry">→ OAA</span>
+        <div class="ana-desc"><strong>Pyruvate Carboxylase</strong> — the most important anaplerotic reaction. Pyruvate + CO₂ + ATP → OAA. Active during gluconeogenesis and when OAA falls. Requires biotin and Acetyl-CoA as activator.</div>
+      </div>
+      <div class="ana-row">
+        <span class="ana-entry">→ α-KG</span>
+        <div class="ana-desc"><strong>Glutamate Dehydrogenase / Transaminases</strong> — amino acids (especially glutamate) are transaminated or deaminated to produce α-ketoglutarate, replenishing the cycle at step 3's product. Links amino acid catabolism to energy production.</div>
+      </div>
+      <div class="ana-row">
+        <span class="ana-entry">→ Succinyl-CoA</span>
+        <div class="ana-desc"><strong>Propionyl-CoA Carboxylase</strong> — odd-chain fatty acid β-oxidation produces propionyl-CoA, converted via methylmalonyl-CoA (requiring Vitamin B₁₂) to succinyl-CoA. This is why odd-chain fatty acids — unlike even-chain — can contribute to gluconeogenesis.</div>
+      </div>
+      <div class="ana-row">
+        <span class="ana-entry">→ Fumarate</span>
+        <div class="ana-desc"><strong>Urea Cycle / Purine Synthesis</strong> — fumarate released in the urea cycle (from argininosuccinate cleavage) and in purine nucleotide synthesis enters the TCA cycle at step 7, linking nitrogen disposal to energy metabolism.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="intro-note">⚕️ Each case follows the chain: which enzyme/cofactor is affected → what step blocks → what accumulates → why the specific symptoms follow.</div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Thiamine (Vitamin B₁) Deficiency — Wernicke's Encephalopathy & Beriberi</div>
+    <div class="clinical-enzyme-link">Affected enzymes: PDC + α-Ketoglutarate Dehydrogenase Complex (both require TPP)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Nutritional Deficiency</span><span class="clinical-tag">High-Yield</span><br><br>
+      Thiamine (Vitamin B₁) is the precursor of Thiamine Pyrophosphate (TPP), an essential cofactor for both PDC and α-Ketoglutarate Dehydrogenase Complex. Without TPP, both decarboxylation steps fail — pyruvate cannot enter the TCA cycle as Acetyl-CoA, and α-ketoglutarate cannot proceed to succinyl-CoA. The entire TCA cycle slows dramatically.<br><br>
+      Pyruvate and α-ketoglutarate accumulate. Backed-up pyruvate is reduced to <strong>lactate</strong> (lactic acidosis) or transaminated to <strong>alanine</strong>. ATP production collapses because the primary fuel source for the ETC is gone. The brain is the first to suffer — it is almost entirely dependent on glucose oxidation via PDC and the TCA cycle, with minimal capacity for alternative fuels.<br><br>
+      <strong>Wernicke's encephalopathy</strong>: the classic triad of confusion, ophthalmoplegia (eye movement abnormalities), and ataxia (gait disturbance) results from selective damage to thiamine-dependent brain regions (mamillary bodies, thalamus, brainstem). If untreated, it progresses to Korsakoff syndrome with irreversible memory loss.<br><br>
+      <strong>Beriberi</strong>: affects peripheral nerves (dry beriberi: neuropathy) and the cardiovascular system (wet beriberi: high-output heart failure from vasodilation and fluid retention). <strong>Cause:</strong> polished rice diet (thiamine in the husk, removed by polishing), chronic alcohol abuse (poor absorption + poor diet), prolonged parenteral nutrition without supplementation.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Arsenic Poisoning</div>
+    <div class="clinical-enzyme-link">Mechanism: Arsenic binds lipoic acid sulfhydryl groups → inhibits PDC + α-KG Dehydrogenase Complex</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Toxic</span><span class="clinical-tag">Multi-System</span><br><br>
+      Arsenite (As³⁺) has a high affinity for sulfhydryl (−SH) groups. Lipoic acid — the swinging arm cofactor that carries the acyl intermediate between active sites in both PDC and α-KG Dehydrogenase Complex — contains two sulfhydryl groups in its reduced (active) form. Arsenite binds these sulfhydryls and locks lipoic acid in an inactive configuration, preventing it from cycling between its oxidised and reduced states.<br><br>
+      The result is identical to the effect of thiamine deficiency at the metabolic level — both PDC and α-KG Dehydrogenase Complex are blocked, TCA cycle flux collapses, pyruvate and α-ketoglutarate accumulate, and cellular energy production fails. The difference is mechanism: thiamine deficiency removes a cofactor; arsenite inactivates an existing one.<br><br>
+      Clinically: multi-system toxicity affecting skin (Mees' lines on nails, hyperpigmentation), peripheral nerves (neuropathy), GI tract (vomiting, diarrhoea), and cardiovascular system. Chronic low-dose exposure causes cancer. Dimercaprol (BAL) and DMSA are chelating agents used in treatment — they compete for arsenic binding, displacing it from lipoic acid's sulfhydryls.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Fluoroacetate Poisoning</div>
+    <div class="clinical-enzyme-link">Mechanism: Fluorocitrate inhibits Aconitase (Step 2) → citrate accumulates</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Toxic (Rodenticide)</span><span class="clinical-tag">Suicide Substrate</span><br><br>
+      Fluoroacetate is a naturally occurring plant toxin and a used rodenticide. Once inside the cell, it undergoes a lethal synthesis: it condenses with oxaloacetate via Citrate Synthase (step 1) to form <strong>fluorocitrate</strong> — a molecule that looks like citrate but cannot be processed by Aconitase. Fluorocitrate binds tightly to Aconitase's active site and inhibits it competitively and irreversibly.<br><br>
+      The TCA cycle blocks completely at step 2. Citrate accumulates massively in the mitochondria and overflows into the blood and urine — a hallmark laboratory finding. All downstream steps stop, no NADH or FADH₂ is generated, the ETC starves of electrons, and ATP synthesis collapses. The brain and heart are most affected because of their high energy demands.<br><br>
+      This is sometimes called a "lethal synthesis" — the body's own enzymes (Citrate Synthase) convert the compound into a toxic metabolite, making it paradoxically more dangerous than if it were simply inert.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Succinyl-CoA & Haem Synthesis — Porphyrias</div>
+    <div class="clinical-enzyme-link">Link: Succinyl-CoA (Step 4 product) + Glycine → ALA → Haem</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Metabolic Link</span><span class="clinical-tag">Clinically Important</span><br><br>
+      Succinyl-CoA is not just a TCA cycle intermediate — it is the committed entry point for haem biosynthesis. ALA Synthase (the rate-limiting enzyme of haem synthesis) condenses succinyl-CoA with glycine to form δ-Aminolevulinate (ALA), the first committed porphyrin precursor.<br><br>
+      Porphyrias are a group of disorders caused by enzyme defects along the haem synthesis pathway downstream of ALA. When these enzymes are deficient, ALA and other porphyrin precursors accumulate. Acute intermittent porphyria (AIP) — deficiency of Porphobilinogen Deaminase — causes episodic abdominal pain, neuropsychiatric symptoms, and dark urine triggered by certain drugs (barbiturates, alcohol), fasting, or hormonal changes. Understanding that succinyl-CoA is the TCA cycle's contribution to this pathway explains why states of high TCA cycle activity (fed state, high protein intake) can paradoxically worsen porphyrias by generating more ALA.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="mode-desc" id="mode-desc">Jump to any challenge freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav" id="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChallenge(1)">1 · Step Order</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChallenge(2)">2 · Enzyme Match</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChallenge(3)">3 · Cofactors</button>
+      <button class="challenge-nav-btn" id="cnav-4" onclick="showChallenge(4)">4 · Clinical MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-5" onclick="showChallenge(5)">5 · R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-6" onclick="showChallenge(6)">6 · Multiple Completion</button>
+    </div>
+
+    <!-- Challenge 1: Step arrangement -->
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 — Step Arrangement</div>
+        <div class="challenge-instructions">Tap the reaction cards into the correct order for the Krebs cycle (Steps 1–8). Substrate → Product only — no enzyme names shown.</div>
+        <div class="section-label">Card Bank</div>
+        <div class="tap-bank" id="arrange-bank"></div>
+        <div class="section-label">Place in correct order</div>
+        <div class="arrange-slots" id="arrange-slots"></div>
+        <button class="check-btn" onclick="checkArrange()">Check Order</button>
+        <button class="btn-try-again" id="c1-try" onclick="tryAgainC1()">Try Again</button>
+        <button class="btn-reveal-ans" id="c1-reveal" onclick="revealC1()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetArrange()">Reset</button>
+        <div class="result-msg" id="arrange-result"></div>
+        <div class="reveal-note-box" id="c1-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="arrange-next" onclick="completeAndNext(1)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 2: Enzyme matching -->
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 — Enzyme Matching</div>
+        <div class="challenge-instructions">Steps are listed in order. Tap each enzyme to its correct step.</div>
+        <div class="section-label">Enzyme Bank</div>
+        <div class="tap-bank" id="enzyme-bank-2"></div>
+        <div class="match-grid" id="match-grid-2"></div>
+        <button class="check-btn" onclick="checkMatch()">Check Matches</button>
+        <button class="btn-try-again" id="c2-try" onclick="tryAgainC2()">Try Again</button>
+        <button class="btn-reveal-ans" id="c2-reveal" onclick="revealC2()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetMatch()">Reset</button>
+        <div class="result-msg" id="match-result"></div>
+        <div class="reveal-note-box" id="c2-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="match-next" onclick="completeAndNext(2)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 3: Cofactor linking -->
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 — Cofactor & Coenzyme Linking</div>
+        <div class="challenge-instructions">Match each enzyme to its coenzyme or key cofactor. Some have multiple — tap each one you know applies.</div>
+        <div class="section-label">Cofactor Bank</div>
+        <div class="tap-bank" id="cofactor-bank"></div>
+        <div class="cofactor-grid" id="cofactor-grid"></div>
+        <button class="check-btn" onclick="checkCofactor()">Check Links</button>
+        <button class="btn-try-again" id="c3-try" onclick="tryAgainC3()">Try Again</button>
+        <button class="btn-reveal-ans" id="c3-reveal" onclick="revealC3()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetCofactor()">Reset</button>
+        <div class="result-msg" id="cofactor-result"></div>
+        <div class="reveal-note-box" id="c3-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="cofactor-next" onclick="completeAndNext(3)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 4: Clinical MCQ -->
+    <div class="challenge-panel" id="cp4">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 4 — Clinical Scenarios</div>
+        <div class="challenge-instructions">Select the best answer. Tap an option to reveal full feedback.</div>
+        <div id="mcq-container"></div>
+        <button class="next-challenge-btn show" onclick="completeAndNext(4)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 5: R&A -->
+    <div class="challenge-panel" id="cp5">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 5 — Reason & Assertion</div>
+        <div class="challenge-instructions">Read both statements and select the correct option.</div>
+        <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;font-family:var(--font-mono)">
+          <strong style="font-family:var(--font-body)">Options key:</strong><br>
+          A — Both TRUE; reason IS the correct explanation<br>
+          B — Both TRUE; reason is NOT the correct explanation<br>
+          C — Assertion TRUE; reason FALSE<br>
+          D — Assertion FALSE; reason TRUE<br>
+          E — Both FALSE
+        </div>
+        <div id="ra-container"></div>
+        <button class="next-challenge-btn show" style="background:var(--green)" onclick="showCompletion()">Complete All Challenges ✓</button>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="challenge-panel" id="cp6">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 6 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply, then check your answers.</div>
+        <div class="mc-question"><div class="mc-question-num">Question 1 of 3</div><div class="mc-stem">Which of the following statements about the Pyruvate Dehydrogenase Complex (PDC) are correct?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc0opt0" onclick="toggleMCOption(this,0,0)"><div class="mc-checkbox" id="mc0cb0">&#9633;</div><div class="mc-option-text">PDC requires five cofactors: TPP, lipoic acid, CoA, FAD, and NAD+</div></div>
+<div class="mc-option" id="mc0opt1" onclick="toggleMCOption(this,0,1)"><div class="mc-checkbox" id="mc0cb1">&#9633;</div><div class="mc-option-text">PDC is activated by phosphorylation by PDC Kinase</div></div>
+<div class="mc-option" id="mc0opt2" onclick="toggleMCOption(this,0,2)"><div class="mc-checkbox" id="mc0cb2">&#9633;</div><div class="mc-option-text">Acetyl-CoA and NADH are allosteric inhibitors of PDC</div></div>
+<div class="mc-option" id="mc0opt3" onclick="toggleMCOption(this,0,3)"><div class="mc-checkbox" id="mc0cb3">&#9633;</div><div class="mc-option-text">PDC deficiency results in lactic acidosis because pyruvate cannot be oxidised</div></div>
+<div class="mc-option" id="mc0opt4" onclick="toggleMCOption(this,0,4)"><div class="mc-checkbox" id="mc0cb4">&#9633;</div><div class="mc-option-text">PDC is located in the cytoplasm</div></div>
+</div><div class="mc-feedback" id="mc-feedback-0" style="display:none">PDC requires TPP, lipoic acid, CoA, FAD, NAD+ (1 correct). PDC Kinase phosphorylates and INACTIVATES PDC (2 wrong). Acetyl-CoA and NADH are product inhibitors (3 correct). Without PDC, pyruvate converts to lactate causing lactic acidosis (4 correct). PDC is in the mitochondrial matrix (5 wrong).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 2 of 3</div><div class="mc-stem">Which of the following correctly describe the outputs of one complete turn of the TCA cycle?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc1opt0" onclick="toggleMCOption(this,1,0)"><div class="mc-checkbox" id="mc1cb0">&#9633;</div><div class="mc-option-text">Three NADH molecules are produced per turn</div></div>
+<div class="mc-option" id="mc1opt1" onclick="toggleMCOption(this,1,1)"><div class="mc-checkbox" id="mc1cb1">&#9633;</div><div class="mc-option-text">One FADH2 molecule is produced at the Succinate Dehydrogenase step</div></div>
+<div class="mc-option" id="mc1opt2" onclick="toggleMCOption(this,1,2)"><div class="mc-checkbox" id="mc1cb2">&#9633;</div><div class="mc-option-text">Two CO2 molecules are released per turn</div></div>
+<div class="mc-option" id="mc1opt3" onclick="toggleMCOption(this,1,3)"><div class="mc-checkbox" id="mc1cb3">&#9633;</div><div class="mc-option-text">One ATP is produced by substrate-level phosphorylation at Isocitrate Dehydrogenase</div></div>
+<div class="mc-option" id="mc1opt4" onclick="toggleMCOption(this,1,4)"><div class="mc-checkbox" id="mc1cb4">&#9633;</div><div class="mc-option-text">The net carbon input from one acetyl-CoA is completely oxidised to CO2 within one turn</div></div>
+</div><div class="mc-feedback" id="mc-feedback-1" style="display:none">Three NADH: Isocitrate DH, alpha-KG DH, Malate DH (1 correct). FADH2 at Succinate DH (2 correct). Two CO2 at Isocitrate DH and alpha-KG DH (3 correct). Substrate-level phosphorylation is at Succinyl-CoA Synthetase not Isocitrate DH (4 wrong). Two acetyl carbons released as 2 CO2 per turn (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 3 of 3</div><div class="mc-stem">Which of the following are true regarding anaplerosis and the TCA cycle?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc2opt0" onclick="toggleMCOption(this,2,0)"><div class="mc-checkbox" id="mc2cb0">&#9633;</div><div class="mc-option-text">Anaplerosis refers to reactions that replenish TCA cycle intermediates</div></div>
+<div class="mc-option" id="mc2opt1" onclick="toggleMCOption(this,2,1)"><div class="mc-checkbox" id="mc2cb1">&#9633;</div><div class="mc-option-text">Pyruvate Carboxylase is an anaplerotic enzyme that produces oxaloacetate</div></div>
+<div class="mc-option" id="mc2opt2" onclick="toggleMCOption(this,2,2)"><div class="mc-checkbox" id="mc2cb2">&#9633;</div><div class="mc-option-text">The TCA cycle is amphibolic because it functions in both catabolism and anabolism</div></div>
+<div class="mc-option" id="mc2opt3" onclick="toggleMCOption(this,2,3)"><div class="mc-checkbox" id="mc2cb3">&#9633;</div><div class="mc-option-text">Succinyl-CoA drawn from the TCA cycle for haem synthesis must be replaced by anaplerosis</div></div>
+<div class="mc-option" id="mc2opt4" onclick="toggleMCOption(this,2,4)"><div class="mc-checkbox" id="mc2cb4">&#9633;</div><div class="mc-option-text">Amino acid catabolism cannot contribute to TCA cycle intermediates</div></div>
+</div><div class="mc-feedback" id="mc-feedback-2" style="display:none">Anaplerosis replenishes TCA intermediates when withdrawn (1 correct). Pyruvate Carboxylase pyruvate+CO2 to OAA (2 correct). Amphibolic means both catabolic and anabolic (3 correct). Succinyl-CoA for haem must be replaced (4 correct). Many amino acids contribute carbon skeletons to TCA intermediates (5 wrong).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC()">Check Answers</button>
+          <button class="btn-try-again" id="mc-try-again" onclick="resetMC()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc-reveal" onclick="revealMC()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc-result"></div>
+        <div class="reveal-note-box" id="mc-reveal-note" style="display:none">Correct selections shown &mdash; review explanations above.</div>
+        <button class="next-challenge-btn" id="mc-next" onclick="completeAndNext(6)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+
+  <div id="completion-banner" style="display:none;background:linear-gradient(135deg,var(--royal-dim),var(--gold-dim));border:1px solid var(--gold-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px">
+    <div style="font-size:32px;margin-bottom:10px">🔒</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px">Krebs Cycle Locked In</div>
+    <div style="font-size:13px;color:var(--text-muted);max-width:380px;margin:0 auto 18px">All five challenges complete. Review any section or move on to the next pathway.</div>
+    <button onclick="exitTest()" style="background:var(--royal);color:white;border:none;padding:10px 26px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;">Restart Test Section</button>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+
+const krebsSteps = [
+  {num:1, substrate:"Acetyl-CoA + Oxaloacetate", product:"Citrate", enzyme:"Citrate Synthase", cofactors:["None"]},
+  {num:2, substrate:"Citrate", product:"Isocitrate", enzyme:"Aconitase", cofactors:["Fe²⁺"]},
+  {num:3, substrate:"Isocitrate + NAD⁺", product:"α-Ketoglutarate + CO₂", enzyme:"Isocitrate Dehydrogenase", cofactors:["NAD⁺","Mg²⁺"]},
+  {num:4, substrate:"α-Ketoglutarate + CoA + NAD⁺", product:"Succinyl-CoA + CO₂", enzyme:"α-Ketoglutarate Dehydrogenase Complex", cofactors:["NAD⁺","FAD","CoA","TPP","Lipoic acid"]},
+  {num:5, substrate:"Succinyl-CoA + GDP + Pᵢ", product:"Succinate + GTP + CoA", enzyme:"Succinyl-CoA Synthetase", cofactors:["Mg²⁺"]},
+  {num:6, substrate:"Succinate + FAD", product:"Fumarate + FADH₂", enzyme:"Succinate Dehydrogenase", cofactors:["FAD","Fe²⁺"]},
+  {num:7, substrate:"Fumarate + H₂O", product:"L-Malate", enzyme:"Fumarase", cofactors:["None"]},
+  {num:8, substrate:"L-Malate + NAD⁺", product:"Oxaloacetate + NADH", enzyme:"Malate Dehydrogenase", cofactors:["NAD⁺"]}
+];
+const allCofactors = ["NAD⁺","FAD","CoA","TPP","Lipoic acid","Fe²⁺","Mg²⁺","None"];
+const cofactorChallenge = [
+  {enzyme:"Citrate Synthase", cofactors:["None"]},
+  {enzyme:"Aconitase", cofactors:["Fe²⁺"]},
+  {enzyme:"Isocitrate Dehydrogenase", cofactors:["NAD⁺","Mg²⁺"]},
+  {enzyme:"α-Ketoglutarate Dehydrogenase Complex", cofactors:["NAD⁺","FAD","CoA","TPP","Lipoic acid"]},
+  {enzyme:"Succinyl-CoA Synthetase", cofactors:["Mg²⁺"]},
+  {enzyme:"Succinate Dehydrogenase", cofactors:["FAD","Fe²⁺"]},
+  {enzyme:"Fumarase", cofactors:["None"]},
+  {enzyme:"Malate Dehydrogenase", cofactors:["NAD⁺"]}
+];
+const mcqData = [
+  {
+    stem:"A patient presents with confusion, nystagmus, and ataxia following a prolonged period of poor nutrition and heavy alcohol use. Blood tests show elevated pyruvate and lactate. Which enzyme complexes are most likely deficient, and what is the unifying cofactor they share?",
+    options:["PDC and Isocitrate Dehydrogenase — both require NAD⁺","PDC and α-KG Dehydrogenase Complex — both require Thiamine Pyrophosphate (TPP)","Citrate Synthase and Malate Dehydrogenase — both require OAA","Aconitase and Succinate Dehydrogenase — both require iron-sulfur clusters"],
+    answer:1,
+    feedback:"<strong>Thiamine (B₁) deficiency</strong> impairs both PDC and α-KG Dehydrogenase Complex — the two oxidative decarboxylation steps — because both require TPP. Without TPP, pyruvate cannot enter the TCA cycle (accumulates → lactic acidosis) and α-ketoglutarate cannot proceed to succinyl-CoA. The clinical triad of confusion, ophthalmoplegia (nystagmus), and ataxia is Wernicke's encephalopathy. The brain is most vulnerable because it is almost entirely dependent on glucose → pyruvate → TCA cycle for energy."
+  },
+  {
+    stem:"In a biochemistry experiment, fluoroacetate is added to liver mitochondria. Which of the following would you expect to observe?",
+    options:["Accumulation of α-ketoglutarate and depletion of succinyl-CoA","Massive accumulation of citrate and cessation of downstream TCA intermediates","Accumulation of malate and OAA with normal citrate levels","Increased NADH production due to accelerated isocitrate dehydrogenase activity"],
+    answer:1,
+    feedback:"Fluoroacetate undergoes <strong>lethal synthesis</strong> — it is converted by Citrate Synthase to fluorocitrate, which potently and irreversibly inhibits <strong>Aconitase</strong> at step 2. Since citrate cannot be isomerised to isocitrate, it accumulates massively. All downstream steps stop (no isocitrate, α-ketoglutarate, succinyl-CoA, etc.), NADH and FADH₂ production ceases, and the ETC is starved of electrons. Citrate accumulation in the blood and urine is the diagnostic hallmark."
+  },
+  {
+    stem:"A researcher adds excess NADH to an isolated mitochondrial preparation containing all TCA cycle substrates. What is the most likely effect on TCA cycle flux?",
+    options:["Flux increases because NADH is a substrate for Malate Dehydrogenase","Flux decreases because NADH inhibits Isocitrate Dehydrogenase, α-KG Dehydrogenase Complex, and Citrate Synthase","Flux is unaffected because NADH does not directly interact with TCA enzymes","Only step 8 is affected because Malate Dehydrogenase uses NAD⁺"],
+    answer:1,
+    feedback:"NADH inhibits <strong>all three regulated TCA enzymes</strong> — Citrate Synthase (step 1), Isocitrate Dehydrogenase (step 3), and α-KG Dehydrogenase Complex (step 4) — simultaneously. This is the cycle's primary feedback brake: when NADH accumulates because the ETC cannot keep up, all three regulatory points slow down, preventing further NADH production and avoiding ETC overload. The effect is a coordinated reduction in total TCA flux, not just inhibition of individual steps."
+  },
+  {
+    stem:"Succinyl-CoA is required for haem biosynthesis. In a patient with lead poisoning (which inhibits ALA Dehydratase downstream in haem synthesis), which of the following would be expected to accumulate?",
+    options:["Succinyl-CoA itself, backing up into the TCA cycle","δ-Aminolevulinate (ALA), proximal to the lead-inhibited enzyme","Protoporphyrin IX only, with no effect on earlier intermediates","α-Ketoglutarate, because succinyl-CoA cannot be converted to ALA"],
+    answer:1,
+    feedback:"Lead inhibits <strong>ALA Dehydratase</strong> (which condenses two ALA molecules to porphobilinogen). The block is downstream of ALA synthesis, so ALA accumulates proximal to the inhibited step. ALA Synthase (which produces ALA from succinyl-CoA + glycine) continues to function — TCA cycle succinyl-CoA is still being produced normally and converted to ALA, but ALA cannot proceed further. Elevated urine ALA is a diagnostic marker for lead poisoning and certain porphyrias."
+  }
+];
+const raData = [
+  {
+    assertion:"Succinate Dehydrogenase is the only TCA cycle enzyme embedded in the inner mitochondrial membrane.",
+    reason:"FAD, unlike NAD⁺, does not freely diffuse through the mitochondrial matrix and must remain associated with a membrane-bound enzyme.",
+    answer:"B",
+    feedback:"Both statements are true, but the reason is not the correct explanation for the assertion. Succinate Dehydrogenase IS membrane-bound and IS the only TCA enzyme on the inner mitochondrial membrane (true assertion). FAD does remain tightly bound to enzymes rather than diffusing freely (true reason). However, Succinate Dehydrogenase is membrane-bound primarily because it directly feeds electrons to ubiquinone (CoQ) in the membrane — its location is about functional integration with the ETC, not specifically about FAD's diffusion properties. The reason is a true fact but does not correctly explain the assertion."
+  },
+  {
+    assertion:"The two carbon atoms that enter the Krebs cycle as Acetyl-CoA are the same two carbon atoms lost as CO₂ in steps 3 and 4.",
+    reason:"Oxidative decarboxylation at steps 3 and 4 releases exactly 2 CO₂ per turn, accounting for the 2 carbons of Acetyl-CoA.",
+    answer:"B",
+    feedback:"Both statements are true in terms of their facts, but the reason does not correctly explain the assertion — in fact, the assertion is a common misconception. The 2 CO₂ released in steps 3 and 4 come from the <strong>oxaloacetate carbons</strong>, not the Acetyl-CoA carbons. The Acetyl-CoA carbons become incorporated into the cycle intermediates and are not released as CO₂ in the first turn. They are eventually lost as CO₂ in subsequent turns. The reason correctly states that 2 CO₂ are released but incorrectly implies they derive from Acetyl-CoA."
+  },
+  {
+    assertion:"Calcium ions activate both Isocitrate Dehydrogenase and α-Ketoglutarate Dehydrogenase Complex.",
+    reason:"During muscle contraction, Ca²⁺ release from the sarcoplasmic reticulum simultaneously triggers mechanical work and increases TCA cycle flux to match ATP demand.",
+    answer:"A",
+    feedback:"Both statements are true and the reason is the correct explanation. Ca²⁺ allosterically activates both Isocitrate Dehydrogenase and α-KG Dehydrogenase Complex. The physiological purpose is precisely as stated: Ca²⁺ released during muscle contraction activates the contractile machinery (via troponin) while simultaneously boosting TCA cycle activity to generate more NADH → more ETC flux → more ATP. This is an elegant coordination mechanism ensuring fuel supply matches mechanical demand."
+  },
+  {
+    assertion:"Even-chain fatty acids cannot contribute net carbon to gluconeogenesis in humans.",
+    reason:"Beta-oxidation of even-chain fatty acids produces only Acetyl-CoA, which enters the TCA cycle but is completely lost as CO₂ during cycle turns, leaving no net carbon for glucose synthesis.",
+    answer:"A",
+    feedback:"Both statements are true and the reason is the correct explanation. Even-chain fatty acids produce exclusively Acetyl-CoA via beta-oxidation. Acetyl-CoA enters the TCA cycle via Citrate Synthase but the 2 carbons entering as Acetyl-CoA are balanced by 2 CO₂ lost at steps 3 and 4 — there is no net carbon gain for OAA or other gluconeogenic intermediates. This is why the claim 'fats cannot be converted to glucose (net)' is true for even-chain fatty acids, while odd-chain fatty acids (producing propionyl-CoA → succinyl-CoA) can contribute."
+  },
+  {
+    assertion:"Anaplerotic reactions are essential because TCA cycle intermediates are constantly being withdrawn for biosynthetic purposes.",
+    reason:"Pyruvate Carboxylase is the most important anaplerotic enzyme, replenishing oxaloacetate using pyruvate, CO₂, ATP, and biotin as cofactor.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains and exemplifies the assertion. Without anaplerosis, the cycle would deplete its own intermediates as they are drawn off for amino acid synthesis (α-KG → glutamate), haem synthesis (succinyl-CoA → ALA), fatty acid synthesis (citrate exported), and gluconeogenesis (OAA → PEP). Pyruvate Carboxylase is indeed the primary anaplerotic enzyme, and the mechanistic details in the reason are accurate — it requires biotin to carboxylate pyruvate to OAA at the cost of one ATP."
+  }
+];
+
+// ══ STATE ══
+var _selectedChip = null;
+var tapgedItem = null;
+var testMode = 'free';
+var completedChallenges = new Set();
+
+// ══ TABS ══
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ SCROLL-HIDE ══
+(function(){
+  var last = 0;
+  var h = document.getElementById('site-header');
+  window.addEventListener('scroll', function() {
+    var c = window.scrollY;
+    if (c > last && c > 60) h.classList.add('hide-bar');
+    else h.classList.remove('hide-bar');
+    last = c;
+  }, {passive:true});
+})();
+
+// ══ CARD TOGGLES ══
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleShared() { document.getElementById('shared-card').classList.toggle('open'); }
+function toggleBypass(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ══ TAP-TO-PLACE CORE ══
+function tapSelectChip(chip) {
+  if (chip.classList.contains('used')) return;
+  if (_selectedChip === chip) {
+    chip.classList.remove('selected');
+    _selectedChip = null;
+    return;
+  }
+  if (_selectedChip) _selectedChip.classList.remove('selected');
+  _selectedChip = chip;
+  chip.classList.add('selected');
+}
+
+function clearTapReady() {}
+
+function makeChip(id, text, attrs) {
+  var chip = document.createElement('div');
+  chip.className = 'tap-chip';
+  chip.id = id;
+  chip.textContent = text;
+  if (attrs) Object.keys(attrs).forEach(function(k){ chip.dataset[k] = attrs[k]; });
+  chip.onclick = function(){ tapSelectChip(chip); };
+  return chip;
+}
+
+function makeSlotDrop(slotNum, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'slot-drop';
+  drop.dataset.slot = slotNum;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeMatchDrop(idx, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'match-drop';
+  drop.dataset.idx = idx;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeCofactorDrop(stepKey, placeholder, answersObj) {
+  var drop = document.createElement('div');
+  drop.className = 'cofactor-drop';
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip && _selectedChip.dataset.cofactor) {
+      var chip = _selectedChip;
+      var cf = chip.dataset.cofactor;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      if (!answersObj[stepKey]) answersObj[stepKey] = [];
+      if (answersObj[stepKey].indexOf(cf) !== -1) return;
+      answersObj[stepKey].push(cf);
+      var tag = document.createElement('span');
+      tag.className = 'reg-tag cofactor';
+      tag.style.cssText = 'font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;';
+      tag.textContent = cf + ' ✕';
+      tag.onclick = function(ev) {
+        ev.stopPropagation();
+        answersObj[stepKey] = answersObj[stepKey].filter(function(x){ return x !== cf; });
+        tag.remove();
+        if (!drop.querySelector('span')) drop.textContent = placeholder;
+      };
+      if (!drop.querySelector('span')) drop.textContent = '';
+      drop.appendChild(tag);
+    }
+  };
+  return drop;
+}
+
+// ══ TEST MODE ══
+function selectMode(mode, btn) {
+  testMode = mode;
+  document.querySelectorAll('.mode-toggle-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('mode-desc').textContent = mode === 'guided'
+    ? 'Complete each challenge in order. Each unlocks after the previous is checked.'
+    : 'All five challenges are open from the start.';
+}
+
+function startTestFree(){testMode='free';
+return startTestFree_inner();}
+function startTestFree_inner(){startTest();}
+function startTest() {
+  document.getElementById('tms').style.display = 'none';
+  document.getElementById('challenge-area').style.display = 'block';
+  document.getElementById('completion-banner').style.display = 'none';
+  completedChallenges = new Set();
+  _selectedChip = null;
+  initAllChallenges();
+  updateChallengeNav();
+  showChallenge(1);
+}
+
+function exitTest() {
+  document.getElementById('tms').style.display = 'block';
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'none';
+  _selectedChip = null;
+}
+
+function showChallenge(n) {
+  if (testMode === 'guided' && n > 1 && !completedChallenges.has(n-1)) return;
+  document.querySelectorAll('.challenge-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.challenge-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cp' + n).classList.add('active');
+  document.getElementById('cnav-' + n).classList.add('active');
+  _selectedChip = null;
+}
+
+function updateChallengeNav() {
+  for (var i = 1; i <= 5; i++) {
+    var btn = document.getElementById('cnav-' + i);
+    btn.classList.remove('done','active');
+    if (completedChallenges.has(i)) btn.classList.add('done');
+    // free mode: all challenges unlocked
+  }
+}
+
+function completeAndNext(n) {
+  completedChallenges.add(n);
+  updateChallengeNav();
+  if (n < 5) showChallenge(n + 1);
+}
+
+function showCompletion() {
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'block';
+}
+
+function initMCQ() {
+  var container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  mcqData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'mcq-item';
+    
+    var stem = document.createElement('div');
+    stem.className = 'mcq-stem';
+    stem.textContent = (qi+1) + '. ' + q.stem;
+    
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'mcq-options';
+    optsDiv.id = 'mcq-opts-' + qi;
+    q.options.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'mcq-option';
+      opt.dataset.qi = qi;
+      opt.dataset.oi = oi;
+      opt.innerHTML = '<span class="mcq-letter">' + letters[oi] + '</span>' + o;
+      opt.onclick = function() { selectMCQ(parseInt(opt.dataset.qi), parseInt(opt.dataset.oi)); };
+      optsDiv.appendChild(opt);
+    });
+    
+    var feedback = document.createElement('div');
+    feedback.className = 'mcq-feedback';
+    feedback.id = 'mcq-fb-' + qi;
+    feedback.innerHTML = q.feedback;
+    
+    div.appendChild(stem); div.appendChild(optsDiv); div.appendChild(feedback);
+    container.appendChild(div);
+  });
+}
+
+
+// ══ CHECK HELPERS ══
+function showResult(msgId, nextId, correct, total) {
+  var msg = document.getElementById(msgId);
+  msg.classList.add('show');
+  if (correct === total) {
+    msg.className = 'result-msg show pass';
+    msg.textContent = '✓ All ' + total + ' correct!';
+    document.getElementById(nextId).classList.add('show');
+  } else {
+    msg.className = 'result-msg show fail';
+    msg.textContent = correct + '/' + total + ' correct. Review the relevant section and try again.';
+  }
+}
+
+
+var arrangeAnswers={};
+var matchAnswers={};
+var cofactorAnswers={};
+
+function initAllChallenges(){initArrange();initMatch();initCofactor();initMCQ();initRA();}
+
+function initArrange(){
+  arrangeAnswers={};
+  var bank=document.getElementById('arrange-bank');
+  var slots=document.getElementById('arrange-slots');
+  bank.innerHTML=''; slots.innerHTML='';
+  document.getElementById('arrange-result').classList.remove('show');
+  document.getElementById('arrange-next').classList.remove('show');
+
+  krebsSteps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    bank.appendChild(makeChip('ac-'+s.num, s.substrate.split(' + ')[0]+' → '+s.product.split(' + ')[0], {step:s.num}));
+  });
+
+  for(var i=1;i<=8;i++){
+    (function(slotNum){
+      var row=document.createElement('div'); row.className='arrange-slot';
+      row.innerHTML='<div class="slot-num">'+slotNum+'</div>';
+      var drop=makeSlotDrop(slotNum,'Tap to place',function(drop,chip){
+        if(!chip){delete arrangeAnswers[slotNum];return;}
+        var prev=Object.keys(arrangeAnswers).find(function(k){return arrangeAnswers[k]==parseInt(chip.dataset.step);});
+        if(prev){var pd=document.querySelector('.slot-drop[data-slot="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled','correct','wrong');}delete arrangeAnswers[prev];}
+        var old=arrangeAnswers[slotNum]; if(old){var oc=document.getElementById('ac-'+old);if(oc)oc.classList.remove('used');}
+        arrangeAnswers[slotNum]=parseInt(chip.dataset.step);
+        chip.classList.add('used');
+        var s=krebsSteps.find(function(x){return x.num==parseInt(chip.dataset.step);});
+        drop.textContent=s.substrate.split(' + ')[0]+' → '+s.product.split(' + ')[0];
+        drop.classList.add('filled'); drop.classList.remove('correct','wrong');
+      });
+      row.appendChild(drop); slots.appendChild(row);
+    })(i);
+  }
+}
+
+function checkArrange(){
+  var correct=0;
+  for(var i=1;i<=8;i++){
+    var drop=document.querySelector('.slot-drop[data-slot="'+i+'"]');
+    if(!drop) continue;
+    drop.classList.remove('correct','wrong');
+    if(arrangeAnswers[i]==i){drop.classList.add('correct');correct++;}
+    else if(arrangeAnswers[i]) drop.classList.add('wrong');
+  }
+  showResult('arrange-result','arrange-next',correct,8);
+}
+function resetArrange(){document.getElementById('arrange-result').classList.remove('show');document.getElementById('arrange-next').classList.remove('show');initArrange();}
+
+function initMatch(){
+  matchAnswers={};
+  var bank=document.getElementById('enzyme-bank-2');
+  var grid=document.getElementById('match-grid-2');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('match-next').classList.remove('show');
+
+  krebsSteps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    bank.appendChild(makeChip('mchip-'+s.num, s.enzyme, {step:s.num, enzyme:s.enzyme}));
+  });
+
+  krebsSteps.forEach(function(s){
+    var row=document.createElement('div'); row.className='match-row'; row.id='mrow-'+s.num;
+    var info=document.createElement('div'); info.className='match-step-info';
+    info.innerHTML='<strong>Step '+s.num+'</strong>: '+s.substrate.split(' + ')[0]+' → '+s.product.split(' + ')[0];
+    var drop=makeMatchDrop(s.num,'Tap to place',function(drop,chip){
+      var stepNum=parseInt(drop.dataset.idx);
+      if(!chip){var old=matchAnswers[stepNum];if(old){var oc=document.getElementById('mchip-'+old);if(oc)oc.classList.remove('used');}delete matchAnswers[stepNum];return;}
+      var prev=Object.keys(matchAnswers).find(function(k){return matchAnswers[k]==parseInt(chip.dataset.step);});
+      if(prev){var pd=document.querySelector('#match-grid-2 .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete matchAnswers[prev];}
+      var old=matchAnswers[stepNum];if(old){var oc=document.getElementById('mchip-'+old);if(oc)oc.classList.remove('used');}
+      matchAnswers[stepNum]=parseInt(chip.dataset.step);
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.enzyme; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  var correct=0;
+  krebsSteps.forEach(function(s){
+    var row=document.getElementById('mrow-'+s.num); row.classList.remove('correct','wrong');
+    if(matchAnswers[s.num]==s.num){row.classList.add('correct');correct++;}
+    else if(matchAnswers[s.num]) row.classList.add('wrong');
+  });
+  showResult('match-result','match-next',correct,8);
+}
+function resetMatch(){document.getElementById('match-result').classList.remove('show');document.getElementById('match-next').classList.remove('show');initMatch();}
+
+function initCofactor(){
+  cofactorAnswers={};
+  var bank=document.getElementById('cofactor-bank');
+  var grid=document.getElementById('cofactor-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('cofactor-result').classList.remove('show');
+  document.getElementById('cofactor-next').classList.remove('show');
+
+  allCofactors.forEach(function(cf){
+    bank.appendChild(makeChip('cfchip-'+cf.replace(/[^a-zA-Z0-9]/g), cf, {cofactor:cf}));
+  });
+
+  cofactorChallenge.forEach(function(c,i){
+    cofactorAnswers[i]=[];
+    var row=document.createElement('div'); row.className='cofactor-row'; row.id='cfrow-'+i;
+    var label=document.createElement('div'); label.className='cofactor-enzyme-name';
+    label.innerHTML='<span style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono)">Step '+(i+1)+'</span><br>'+c.enzyme;
+    var drop=makeCofactorDrop(i,'Tap cofactor, then tap here',cofactorAnswers);
+    row.appendChild(label); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkCofactor(){
+  var correct=0;
+  cofactorChallenge.forEach(function(c,i){
+    var row=document.getElementById('cfrow-'+i); row.classList.remove('correct','wrong');
+    var ans=(cofactorAnswers[i]||[]).slice().sort().join(',');
+    var exp=c.cofactors.slice().sort().join(',');
+    if(ans===exp){row.classList.add('correct');correct++;}
+    else row.classList.add('wrong');
+  });
+  showResult('cofactor-result','cofactor-next',correct,cofactorChallenge.length);
+}
+function resetCofactor(){document.getElementById('cofactor-result').classList.remove('show');document.getElementById('cofactor-next').classList.remove('show');initCofactor();}
+
+function initRA() {
+  var container = document.getElementById('ra-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D','E'];
+  var opts = [
+    'Both TRUE — reason IS the correct explanation',
+    'Both TRUE — reason is NOT the correct explanation',
+    'Assertion TRUE; reason FALSE',
+    'Assertion FALSE; reason TRUE',
+    'Both FALSE'
+  ];
+  raData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'ra-item';
+
+    var stmts = document.createElement('div');
+    stmts.className = 'ra-statements';
+    [['Assertion', q.assertion], ['Reason', q.reason]].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'ra-statement-box';
+      var lbl = document.createElement('div'); lbl.className = 'ra-statement-label'; lbl.textContent = pair[0];
+      var txt = document.createElement('div'); txt.className = 'ra-statement-text'; txt.textContent = pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'ra-options'; optsDiv.id = 'ra-opts-' + qi;
+    opts.forEach(function(o, oi) {
+      var opt = document.createElement('div'); opt.className = 'ra-option';
+      opt.dataset.qi = qi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'ra-letter'; span.textContent = letters[oi];
+      opt.appendChild(span);
+      opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() { selectRA(parseInt(this.dataset.qi), this.dataset.letter); };
+      optsDiv.appendChild(opt);
+    });
+
+    var fb = document.createElement('div');
+    fb.className = 'ra-feedback'; fb.id = 'ra-fb-' + qi; fb.innerHTML = q.feedback;
+
+    div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function tryAgainC1() {
+  document.querySelectorAll('#arrange-slots .slot-drop,#arrange-slots .drop-zone').forEach(function(drop) {
+    if (drop.classList.contains('correct')||drop.classList.contains('revealed')) return;
+    var sn=parseInt(drop.dataset.slot||drop.dataset.idx||0);
+    var old=arrangeAnswers[sn];
+    if (old!==undefined) { var oc=document.getElementById('ac-'+old); if(oc) oc.classList.remove('used'); delete arrangeAnswers[sn]; }
+    drop.textContent='Tap to place'; drop.classList.remove('filled','wrong');
+  });
+  document.getElementById('arrange-result').classList.remove('show');
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+}
+
+function revealC1() {
+  krebsSteps.forEach(function(s) {
+    var drop=document.querySelector('#arrange-slots .slot-drop[data-slot="'+s.num+'"],#arrange-slots .drop-zone[data-slot="'+s.num+'"]');
+    if (!drop||drop.classList.contains('correct')) return;
+    var old=arrangeAnswers[s.num]; if(old!==undefined){var oc=document.getElementById('ac-'+old);if(oc)oc.classList.remove('used');}
+    arrangeAnswers[s.num]=s.num;
+    var chip=document.getElementById('ac-'+s.num); if(chip){chip.classList.add('used');chip.classList.remove('selected');}
+    drop.textContent=s.enzyme||s.label||'';
+    drop.classList.remove('wrong','filled'); drop.classList.add('revealed');
+  });
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+  document.getElementById('c1-reveal-note').classList.add('show');
+  document.getElementById('arrange-next').classList.add('show');
+  var msg=document.getElementById('arrange-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct order, then try a fresh run.';
+}
+
+function tryAgainC2() {
+  document.querySelectorAll('#match-grid-2 .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(matchAnswers).forEach(function(k) {
+    if (!document.querySelector('#match-grid-2 #'+'mrow-'+k+'.correct')) delete matchAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+}
+
+function revealC2() {
+  krebsSteps.forEach(function(item, i) {
+    var row = document.getElementById('mrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+  document.getElementById('c2-reveal-note').classList.add('show');
+  document.getElementById('match-next').classList.add('show');
+  var msg=document.getElementById('match-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+function tryAgainC3() {
+  document.querySelectorAll('#cofactor-grid .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(cofactorAnswers).forEach(function(k) {
+    if (!document.querySelector('#cofactor-grid #'+'cfrow-'+k+'.correct')) delete cofactorAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('cofactor-result').classList.remove('show');
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+}
+
+function revealC3() {
+  cofactorChallenge.forEach(function(item, i) {
+    var row = document.getElementById('cfrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+  document.getElementById('c3-reveal-note').classList.add('show');
+  document.getElementById('cofactor-next').classList.add('show');
+  var msg=document.getElementById('cofactor-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+
+
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.pathway-link');
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var wasActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!wasActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+
+
+// ── TOOLTIP TAP TOGGLE ──
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest ? e.target.closest('.pathway-link') : null;
+    if (!link && e.target.classList && e.target.classList.contains('pathway-link')) {
+      link = e.target;
+    }
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!isActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+// ── MULTIPLE COMPLETION ──
+var mcSelections = [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAnswers = [[true, false, true, true, false], [true, true, true, false, true], [true, true, true, true, false]];
+var mcChecked = false;
+
+function toggleMCOption(el, qIdx, optIdx) {
+  if (mcChecked) return;
+  mcSelections[qIdx][optIdx] = !mcSelections[qIdx][optIdx];
+  el.classList.toggle('selected', mcSelections[qIdx][optIdx]);
+  var cb = document.getElementById('mc' + qIdx + 'cb' + optIdx);
+  cb.textContent = mcSelections[qIdx][optIdx] ? '☑' : '□';
+}
+
+function checkMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  var score = 0;
+  for (var i = 0; i < totalQ; i++) {
+    var allCorrect = true;
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      var selected = mcSelections[i][j];
+      var correct = mcAnswers[i][j];
+      opt.classList.remove('selected');
+      if (selected && correct) { opt.classList.add('correct'); cb.textContent = '✓'; }
+      else if (selected && !correct) { opt.classList.add('incorrect'); cb.textContent = '✗'; allCorrect = false; }
+      else if (!selected && correct) { opt.classList.add('missed'); cb.textContent = '○'; allCorrect = false; }
+      else { cb.textContent = '□'; }
+    }
+    if (allCorrect) score++;
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  var res = document.getElementById('mc-result');
+  res.textContent = score + ' of ' + totalQ + ' questions fully correct.';
+  res.style.color = score === totalQ ? 'var(--green)' : 'var(--red)';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+  document.getElementById('mc-reveal').style.display = 'inline-block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+}
+
+function resetMC() {
+  mcChecked = false;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    mcSelections[i] = mcSelections[i].map(function(){ return false; });
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent = '□';
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'none';
+  }
+  document.getElementById('mc-result').textContent = '';
+  document.getElementById('mc-try-again').style.display = 'none';
+  document.getElementById('mc-reveal').style.display = 'none';
+  document.getElementById('mc-next').style.display = 'none';
+  document.getElementById('mc-reveal-note').style.display = 'none';
+}
+
+function revealMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('selected','correct','incorrect','missed');
+      if (mcAnswers[i][j]) { opt.classList.add('missed'); cb.textContent = '○'; }
+      else { cb.textContent = '□'; }
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  document.getElementById('mc-reveal-note').style.display = 'block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+}
+
+
+function selectMCQ(qi, oi) {
+  var allOpts = document.getElementById('mcq-opts-' + qi);
+  if (!allOpts) return;
+  var optEls = allOpts.querySelectorAll('.mcq-option');
+  for (var k = 0; k < optEls.length; k++) {
+    if (optEls[k].classList.contains('correct') || optEls[k].classList.contains('wrong')) return;
+  }
+  for (var j = 0; j < optEls.length; j++) optEls[j].classList.remove('selected');
+  optEls[oi].classList.add('selected');
+  setTimeout(function() {
+    var correct = mcqData[qi].answer === oi;
+    for (var j = 0; j < optEls.length; j++) {
+      optEls[j].classList.remove('selected');
+      optEls[j].style.pointerEvents = 'none';
+      if (j === oi) { optEls[j].classList.add(correct ? 'correct' : 'wrong'); }
+      else if (j === mcqData[qi].answer && !correct) { optEls[j].classList.add('correct'); }
+    }
+    var fb = document.getElementById('mcq-fb-' + qi);
+    if (fb) fb.style.display = 'block';
+  }, 300);
+}
+</script>
+</body>
+</html>

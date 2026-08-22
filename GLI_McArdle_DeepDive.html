@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McArdle Disease — Deep Dive · GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404015; --red-border:#D9404040;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --mc:#0F4C81; --mc-mid:#1967B8; --mc-light:#3B82F6; --mc-dim:#0F4C8110; --mc-border:#0F4C8135;
+  --mc-accent:#0891B2; --mc-accent-dim:#0891B212; --mc-accent-border:#0891B235;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.14);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:44px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.disease-badge{background:var(--mc-dim);border:1px solid var(--mc-border);color:var(--mc-mid);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:44px;z-index:190;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 18px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--mc-mid);border-bottom-color:var(--mc-mid);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:24px 20px 60px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── HERO ── */
+.disease-hero{background:var(--white);border-radius:var(--radius-xl);padding:32px 28px;margin-bottom:20px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.disease-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--mc),var(--mc-mid),var(--mc-light));}
+.disease-hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mc-mid);margin-bottom:10px;}
+.disease-hero-title{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--text-dark);line-height:1.1;margin-bottom:6px;}
+.disease-hero-subtitle{font-size:15px;color:var(--text-muted);margin-bottom:20px;max-width:580px;line-height:1.65;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.hero-tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;}
+.hero-tag.type{background:var(--mc-dim);color:var(--mc-mid);border:1px solid var(--mc-border);}
+.hero-tag.inherit{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.hero-tag.gene{background:var(--gold-dim);color:var(--amber);border:1px solid var(--gold-border);}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.hero-stat{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 10px;text-align:center;}
+.hero-stat-value{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--mc-mid);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+/* ── CONTENT BLOCKS ── */
+.content-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:24px 26px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.block-eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.block-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:14px;line-height:1.2;}
+.block-body{font-size:14px;color:var(--text-body);line-height:1.85;}
+.block-body p{margin-bottom:14px;}
+.block-body p:last-child{margin-bottom:0;}
+.block-body strong{color:var(--text-dark);font-weight:600;}
+.block-body em{color:var(--mc-mid);font-style:normal;font-weight:600;}
+
+/* ── ANALOGY BOXES ── */
+.analogy-box{background:linear-gradient(135deg,#f0f7ff,#e8f4ff);border:1px solid var(--mc-border);border-left:4px solid var(--mc-mid);border-radius:var(--radius-md);padding:16px 18px;margin:16px 0;}
+.analogy-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mc-mid);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.analogy-body{font-size:14px;color:var(--text-body);line-height:1.8;}
+.analogy-body strong{color:var(--text-dark);}
+
+/* ── PLAIN ENGLISH ── */
+.plain-english{background:#f0fdf4;border:1px solid #86efac;border-left:4px solid var(--green);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;}
+.plain-english-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.plain-english-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.plain-english-body strong{color:var(--text-dark);}
+
+/* ── KEY CALLOUT ── */
+.key-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:14px 16px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;}
+.key-callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.key-callout-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.key-callout-body strong{color:var(--text-dark);}
+
+/* ── TECHNICAL NOTE ── */
+.technical-note{background:var(--mc-dim);border:1px solid var(--mc-border);border-radius:var(--radius-md);padding:12px 14px;margin:10px 0;}
+.technical-note-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mc-mid);margin-bottom:5px;}
+.technical-note-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+
+/* ── MECHANISM CHAIN ── */
+.chain-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.chain-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.chain-steps{display:flex;flex-direction:column;gap:0;}
+.chain-step{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--light-grey);}
+.chain-step:last-child{border-bottom:none;padding-bottom:0;}
+.chain-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:36px;}
+.chain-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;font-weight:700;flex-shrink:0;}
+.chain-num.enzyme{background:var(--mc-dim);color:var(--mc-mid);border:2px solid var(--mc-border);}
+.chain-num.block{background:var(--red-dim);color:var(--red);border:2px solid var(--red-border);}
+.chain-num.consequence{background:var(--amber-dim);color:var(--amber);border:2px solid var(--amber-border);}
+.chain-num.compensate{background:var(--green-dim);color:var(--green);border:2px solid var(--green-border);}
+.chain-num.clinical{background:var(--royal-dim);color:var(--royal);border:2px solid var(--royal-border);}
+.chain-connector{width:2px;flex:1;background:var(--light-grey);margin:4px auto;}
+.chain-content{flex:1;padding-top:2px;}
+.chain-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+.chain-label.enzyme{color:var(--mc-mid);}
+.chain-label.block{color:var(--red);}
+.chain-label.consequence{color:var(--amber);}
+.chain-label.compensate{color:var(--green);}
+.chain-label.clinical{color:var(--royal);}
+.chain-heading{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.chain-explain{font-size:13px;color:var(--text-body);line-height:1.7;}
+.chain-explain strong{color:var(--text-dark);}
+.chain-technical{display:inline-block;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:2px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+/* ── CLINICAL FEATURE CARDS ── */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.feature-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;}
+.feature-card.exercise::before{background:var(--mc-mid);}
+.feature-card.muscle::before{background:var(--red);}
+.feature-card.compensate::before{background:var(--green);}
+.feature-card.unique::before{background:var(--amber);}
+.feature-card-icon{font-size:24px;margin-bottom:10px;}
+.feature-card-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.feature-card-subtitle{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.feature-card-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.feature-card-body strong{color:var(--text-dark);}
+.feature-chain{background:var(--off-white);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-top:8px;line-height:1.6;}
+
+/* ── COMPARISON TABLE ── */
+.compare-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.compare-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;}
+.compare-table th{background:var(--off-white);padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.55;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .feature-col{font-weight:600;color:var(--text-dark);font-size:12px;}
+.compare-table .mc-col{color:var(--mc-mid);font-weight:500;}
+.compare-table .normal-col{color:var(--green);font-weight:500;}
+
+/* ── EXAM TRAP CARDS ── */
+.trap-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.trap-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.trap-card{border-radius:var(--radius-md);padding:16px 18px;margin-bottom:12px;}
+.trap-card:last-child{margin-bottom:0;}
+.trap-card.danger{background:#fff1f0;border:1px solid #fca5a5;}
+.trap-card.insight{background:#f0f9ff;border:1px solid #7dd3fc;}
+.trap-card.compare{background:#fefce8;border:1px solid #fde68a;}
+.trap-card-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.trap-card.danger .trap-card-label{color:#dc2626;}
+.trap-card.insight .trap-card-label{color:#0369a1;}
+.trap-card.compare .trap-card-label{color:#92400e;}
+.trap-card-heading{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:8px;}
+.trap-card-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.trap-card-body strong{color:var(--text-dark);}
+
+/* ── EXERCISE PHYSIOLOGY DIAGRAM ── */
+.exercise-timeline{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.exercise-timeline-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.timeline-phases{display:flex;flex-direction:column;gap:12px;}
+.timeline-phase{border-radius:var(--radius-md);padding:14px 16px;position:relative;}
+.timeline-phase.phase-1{background:var(--red-dim);border:1px solid var(--red-border);}
+.timeline-phase.phase-2{background:#fef9f0;border:1px solid #fed7aa;}
+.timeline-phase.phase-3{background:var(--green-dim);border:1px solid var(--green-border);}
+.timeline-phase.phase-4{background:var(--red-dim);border:1px solid var(--red-border);}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.phase-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;}
+.phase-1 .phase-badge{background:var(--red);color:var(--white);}
+.phase-2 .phase-badge{background:#ea580c;color:var(--white);}
+.phase-3 .phase-badge{background:var(--green);color:var(--white);}
+.phase-4 .phase-badge{background:var(--red);color:var(--white);}
+.phase-title{font-size:13px;font-weight:700;color:var(--text-dark);}
+.phase-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.phase-body strong{color:var(--text-dark);}
+
+/* ── DIAGNOSTIC BLOCK ── */
+.diagnostic-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.diagnostic-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.diagnostic-steps{display:flex;flex-direction:column;gap:10px;}
+.diagnostic-step{display:flex;gap:14px;align-items:flex-start;}
+.diag-num{width:28px;height:28px;border-radius:50%;background:var(--mc-dim);color:var(--mc-mid);border:1px solid var(--mc-border);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.diag-content{flex:1;}
+.diag-heading{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.diag-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+
+/* ── MANAGEMENT ── */
+.management-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.mgmt-card{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;}
+.mgmt-card-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.mgmt-card-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.mgmt-card-body strong{color:var(--text-dark);}
+
+/* ── FOREARM TEST BOX ── */
+.test-box{background:linear-gradient(135deg,var(--mc-dim),#e8f4ff);border:1px solid var(--mc-border);border-radius:var(--radius-lg);padding:18px 20px;margin:16px 0;}
+.test-box-title{font-size:14px;font-weight:700;color:var(--mc-mid);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.test-box-body{font-size:13px;color:var(--text-body);line-height:1.75;}
+.test-box-body strong{color:var(--text-dark);}
+.test-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.test-result{border-radius:var(--radius-md);padding:12px 14px;}
+.test-result.normal-result{background:var(--green-dim);border:1px solid var(--green-border);}
+.test-result.mc-result{background:var(--red-dim);border:1px solid var(--red-border);}
+.test-result-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.normal-result .test-result-label{color:var(--green);}
+.mc-result .test-result-label{color:var(--red);}
+.test-result-body{font-size:12px;color:var(--text-body);line-height:1.6;}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);margin-top:20px;}
+
+/* ══ DEFINITIVE MOBILE CSS ══ */
+@media (max-width: 640px) {
+  .main { padding: 12px 12px 40px; }
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 44px; padding: 6px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .disease-badge { font-size: 9px; padding: 2px 8px; }
+  .disease-hero { padding: 20px 16px; }
+  .disease-hero-title { font-size: 26px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hero-stat-value { font-size: 18px; }
+  .content-block { padding: 16px 14px; }
+  .block-title { font-size: 18px; }
+  .block-body { font-size: 13px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .management-grid { grid-template-columns: 1fr; }
+  .test-result-grid { grid-template-columns: 1fr; }
+  .compare-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .compare-table th, .compare-table td { font-size: 11px; padding: 8px 10px; }
+  .chain-step { gap: 10px; }
+  .chain-explain { font-size: 12px; }
+  .trap-card-body { font-size: 12px; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .key-callout { flex-direction: column; gap: 8px; }
+  .analogy-body { font-size: 13px; }
+  .phase-body { font-size: 12px; }
+  .test-box-body { font-size: 12px; }
+}
+
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:28px;text-align:center;margin-bottom:16px;box-shadow:var(--shadow-sm);}
+.test-mode-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:14px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+.mode-toggle-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 20px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.mode-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;}
+.start-btn{background:var(--royal);color:var(--white);border:none;border-radius:24px;padding:12px 32px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;}
+.exit-test-btn{background:none;border:none;color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;padding:8px 0;margin-bottom:12px;display:block;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:8px 18px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.completed{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+.check-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;}
+.btn-try-again{background:var(--off-white);border:1px solid var(--mid-grey);color:var(--text-body);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.btn-reveal-ans{background:var(--teal-dim);border:1px solid var(--teal-border);color:var(--teal);border-radius:20px;padding:9px 20px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;}
+.next-challenge-btn{background:var(--green);color:var(--white);border:none;border-radius:20px;padding:10px 24px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;display:none;}
+.result-msg{font-size:14px;font-weight:600;margin-top:12px;min-height:20px;}
+.reveal-note-box{background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;color:var(--teal);margin-top:10px;display:none;}
+.completion-banner-div{background:linear-gradient(135deg,var(--royal-dim),#e8f0ff);border:1px solid var(--royal-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px;}
+.completion-banner-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--royal);margin-bottom:8px;}
+.completion-banner-sub{font-size:14px;color:var(--text-muted);}
+.mcq-option{background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;margin-bottom:8px;font-size:13px;color:var(--text-body);transition:all .15s;line-height:1.5;}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mcq-option.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.mcq-option.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;display:none;}
+.mcq-next-btn{background:var(--royal);color:var(--white);border:none;border-radius:20px;padding:9px 22px;font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.mc-qnum{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.mc-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.6;margin-bottom:6px;}
+.mc-instr{font-size:11px;color:var(--text-muted);margin-bottom:12px;font-style:italic;}
+.mc-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.mc-opt{display:flex;align-items:flex-start;gap:10px;background:var(--off-white);border:1.5px solid var(--light-grey);border-radius:var(--radius-md);padding:11px 14px;cursor:pointer;transition:all .15s;}
+.mc-opt:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mc-opt.selected{background:var(--royal-dim);border-color:var(--royal);}
+.mc-opt.correct{background:var(--green-dim);border-color:var(--green);}
+.mc-opt.incorrect{background:var(--red-dim);border-color:var(--red);}
+.mc-opt.missed{background:var(--teal-dim);border-color:var(--teal);}
+.mc-cb{font-size:16px;flex-shrink:0;margin-top:1px;color:var(--text-muted);}
+.mc-opt.selected .mc-cb{color:var(--royal);}
+.mc-opt.correct .mc-cb{color:var(--green);}
+.mc-opt.incorrect .mc-cb{color:var(--red);}
+.mc-opt.missed .mc-cb{color:var(--teal);}
+.mc-opttext{font-size:13px;color:var(--text-body);line-height:1.6;}
+.mc-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;margin-top:10px;}
+.mc-qblock{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mc-qblock:last-child{border-bottom:none;margin-bottom:0;}
+.ra-item{margin-bottom:10px;padding-bottom:28px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-stmts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.ra-sbox{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;}
+.ra-slbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-stxt{font-size:13px;color:var(--text-body);line-height:1.6;}
+.ra-opts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.ra-btn{background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+.ra-btn:hover{border-color:var(--royal);color:var(--royal);}
+.ra-btn.selected{background:var(--royal-dim);border-color:var(--royal);color:var(--royal);}
+.ra-btn.correct{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.ra-btn.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red);}
+.ra-fb{background:var(--off-white);border:1px solid var(--light-grey);border-left:3px solid var(--royal);border-radius:var(--radius-md);padding:11px 13px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:6px;}
+@media(max-width:640px){.ra-stmts{grid-template-columns:1fr;}.challenge-nav-btn{padding:7px 12px;font-size:11px;}}
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <span class="disease-badge">GSD TYPE V · DEEP DIVE</span>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('mechanism',this)">Biochemical Chain</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical Features</button>
+    <button class="tab-btn" onclick="showTab('traps',this)">Exam Traps</button>
+    <button class="tab-btn" onclick="showTab('diagnosis',this)">Diagnosis & Management</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="disease-hero">
+    <div class="disease-hero-eyebrow">Glycogen Storage Disease Type V</div>
+    <div class="disease-hero-title">McArdle Disease</div>
+    <div class="disease-hero-subtitle">The muscle that cannot feed itself during exercise. A pure muscle disease — no fasting hypoglycaemia, no liver problems, no metabolic crisis at rest. Everything happens the moment you start to work.</div>
+    <div class="hero-tags">
+      <span class="hero-tag type">GSD Type V</span>
+      <span class="hero-tag inherit">Autosomal Recessive</span>
+      <span class="hero-tag gene">PYGM gene · Chromosome 11q13</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">1:100k</div><div class="hero-stat-label">Incidence</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">myPhos</div><div class="hero-stat-label">Deficient Enzyme</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">Muscle</div><div class="hero-stat-label">Only organ affected</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">Normal</div><div class="hero-stat-label">Fasting glucose</div></div>
+    </div>
+  </div>
+
+  <!-- What is it -->
+  <div class="content-block">
+    <div class="block-eyebrow">What Is This Disease?</div>
+    <div class="block-title">A Muscle That Cannot Open Its Own Fuel Tank</div>
+    <div class="block-body">
+      <p>Every muscle cell stores a small reserve of glycogen — a compact form of glucose that can be rapidly broken down when the muscle needs to work hard. When you sprint up stairs, lift a heavy object, or sustain any intense exercise, your muscle cells need glucose immediately. The fastest source is their own glycogen. The enzyme that breaks this glycogen down is called <em>Muscle Glycogen Phosphorylase</em> — also known as <em>myophosphorylase</em>.</p>
+
+      <p>In McArdle disease, <strong>myophosphorylase is absent</strong>. The glycogen is there — the muscle cells are packed with it, actually more than normal because it can never be used. But the enzyme that unlocks it is missing. The muscle cell is sitting on a full tank of fuel with no way to open the tap.</p>
+
+      <p>The moment exercise begins and ATP demand surges, the muscle tries to break down its glycogen — and fails. The cell is forced to rely entirely on other fuel sources: circulating blood glucose (which arrives slowly from the bloodstream), fatty acids (which are too slow for high-intensity work), and the small amount of ATP and phosphocreatine already in the cell. These alternative sources cannot keep up with intense demand. The muscle runs out of energy rapidly, producing the characteristic cramps and fatigue of McArdle disease.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">⛽ The Fuel Tank Analogy</div>
+      <div class="analogy-body">Imagine a racing car with a full petrol tank but a broken fuel pump. The engine starts, burns through what's in the carburettor, and then sputters to a halt — not because there's no fuel, but because it can't be delivered. If the driver slows down and waits, fuel from a slower backup system (an auxiliary tank, like circulating fatty acids and blood glucose) trickles in and the car can run again at reduced speed. That's McArdle disease during exercise — the main fuel source is there but inaccessible, and a slower backup keeps things going at low intensity.</div>
+    </div>
+
+    <div class="block-body">
+      <p>What makes McArdle disease conceptually elegant — and important for exams — is what it does NOT affect. <strong>Liver phosphorylase is a completely different enzyme encoded by a different gene (PYGL, not PYGM).</strong> The liver breaks down glycogen normally, releases glucose normally, and maintains blood glucose perfectly between meals. This is why McArdle patients have <strong>completely normal fasting blood glucose</strong> — one of the most important distinguishing features of this disease.</p>
+    </div>
+  </div>
+
+  <!-- Why only muscle -->
+  <div class="content-block">
+    <div class="block-eyebrow">The Core Concept</div>
+    <div class="block-title">Why Only Muscle? The Isoenzyme Story</div>
+    <div class="block-body">
+      <p>Glycogen Phosphorylase is not a single enzyme — it exists as three distinct isoforms encoded by three different genes, each expressed in different tissues:</p>
+
+      <p><strong>Muscle isoform (myophosphorylase) — PYGM gene, chromosome 11q13:</strong> expressed in skeletal muscle. This is the one missing in McArdle disease.</p>
+
+      <p><strong>Liver isoform (liver phosphorylase) — PYGL gene:</strong> expressed in the liver. This breaks down liver glycogen to maintain blood glucose. Completely normal in McArdle disease. Deficient in Hers disease (GSD Type VI).</p>
+
+      <p><strong>Brain isoform — PYGB gene:</strong> expressed in brain and heart. Also normal in McArdle disease.</p>
+
+      <p>This isoform specificity is why McArdle disease is so clean in its presentation — only skeletal muscle is affected, and only during exercise. The liver is completely normal, the heart is unaffected, and brain metabolism is fine. The disease is entirely confined to the one tissue that expresses only myophosphorylase.</p>
+    </div>
+
+    <div class="key-callout">
+      <div class="key-callout-icon">🔑</div>
+      <div class="key-callout-body"><strong>The single most important distinguishing fact about McArdle disease:</strong> fasting blood glucose is completely normal because liver phosphorylase (a different gene, a different enzyme) is unaffected. This immediately separates McArdle from all hepatic GSDs (Von Gierke, Cori, Hers) where hypoglycaemia is a central feature.</div>
+    </div>
+  </div>
+
+  <!-- Where it fits -->
+  <div class="content-block">
+    <div class="block-eyebrow">Where It Fits in the Pathway</div>
+    <div class="block-title">The First Step of Muscle Glycogenolysis — Blocked</div>
+    <div class="block-body">
+      <p>In normal muscle glycogenolysis, the sequence is: Glycogen + Pᵢ → Glucose-1-phosphate (via Glycogen Phosphorylase) → Glucose-6-phosphate (via Phosphoglucomutase) → enters glycolysis → ATP. This pathway is what gives muscles the burst capacity for intense exercise.</p>
+
+      <p>In McArdle disease, the very first step is blocked. Glycogen Phosphorylase cannot cleave glucose units from glycogen. Everything downstream from that step — Phosphoglucomutase, glycolysis, ATP production from glycogen — is intact and normal. The block is at the entry point. Glycogen accumulates because it is continuously synthesised (Glycogen Synthase is normal) but can never be broken down.</p>
+
+      <p>The muscle therefore has an unusual metabolic profile during exercise: <strong>glycogen builds up progressively</strong> (because synthesis continues but breakdown is zero), while <strong>blood glucose, fatty acid oxidation, and the creatine phosphate system</strong> carry all the burden. At low exercise intensities these can compensate. At high intensities, they cannot, and the muscle cramps.</p>
+    </div>
+
+    <div class="plain-english">
+      <div class="plain-english-label">Plain English Summary</div>
+      <div class="plain-english-body">At rest, everything is normal — the muscle doesn't need its glycogen, blood glucose keeps things ticking over, and there are no symptoms. The problem only appears when exercise demands more energy than the blood can supply fast enough. Then the muscle tries to break down its glycogen, finds it can't, and starts to fail. The faster and harder the exercise, the sooner it fails.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ BIOCHEMICAL CHAIN ══ -->
+<div id="tab-mechanism" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Step-by-Step Mechanism</div>
+    <div class="block-title">What Happens in the Muscle During Exercise</div>
+    <div class="block-body">
+      <p>To understand McArdle disease mechanistically, you need to understand what normally drives muscle glycogenolysis during exercise, and what happens when that first step is blocked. The story unfolds in three phases: the normal energy sequence, what goes wrong in McArdle, and why the "second wind" occurs.</p>
+    </div>
+  </div>
+
+  <!-- Normal energy sequence -->
+  <div class="chain-block">
+    <div class="chain-title">Phase 1 — What Normally Happens at the Start of Exercise</div>
+    <div class="chain-steps">
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num enzyme">1</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label enzyme">Normal First Response</div>
+          <div class="chain-heading">ATP and Phosphocreatine — the immediate buffer (0–10 seconds)</div>
+          <div class="chain-explain">
+            At the very start of exercise, ATP is consumed by myosin ATPase for muscle contraction. The immediate buffer is <strong>phosphocreatine (PCr)</strong>, which donates its phosphate group to ADP to regenerate ATP via Creatine Kinase (CK). This works for about 5–10 seconds of maximum intensity exercise. In McArdle disease, this step is completely normal — both the PCr store and creatine kinase are intact.
+          </div>
+          <span class="chain-technical">PCr + ADP → Creatine + ATP (via Creatine Kinase) — NORMAL in McArdle</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num enzyme">2</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label enzyme">Normal Second Response</div>
+          <div class="chain-heading">Glycogenolysis — the rapid glycogen fuel (10 seconds to several minutes)</div>
+          <div class="chain-explain">
+            As PCr is depleted, normally the muscle rapidly activates myophosphorylase. Calcium ions released from the sarcoplasmic reticulum during contraction activate Phosphorylase Kinase (via its calmodulin subunit), which converts Phosphorylase b → active Phosphorylase a. Additionally, AMP (rising as ATP is consumed) directly allosterically activates Phosphorylase b. Both signals ensure glycogenolysis accelerates instantly with exercise. <strong>In McArdle disease, myophosphorylase is absent — this entire step is missing.</strong> After PCr is used up, the muscle has no fast glycogen fuel source.
+          </div>
+          <span class="chain-technical">Ca²⁺ → Phosphorylase Kinase → Phosphorylase b → a; AMP directly activates Phosphorylase b — BLOCKED in McArdle</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num enzyme">3</div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label enzyme">Normal Third Response</div>
+          <div class="chain-heading">Oxidative phosphorylation — sustained aerobic fuel (minutes to hours)</div>
+          <div class="chain-explain">
+            For sustained moderate exercise, the muscle shifts to oxidative phosphorylation — fatty acid oxidation and the TCA cycle provide NADH and FADH₂ for the ETC to make ATP. This is slower but sustainable. Circulating blood glucose also contributes via glycolysis. In McArdle disease, <strong>oxidative phosphorylation and fatty acid oxidation are completely intact.</strong> This is why McArdle patients can perform sustained low-intensity exercise (e.g. walking) reasonably well — their aerobic capacity is functional.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- What goes wrong -->
+  <div class="chain-block">
+    <div class="chain-title">Phase 2 — What Goes Wrong in McArdle Disease</div>
+    <div class="chain-steps">
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num block">A</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label block">Primary Block</div>
+          <div class="chain-heading">Myophosphorylase absent → glycogen cannot be broken down</div>
+          <div class="chain-explain">
+            As soon as the PCr buffer runs out (within the first 10–30 seconds of intense exercise), the muscle desperately needs glycogen-derived glucose. Myophosphorylase is activated normally by Ca²⁺ and AMP — but since the enzyme protein itself is absent, no Glucose-1-phosphate is produced. Glycogen accumulates progressively inside the muscle cells. The glycogen is visible on muscle biopsy as abnormal subsarcolemmal (just under the cell membrane) glycogen deposits — a characteristic finding on electron microscopy.
+          </div>
+          <span class="chain-technical">PYGM gene mutation → no myophosphorylase protein → glycogen cannot be phosphorolysed → G1P = 0</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num block">B</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label block">Energy Crisis</div>
+          <div class="chain-heading">ATP falls → ADP and AMP accumulate → muscle cannot contract</div>
+          <div class="chain-explain">
+            With glycogenolysis blocked, ATP production from glycolysis (which depends on the G6P from glycogen breakdown) is severely limited during high-intensity exercise. ATP falls, ADP rises, and through the <strong>Adenylate Kinase reaction</strong> (2 ADP → ATP + AMP), AMP accumulates. The muscle cell cannot generate enough ATP to sustain contraction. Sarcomeres seize up in a contracted state — the muscle stiffens and cramps. This is not a normal cramp from electrolyte imbalance; it is a <strong>contracture</strong> — the muscle literally locks up because it cannot generate enough ATP to release the actin-myosin cross-bridges.
+          </div>
+          <span class="chain-technical">No G1P → no G6P → no glycolytic ATP → 2ADP → ATP + AMP (adenylate kinase) → AMP accumulates</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num block">C</div>
+          <div class="chain-connector"></div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label block">Diagnostic Consequence</div>
+          <div class="chain-heading">No lactate produced during ischaemic exercise → diagnostic marker</div>
+          <div class="chain-explain">
+            In a normal person exercising under ischaemia (blocked blood flow), glycogen → G6P → glycolysis → pyruvate → lactate. Venous lactate rises sharply. In McArdle disease, no glycogen is broken down → no G6P → no glycolytic substrate from glycogen → no pyruvate → <strong>no lactate rise</strong>. Venous lactate stays flat. This is the basis of the <strong>ischaemic forearm exercise test</strong> (or the non-ischaemic version) — the most important diagnostic test for McArdle disease. Ammonia still rises normally (from the purine nucleotide cycle — AMP → IMP + NH₃, which doesn't require glycolysis), confirming the patient actually exercised. Ammonia up, lactate flat = McArdle pattern.
+          </div>
+          <span class="chain-technical">No G6P from glycogen → no glycolytic flux → pyruvate = 0 → lactate = 0 during forearm test; AMP → IMP + NH₃ → ammonia rises normally</span>
+        </div>
+      </div>
+
+      <div class="chain-step">
+        <div class="chain-left">
+          <div class="chain-num consequence">D</div>
+        </div>
+        <div class="chain-content">
+          <div class="chain-label consequence">Muscle Damage</div>
+          <div class="chain-heading">Severe exercise → sustained contracture → muscle fibre necrosis → myoglobinuria</div>
+          <div class="chain-explain">
+            If the patient pushes through the cramps and continues intense exercise, the sustained contracture and ATP depletion damage muscle fibres. The muscle cell membrane becomes leaky — intracellular proteins spill into the blood. <strong>Creatine Kinase (CK) rises dramatically</strong> in the blood (sometimes >10,000 U/L; normal <200). <strong>Myoglobin</strong> — the oxygen-carrying protein of muscle — is released from damaged fibres. It is filtered by the kidneys, turning the urine dark red-brown (resembling cola or dark tea). This is <strong>myoglobinuria</strong>. If enough myoglobin is released, it precipitates in the renal tubules (especially in acidic, concentrated urine) and causes <strong>acute kidney injury (AKI)</strong> — the most dangerous complication of McArdle disease.
+          </div>
+          <span class="chain-technical">Contracture → sustained ATP depletion → sarcolemmal damage → CK release → myoglobin release → myoglobinuria → AKI risk</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- The Second Wind -->
+  <div class="content-block">
+    <div class="block-eyebrow">The Pathognomonic Phenomenon</div>
+    <div class="block-title">The "Second Wind" — What It Is and Why It Happens</div>
+    <div class="block-body">
+      <p>The <strong>"second wind"</strong> is one of the most clinically important and conceptually beautiful features of McArdle disease — and it is pathognomonic. No other disease produces it in quite the same way.</p>
+
+      <p>Here is what happens: A McArdle patient begins exercise. Within the first 5–10 minutes, they develop severe muscle pain, weakness, and cramps — the classic early symptoms. If they <strong>slow down or briefly rest</strong> at this point (without stopping completely), something remarkable happens: after 5–10 minutes, the symptoms improve significantly and they can continue exercising at a moderate level with much less discomfort. This is the second wind.</p>
+    </div>
+
+    <div class="analogy-box">
+      <div class="analogy-label">🌊 Why the Second Wind Occurs</div>
+      <div class="analogy-body">
+        <strong>The first phase (0–10 min):</strong> The muscle is working hard, PCr is depleted, and it desperately needs glycogen — which it cannot access. The only other fuel is blood glucose and fatty acids, which arrive slowly. There is a mismatch between demand (high) and supply (low). The muscle cramps.<br><br>
+        <strong>The transition:</strong> When the patient slows down, muscle workload drops. The cardiovascular system has been ramping up throughout — heart rate and cardiac output have increased, skeletal muscle blood flow has risen, and the redistribution of blood to working muscles has been optimising. Now, with lower demand, circulating blood glucose and fatty acids — arriving at the muscle in larger quantities because of the increased blood flow — can <strong>finally match the lower demand</strong>.<br><br>
+        <strong>The second wind (after 10 min):</strong> The muscle has shifted its fuel dependence entirely to oxidative metabolism — fatty acids and blood glucose. These sources, while slower than glycogen, are sufficient for low-to-moderate intensity exercise. The patient feels they can "go again." Importantly, this fuel shift takes time — hence the characteristic 10-minute window of early symptoms.
+      </div>
+    </div>
+
+    <div class="block-body">
+      <p>The second wind is clinically important because it <strong>confirms the diagnosis</strong> — no other muscle disease has this exact pattern. It also has practical management implications: teaching McArdle patients to warm up slowly, respect the early symptom window, and not push through the first-phase cramps dramatically reduces their risk of myoglobinuria and AKI.</p>
+    </div>
+
+    <div class="technical-note">
+      <div class="technical-note-label">Technical Basis of the Second Wind</div>
+      <div class="technical-note-body">
+        Evidence from metabolic studies during the second wind shows:<br>
+        — Blood glucose uptake by working muscle increases significantly<br>
+        — Free fatty acid oxidation increases<br>
+        — Heart rate actually DECREASES at the same workload during the second wind (less sympathetic activation needed because the metabolic crisis is resolving)<br>
+        — This heart rate drop during the second wind is measurable and has been proposed as an objective marker of the phenomenon<br>
+        — Glycogen in the muscle does NOT decrease (confirming no glycogenolysis is occurring even during the second wind)
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise physiology timeline -->
+  <div class="exercise-timeline">
+    <div class="exercise-timeline-title">What Happens During Exercise in McArdle Disease — Timeline</div>
+    <div class="timeline-phases">
+
+      <div class="timeline-phase phase-1">
+        <div class="phase-header">
+          <span class="phase-badge">0 – 30 sec</span>
+          <span class="phase-title">PCr buffer + ATP stores — brief tolerance</span>
+        </div>
+        <div class="phase-body">Phosphocreatine donates phosphate to regenerate ATP. The patient feels normal. This phase is completely normal in McArdle disease — it doesn't require glycogen. Duration depends on exercise intensity: maximal sprint exhausts PCr in seconds; moderate exercise may sustain this phase longer.</div>
+      </div>
+
+      <div class="timeline-phase phase-2">
+        <div class="phase-header">
+          <span class="phase-badge">30 sec – 10 min</span>
+          <span class="phase-title">Crisis phase — cramps, pain, fatigue</span>
+        </div>
+        <div class="phase-body">PCr is exhausted. Normally, glycogenolysis would kick in here — but myophosphorylase is absent. ATP falls. AMP accumulates. Muscle fibres are in energy crisis. Symptoms: <strong>severe muscle pain, stiffness, weakness</strong>. The muscle may lock in contracture. If the patient pushes through, myoglobinuria risk is high. <strong>This is the most dangerous phase.</strong> The correct response is to slow down, not to push harder.</div>
+      </div>
+
+      <div class="timeline-phase phase-3">
+        <div class="phase-header">
+          <span class="phase-badge">10 – 20 min</span>
+          <span class="phase-title">Second wind — symptoms improve</span>
+        </div>
+        <div class="phase-body">If the patient slows down during the crisis phase, the cardiovascular adaptation (increased blood flow to muscle) combined with lowered work demand allows <strong>fatty acid oxidation and blood glucose</strong> to meet demand. Symptoms improve markedly. The patient can resume moderate exercise with much greater comfort. Heart rate paradoxically decreases at the same workload.</div>
+      </div>
+
+      <div class="timeline-phase phase-4">
+        <div class="phase-header">
+          <span class="phase-badge">If pushed hard again</span>
+          <span class="phase-title">Myoglobinuria risk — dark urine, AKI</span>
+        </div>
+        <div class="phase-body">If the patient ignores cramps and pushes through into sustained intense exercise, muscle fibre necrosis occurs. CK releases into blood. <strong>Myoglobin turns urine dark red-brown.</strong> AKI from myoglobin precipitation in renal tubules. Requires emergency management: IV fluids (very high volumes), urine alkalinisation to prevent myoglobin precipitation, and renal monitoring.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL FEATURES ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Clinical Presentation</div>
+    <div class="block-title">How McArdle Disease Presents</div>
+    <div class="block-body">
+      <p>McArdle disease typically presents in childhood or early adulthood, though it is often not diagnosed until later — many patients spend years being told they are unfit or anxious about exercise. The key to diagnosis is the very specific pattern: <strong>symptoms appear only during exercise, resolve with rest, and are absent at rest and during fasting.</strong></p>
+      <p>The classic patient is a young person who has always been intolerant of strenuous exercise, particularly sudden intense bursts (sprinting, heavy lifting, stair climbing), and who notices they can do better if they start slowly.</p>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+
+    <div class="feature-card exercise">
+      <div class="feature-card-icon">💪</div>
+      <div class="feature-card-title">Exercise Intolerance & Early Fatigue</div>
+      <div class="feature-card-subtitle">Cardinal symptom · Present in all patients</div>
+      <div class="feature-card-body">
+        The defining feature. Patients fatigue abnormally quickly during any exercise that requires significant sustained effort — running, cycling, swimming, carrying heavy loads, or even climbing stairs. The fatigue is out of proportion to the effort and is often described as an overwhelming muscle weakness rather than the general tiredness healthy people feel. <strong>It is specifically worse in the first 10 minutes of exercise</strong> before the second wind, and worse for isometric (pushing against a fixed object) than isotonic exercise. Rest reliably relieves it.
+      </div>
+      <div class="feature-chain">No G1P from glycogen → no glycolytic ATP for burst → muscles fatigue before cardiovascular system catches up</div>
+    </div>
+
+    <div class="feature-card exercise">
+      <div class="feature-card-icon">😣</div>
+      <div class="feature-card-title">Exercise-Induced Muscle Pain & Cramps</div>
+      <div class="feature-card-subtitle">Painful contractures · Not a normal cramp</div>
+      <div class="feature-card-body">
+        During the crisis phase (typically 2–10 minutes into intense exercise), patients develop <strong>severe muscle pain and stiffness</strong>. Unlike the dull fatigue of deconditioning, this is an acute, intense, and localised pain in the working muscles. The muscle may become palpably hard — a <strong>contracture</strong> (the muscle locks in contraction because there is insufficient ATP to release the actin-myosin cross-bridges). This is genuinely painful and forces the patient to stop. It should never be pushed through — doing so risks myoglobinuria.
+      </div>
+      <div class="feature-chain">ATP depletion → actin-myosin cross-bridges cannot release → contracture → severe pain → myoglobinuria if ignored</div>
+    </div>
+
+    <div class="feature-card unique">
+      <div class="feature-card-icon">🌬️</div>
+      <div class="feature-card-title">The "Second Wind" Phenomenon</div>
+      <div class="feature-card-subtitle">Pathognomonic · Diagnostic clue</div>
+      <div class="feature-card-body">
+        After slowing during the crisis phase, patients experience a striking improvement in symptoms after 5–10 minutes — the "second wind." They can then continue exercising at a moderate level with significantly less pain and fatigue. This is <strong>pathognomonic</strong> — no other muscle disease reliably produces this pattern. It reflects the transition from (failed) glycogen-based fuel to successful oxidative metabolism (fatty acids + blood glucose). Patients often learn this pattern intuitively and describe "warming up carefully" before they can exercise.
+      </div>
+      <div class="feature-chain">Slow down → cardiovascular adaptation increases blood flow → fatty acid oxidation + blood glucose meets reduced demand → symptoms improve</div>
+    </div>
+
+    <div class="feature-card muscle">
+      <div class="feature-card-icon">🔴</div>
+      <div class="feature-card-title">Myoglobinuria — Dark Urine</div>
+      <div class="feature-card-subtitle">50–75% of patients · AKI risk</div>
+      <div class="feature-card-body">
+        After episodes of severe exercise or sustained contracture, myoglobin released from damaged muscle fibres is filtered into urine, turning it <strong>dark red, brown, or cola-coloured</strong>. This is a medical emergency — myoglobin precipitates in renal tubules, especially in concentrated or acidic urine, causing tubular obstruction and acute kidney injury. Not every episode of myoglobinuria causes AKI, but severe or repeated episodes can lead to significant renal damage. <strong>Any episode of dark urine after exercise requires immediate medical attention and aggressive IV fluid resuscitation.</strong>
+      </div>
+      <div class="feature-chain">Sustained contracture → fibre necrosis → myoglobin → urine → dark urine; renal tubule precipitation → AKI risk</div>
+    </div>
+
+    <div class="feature-card muscle">
+      <div class="feature-card-icon">📈</div>
+      <div class="feature-card-title">Elevated Resting CK</div>
+      <div class="feature-card-subtitle">Between episodes · Baseline elevation</div>
+      <div class="feature-card-body">
+        Even between exercise episodes, when the patient is asymptomatic, <strong>serum creatine kinase (CK) is elevated</strong> — often 3–10× normal (normal: &lt;200 U/L; McArdle baseline: typically 500–3000 U/L). This reflects low-level ongoing muscle fibre damage from the cumulative stress of using muscles without adequate glycogen fuel. During and after exercise episodes, CK can rise to 10,000–100,000 U/L or higher. The persistent baseline elevation is a useful screening clue in a patient with exercise intolerance — an unexplained elevated CK in a young person always warrants investigation.
+      </div>
+      <div class="feature-chain">Chronic inadequate ATP supply → low-level sarcolemmal stress → CK leaks into blood even at rest</div>
+    </div>
+
+    <div class="feature-card compensate">
+      <div class="feature-card-icon">✅</div>
+      <div class="feature-card-title">Normal Fasting Blood Glucose</div>
+      <div class="feature-card-subtitle">Critical distinguishing feature</div>
+      <div class="feature-card-body">
+        Fasting blood glucose is <strong>completely normal</strong> in McArdle disease. This is the single most important feature that distinguishes it from hepatic GSDs. The liver breaks down its glycogen normally via liver phosphorylase (a different enzyme), maintains gluconeogenesis normally, and exports free glucose normally via Glucose-6-phosphatase. Patients can fast for a full day without any metabolic abnormality. There is no lactic acidosis at rest, no hypertriglyceridaemia from metabolic overflow, no hyperuricaemia. The metabolic profile at rest is essentially normal.
+      </div>
+      <div class="feature-chain">Liver phosphorylase (PYGL) intact → normal glycogenolysis → G6P → G6Pase → free glucose → normal fasting glucose</div>
+    </div>
+
+    <div class="feature-card compensate">
+      <div class="feature-card-icon">💉</div>
+      <div class="feature-card-title">No Venous Lactate Rise on Exercise Testing</div>
+      <div class="feature-card-subtitle">Diagnostic hallmark · Forearm test</div>
+      <div class="feature-card-body">
+        During the ischaemic forearm exercise test (or non-ischaemic version), <strong>venous lactate fails to rise</strong> while venous ammonia rises normally. This pattern is diagnostic. Normal subjects generate lactate from muscle glycolysis during exercise (glycogen → G6P → glycolysis → lactate). In McArdle, no glycogen is broken down → no glycolytic substrate → no lactate. Ammonia rises (from AMP degradation via the purine nucleotide cycle — an AMP deaminase reaction that does not need glycolysis), confirming the patient genuinely exercised. Lactate flat + ammonia up = glycogen breakdown defect at or before glycolysis.
+      </div>
+      <div class="feature-chain">No G1P → no G6P → no glycolysis → no lactate; AMP → IMP + NH₃ (AMP deaminase) → ammonia rises</div>
+    </div>
+
+    <div class="feature-card muscle">
+      <div class="feature-card-icon">🔬</div>
+      <div class="feature-card-title">Fixed Proximal Weakness (In Some Patients)</div>
+      <div class="feature-card-subtitle">Late-onset · Not universal</div>
+      <div class="feature-card-body">
+        In a minority of patients — usually those diagnosed late or with longstanding poorly managed disease — <strong>fixed proximal muscle weakness</strong> develops with age, independent of exercise. This is from chronic cumulative muscle damage. The weakness is similar to a limb-girdle muscular dystrophy pattern — affecting shoulder and hip girdle muscles. It does not respond to rest (unlike exercise-induced weakness). This late-onset fixed weakness can complicate diagnosis in older patients, as it resembles other myopathies. Muscle biopsy in these patients may show not only glycogen accumulation but also fibre necrosis and regeneration.
+      </div>
+      <div class="feature-chain">Cumulative exercise-induced damage → fibre necrosis → incomplete regeneration → fixed weakness</div>
+    </div>
+
+  </div>
+
+  <!-- Lab findings table -->
+  <div class="compare-block">
+    <div class="compare-title">Laboratory Findings — McArdle vs Normal</div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr><th>Investigation</th><th>McArdle (at rest)</th><th>McArdle (after exercise)</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="feature-col">Blood glucose (fasting)</td><td class="normal-col">Normal</td><td class="normal-col">Normal</td><td>Liver phosphorylase intact; hepatic glucose export unaffected</td></tr>
+        <tr><td class="feature-col">Serum CK</td><td class="mc-col">Elevated (500–3000 U/L)</td><td class="mc-col">Very high (>10,000 U/L)</td><td>Baseline fibre stress; exercise dramatically worsens sarcolemmal damage</td></tr>
+        <tr><td class="feature-col">Blood lactate</td><td class="normal-col">Normal</td><td class="mc-col">Fails to rise on forearm test</td><td>No glycolytic substrate from glycogen; glycolysis cannot generate lactate</td></tr>
+        <tr><td class="feature-col">Blood ammonia</td><td class="normal-col">Normal</td><td class="mc-col">Rises on forearm test</td><td>AMP deaminase reaction (AMP → IMP + NH₃) is glycolysis-independent; confirms patient exercised</td></tr>
+        <tr><td class="feature-col">Urine myoglobin</td><td class="normal-col">Absent</td><td class="mc-col">Present after severe exercise</td><td>Muscle fibre necrosis releases myoglobin into bloodstream → filtered into urine</td></tr>
+        <tr><td class="feature-col">Blood lactate (fasting)</td><td class="normal-col">Normal</td><td>—</td><td>No metabolic derangement at rest — completely unlike Von Gierke</td></tr>
+        <tr><td class="feature-col">Triglycerides</td><td class="normal-col">Normal</td><td class="normal-col">Normal</td><td>No hepatic G6P overflow; liver metabolism is normal</td></tr>
+        <tr><td class="feature-col">Uric acid</td><td class="normal-col">Normal or mildly elevated</td><td class="mc-col">Rises after intense exercise</td><td>Rapid AMP degradation during energy crisis → purine nucleotide cycle → uric acid</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Forearm test detail -->
+  <div class="test-box">
+    <div class="test-box-title">🧪 The Forearm Exercise Test — Understanding What It Measures</div>
+    <div class="test-box-body">
+      <p><strong>The test:</strong> The patient squeezes a hand grip repeatedly for 1–2 minutes while a blood pressure cuff occludes venous drainage (ischaemic version) or without occlusion (non-ischaemic — safer and equally informative). Venous blood is sampled from the antecubital vein at baseline and at 1, 3, 6, and 10 minutes after exercise. Both lactate and ammonia are measured.</p>
+      <br>
+      <p><strong>Why ischaemia?</strong> Blocking venous drainage forces the muscle to rely entirely on anaerobic glycolysis for ATP — it cannot use oxidative phosphorylation because that would exhaust oxygen without replenishment. This makes the test specifically sensitive to glycolytic defects. However, the non-ischaemic version is now preferred because ischaemia can risk severe contracture and rhabdomyolysis in McArdle patients.</p>
+      <br>
+      <p><strong>What you're measuring:</strong> Lactate tells you whether glycolysis from glycogen is working. Ammonia tells you whether the patient genuinely exercised (AMP deaminase is activated by exercise regardless of glycogen availability). If the patient fails to exercise adequately, both lactate AND ammonia stay flat — a falsely negative test that must be interpreted carefully.</p>
+    </div>
+    <div class="test-result-grid">
+      <div class="test-result normal-result">
+        <div class="test-result-label">Normal Subject</div>
+        <div class="test-result-body">Lactate: rises 3–5× above baseline<br>Ammonia: rises 3–5× above baseline<br>Interpretation: Glycolysis working normally; patient exercised</div>
+      </div>
+      <div class="test-result mc-result">
+        <div class="test-result-label">McArdle Disease</div>
+        <div class="test-result-body">Lactate: flat — minimal or no rise<br>Ammonia: rises normally<br>Interpretation: Glycolysis blocked despite genuine exercise; glycogen breakdown defect confirmed</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ EXAM TRAPS ══ -->
+<div id="tab-traps" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">High-Yield Exam Intelligence</div>
+    <div class="block-title">The Traps That Catch Students in McArdle Exam Questions</div>
+    <div class="block-body">
+      <p>McArdle disease appears in exams primarily as clinical vignettes (young person with exercise intolerance and dark urine) and as R&A questions testing the mechanism of the second wind, the forearm test, and comparisons with other diseases. These are the specific traps to watch for.</p>
+    </div>
+  </div>
+
+  <div class="trap-block">
+    <div class="trap-title">The Most Important Exam Traps</div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 1</div>
+      <div class="trap-card-heading">"McArdle disease causes hypoglycaemia during fasting"</div>
+      <div class="trap-card-body">
+        <strong>This is completely wrong — and it is the most commonly confused point.</strong> McArdle disease has <strong>normal fasting blood glucose</strong>. The disease affects only muscle phosphorylase — liver phosphorylase is a completely different enzyme (PYGL gene) and is fully intact. The liver breaks down glycogen, maintains gluconeogenesis, and exports free glucose exactly as in a healthy person. Students confuse this because other GSDs (Von Gierke, Cori, Hers) do cause hypoglycaemia. McArdle is the exception — it is a pure muscle disease with zero hepatic involvement.
+      </div>
+    </div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 2</div>
+      <div class="trap-card-heading">"The forearm test shows flat lactate AND flat ammonia"</div>
+      <div class="trap-card-body">
+        <strong>Wrong — ammonia rises normally in McArdle disease.</strong> Ammonia is produced by the purine nucleotide cycle — AMP deaminase converts AMP → IMP + NH₃. This reaction is activated by exercise (AMP accumulation) and does <strong>not</strong> require glycolysis or glycogen breakdown. It is completely intact in McArdle disease. Flat lactate + flat ammonia together suggests either: (a) the patient did not actually exercise adequately (falsely negative test), or (b) a defect in the purine nucleotide cycle (AMP deaminase deficiency — a different, much milder condition). <strong>In McArdle: lactate flat, ammonia rises. That's the diagnostic pattern.</strong>
+      </div>
+    </div>
+
+    <div class="trap-card danger">
+      <div class="trap-card-label">⚠️ Classic Trap 3</div>
+      <div class="trap-card-heading">"McArdle disease causes rhabdomyolysis at rest"</div>
+      <div class="trap-card-body">
+        <strong>Wrong — rhabdomyolysis in McArdle is exercise-induced, not spontaneous.</strong> At rest, the muscle does not need glycogen — basal ATP demand is met by oxidative phosphorylation (fatty acids, blood glucose), which is fully intact. Muscle damage only occurs when the patient exercises beyond the capacity of the alternative fuel sources — i.e. during intense or sustained exercise. Some other myopathies (inflammatory myopathies, metabolic myopathies, statin-induced rhabdomyolysis) can cause resting or spontaneous muscle breakdown. McArdle is not one of them. The elevated resting CK reflects background low-level stress, not active rhabdomyolysis.
+      </div>
+    </div>
+
+    <div class="trap-card insight">
+      <div class="trap-card-label">💡 Key Insight 1</div>
+      <div class="trap-card-heading">Why the muscle cannot use its glycogen even at low exercise intensity</div>
+      <div class="trap-card-body">
+        Students sometimes assume McArdle patients are completely unable to exercise — this is wrong. At low intensities, oxidative phosphorylation from fatty acids and blood glucose is sufficient, and exercise is tolerable. The problem is specifically with the <strong>transition from rest to exercise</strong> — the burst demand in the first minutes — and with <strong>sustained high-intensity exercise</strong>. This is why patients can walk for hours but cannot sprint, and why the occupational history matters (a manual labourer has much more disability than a sedentary office worker). The degree of limitation depends on how often the patient encounters the intensity threshold at which glycogen would normally be needed.
+      </div>
+    </div>
+
+    <div class="trap-card insight">
+      <div class="trap-card-label">💡 Key Insight 2</div>
+      <div class="trap-card-heading">Why isometric exercise is particularly dangerous</div>
+      <div class="trap-card-body">
+        <strong>Isometric exercise</strong> (contracting a muscle against a fixed resistance — pushing against a wall, holding a position, gripping tightly) is especially problematic in McArdle disease. During isometric exercise, the muscle compresses its own blood supply, preventing the delivery of blood glucose and fatty acids that would otherwise partially compensate. The muscle is simultaneously demanding maximum ATP (high isometric force) and cutting off its alternative fuel supply. This is why tasks like gripping firmly, pushing heavy objects without moving, and holding fixed positions rapidly trigger contractures in McArdle patients even before isotonic exercise of comparable effort.
+      </div>
+    </div>
+
+    <div class="trap-card insight">
+      <div class="trap-card-label">💡 Key Insight 3</div>
+      <div class="trap-card-heading">The AMP deaminase connection — what it tells you about the forearm test</div>
+      <div class="trap-card-body">
+        The forearm test exploits two independent markers: lactate (glycolysis working?) and ammonia (patient actually exercised?). AMP deaminase deficiency is a separate myopathy where the purine nucleotide cycle is blocked — these patients have <strong>normal lactate rise but flat ammonia</strong> (the exact opposite of McArdle). This is an important differential. In McArdle: lactate flat, ammonia up. In AMP deaminase deficiency: lactate up (glycolysis works fine), ammonia flat. In inadequate exercise: both flat. Understanding why ammonia rises in McArdle (AMP → IMP + NH₃ from the energy crisis, not from glycolysis) is the key mechanistic point that exams test in R&A format.
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap 1</div>
+      <div class="trap-card-heading">McArdle (GSD V) vs Hers Disease (GSD VI)</div>
+      <div class="trap-card-body">
+        Both involve Glycogen Phosphorylase deficiency. But:
+        <br><br>
+        <strong>McArdle:</strong> Muscle phosphorylase deficient (PYGM). Normal fasting glucose. Exercise intolerance, cramps, myoglobinuria. No hepatomegaly. No lactic acidosis at rest. Forearm test: lactate flat.
+        <br><br>
+        <strong>Hers:</strong> Liver phosphorylase deficient (PYGL). Mild fasting hypoglycaemia. Hepatomegaly. No muscle symptoms. No myoglobinuria. Forearm test: normal (muscle phosphorylase intact). The isoenzyme difference (PYGM vs PYGL) is what separates them completely.
+        <br><br>
+        <strong>Exam pattern:</strong> If the question mentions hepatomegaly and mild hypoglycaemia with no muscle symptoms → think Hers. If it mentions exercise intolerance, cramps, dark urine, and normal fasting glucose → think McArdle.
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap 2</div>
+      <div class="trap-card-heading">McArdle vs Pompe Disease (GSD II)</div>
+      <div class="trap-card-body">
+        Both cause muscle glycogen accumulation. But the mechanism and presentation are completely different:
+        <br><br>
+        <strong>McArdle:</strong> Cytosolic glycogenolysis blocked (myophosphorylase absent). Glycogen accumulates in the cytoplasm. Exercise-induced symptoms. Normal between episodes. Forearm test abnormal. No cardiac involvement. CK elevated.
+        <br><br>
+        <strong>Pompe:</strong> Lysosomal acid α-glucosidase (GAA) absent — lysosomal glycogen degradation blocked. Glycogen accumulates in lysosomes in multiple tissues. Exercise-independent symptoms — progressive weakness regardless of activity. Infantile form: massive cardiomegaly and hypotonia → death by age 2. Adult form: progressive respiratory and limb-girdle weakness. Forearm test normal (cytosolic glycolysis intact). No myoglobinuria pattern.
+        <br><br>
+        The lysosomal vs cytosolic distinction is critical — Pompe affects the backup pathway for glycogen turnover; McArdle affects the main exercise-activated glycogenolysis pathway.
+      </div>
+    </div>
+
+    <div class="trap-card compare">
+      <div class="trap-card-label">⚖️ Comparison Trap 3</div>
+      <div class="trap-card-heading">McArdle vs Von Gierke — The Opposite Disease</div>
+      <div class="trap-card-body">
+        McArdle and Von Gierke are conceptual mirror images — and examiners exploit this symmetry.
+        <br><br>
+        <strong>Von Gierke:</strong> Liver only affected. Presents in infancy. Fasting hypoglycaemia (severe). Lactic acidosis at rest. Hepatomegaly. Normal exercise capacity. Glucagon fails to raise glucose. G6Pase absent.
+        <br><br>
+        <strong>McArdle:</strong> Muscle only affected. Presents in childhood/early adulthood. Normal fasting glucose. Normal lactate at rest. No hepatomegaly. Exercise intolerance. Glucagon response completely normal. Myophosphorylase absent.
+        <br><br>
+        <strong>The symmetry exams love:</strong> In Von Gierke, lactate is high at rest and worsens with glucagon. In McArdle, lactate is normal at rest but fails to rise with exercise. In Von Gierke, the liver is the problem. In McArdle, the liver is fine. Examiners will swap features between these two diseases — always check which tissue is affected and what happens at rest vs exercise.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- R&A framework -->
+  <div class="content-block">
+    <div class="block-eyebrow">R&A Framework</div>
+    <div class="block-title">How to Think Through McArdle R&A Questions</div>
+    <div class="block-body">
+      <p>McArdle R&A questions fall into three categories: (1) mechanism of the second wind, (2) the forearm test results, and (3) why fasting glucose is normal.</p>
+
+      <p><strong>Second wind R&A pattern:</strong> The assertion will usually be true (patients can exercise better after the second wind). The reason will describe the mechanism — the key is whether it correctly identifies <em>oxidative metabolism taking over</em> as the explanation, rather than incorrect reasons like "glycogen finally being mobilised" (wrong — myophosphorylase is still absent), or "lactic acid being cleared" (wrong — there was no lactic acid buildup because there was no glycolysis). If the reason says glycogen is now accessible during the second wind — that's false.</p>
+
+      <p><strong>Forearm test R&A pattern:</strong> The assertion will state lactate fails to rise. The reason must correctly explain this via absence of myophosphorylase → no G6P from glycogen → no glycolytic substrate. Common wrong reasons: "glycolysis enzymes are absent" (false — glycolysis is intact, only its glycogen-derived substrate is absent), or "the muscle cannot take up glucose from the blood" (false — GLUT transporters are normal).</p>
+
+      <p><strong>Normal fasting glucose R&A pattern:</strong> The assertion (fasting glucose is normal) is always true. The reason must cite liver phosphorylase (PYGL) being unaffected — not myophosphorylase. If a reason says "glycogen breakdown is completely unaffected in McArdle disease" — this is false (muscle glycogen breakdown IS affected). Only hepatic glycogen breakdown is unaffected.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ DIAGNOSIS & MANAGEMENT ══ -->
+<div id="tab-diagnosis" class="section-panel">
+
+  <div class="content-block">
+    <div class="block-eyebrow">Diagnosis</div>
+    <div class="block-title">How McArdle Disease Is Diagnosed</div>
+    <div class="block-body">
+      <p>Diagnosis of McArdle disease follows a stepwise approach. The clinical history is often strongly suggestive, and specific investigations confirm it. The challenge is that McArdle is underdiagnosed — many patients are told for years that they are simply unfit. A persistently elevated CK in a young person with exercise intolerance should always raise suspicion.</p>
+    </div>
+  </div>
+
+  <div class="diagnostic-block">
+    <div class="diagnostic-title">Diagnostic Pathway</div>
+    <div class="diagnostic-steps">
+
+      <div class="diagnostic-step">
+        <div class="diag-num">1</div>
+        <div class="diag-content">
+          <div class="diag-heading">Clinical History — The Pattern Is Diagnostic</div>
+          <div class="diag-body">Exercise intolerance from childhood or early adulthood. Symptoms specifically during exercise (not at rest). The "second wind" phenomenon — if present, this is virtually pathognomonic. Episodes of dark urine following intense exercise. Family history (autosomal recessive — siblings may be affected). Important to ask specifically: Can the patient exercise after a 10-minute warm-up better than at the start? Do symptoms resolve completely with rest? Has the patient ever had dark urine after exercise?</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">2</div>
+        <div class="diag-content">
+          <div class="diag-heading">Serum CK — Baseline Elevation</div>
+          <div class="diag-body">A simple blood test — serum CK is elevated even at rest in McArdle disease, typically 3–10× normal. This is an important screening test. An unexplained elevated CK in a young person should prompt investigation for a muscle disease. CK does not specifically diagnose McArdle, but its elevation confirms myopathy and triggers further investigation. During exercise episodes, CK can be extremely high (>10,000 U/L), confirming rhabdomyolysis.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">3</div>
+        <div class="diag-content">
+          <div class="diag-heading">Non-Ischaemic Forearm Exercise Test</div>
+          <div class="diag-body">The key functional test. The patient exercises the forearm (hand gripping) for 1–2 minutes without blood flow occlusion (non-ischaemic version is now preferred). Venous blood sampled at baseline, 1, 3, 6, and 10 minutes for lactate and ammonia. In McArdle: lactate flat, ammonia rises ≥3×. Important: the ischaemic version can cause severe contracture or rhabdomyolysis in McArdle patients and is no longer recommended as the primary test. If the patient does not exercise adequately, both lactate and ammonia stay flat — a falsely negative result that must be interpreted cautiously.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">4</div>
+        <div class="diag-content">
+          <div class="diag-heading">Genetic Testing — Now the Gold Standard</div>
+          <div class="diag-body">Sequencing of the PYGM gene confirms the diagnosis. The most common mutation in McArdle disease is p.Arg50* (R50X) — a premature stop codon that results in complete absence of myophosphorylase. This mutation accounts for approximately 81% of affected alleles in European populations, making targeted mutation screening highly effective. Genetic testing has largely replaced muscle biopsy for diagnosis, as it is non-invasive and definitive. Family members can also be tested for carrier status.</div>
+        </div>
+      </div>
+
+      <div class="diagnostic-step">
+        <div class="diag-num">5</div>
+        <div class="diag-content">
+          <div class="diag-heading">Muscle Biopsy — When Genetic Testing Is Equivocal</div>
+          <div class="diag-body">Muscle biopsy with histochemistry showing absent myophosphorylase activity (using the histochemical stain for phosphorylase — affected fibres stain negative, while unaffected innervated blood vessels stain positive as an internal control) and PAS staining showing excess glycogen (subsarcolemmal deposits). Electron microscopy reveals characteristic glycogen deposits just below the sarcolemma. Biopsy is now reserved for cases where genetic testing is inconclusive or when additional information about the extent of muscle damage is needed.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Management -->
+  <div class="content-block">
+    <div class="block-eyebrow">Management</div>
+    <div class="block-title">Living and Training with McArdle Disease</div>
+    <div class="block-body">
+      <p>There is no cure for McArdle disease. Management is focused on <strong>preventing myoglobinuria and AKI, maximising exercise capacity, and improving quality of life</strong>. The good news is that with the right strategies, most patients can live active and fulfilling lives with substantially reduced symptom burden.</p>
+    </div>
+  </div>
+
+  <div class="management-grid">
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Exercise Strategy — The Most Important Intervention</div>
+      <div class="mgmt-card-body">
+        <strong>Supervised aerobic exercise training</strong> is the most evidence-based intervention — it dramatically improves exercise capacity by increasing cardiovascular fitness and improving the delivery of blood glucose and fatty acids to muscle. The goal is to improve the alternative fuel systems. <strong>Warm-up protocol:</strong> always start very slowly for 10 minutes before any sustained activity to reach the second wind before intensifying. <strong>Avoid:</strong> sudden intense bursts without warm-up, isometric exercise, pushing through cramps. <strong>Use a heart rate monitor</strong> — staying within 60–70% of maximum heart rate minimises the risk of entering the danger zone.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Dietary Strategies</div>
+      <div class="mgmt-card-body">
+        <strong>Pre-exercise carbohydrate ingestion:</strong> taking a glucose drink or sucrose snack 5 minutes before exercise raises blood glucose → more substrate available for the muscle → reduces symptoms during the early phase before the second wind. This is one of the most practically effective strategies. <strong>High-protein diet:</strong> controversial but some evidence suggests increased dietary protein may support gluconeogenesis and provide amino acid substrates during exercise. <strong>Avoid prolonged fasting before planned exercise</strong> — being in a post-absorptive state with low blood glucose worsens early exercise tolerance significantly.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Managing Acute Episodes — Myoglobinuria</div>
+      <div class="mgmt-card-body">
+        Any episode of dark urine after exercise requires <strong>immediate medical attention</strong>. Treatment: <strong>aggressive IV fluid resuscitation</strong> (large volumes of isotonic saline — the goal is to maintain urine output at 200–300 mL/hour, diluting myoglobin in the tubules and flushing it out before it precipitates). <strong>Urine alkalinisation</strong> (sodium bicarbonate in IV fluids) reduces myoglobin precipitation (myoglobin is less soluble in acidic urine). Avoid NSAIDs and other nephrotoxic drugs. Monitor renal function, urine output, and CK levels closely. Haemodialysis if AKI develops and is severe.
+      </div>
+    </div>
+    <div class="mgmt-card">
+      <div class="mgmt-card-label">Pharmacological & Emerging Therapies</div>
+      <div class="mgmt-card-body">
+        <strong>No proven disease-modifying drug therapy</strong> currently exists for McArdle disease. Ribose supplementation (a pentose sugar that partially bypasses the glycolytic block) showed initial promise but has not been consistently effective in trials. <strong>Vitamin B6 (pyridoxine)</strong> was proposed as a cofactor for Phosphorylase Kinase modulation but evidence is weak. <strong>Sucrose before exercise</strong> remains the most reliably effective pharmacological-adjacent strategy. <strong>Gene therapy</strong> (AAV-mediated PYGM delivery) is in early preclinical development. <strong>Creatine monohydrate</strong> supplementation is used by some patients to boost the PCr buffer — evidence is mixed but it may slightly extend the symptom-free early exercise phase.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key messages -->
+  <div class="content-block" style="margin-top:16px">
+    <div class="block-eyebrow">For Your Exams</div>
+    <div class="block-title">The Five Things You Must Know Cold</div>
+    <div class="block-body">
+      <p><strong>1.</strong> Myophosphorylase (PYGM) is absent. Liver phosphorylase (PYGL) is completely normal. Fasting blood glucose is normal. There is no hepatic involvement whatsoever.</p>
+
+      <p><strong>2.</strong> The forearm exercise test shows flat lactate (no glycogenolysis → no glycolytic substrate) but rising ammonia (AMP deaminase → AMP → IMP + NH₃ is glycolysis-independent). This pattern is pathognomonic. Flat lactate + flat ammonia = patient didn't exercise, not McArdle.</p>
+
+      <p><strong>3.</strong> The "second wind" occurs because cardiovascular adaptation increases blood flow to muscle during the early crisis, and when the patient slows down, fatty acid oxidation + blood glucose finally meets the reduced demand. Glycogen is NOT being mobilised during the second wind — myophosphorylase is still absent.</p>
+
+      <p><strong>4.</strong> Myoglobinuria from sustained contracture is the most dangerous acute complication. Dark urine after exercise = emergency. Treatment is aggressive IV fluids and urine alkalinisation to prevent AKI.</p>
+
+      <p><strong>5.</strong> CK is elevated at baseline (even at rest) and extremely elevated after exercise. This distinguishes McArdle from deconditioning (where CK is normal at rest) and makes it the primary screening test in a young person with exercise intolerance.</p>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true" style="display:none">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="test-mode-subtitle" id="mode-desc">Three challenge types — jump to any freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChal(1)">1 &middot; MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChal(2)">2 &middot; R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChal(3)">3 &middot; Multiple Completion</button>
+    </div>
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 &mdash; Multiple Choice</div>
+        <div class="challenge-instructions">Select the single best answer for each question.</div>
+        <div class="mcq-item" id="qi0" style="display:block"><div class="mc-qnum">Question 1 of 5</div><div class="mc-stem">A 24-year-old male presents with exercise-induced muscle cramps and dark urine following a 5km run. He reports that if he slows down during the first 10 minutes, the pain improves. Fasting blood glucose is 4.8 mmol/L. Which enzyme is deficient?</div><div class="mcq-option" id="qo0_0" onclick="pickMCQ(0,0)">Liver Glycogen Phosphorylase</div>
+<div class="mcq-option" id="qo0_1" onclick="pickMCQ(0,1)">Muscle Glycogen Phosphorylase (Myophosphorylase)</div>
+<div class="mcq-option" id="qo0_2" onclick="pickMCQ(0,2)">Glucose-6-Phosphatase</div>
+<div class="mcq-option" id="qo0_3" onclick="pickMCQ(0,3)">Phosphofructokinase-1</div>
+<div class="mcq-feedback" id="qf0">Exercise-induced cramps, myoglobinuria, the second wind, and completely normal fasting glucose = McArdle disease (GSD V) = myophosphorylase deficiency. Liver phosphorylase deficiency (Hers disease) causes hepatomegaly and mild hypoglycaemia without muscle symptoms. G6Pase deficiency (Von Gierke) causes severe fasting hypoglycaemia. The normal fasting glucose is the single most important feature distinguishing McArdle from hepatic GSDs.</div><button class="mcq-next-btn" id="qn0" onclick="nextMCQ(0)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi1" style="display:none"><div class="mc-qnum">Question 2 of 5</div><div class="mc-stem">During the forearm ischaemic exercise test in a McArdle patient, which result is expected?</div><div class="mcq-option" id="qo1_0" onclick="pickMCQ(1,0)">Venous lactate rises 3-fold; venous ammonia stays flat</div>
+<div class="mcq-option" id="qo1_1" onclick="pickMCQ(1,1)">Venous lactate stays flat; venous ammonia rises normally</div>
+<div class="mcq-option" id="qo1_2" onclick="pickMCQ(1,2)">Both venous lactate and venous ammonia stay flat</div>
+<div class="mcq-option" id="qo1_3" onclick="pickMCQ(1,3)">Both venous lactate and venous ammonia rise 3-fold</div>
+<div class="mcq-feedback" id="qf1">No myophosphorylase = no glycogenolysis = no G6P for glycolysis = no lactate. Ammonia rises because AMP deaminase (AMP to IMP + NH3) is activated by exercise and is completely independent of glycolysis. Flat lactate + flat ammonia suggests inadequate exercise or AMP deaminase deficiency, not McArdle.</div><button class="mcq-next-btn" id="qn1" onclick="nextMCQ(1)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi2" style="display:none"><div class="mc-qnum">Question 3 of 5</div><div class="mc-stem">What is the biochemical explanation for the second wind phenomenon in McArdle disease?</div><div class="mcq-option" id="qo2_0" onclick="pickMCQ(2,0)">Myophosphorylase is gradually activated by calcium during sustained exercise</div>
+<div class="mcq-option" id="qo2_1" onclick="pickMCQ(2,1)">Increased blood flow delivers sufficient fatty acids and glucose to meet reduced workload demands</div>
+<div class="mcq-option" id="qo2_2" onclick="pickMCQ(2,2)">Phosphocreatine stores are replenished allowing the muscle to resume glycolysis</div>
+<div class="mcq-option" id="qo2_3" onclick="pickMCQ(2,3)">Liver glycogen breakdown compensates by flooding the blood with glucose</div>
+<div class="mcq-feedback" id="qf2">The second wind occurs when the patient slows down. The cardiovascular system has been ramping up throughout, increasing muscle blood flow. At reduced workload, circulating fatty acids and blood glucose delivered to the muscle are sufficient to meet demand via oxidative phosphorylation. Myophosphorylase remains absent throughout. Phosphocreatine is exhausted early and plays no role. Liver glycogen breakdown is normal but it is the muscle uptake of circulating fuel that enables the second wind.</div><button class="mcq-next-btn" id="qn2" onclick="nextMCQ(2)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi3" style="display:none"><div class="mc-qnum">Question 4 of 5</div><div class="mc-stem">A muscle biopsy from a McArdle patient would most likely show which of the following?</div><div class="mcq-option" id="qo3_0" onclick="pickMCQ(3,0)">Absent glycogen on PAS staining with normal phosphorylase histochemistry</div>
+<div class="mcq-option" id="qo3_1" onclick="pickMCQ(3,1)">Excess subsarcolemmal glycogen on PAS staining with absent phosphorylase activity</div>
+<div class="mcq-option" id="qo3_2" onclick="pickMCQ(3,2)">Normal glycogen with lysosomal vacuoles containing glycogen</div>
+<div class="mcq-option" id="qo3_3" onclick="pickMCQ(3,3)">Lipid droplet accumulation with absent glycogen</div>
+<div class="mcq-feedback" id="qf3">Glycogen synthase is normal so glycogen is continuously made but never broken down (myophosphorylase absent). Glycogen accumulates, especially in subsarcolemmal deposits visible on PAS staining. Phosphorylase histochemical stain shows absent activity in muscle fibres but blood vessel walls stain positively as an internal control. Lysosomal vacuoles with glycogen = Pompe disease. Lipid accumulation = fatty acid oxidation defect.</div><button class="mcq-next-btn" id="qn3" onclick="nextMCQ(3)">Next &rarr;</button></div>
+<div class="mcq-item" id="qi4" style="display:none"><div class="mc-qnum">Question 5 of 5</div><div class="mc-stem">Which of the following correctly explains why fasting blood glucose is completely normal in McArdle disease?</div><div class="mcq-option" id="qo4_0" onclick="pickMCQ(4,0)">Skeletal muscle releases free glucose via Glucose-6-Phosphatase during fasting</div>
+<div class="mcq-option" id="qo4_1" onclick="pickMCQ(4,1)">Liver glycogen phosphorylase (PYGL) is a separate enzyme unaffected by the PYGM mutation</div>
+<div class="mcq-option" id="qo4_2" onclick="pickMCQ(4,2)">Gluconeogenesis is upregulated to compensate for absent myophosphorylase</div>
+<div class="mcq-option" id="qo4_3" onclick="pickMCQ(4,3)">Adipose tissue lipolysis provides sufficient substrate for the brain during fasting</div>
+<div class="mcq-feedback" id="qf4">McArdle disease is a PYGM mutation affecting only muscle glycogen phosphorylase. Liver glycogen phosphorylase is encoded by a completely separate gene (PYGL) and is entirely unaffected. The liver breaks down glycogen normally, exports free glucose, and maintains blood glucose perfectly during fasting. Skeletal muscle lacks G6Pase entirely and cannot release free glucose regardless.</div><button class="mcq-next-btn" id="qn4" onclick="nextMCQ(4)">Finish MCQ</button></div>
+
+        <button class="btn-try-again" id="mcq-reset" onclick="resetMCQ()" style="display:none">Try Again</button>
+        <div class="result-msg" id="mcq-res"></div>
+        <button class="next-challenge-btn" id="mcq-nxt" onclick="doneAndNext(1)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 &mdash; Reason &amp; Assertion</div>
+        <div class="challenge-instructions"><strong>A</strong>&nbsp;Both true, reason explains &nbsp;<strong>B</strong>&nbsp;Both true, reason does not explain &nbsp;<strong>C</strong>&nbsp;Assertion true, reason false &nbsp;<strong>D</strong>&nbsp;Assertion false, reason true &nbsp;<strong>E</strong>&nbsp;Both false</div>
+        <div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Myoglobinuria in McArdle disease is a medical emergency requiring aggressive IV fluid resuscitation.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Myoglobin precipitates in renal tubules in acidic concentrated urine, causing tubular obstruction and acute kidney injury.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb0_A" onclick="pickRA(0,'A')">A</button><button class="ra-btn" id="rb0_B" onclick="pickRA(0,'B')">B</button><button class="ra-btn" id="rb0_C" onclick="pickRA(0,'C')">C</button><button class="ra-btn" id="rb0_D" onclick="pickRA(0,'D')">D</button><button class="ra-btn" id="rb0_E" onclick="pickRA(0,'E')">E</button></div><div class="ra-fb" id="rf0">Both correct. Myoglobin from necrotic muscle is filtered by the kidneys and precipitates in acidic concentrated urine, obstructing tubules and causing AKI. Aggressive IV fluids dilute myoglobin, increase urine flow, and with bicarbonate alkalinise the urine to reduce precipitation. This is a genuine medical emergency.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">McArdle disease patients have a completely normal response to glucagon administration.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Glucagon stimulates liver glycogen phosphorylase (PYGL), which is unaffected in McArdle disease, causing normal hepatic glycogenolysis and blood glucose rise.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb1_A" onclick="pickRA(1,'A')">A</button><button class="ra-btn" id="rb1_B" onclick="pickRA(1,'B')">B</button><button class="ra-btn" id="rb1_C" onclick="pickRA(1,'C')">C</button><button class="ra-btn" id="rb1_D" onclick="pickRA(1,'D')">D</button><button class="ra-btn" id="rb1_E" onclick="pickRA(1,'E')">E</button></div><div class="ra-fb" id="rf1">Both correct. Because McArdle only affects PYGM (muscle isoform), liver glycogen phosphorylase (PYGL) responds normally to glucagon. Blood glucose rises normally. This is the key difference from Von Gierke where glucagon causes lactic acidosis without blood glucose rise.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">In the forearm exercise test, a patient who fails to exercise adequately will show the same result as a McArdle patient.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">Both inadequate exercise and McArdle disease result in failure of venous lactate to rise after forearm exercise.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb2_A" onclick="pickRA(2,'A')">A</button><button class="ra-btn" id="rb2_B" onclick="pickRA(2,'B')">B</button><button class="ra-btn" id="rb2_C" onclick="pickRA(2,'C')">C</button><button class="ra-btn" id="rb2_D" onclick="pickRA(2,'D')">D</button><button class="ra-btn" id="rb2_E" onclick="pickRA(2,'E')">E</button></div><div class="ra-fb" id="rf2">The assertion is partially correct - inadequate exercise does produce flat lactate. But the reason is incomplete. In McArdle disease, ammonia rises normally (AMP deaminase activated by energy crisis). In inadequate exercise, BOTH lactate AND ammonia stay flat. This ammonia difference is diagnostic. Reason does not fully explain - hence B.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">Isometric exercise is particularly dangerous for McArdle patients compared to isotonic exercise.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">During isometric contraction the muscle compresses its own blood supply, preventing delivery of circulating glucose and fatty acids that would partially compensate for absent glycogenolysis.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb3_A" onclick="pickRA(3,'A')">A</button><button class="ra-btn" id="rb3_B" onclick="pickRA(3,'B')">B</button><button class="ra-btn" id="rb3_C" onclick="pickRA(3,'C')">C</button><button class="ra-btn" id="rb3_D" onclick="pickRA(3,'D')">D</button><button class="ra-btn" id="rb3_E" onclick="pickRA(3,'E')">E</button></div><div class="ra-fb" id="rf3">Both correct. In isotonic exercise blood flows freely to working muscle. In isometric exercise, sustained contraction compresses intramuscular vessels, cutting off delivery of blood glucose and fatty acids. Since McArdle patients rely entirely on these alternative fuels, cutting off delivery causes rapid energy failure and contracture.</div></div>
+<div class="ra-item"><div class="ra-stmts"><div class="ra-sbox"><div class="ra-slbl">Assertion</div><div class="ra-stxt">The gene responsible for McArdle disease is located on the X chromosome.</div></div><div class="ra-sbox"><div class="ra-slbl">Reason</div><div class="ra-stxt">McArdle disease shows a sex-linked inheritance pattern with males more commonly affected.</div></div></div><div class="ra-opts"><button class="ra-btn" id="rb4_A" onclick="pickRA(4,'A')">A</button><button class="ra-btn" id="rb4_B" onclick="pickRA(4,'B')">B</button><button class="ra-btn" id="rb4_C" onclick="pickRA(4,'C')">C</button><button class="ra-btn" id="rb4_D" onclick="pickRA(4,'D')">D</button><button class="ra-btn" id="rb4_E" onclick="pickRA(4,'E')">E</button></div><div class="ra-fb" id="rf4">Both false. McArdle disease is caused by PYGM mutations on chromosome 11q13 - autosomal, not X-linked. Inheritance is autosomal recessive. Males and females are equally affected. X-linked recessive with male predominance applies to G6PD deficiency, not McArdle.</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+          <button class="check-btn" onclick="checkRA()">Check Answers</button>
+          <button class="btn-try-again" id="ra-reset" onclick="resetRA()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="ra-rev" onclick="revRA()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="ra-res"></div>
+        <div class="reveal-note-box" id="ra-rnote">Correct answers shown in green.</div>
+        <button class="next-challenge-btn" id="ra-nxt" onclick="doneAndNext(2)" style="display:none">Next Challenge &rarr;</button>
+      </div>
+    </div>
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply.</div>
+        <div class="mc-qblock"><div class="mc-qnum">Question 1 of 3</div><div class="mc-stem">Which of the following statements about McArdle disease are correct?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo0_0" onclick="pickMC(this,0,0)"><div class="mc-cb" id="mb0_0">&#9633;</div><div class="mc-opttext">McArdle disease is caused by deficiency of muscle glycogen phosphorylase (myophosphorylase)</div></div>
+<div class="mc-opt" id="mo0_1" onclick="pickMC(this,0,1)"><div class="mc-cb" id="mb0_1">&#9633;</div><div class="mc-opttext">Fasting blood glucose is severely reduced because glycogen cannot be broken down</div></div>
+<div class="mc-opt" id="mo0_2" onclick="pickMC(this,0,2)"><div class="mc-cb" id="mb0_2">&#9633;</div><div class="mc-opttext">The second wind phenomenon is pathognomonic of McArdle disease</div></div>
+<div class="mc-opt" id="mo0_3" onclick="pickMC(this,0,3)"><div class="mc-cb" id="mb0_3">&#9633;</div><div class="mc-opttext">Serum creatine kinase is elevated even at rest between exercise episodes</div></div>
+<div class="mc-opt" id="mo0_4" onclick="pickMC(this,0,4)"><div class="mc-cb" id="mb0_4">&#9633;</div><div class="mc-opttext">Myoglobinuria is caused by muscle fibre necrosis from sustained contracture during intense exercise</div></div>
+</div><div class="mc-fb" id="mf0" style="display:none">Myophosphorylase deficiency is the cause (1 correct). Fasting glucose is completely normal - liver phosphorylase unaffected (2 wrong). Second wind is pathognomonic (3 correct). Baseline CK elevation reflects ongoing low-level muscle stress (4 correct). Myoglobinuria follows sustained contracture and fibre necrosis (5 correct).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 2 of 3</div><div class="mc-stem">Which of the following correctly describe the forearm exercise test in McArdle disease?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo1_0" onclick="pickMC(this,1,0)"><div class="mc-cb" id="mb1_0">&#9633;</div><div class="mc-opttext">Venous lactate fails to rise because no glycogen is broken down to provide glycolytic substrate</div></div>
+<div class="mc-opt" id="mo1_1" onclick="pickMC(this,1,1)"><div class="mc-cb" id="mb1_1">&#9633;</div><div class="mc-opttext">Venous ammonia rises normally because AMP deaminase activity is independent of glycolysis</div></div>
+<div class="mc-opt" id="mo1_2" onclick="pickMC(this,1,2)"><div class="mc-cb" id="mb1_2">&#9633;</div><div class="mc-opttext">The ischaemic version is now preferred over the non-ischaemic version</div></div>
+<div class="mc-opt" id="mo1_3" onclick="pickMC(this,1,3)"><div class="mc-cb" id="mb1_3">&#9633;</div><div class="mc-opttext">A flat lactate with flat ammonia confirms McArdle disease</div></div>
+<div class="mc-opt" id="mo1_4" onclick="pickMC(this,1,4)"><div class="mc-cb" id="mb1_4">&#9633;</div><div class="mc-opttext">The test exploits the dependence of anaerobic glycolysis on glycogen as its main substrate</div></div>
+</div><div class="mc-fb" id="mf1" style="display:none">No glycogenolysis means no G6P for glycolysis means no lactate (1 correct). Ammonia from AMP to IMP via AMP deaminase does not require glycolysis (2 correct). Non-ischaemic version now preferred - ischaemia risks severe contracture (3 wrong). Flat lactate AND flat ammonia = inadequate exercise, not McArdle (4 wrong). The test relies on anaerobic glycolysis being glycogen-dependent (5 correct).</div></div>
+<div class="mc-qblock"><div class="mc-qnum">Question 3 of 3</div><div class="mc-stem">Which of the following are true regarding management of McArdle disease?</div><div class="mc-instr">Select ALL correct statements.</div><div class="mc-opts"><div class="mc-opt" id="mo2_0" onclick="pickMC(this,2,0)"><div class="mc-cb" id="mb2_0">&#9633;</div><div class="mc-opttext">A warm-up protocol before exercise reduces the risk of exercise-induced contracture</div></div>
+<div class="mc-opt" id="mo2_1" onclick="pickMC(this,2,1)"><div class="mc-cb" id="mb2_1">&#9633;</div><div class="mc-opttext">Sucrose ingested 5 minutes before exercise reduces early exercise symptoms</div></div>
+<div class="mc-opt" id="mo2_2" onclick="pickMC(this,2,2)"><div class="mc-cb" id="mb2_2">&#9633;</div><div class="mc-opttext">Gene therapy with AAV-mediated PYGM delivery is currently the standard of care</div></div>
+<div class="mc-opt" id="mo2_3" onclick="pickMC(this,2,3)"><div class="mc-cb" id="mb2_3">&#9633;</div><div class="mc-opttext">Acute myoglobinuria is managed with aggressive IV fluid resuscitation and urine alkalinisation</div></div>
+<div class="mc-opt" id="mo2_4" onclick="pickMC(this,2,4)"><div class="mc-cb" id="mb2_4">&#9633;</div><div class="mc-opttext">Patients should push through early exercise pain to build tolerance</div></div>
+</div><div class="mc-fb" id="mf2" style="display:none">Warm-up allows cardiovascular adaptation before intense demand (1 correct). Pre-exercise sucrose raises blood glucose providing more fuel (2 correct). Gene therapy is early preclinical only (3 wrong). IV fluids and alkalinisation prevent myoglobin precipitation and AKI (4 correct). Pushing through cramps risks contracture necrosis and myoglobinuria - must slow down (5 wrong).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC2()">Check Answers</button>
+          <button class="btn-try-again" id="mc2-reset" onclick="resetMC2()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc2-rev" onclick="revMC2()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc2-res"></div>
+        <div class="reveal-note-box" id="mc2-rnote" style="display:none">Correct selections shown.</div>
+        <button class="next-challenge-btn" id="mc2-nxt" onclick="doneAndNext(3)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+    <div id="cb" style="display:none" class="completion-banner-div">
+      <div class="completion-banner-title">All Challenges Complete!</div>
+      <div class="completion-banner-sub">Return to the content tabs to review anything that needs reinforcement.</div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · McArdle Disease Deep Dive — Stage 1 · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+// ── UI ──
+function showTab(id,btn){document.querySelectorAll('.section-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+(function(){var last=0;var h=document.getElementById('site-header');window.addEventListener('scroll',function(){var cur=window.scrollY;if(cur>last&&cur>60)h.classList.add('hide-bar');else h.classList.remove('hide-bar');last=cur;},{passive:true});})();
+function toggleCard(id){document.getElementById(id).classList.toggle('open');}
+(function(){document.addEventListener('click',function(e){var link=e.target.closest?e.target.closest('.pathway-link'):null;if(!link&&e.target.classList&&e.target.classList.contains('pathway-link'))link=e.target;if(link){e.preventDefault();e.stopPropagation();var isActive=link.classList.contains('active-tip');document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});if(!isActive)link.classList.add('active-tip');}else{document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});}});})();
+// ── TEST - FREE MODE ──
+var chalDone=[false,false,false];
+function startTestFree(){var t=document.getElementById('tms');if(t)t.style.display='none';document.getElementById('challenge-area').style.display='block';showChal(1);}
+function exitTest(){document.getElementById('tms').style.display='none';document.getElementById('challenge-area').style.display='none';document.getElementById('tms').style.display='block';}
+function showChal(n){document.querySelectorAll('.challenge-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('[id^="cnav-"]').forEach(function(b){b.classList.remove('active');});document.getElementById('cp'+n).classList.add('active');var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('active');}
+function doneAndNext(n){chalDone[n-1]=true;var nb=document.getElementById('cnav-'+n);if(nb)nb.classList.add('completed');if(n>=3){var cb=document.getElementById('cb');if(cb)cb.style.display='block';}else{showChal(n+1);}}
+// ── MCQ ──
+var mqAns=[1, 1, 1, 1, 1];
+var mqSel=new Array(5).fill(-1);
+var mqDone=new Array(5).fill(false);
+var mqScore=0;
+function pickMCQ(qi,oi){
+  if(mqDone[qi])return;
+  var qblock=document.getElementById('qi'+qi);
+  if(qblock){
+    var sopts=qblock.querySelectorAll('.mcq-option');
+    for(var ks=0;ks<sopts.length;ks++) sopts[ks].classList.remove('selected');
+    if(sopts[oi]) sopts[oi].classList.add('selected');
+  }
+  setTimeout(function(){
+    mqDone[qi]=true;mqSel[qi]=oi;
+    var ok=(mqAns[qi]===oi);
+    if(ok)mqScore++;
+    if(qblock){
+      var opts=qblock.querySelectorAll('.mcq-option');
+      for(var j=0;j<opts.length;j++){
+        opts[j].classList.remove('selected','correct','wrong');
+        if(j===oi){opts[j].classList.add(ok?'correct':'wrong');}
+        else if(j===mqAns[qi]&&!ok){opts[j].classList.add('correct');}
+        opts[j].style.pointerEvents='none';
+      }
+    }
+    document.getElementById('qf'+qi).style.display='block';
+    document.getElementById('qn'+qi).style.display='inline-block';
+    if(qi===mqAns.length-1){
+      setTimeout(function(){
+        var r=document.getElementById('mcq-res');
+        r.textContent=mqScore+' of '+mqAns.length+' correct.';
+        r.style.color=mqScore===mqAns.length?'var(--green)':'var(--red)';
+        document.getElementById('mcq-reset').style.display='inline-block';
+        document.getElementById('mcq-nxt').style.display='inline-block';
+      },400);
+    }
+  },300);
+}
+function nextMCQ(qi){
+  document.getElementById('qi'+qi).style.display='none';
+  if(qi+1<5){document.getElementById('qi'+(qi+1)).style.display='block';}
+}
+function resetMCQ(){
+  mqSel=new Array(5).fill(-1);mqDone=new Array(5).fill(false);mqScore=0;
+  for(var i=0;i<5;i++){
+    document.getElementById('qi'+i).style.display=(i===0)?'block':'none';
+    document.getElementById('qf'+i).style.display='none';
+    document.getElementById('qn'+i).style.display='none';
+    var opts=document.getElementById('qi'+i).querySelectorAll('.mcq-option');
+    for(var j=0;j<opts.length;j++){opts[j].classList.remove('correct','wrong','selected');opts[j].style.pointerEvents='';}
+  }
+  document.getElementById('mcq-res').textContent='';
+  document.getElementById('mcq-reset').style.display='none';
+  document.getElementById('mcq-nxt').style.display='none';
+}
+// ── RA ──
+var raAns=['A', 'A', 'B', 'A', 'D'];
+var raSel=new Array(5).fill('');
+var raChk=false;
+function pickRA(qi,o){
+  if(raChk)return;
+  raSel[qi]=o;
+  ['A','B','C','D','E'].forEach(function(x){document.getElementById('rb'+qi+'_'+x).classList.remove('selected');});
+  document.getElementById('rb'+qi+'_'+o).classList.add('selected');
+}
+function checkRA(){
+  raChk=true;var sc=0;
+  for(var i=0;i<5;i++){
+    var s=raSel[i];var cor=raAns[i];
+    ['A','B','C','D','E'].forEach(function(o){
+      var b=document.getElementById('rb'+i+'_'+o);
+      b.classList.remove('selected');
+      if(o===cor){b.classList.add('correct');}
+      else if(o===s&&s!==cor){b.classList.add('wrong');}
+    });
+    if(s===cor)sc++;
+    document.getElementById('rf'+i).style.display='block';
+  }
+  var r=document.getElementById('ra-res');
+  r.textContent=sc+' of 5 correct.';
+  r.style.color=(sc===5)?'var(--green)':'var(--red)';
+  document.getElementById('ra-reset').style.display='inline-block';
+  document.getElementById('ra-rev').style.display='inline-block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+}
+function resetRA(){
+  raChk=false;raSel=new Array(5).fill('');
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');});
+    document.getElementById('rf'+i).style.display='none';
+  }
+  document.getElementById('ra-res').textContent='';
+  document.getElementById('ra-reset').style.display='none';
+  document.getElementById('ra-rev').style.display='none';
+  document.getElementById('ra-nxt').style.display='none';
+  document.getElementById('ra-rnote').style.display='none';
+}
+function revRA(){
+  raChk=true;
+  for(var i=0;i<5;i++){
+    ['A','B','C','D','E'].forEach(function(o){var b=document.getElementById('rb'+i+'_'+o);b.classList.remove('selected','correct','wrong');if(o===raAns[i])b.classList.add('correct');});
+    document.getElementById('rf'+i).style.display='block';
+  }
+  document.getElementById('ra-rnote').style.display='block';
+  document.getElementById('ra-nxt').style.display='inline-block';
+  document.getElementById('ra-reset').style.display='inline-block';
+}
+// ── MC ──
+var mcSel=[[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAns=[[true, false, true, true, true], [true, true, false, false, true], [true, true, false, true, false]];
+var mcSz=[5, 5, 5];
+var mcChk=false;
+function pickMC(el,qi,oi){
+  if(mcChk)return;
+  mcSel[qi][oi]=!mcSel[qi][oi];
+  el.classList.toggle('selected',mcSel[qi][oi]);
+  document.getElementById('mb'+qi+'_'+oi).textContent=mcSel[qi][oi]?'[x]':'[ ]';
+}
+function checkMC2(){
+  mcChk=true;var sc=0;
+  for(var i=0;i<3;i++){
+    var ok=true;
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      var s=mcSel[i][j];var cor=mcAns[i][j];
+      o.classList.remove('selected');
+      if(s&&cor){o.classList.add('correct');cb.textContent='+';}
+      else if(s&&!cor){o.classList.add('incorrect');cb.textContent='x';ok=false;}
+      else if(!s&&cor){o.classList.add('missed');cb.textContent='o';ok=false;}
+      else{cb.textContent='[ ]';}
+    }
+    if(ok)sc++;
+    document.getElementById('mf'+i).style.display='block';
+  }
+  var r=document.getElementById('mc2-res');
+  r.textContent=sc+' of 3 fully correct.';
+  r.style.color=(sc===3)?'var(--green)':'var(--red)';
+  document.getElementById('mc2-reset').style.display='inline-block';
+  document.getElementById('mc2-rev').style.display='inline-block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+}
+function resetMC2(){
+  mcChk=false;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      mcSel[i][j]=false;
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent='[ ]';
+    }
+    document.getElementById('mf'+i).style.display='none';
+  }
+  document.getElementById('mc2-res').textContent='';
+  document.getElementById('mc2-reset').style.display='none';
+  document.getElementById('mc2-rev').style.display='none';
+  document.getElementById('mc2-nxt').style.display='none';
+  document.getElementById('mc2-rnote').style.display='none';
+}
+function revMC2(){
+  mcChk=true;
+  for(var i=0;i<3;i++){
+    for(var j=0;j<mcSz[i];j++){
+      var o=document.getElementById('mo'+i+'_'+j);
+      var cb=document.getElementById('mb'+i+'_'+j);
+      o.classList.remove('selected','correct','incorrect','missed');
+      if(mcAns[i][j]){o.classList.add('missed');cb.textContent='o';}
+      else{cb.textContent='[ ]';}
+    }
+    document.getElementById('mf'+i).style.display='block';
+  }
+  document.getElementById('mc2-rnote').style.display='block';
+  document.getElementById('mc2-nxt').style.display='inline-block';
+  document.getElementById('mc2-reset').style.display='inline-block';
+}
+</script>
+</body>
+</html>

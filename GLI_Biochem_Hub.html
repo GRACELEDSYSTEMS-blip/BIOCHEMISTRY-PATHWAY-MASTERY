@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GETLOCKEDIN × DOMINANCE — Biochemistry Mastery Series</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off-white:#F7F8FA;--light-grey:#EEF0F4;--mid-grey:#C8CDD8;
+  --text-muted:#8892A0;--text-body:#2D3648;--text-dark:#0F1623;
+  --gold:#C9A84C;--gold-dim:#C9A84C15;--gold-border:#C9A84C35;
+  --royal:#1A3FBF;--royal-dim:#1A3FBF10;--royal-border:#1A3FBF30;
+  --green:#1A8C5B;--green-dim:#1A8C5B12;--green-border:#1A8C5B35;
+  --amber:#B45309;--amber-dim:#B4530912;--amber-border:#B4530935;
+  --teal:#0891B2;--teal-dim:#0891B212;--teal-border:#0891B235;
+  --red:#D94040;--red-dim:#D9404012;
+  --vg:#C2410C;--vg-dim:#C2410C12;--vg-border:#C2410C35;
+  --mc:#1967B8;--mc-dim:#1967B812;--mc-border:#1967B835;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07);
+  --shadow-md:0 4px 20px rgba(15,22,35,.10);
+  --shadow-lg:0 12px 40px rgba(15,22,35,.14);
+  --radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 24px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-sm);}
+.header-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;height:48px;}
+.brand{display:flex;align-items:baseline;gap:7px;text-decoration:none;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.08em;}
+.b1,.b3{color:var(--royal);}
+.b2{color:var(--gold);}
+.brand-x{font-size:11px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:14px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+
+/* ── INTRO ── */
+.intro{background:var(--white);border-bottom:1px solid var(--light-grey);padding:48px 24px 52px;position:relative;overflow:hidden;}
+.intro::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--royal),var(--gold),var(--teal),var(--green));}
+.intro-inner{max-width:1080px;margin:0 auto;}
+.intro-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.intro-title{font-family:var(--font-display);font-size:clamp(30px,5vw,52px);font-weight:900;color:var(--text-dark);line-height:1.08;margin-bottom:16px;}
+.intro-title em{color:var(--royal);font-style:italic;}
+.intro-body{font-size:15px;color:var(--text-muted);line-height:1.75;max-width:600px;margin-bottom:28px;}
+.intro-body strong{color:var(--text-body);}
+.intro-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.intro-tag{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;background:var(--off-white);border:1px solid var(--light-grey);color:var(--text-muted);}
+
+/* ── MAIN ── */
+.main{max-width:1080px;margin:0 auto;padding:40px 24px 64px;}
+
+/* ── SECTION ── */
+.topic-section{margin-bottom:44px;}
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.section-line{flex:1;height:1px;background:var(--light-grey);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+
+/* ── CARDS GRID ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+
+/* ── TOPIC CARD ── */
+.topic-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);overflow:hidden;text-decoration:none;display:block;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;}
+.topic-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.card-top{height:4px;width:100%;}
+.card-body{padding:20px 22px 22px;}
+.card-eyebrow{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.card-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);line-height:1.15;margin-bottom:6px;}
+.card-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:14px;}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;}
+.card-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.04em;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-open{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.card-arrow{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .2s;}
+.topic-card:hover .card-arrow{transform:translateX(3px);}
+
+/* ── COLOUR THEMES ── */
+.t-royal .card-top{background:linear-gradient(90deg,var(--royal),#2D5FE8);}
+.t-royal .card-tag{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.t-royal .card-open{color:var(--royal);}
+.t-royal .card-arrow{background:var(--royal-dim);color:var(--royal);}
+
+.t-green .card-top{background:linear-gradient(90deg,var(--green),#22c55e);}
+.t-green .card-tag{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.t-green .card-open{color:var(--green);}
+.t-green .card-arrow{background:var(--green-dim);color:var(--green);}
+
+.t-teal .card-top{background:linear-gradient(90deg,var(--teal),#06b6d4);}
+.t-teal .card-tag{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.t-teal .card-open{color:var(--teal);}
+.t-teal .card-arrow{background:var(--teal-dim);color:var(--teal);}
+
+.t-amber .card-top{background:linear-gradient(90deg,var(--amber),#f59e0b);}
+.t-amber .card-tag{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.t-amber .card-open{color:var(--amber);}
+.t-amber .card-arrow{background:var(--amber-dim);color:var(--amber);}
+
+.t-vg .card-top{background:linear-gradient(90deg,#7C2D12,var(--vg));}
+.t-vg .card-tag{background:var(--vg-dim);color:var(--vg);border:1px solid var(--vg-border);}
+.t-vg .card-open{color:var(--vg);}
+.t-vg .card-arrow{background:var(--vg-dim);color:var(--vg);}
+
+.t-mc .card-top{background:linear-gradient(90deg,#0F4C81,var(--mc));}
+.t-mc .card-tag{background:var(--mc-dim);color:var(--mc);border:1px solid var(--mc-border);}
+.t-mc .card-open{color:var(--mc);}
+.t-mc .card-arrow{background:var(--mc-dim);color:var(--mc);}
+
+/* ── COMING SOON ── */
+.coming-soon{text-align:center;padding:22px;background:var(--white);border:1px dashed var(--mid-grey);border-radius:var(--radius-lg);color:var(--text-muted);font-size:13px;margin-top:8px;}
+
+/* ── FOOTER ── */
+.site-footer{text-align:center;padding:22px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .intro{padding:36px 18px 40px;}
+  .intro-title{font-size:28px;}
+  .intro-body{font-size:14px;}
+  .main{padding:28px 18px 48px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .header-inner{padding:0;}
+  .brand-main,.brand-dominance{font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="intro-inner">
+    <div class="intro-eyebrow">Biochemistry Mastery Series · Metabolic Pathways</div>
+    <h1 class="intro-title">The metabolic pathways.<br><em>Actually explained.</em></h1>
+    <p class="intro-body">
+      Ten interactive study files covering the core metabolic pathways of first-year biochemistry.
+      Each file walks through the pathway step by step — <strong>plain English first, then the technical detail</strong> —
+      connects every mechanism to its clinical consequence, and tests whether it's locked in
+      with MCQ, Reason &amp; Assertion, and Multiple Completion questions.
+      These files cover metabolism specifically. More topics will be added as the series grows.
+    </p>
+    <div class="intro-tags">
+      <span class="intro-tag">10 topics</span>
+      <span class="intro-tag">Step-by-step cards</span>
+      <span class="intro-tag">Plain English + Technical</span>
+      <span class="intro-tag">Clinical connections</span>
+      <span class="intro-tag">MCQ · R&amp;A · Multiple Completion</span>
+      <span class="intro-tag">Mobile-first</span>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- CARBOHYDRATE METABOLISM -->
+  <div class="topic-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">Carbohydrate Metabolism</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="topic-card t-royal" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_Glycolysis_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Pathway · 10 Steps</div>
+          <div class="card-title">Glycolysis</div>
+          <div class="card-desc">Glucose to pyruvate. The universal energy-releasing pathway — the entry point for carbohydrate into cellular respiration. Runs in every cell, aerobically and anaerobically.</div>
+          <div class="card-tags">
+            <span class="card-tag">10 Steps</span>
+            <span class="card-tag">PFK-1 Regulation</span>
+            <span class="card-tag">Pyruvate Kinase</span>
+            <span class="card-tag">Lactic Acidosis</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-royal" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_Gluconeogenesis_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Pathway · 4 Bypass Enzymes</div>
+          <div class="card-title">Gluconeogenesis</div>
+          <div class="card-desc">Making glucose from non-carbohydrate precursors. How the liver maintains blood glucose during fasting — and why blocking the final step causes Von Gierke disease.</div>
+          <div class="card-tags">
+            <span class="card-tag">PEPCK</span>
+            <span class="card-tag">FBPase-1</span>
+            <span class="card-tag">Biotin</span>
+            <span class="card-tag">Futile Cycles</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-green" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_KrebsCycle_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Pathway · PDC Gateway + 8 Steps</div>
+          <div class="card-title">Krebs Cycle</div>
+          <div class="card-desc">The central hub of aerobic metabolism. Eight steps that extract electrons from acetyl-CoA and feed them into the ETC. Also a major source of biosynthetic precursors.</div>
+          <div class="card-tags">
+            <span class="card-tag">PDC Complex</span>
+            <span class="card-tag">Anaplerosis</span>
+            <span class="card-tag">Amphibolic</span>
+            <span class="card-tag">10 ATP/Acetyl-CoA</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-teal" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_PentosePhosphatePathway_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Pathway · Oxidative + Non-Oxidative</div>
+          <div class="card-title">Pentose Phosphate Pathway</div>
+          <div class="card-desc">The pathway that makes NADPH and ribose-5-phosphate. Critical for antioxidant defence and nucleotide synthesis. G6PD deficiency — the most common enzyme defect in humans.</div>
+          <div class="card-tags">
+            <span class="card-tag">NADPH</span>
+            <span class="card-tag">G6PD Deficiency</span>
+            <span class="card-tag">CGD</span>
+            <span class="card-tag">Thiamine</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-royal" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_FructoseGalactose_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Two Pathways · One File</div>
+          <div class="card-title">Fructose &amp; Galactose</div>
+          <div class="card-desc">How the other dietary sugars enter metabolism — and what goes wrong when their processing enzymes fail. HFI and classic galactosaemia explained from mechanism to clinic.</div>
+          <div class="card-tags">
+            <span class="card-tag">HFI</span>
+            <span class="card-tag">Galactosaemia</span>
+            <span class="card-tag">Aldolase B</span>
+            <span class="card-tag">Leloir Pathway</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-green" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_GlycogenMetabolism_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Two Pathways · 7 GSDs</div>
+          <div class="card-title">Glycogen Metabolism</div>
+          <div class="card-desc">The cell's glucose buffer — synthesis and breakdown. The full hormonal cascade from glucagon to glycogen phosphorylase. Seven glycogen storage diseases, each traced from enzyme to symptom.</div>
+          <div class="card-tags">
+            <span class="card-tag">Glycogenesis</span>
+            <span class="card-tag">Glycogenolysis</span>
+            <span class="card-tag">7 GSDs</span>
+            <span class="card-tag">PKA Cascade</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- DEEP DIVES -->
+  <div class="topic-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">Disease Deep Dives</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="topic-card t-vg" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_VonGierke_DeepDive.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">GSD Type Ia · Deep Dive</div>
+          <div class="card-title">Von Gierke Disease</div>
+          <div class="card-desc">G6Pase deficiency — the locked door that blocks both glycogenolysis and gluconeogenesis simultaneously. Every clinical feature traced to one missing enzyme. Full question bank included.</div>
+          <div class="card-tags">
+            <span class="card-tag">G6Pase Deficiency</span>
+            <span class="card-tag">Glucagon Paradox</span>
+            <span class="card-tag">6 Clinical Features</span>
+            <span class="card-tag">Question Bank</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-mc" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_McArdle_DeepDive.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">GSD Type V · Deep Dive</div>
+          <div class="card-title">McArdle Disease</div>
+          <div class="card-desc">Muscle phosphorylase deficiency — a pure muscle disease with completely normal fasting glucose. The second wind, the forearm ischaemic test, and why myoglobinuria is a medical emergency.</div>
+          <div class="card-tags">
+            <span class="card-tag">Myophosphorylase</span>
+            <span class="card-tag">Second Wind</span>
+            <span class="card-tag">Forearm Test</span>
+            <span class="card-tag">Myoglobinuria</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- LIPID & ENERGY -->
+  <div class="topic-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">Lipid &amp; Energy Metabolism</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="topic-card t-amber" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_BetaOxidation_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Three Topics · One File</div>
+          <div class="card-title">Beta Oxidation &amp; Ketone Bodies</div>
+          <div class="card-desc">How fat is broken down for energy — lipid structure, the carnitine shuttle, the 4-step cycle, odd-chain and unsaturated FA, full ATP yield. Plus ketogenesis, DKA, and MCAD deficiency.</div>
+          <div class="card-tags">
+            <span class="card-tag">Carnitine Shuttle</span>
+            <span class="card-tag">4-Step Cycle</span>
+            <span class="card-tag">Ketogenesis</span>
+            <span class="card-tag">DKA</span>
+            <span class="card-tag">MCAD</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="topic-card t-teal" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/GLI_ETC_Mastery.html">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">Final Stage · Aerobic Respiration</div>
+          <div class="card-title">Electron Transport Chain</div>
+          <div class="card-desc">Where the bulk of ATP is made. Four complexes, two mobile carriers, Mitchell's chemiosmotic theory, and ATP synthase as a rotary motor. Inhibitors, uncouplers, and mitochondrial disease.</div>
+          <div class="card-tags">
+            <span class="card-tag">4 Complexes</span>
+            <span class="card-tag">Chemiosmosis</span>
+            <span class="card-tag">Inhibitors</span>
+            <span class="card-tag">Uncouplers</span>
+            <span class="card-tag">mtDNA Disease</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-open">Open</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="coming-soon">
+    More topics — fatty acid synthesis, amino acid metabolism, urea cycle — will be added as the series grows.
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  © 2026 GETLOCKEDIN × DOMINANCE · Biochemistry Mastery Series · Powered by GRACE-LED SYSTEMS
+</footer>
+
+</body>
+</html>

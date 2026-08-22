@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentose Phosphate Pathway Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOOLTIP SYSTEM ── */
+.pathway-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
+  vertical-align: middle;
+  font-family: var(--font-body);
+  user-select: none;
+}
+.plink-tooltip {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F1623;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  padding: 11px 14px;
+  border-radius: 10px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 9000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.plink-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0F1623;
+}
+/* Show on hover (desktop) */
+.pathway-link:hover .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Show on tap (mobile + desktop click) */
+.pathway-link.active-tip .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404012; --red-border:#D9404035;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --purple:#7C3AED; --purple-dim:#7C3AED12; --purple-border:#7C3AED35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --teal:#0D7A6B; --teal-dim:#0D7A6B12; --teal-border:#0D7A6B35;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.13);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.65;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:18px 16px 50px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── SHARED ── */
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-grey{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+
+.section-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;}
+.reg-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;}
+.reg-tag{font-size:12px;padding:5px 11px;border-radius:var(--radius-sm);font-weight:500;}
+.reg-tag.inhibitor{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-tag.activator{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-tag.cofactor{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.step-explanation{font-size:14px;color:var(--text-body);line-height:1.75;margin-top:10px;}
+.step-explanation strong{color:var(--text-dark);font-weight:600;}
+
+/* ── OVERVIEW ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--royal),var(--gold));}
+.overview-title{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--teal);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:18px;max-width:600px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--teal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+/* NADPH roles block */
+.nadph-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.nadph-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.nadph-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.nadph-role{background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:12px 14px;}
+.nadph-role-title{font-size:11px;font-weight:700;color:var(--teal);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em;}
+.nadph-role-body{font-size:12px;color:var(--text-body);line-height:1.6;}
+.nadph-role-body strong{color:var(--text-dark);}
+
+/* Modes block */
+.modes-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.modes-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+.mode-rows{display:flex;flex-direction:column;gap:8px;}
+.mode-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-md);}
+.mode-row.nadph-only{background:#0D7A6B10;border:1px solid var(--teal-border);}
+.mode-row.ribose-only{background:var(--royal-dim);border:1px solid var(--royal-border);}
+.mode-row.both{background:var(--gold-dim);border:1px solid var(--gold-border);}
+.mode-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;font-family:var(--font-body);}
+.mode-pill.nadph-only{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.mode-pill.ribose-only{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.mode-pill.both{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.mode-desc{font-size:13px;color:var(--text-body);line-height:1.6;}
+.mode-desc strong{color:var(--text-dark);}
+
+/* ── STEPS ── */
+.steps-intro{background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--teal);margin-bottom:14px;font-weight:500;}
+.phase-divider{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 16px;margin:16px 0 10px;display:flex;align-items:center;gap:10px;}
+.phase-pill{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;}
+.phase-pill.oxidative{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.phase-pill.nonoxidative{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.phase-desc{font-size:12px;color:var(--text-muted);}
+
+.step-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s;}
+.step-card:hover{box-shadow:var(--shadow-md);}
+.step-card.rate-limiting{border-color:var(--gold-border);border-width:1.5px;}
+.step-card.regulated{border-left:3px solid var(--teal);}
+.step-card.rate-limiting.regulated{border-left:3px solid var(--gold);}
+.step-card.nonox{border-left:3px solid var(--royal);}
+
+.step-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.step-header:hover{background:var(--off-white);}
+.step-num-badge{width:32px;height:32px;border-radius:50%;background:var(--light-grey);color:var(--text-body);font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-card.rate-limiting .step-num-badge{background:var(--gold);color:var(--white);}
+.step-card.regulated:not(.rate-limiting) .step-num-badge{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-border);}
+.step-card.nonox .step-num-badge{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.step-header-main{flex:1;min-width:0;}
+.step-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;}
+.step-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.step-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.step-card.open .step-chevron{transform:rotate(180deg);}
+.step-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.step-card.open .step-body{display:block;}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--gold);}
+
+/* Non-oxidative conceptual card */
+.nonox-card{background:var(--white);border:1.5px solid var(--royal-border);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:hidden;}
+.nonox-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.nonox-header:hover{background:var(--off-white);}
+.nonox-badge{width:32px;height:32px;border-radius:50%;background:var(--royal);color:var(--white);font-family:var(--font-mono);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nonox-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.nonox-card.open .nonox-body{display:block;}
+.nonox-card.open .step-chevron{transform:rotate(180deg);}
+
+.enzyme-feature-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;margin:10px 0;}
+.enzyme-feature-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.enzyme-feature-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+.enzyme-feature-body strong{color:var(--text-dark);}
+
+.carbon-shuffle-diagram{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:14px 16px;margin:12px 0;font-family:var(--font-mono);font-size:12px;color:var(--text-body);line-height:2;}
+
+/* ── REGULATION ── */
+.reg-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);}
+.reg-intro{font-size:14px;color:var(--text-body);line-height:1.75;}
+.reg-intro strong{color:var(--text-dark);}
+.reg-enzyme-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.reg-enzyme-card.primary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);}
+.reg-enzyme-card.secondary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);}
+.reg-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.reg-card-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);}
+.reg-card-subtitle{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:3px;}
+.reg-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.reg-col-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.reg-col-label.inhibit{color:var(--red);}
+.reg-col-label.activate{color:var(--green);}
+.reg-col-items{display:flex;flex-direction:column;gap:6px;}
+.reg-item{font-size:12px;padding:6px 12px;border-radius:var(--radius-sm);line-height:1.5;font-weight:500;}
+.reg-item.inhibit{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-item.activate{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-mechanism{font-size:14px;color:var(--text-body);line-height:1.75;background:var(--off-white);border-radius:var(--radius-md);padding:14px 16px;}
+.reg-mechanism strong{color:var(--text-dark);}
+
+.modes-reg-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.modes-reg-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+
+/* ── CLINICAL ── */
+.intro-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;}
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+
+/* ── TEST ── */
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-md);text-align:center;}
+.test-mode-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:inline-flex;background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:4px;gap:4px;margin-bottom:16px;}
+.mode-toggle-btn{background:none;border:none;padding:7px 20px;border-radius:16px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);box-shadow:var(--shadow-sm);}
+.mode-desc{font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 16px;line-height:1.6;}
+.start-btn{background:var(--royal);color:var(--white);border:none;padding:12px 32px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-md);}
+.start-btn:hover{background:var(--royal-light);transform:translateY(-1px);}
+.exit-test-btn{background:none;border:none;color:var(--royal);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s;}
+.exit-test-btn:hover{opacity:.7;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.done{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-nav-btn.locked{opacity:.45;cursor:not-allowed;}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;}
+.tap-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.tap-chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:grab;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.tap-chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.tap-chip.tapging{opacity:.45;}
+.tap-chip.used{opacity:.3;pointer-events:none;}
+.arrange-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.arrange-slot{display:flex;align-items:center;gap:10px;}
+.slot-num{width:26px;height:26px;border-radius:50%;background:var(--light-grey);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.slot-drop{flex:1;min-height:40px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-md);display:flex;align-items:center;padding:6px 12px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.slot-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);color:var(--royal);}
+.slot-drop.filled{border-style:solid;border-color:var(--mid-grey);background:var(--off-white);color:var(--text-body);font-weight:500;}
+.slot-drop.correct{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.slot-drop.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);animation:shake .3s;}
+.match-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.match-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.match-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.match-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.match-step-info{flex:1;font-size:12px;font-family:var(--font-mono);color:var(--text-muted);min-width:120px;}
+.match-drop{width:220px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);}
+.match-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.match-drop.filled{border-style:solid;border-color:var(--mid-grey);color:var(--text-dark);font-weight:600;background:var(--white);}
+.cofactor-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.cofactor-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.cofactor-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.cofactor-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.cofactor-enzyme-name{flex:1;font-size:13px;font-weight:600;color:var(--text-dark);min-width:150px;}
+.cofactor-drop{width:200px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:11px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);flex-wrap:wrap;gap:4px;}
+.cofactor-drop.tap-over{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mcq-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.65;margin-bottom:12px;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.mcq-option{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:13px;color:var(--text-body);background:var(--off-white);}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.mcq-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.mcq-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.mcq-feedback.show{display:block;}
+.mcq-feedback strong{color:var(--text-dark);}
+.ra-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-statements{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ra-statement-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.ra-statement-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-statement-text{font-size:13px;color:var(--text-dark);line-height:1.6;font-weight:500;}
+.ra-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.ra-option{display:flex;align-items:flex-start;gap:10px;padding:8px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text-body);background:var(--off-white);}
+.ra-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.ra-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.ra-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.ra-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.ra-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.ra-feedback.show{display:block;}
+.ra-feedback strong{color:var(--text-dark);}
+.check-btn{background:var(--royal);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-right:8px;}
+.check-btn:hover{background:var(--royal-light);}
+.reset-btn{background:var(--off-white);color:var(--text-muted);border:1px solid var(--light-grey);padding:10px 20px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.reset-btn:hover{border-color:var(--mid-grey);color:var(--text-body);}
+.result-msg{margin-top:14px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;display:none;}
+.result-msg.show{display:block;}
+.result-msg.pass{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.result-msg.fail{background:var(--gold-dim);color:#8a6c1a;border:1px solid var(--gold-border);}
+.next-challenge-btn{background:var(--gold);color:var(--white);border:none;padding:10px 24px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:10px;display:none;}
+.next-challenge-btn.show{display:inline-block;}
+.next-challenge-btn:hover{filter:brightness(1.08);}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* ── TAP-TO-PLACE INTERACTION ── */
+.tap-chip { cursor: pointer; user-select: none; transition: all .15s; }
+.tap-chip.selected {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+  color: var(--royal) !important;
+  box-shadow: 0 0 0 2px var(--royal);
+  transform: translateY(-2px);
+}
+.tap-chip.used { opacity: .3; pointer-events: none; }
+.slot-drop, .match-drop, .cofactor-drop {
+  cursor: pointer;
+  transition: all .15s;
+}
+.slot-drop.tap-ready, .match-drop.tap-ready, .cofactor-drop.tap-ready {
+  border-color: var(--royal) !important;
+  background: var(--royal-dim) !important;
+}
+
+/* ── TRY AGAIN / REVEAL ── */
+.btn-try-again{background:#B4530912;color:#B45309;border:1px solid #B4530935;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-try-again:hover{background:#B45309;color:#fff;}
+.btn-try-again.show{display:inline-block;}
+.btn-reveal-ans{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;padding:9px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;margin-right:6px;}
+.btn-reveal-ans:hover{background:#0D7A6B;color:#fff;}
+.btn-reveal-ans.show{display:inline-block;}
+.slot-drop.revealed,.match-drop.revealed,.drop-zone.revealed{border-color:#0D7A6B!important;background:#0D7A6B15!important;color:#0D7A6B!important;pointer-events:none;}
+.match-row.revealed{background:#0D7A6B12!important;border-color:#0D7A6B40!important;}
+.reveal-note-box{background:#0D7A6B12;color:#0D7A6B;border:1px solid #0D7A6B40;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
+.reveal-note-box.show{display:block;}
+
+/* ── Cross-file CSS aliases for consistency ── */
+.chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.chip.used{opacity:.3;pointer-events:none;}
+.chip-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.btn-check{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-check:hover{background:var(--royal-light);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;margin-top:10px;}
+.btn-next.show{display:inline-block;}
+.btn-next:hover{filter:brightness(1.08);}
+
+/* ══ DEFINITIVE MOBILE CSS — max-width: 640px ══ */
+@media (max-width: 640px) {
+
+  /* ── LAYOUT & PADDING ── */
+  .main { padding: 10px 12px 40px; }
+  .overview-hero { padding: 14px 14px; }
+  .challenge-card { padding: 16px 14px; }
+  .info-card, .reg-enzyme-card, .clinical-card { padding: 14px 14px; }
+  .reg-hero { padding: 14px 14px; }
+
+  /* ── HEADER ── */
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── OVERVIEW ── */
+  .overview-title { font-size: 22px !important; }
+  .overview-subtitle { font-size: 13px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 8px; }
+
+  /* ── GRIDS → SINGLE COLUMN ── */
+  .info-grid,
+  .detail-grid,
+  .two-col,
+  .reg-columns,
+  .reg-cols,
+  .ra-statements,
+  .nadph-grid,
+  .structure-grid,
+  .tissue-cols,
+  .amphibolic-cols,
+  .comparison-cols,
+  .modes-reg-block .tissue-cols { grid-template-columns: 1fr !important; }
+
+  /* ── STEP CARDS ── */
+  .step-card,
+  .bypass-card,
+  .pdc-card,
+  .nonox-card,
+  .shared-steps-card,
+  .nonox-card { overflow: visible !important; }
+
+  .step-header,
+  .bypass-header,
+  .pdc-header,
+  .nonox-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+
+  .step-header-main,
+  .bypass-header-main { width: calc(100% - 50px); min-width: 0; }
+
+  .step-enzyme-name,
+  .bypass-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+
+  .step-rxn-preview,
+  .bypass-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; max-width: 100%; }
+
+  .step-badges,
+  .bypass-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-num-badge { flex-shrink: 0; }
+
+  .step-body,
+  .bypass-body,
+  .pdc-body,
+  .nonox-body { padding: 0 12px 16px; }
+
+  .step-callout { flex-direction: column; gap: 6px; }
+
+  /* ── REGULATION ── */
+  .reg-card-header { flex-direction: column; gap: 8px; }
+  .reg-card-title { font-size: 15px; }
+  .reg-col-items { gap: 6px; }
+  .cascade-step { flex-direction: column; gap: 6px; }
+  .cascade-arrow { flex-direction: row; width: auto; }
+  .mode-row { flex-direction: column; gap: 6px; }
+  .mode-pill { align-self: flex-start; }
+
+  /* ── TEST — NAVIGATION ── */
+  .challenge-nav { flex-wrap: wrap; gap: 6px; }
+  .challenge-nav-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* ── TEST — CHIP BANK ── */
+  .chip-bank, .tap-bank, .arrange-bank { flex-wrap: wrap; min-height: 44px; }
+  .chip, .tap-chip { font-size: 11px; padding: 6px 10px; word-break: break-word; max-width: 100%; box-sizing: border-box; }
+
+  /* ── TEST — DROP ZONES ── */
+  .slot-drop, .drop-zone { min-height: 44px; font-size: 12px; word-break: break-word; }
+  .match-drop { width: 100% !important; min-height: 40px; font-size: 12px; word-break: break-word; }
+  .cofactor-drop { width: 100% !important; min-height: 40px; font-size: 11px; flex-wrap: wrap; }
+
+  /* ── TEST — MATCH ROWS ── */
+  .match-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .match-info { width: 100%; }
+  .match-step-info { width: 100%; }
+  .cofactor-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cofactor-enzyme-name { width: 100%; }
+  .order-slot { flex-wrap: nowrap; gap: 8px; }
+
+  /* ── TEST — BUTTONS ── */
+  .btn-row { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn-try-again, .btn-reveal-ans,
+  .btn-try, .btn-reveal { margin-right: 0; width: auto; }
+  .check-btn, .btn-check { width: auto; }
+  .reset-btn { width: auto; }
+  .next-challenge-btn, .btn-next { width: auto; }
+
+  /* ── MCQ ── */
+  .mcq-stem { font-size: 13px; word-break: break-word; line-height: 1.6; }
+  .mcq-option { word-break: break-word; align-items: flex-start; font-size: 12px; padding: 8px 10px; }
+  .mcq-letter { flex-shrink: 0; }
+  .mcq-feedback { font-size: 12px; }
+
+  /* ── R&A ── */
+  .ra-statements { grid-template-columns: 1fr !important; }
+  .ra-statement-text { font-size: 12px; word-break: break-word; }
+  .ra-option { font-size: 12px; word-break: break-word; align-items: flex-start; }
+  .ra-letter { flex-shrink: 0; }
+  .ra-feedback { font-size: 12px; }
+
+  /* ── CLINICAL ── */
+  .clinical-detail { font-size: 13px; }
+  .comparison-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  .gsd-summary-table { font-size: 11px; }
+
+  /* ── MISC ── */
+  .reg-row { flex-wrap: wrap; }
+  .reg-tag { font-size: 11px; word-break: break-word; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .site-footer { font-size: 10px; padding: 14px; }
+
+  /* ── TOOLTIP MOBILE ── */
+  .pathway-link { position: static; }
+  .plink-tooltip {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    transform: none !important;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 9999 !important;
+  }
+  .plink-tooltip::after { display: none !important; }
+
+}
+
+
+/* ── MULTIPLE COMPLETION ── */
+.mc-question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--light-grey); }
+.mc-question:last-child { border-bottom: none; margin-bottom: 0; }
+.mc-question-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.mc-stem { font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 1.6; margin-bottom: 6px; }
+.mc-instructions { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.mc-options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.mc-option { display: flex; align-items: flex-start; gap: 10px; background: var(--off-white); border: 1.5px solid var(--light-grey); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; transition: all .15s; }
+.mc-option:hover { border-color: var(--royal); background: var(--royal-dim); }
+.mc-option.selected { background: var(--royal-dim); border-color: var(--royal); }
+.mc-option.correct { background: var(--green-dim); border-color: var(--green); }
+.mc-option.incorrect { background: var(--red-dim); border-color: var(--red); }
+.mc-option.missed { background: var(--teal-dim); border-color: var(--teal); }
+.mc-checkbox { font-size: 16px; flex-shrink: 0; margin-top: 1px; color: var(--text-muted); }
+.mc-option.selected .mc-checkbox { color: var(--royal); }
+.mc-option.correct .mc-checkbox { color: var(--green); }
+.mc-option.incorrect .mc-checkbox { color: var(--red); }
+.mc-option.missed .mc-checkbox { color: var(--teal); }
+.mc-option-text { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+.mc-feedback { background: var(--off-white); border: 1px solid var(--light-grey); border-left: 3px solid var(--royal); border-radius: var(--radius-md); padding: 12px 14px; font-size: 13px; color: var(--text-body); line-height: 1.7; margin-top: 10px; }
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+
+.mcq-option.selected { background: var(--royal-dim) !important; border-color: var(--royal) !important; color: var(--royal) !important; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Pentose Phosphate Pathway Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar" id="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Step-by-Step</button>
+    <button class="tab-btn" onclick="showTab('regulation',this)">Regulation</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">Pentose <span>Phosphate</span> Pathway Mastery</div>
+    <div class="overview-subtitle">A parallel pathway to glycolysis running in the cytosol. Its primary outputs are NADPH for reductive biosynthesis and antioxidant defence, and ribose-5-phosphate for nucleotide synthesis — not ATP.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">2</div><div class="stat-label">NADPH/turn</div></div>
+      <div class="stat-box"><div class="stat-value">1</div><div class="stat-label">CO₂/turn</div></div>
+      <div class="stat-box"><div class="stat-value">3</div><div class="stat-label">Oxidative steps</div></div>
+      <div class="stat-box"><div class="stat-value">0</div><div class="stat-label">ATP produced</div></div>
+      <div class="stat-box"><div class="stat-value">G6P</div><div class="stat-label">Entry substrate</div></div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-label">Location</div>
+      <div class="info-body"><strong>Cytosol</strong> of all cells. Most active in tissues with high biosynthetic or antioxidant demands: <strong>liver</strong> (fatty acid + steroid synthesis), <strong>adipose tissue</strong>, <strong>adrenal cortex</strong> (steroid synthesis), <strong>red blood cells</strong> (antioxidant defence), <strong>rapidly dividing cells</strong> (nucleotide synthesis), and <strong>phagocytes</strong> (respiratory burst).</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Entry Point & Relationship to Glycolysis</div>
+      <div class="info-body"><strong>Glucose-6-phosphate (G6P)</strong> is the entry substrate — the same G6P produced by Hexokinase in step 1 of glycolysis. The cell decides whether G6P goes into glycolysis or the PPP based on its current needs. This is not an either/or decision permanently — intermediates of the non-oxidative phase can re-enter glycolysis.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Two Phases — Different Purposes</div>
+      <div class="info-body"><strong>Oxidative phase</strong> (irreversible): produces NADPH and ribulose-5-phosphate. Regulated by NADPH:NADP⁺ ratio. <strong>Non-oxidative phase</strong> (reversible): interconverts sugar phosphates to produce ribose-5-phosphate or recycle back to glycolysis depending on the cell's needs.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Overall Equation (oxidative phase, per G6P)</div>
+      <div class="info-body" style="font-family:var(--font-mono);font-size:12px;line-height:1.9">
+        G6P + 2 NADP⁺ + H₂O<br>→ Ribulose-5-phosphate + 2 NADPH + 2 H⁺ + CO₂
+      </div>
+    </div>
+  </div>
+
+  <!-- NADPH Roles -->
+  <div class="nadph-block">
+    <div class="nadph-title">⚡ NADPH — Why This Coenzyme Is Critical</div>
+    <div class="nadph-grid">
+      <div class="nadph-role">
+        <div class="nadph-role-title">Antioxidant Defence</div>
+        <div class="nadph-role-body">NADPH reduces oxidised glutathione (GSSG) back to reduced glutathione (GSH) via <strong>Glutathione Reductase</strong>. GSH neutralises reactive oxygen species (H₂O₂, peroxides). RBCs depend entirely on PPP-derived NADPH for this — they have no mitochondria to provide alternative reducing power. Without it, oxidative stress destroys RBC membranes.</div>
+      </div>
+      <div class="nadph-role">
+        <div class="nadph-role-title">Fatty Acid Synthesis</div>
+        <div class="nadph-role-body">Every 2-carbon addition in fatty acid elongation requires 2 NADPH. The liver, adipose tissue, and mammary glands are heavy consumers of NADPH for lipogenesis. Fatty acid synthase complex uses NADPH to reduce the growing chain. This is why tissues doing active fat synthesis have high PPP activity.</div>
+      </div>
+      <div class="nadph-role">
+        <div class="nadph-role-title">Steroid & Cholesterol Synthesis</div>
+        <div class="nadph-role-body">Steroid hormone biosynthesis (in adrenal cortex, gonads) and cholesterol synthesis both require NADPH. The adrenal cortex has exceptionally high PPP activity specifically to supply NADPH for cortisol, aldosterone, and sex hormone synthesis via cytochrome P450 hydroxylation reactions.</div>
+      </div>
+      <div class="nadph-role">
+        <div class="nadph-role-title">Respiratory Burst (Phagocytes)</div>
+        <div class="nadph-role-body"><strong>NADPH Oxidase</strong> in neutrophils and macrophages uses NADPH to reduce O₂ to superoxide (O₂⁻), which then generates H₂O₂, HOCl, and other reactive species that kill ingested bacteria. This is the <strong>respiratory burst</strong>. Chronic Granulomatous Disease is caused by a defective NADPH Oxidase — patients cannot kill certain bacteria despite being able to phagocytose them.</div>
+      </div>
+      <div class="nadph-role">
+        <div class="nadph-role-title">Cytochrome P450 Reactions</div>
+        <div class="nadph-role-body">Hepatic P450 enzymes that hydroxylate drugs, xenobiotics, and bile acid precursors all require NADPH as the electron donor. This is why high drug metabolism activity in the liver correlates with high PPP activity — the liver needs a continuous NADPH supply to process foreign compounds.</div>
+      </div>
+      <div class="nadph-role">
+        <div class="nadph-role-title">Nitric Oxide Synthesis</div>
+        <div class="nadph-role-body">Nitric Oxide Synthase (NOS) requires NADPH to produce NO from arginine. NO is a critical signalling molecule for vascular tone (vasodilation), neurotransmission, and immune function. All three NOS isoforms (eNOS, nNOS, iNOS) are NADPH-dependent.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pathway Flexibility Modes -->
+  <div class="modes-block">
+    <div class="modes-title">The Three Modes — How the Cell Balances Its Needs</div>
+    <div class="mode-rows">
+      <div class="mode-row nadph-only">
+        <span class="mode-pill nadph-only">NADPH only needed</span>
+        
+      </div>
+      <div class="mode-row ribose-only">
+        <span class="mode-pill ribose-only">Ribose-5-P only needed</span>
+        
+      </div>
+      <div class="mode-row both">
+        <span class="mode-pill both">Both needed equally</span>
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div class="steps-intro">💡 Gold-bordered card = rate-limiting step. Tap any card to expand. The oxidative phase is irreversible; the non-oxidative phase runs in whichever direction the cell needs.</div>
+
+  <!-- OXIDATIVE PHASE -->
+  <div class="phase-divider">
+    <span class="phase-pill oxidative">Oxidative Phase</span>
+    <span class="phase-desc">3 irreversible steps · Produces 2 NADPH + 1 CO₂ per G6P · Regulated</span>
+  </div>
+
+  <!-- STEP 1: G6PD -->
+  <div class="step-card rate-limiting regulated" id="sc1">
+    <div class="step-header" onclick="toggleCard('sc1')">
+      <div class="step-num-badge">1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Glucose-6-phosphate Dehydrogenase (G6PD)</div>
+        <div class="step-rxn-preview">Glucose-6-phosphate + NADP⁺ → 6-Phosphogluconolactone + NADPH</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Rate-Limiting</span>
+        <span class="badge badge-red">Irreversible</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>The committed, rate-limiting step of the PPP.</strong> G6PD is the entry gate — its activity determines how much G6P enters the pathway rather than going into glycolysis. Regulated by the NADPH:NADP⁺ ratio. This enzyme's deficiency is the most common enzyme disorder worldwide.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-6-phosphate + NADP⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">6-Phosphogluconolactone + NADPH</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--teal);font-weight:600">NADP⁺ → NADPH (1st NADPH)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidation (dehydrogenation)</div></div>
+      </div>
+      <div class="section-label">Inhibitors</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ NADPH — product inhibition (the primary brake)</span>
+      </div>
+      <div class="section-label">Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ NADP⁺ — substrate; rising NADP⁺ signals NADPH is being consumed</span>
+        <span class="reg-tag activator">⊕ Insulin — increases G6PD expression in liver</span>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        G6PD catalyses the first oxidation of G6P, transferring electrons to NADP⁺ to produce NADPH and the lactone 6-phosphogluconolactone. The product immediately undergoes spontaneous (and enzyme-catalysed) hydrolysis in step 2.<br><br>
+        The regulatory logic is beautifully simple: <strong>when NADPH is abundant, NADPH inhibits G6PD, slowing the pathway.</strong> When NADPH is consumed (in antioxidant defence, fatty acid synthesis, or any other NADPH-requiring reaction), NADP⁺ rises, relieves the inhibition, and G6PD speeds up. The pathway self-regulates to match demand — the cell never produces more NADPH than it needs, and it never runs short when NADPH is being consumed.<br><br>
+        This is why oxidative stress — such as from an oxidant drug or infection — dramatically increases PPP flux in RBCs: the oxidative stress consumes NADPH (via glutathione reductase), NADP⁺ rises, G6PD is activated, and NADPH production surges to meet the demand. In G6PD-deficient individuals, this compensatory surge cannot occur.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis<span class="plink-tooltip">G6P is the substrate shared between glycolysis and the PPP. G6PD competes with Phosphoglucose Isomerase (Step 2 of glycolysis) for G6P. The NADPH:NADP⁺ ratio determines which enzyme predominates.</span></span>
+        <span class="pathway-link">Glutathione System<span class="plink-tooltip">NADPH produced here reduces GSSG → 2 GSH via Glutathione Reductase. GSH then reduces H₂O₂ to H₂O via Glutathione Peroxidase. The entire antioxidant system in RBCs depends on this NADPH supply.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: 6-Phosphogluconolactonase -->
+  <div class="step-card" id="sc2">
+    <div class="step-header" onclick="toggleCard('sc2')">
+      <div class="step-num-badge">2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">6-Phosphogluconolactonase</div>
+        <div class="step-rxn-preview">6-Phosphogluconolactone + H₂O → 6-Phosphogluconate</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-red">Irreversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">6-Phosphogluconolactone + H₂O</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">6-Phosphogluconate</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme / Cofactor</div><div class="detail-value">None</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Hydrolysis (lactonase)</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        A hydrolysis reaction — the lactone ring of 6-phosphogluconolactone is opened by the addition of water to produce the open-chain 6-phosphogluconate. This reaction occurs spontaneously even without the enzyme, but the enzyme dramatically speeds it up to ensure the reaction doesn't stall. No energy is generated or consumed.<br><br>
+        The main purpose of this step is simply to convert the lactone to a form that is a suitable substrate for the next oxidative decarboxylation. Without step 2, the lactone could accumulate and inhibit G6PD via product inhibition, slowing the entire pathway.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: 6-Phosphogluconate Dehydrogenase -->
+  <div class="step-card regulated" id="sc3">
+    <div class="step-header" onclick="toggleCard('sc3')">
+      <div class="step-num-badge">3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">6-Phosphogluconate Dehydrogenase</div>
+        <div class="step-rxn-preview">6-Phosphogluconate + NADP⁺ → Ribulose-5-phosphate + CO₂ + NADPH</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-red">Irreversible</span>
+        <span class="badge badge-teal">2nd NADPH</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">6-Phosphogluconate + NADP⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Ribulose-5-phosphate + CO₂</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--teal);font-weight:600">NADP⁺ → NADPH (2nd NADPH)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Oxidative decarboxylation</div></div>
+        <div class="detail-item"><div class="detail-label">CO₂ Released</div><div class="detail-value" style="color:var(--text-muted)">1 CO₂ per turn</div></div>
+        <div class="detail-item"><div class="detail-label">Carbon count</div><div class="detail-value">6C → 5C + CO₂</div></div>
+      </div>
+      <div class="section-label">Explanation</div>
+      <div class="step-explanation">
+        An oxidative decarboxylation step — simultaneously oxidising 6-phosphogluconate (electrons to NADP⁺) and decarboxylating it (releasing CO₂), producing the 5-carbon ribulose-5-phosphate. This is the second and final NADPH produced in the oxidative phase, and it marks the end of the irreversible portion of the pathway.<br><br>
+        <strong>Ribulose-5-phosphate</strong> is the branch point of the non-oxidative phase — it can be isomerised to ribose-5-phosphate (for nucleotide synthesis) or epimerised to xylulose-5-phosphate (to enter the transketolase/transaldolase reactions). Which direction it takes depends on what the cell currently needs.<br><br>
+        This step uses NADP⁺ specifically, not NAD⁺ — an important exam distinction. NADPH (not NADH) is the reducing agent for anabolic reactions and antioxidant defence. The choice of NADP⁺ as the electron acceptor here is what makes the PPP's output useful for biosynthesis, rather than for the ETC (which processes NADH).
+      </div>
+    </div>
+  </div>
+
+  <!-- NON-OXIDATIVE PHASE -->
+  <div class="phase-divider">
+    <span class="phase-pill nonoxidative">Non-Oxidative Phase</span>
+    <span class="phase-desc">Reversible · Carbon shuffling by Transketolase + Transaldolase · Links to glycolysis</span>
+  </div>
+
+  <!-- Non-oxidative conceptual card -->
+  <div class="nonox-card" id="nonox-card">
+    <div class="nonox-header" onclick="toggleCard('nonox-card')">
+      <div class="nonox-badge">NOP</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:var(--text-dark)">Non-Oxidative Phase — Carbon Shuffling</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">Transketolase + Transaldolase · Ribulose-5-P ⇌ Glycolytic intermediates</div>
+      </div>
+      <span class="badge badge-royal">Reversible</span>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="nonox-body">
+      <div class="step-explanation" style="margin-top:14px">
+        The non-oxidative phase does not produce NADPH — its job is to interconvert sugar phosphates of different carbon lengths, routing them toward whatever the cell needs most: <strong>ribose-5-phosphate</strong> for nucleotide synthesis, or <strong>fructose-6-phosphate and glyceraldehyde-3-phosphate</strong> to re-enter glycolysis. Two enzymes do all the work.
+      </div>
+
+      <div class="enzyme-feature-box">
+        <div class="enzyme-feature-label">Transketolase — transfers 2-carbon units</div>
+        <div class="enzyme-feature-body">
+          Transketolase transfers a 2-carbon fragment (called a glycolaldehyde unit) from a ketose donor to an aldose acceptor. It requires <strong>Thiamine Pyrophosphate (TPP)</strong> as its cofactor — the same TPP required by PDC and α-KG Dehydrogenase Complex. This is clinically important: thiamine deficiency impairs all three enzymes simultaneously, and measuring RBC Transketolase activity is a functional test of thiamine status used in clinical settings.<br><br>
+          Key reactions catalysed by Transketolase:<br>
+          · Xylulose-5-P (5C) + Ribose-5-P (5C) → Glyceraldehyde-3-P (3C) + Sedoheptulose-7-P (7C)<br>
+          · Xylulose-5-P (5C) + Erythrose-4-P (4C) → Glyceraldehyde-3-P (3C) + Fructose-6-P (6C)
+        </div>
+      </div>
+
+      <div class="enzyme-feature-box">
+        <div class="enzyme-feature-label">Transaldolase — transfers 3-carbon units</div>
+        <div class="enzyme-feature-body">
+          Transaldolase transfers a 3-carbon dihydroxyacetone unit from a ketose to an aldose. It does not require TPP or any other cofactor — it forms a Schiff base intermediate with a lysine residue in its active site.<br><br>
+          Key reaction catalysed by Transaldolase:<br>
+          · Sedoheptulose-7-P (7C) + Glyceraldehyde-3-P (3C) → Erythrose-4-P (4C) + Fructose-6-P (6C)
+        </div>
+      </div>
+
+      <div class="carbon-shuffle-diagram">
+        <strong style="font-family:var(--font-body);color:var(--royal)">Carbon flow — when NADPH is needed, ribose recycled back to glycolysis:</strong><br>
+        3 × Ribulose-5-P (5C = 15C total)<br>
+        ↓ Transketolase + Transaldolase<br>
+        2 × Fructose-6-P (6C) + 1 × Glyceraldehyde-3-P (3C) = 15C total<br>
+        ↓ Re-enter glycolysis<br>
+        <span style="color:var(--text-muted)">Net: 3 G6P → 6 NADPH + 3 CO₂ + 2 F6P + 1 G3P (all carbon recycled)</span>
+      </div>
+
+      <div class="step-explanation">
+        <strong>The key insight:</strong> The non-oxidative phase gives the cell metabolic flexibility. If ribose-5-phosphate is needed urgently (during rapid DNA replication), glycolytic intermediates (F6P and G3P) can run through the non-oxidative phase in reverse to generate ribose-5-phosphate without producing NADPH. If NADPH is the priority, the oxidative phase runs and the resulting ribose-5-phosphate is recycled back through the non-oxidative phase into glycolysis — effectively trading G6P for NADPH while returning all the carbon to the glycolytic pool.
+        <br><br>Inter-pathway link:
+        <span class="pathway-link">Glycolysis<span class="plink-tooltip">F6P and G3P produced in the non-oxidative phase directly re-enter glycolysis at steps 3 and 6 respectively. This connects the PPP's carbon recycling to glycolysis, ensuring no carbon is wasted.</span></span>
+        <span class="pathway-link">Nucleotide Synthesis<span class="plink-tooltip">Ribose-5-phosphate is the direct precursor for purine and pyrimidine nucleotide synthesis (via PRPP — phosphoribosyl pyrophosphate). Both DNA replication and RNA synthesis depend on this supply.</span></span>
+        <span class="pathway-link">Aromatic Amino Acids<span class="plink-tooltip">Erythrose-4-phosphate (an intermediate of the non-oxidative phase) is a precursor for synthesis of aromatic amino acids (phenylalanine, tyrosine, tryptophan) in plants and bacteria via the shikimate pathway — though not in humans. High-yield for understanding why humans must obtain these from diet.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ REGULATION ══ -->
+<div id="tab-regulation" class="section-panel">
+
+  <div class="reg-hero">
+    <div class="info-label" style="margin-bottom:8px">Regulatory Overview</div>
+    <div class="reg-intro">
+      The PPP is regulated almost exclusively at <strong>G6PD — the first and rate-limiting step</strong>. The primary regulatory signal is the <strong>NADPH:NADP⁺ ratio</strong>: high NADPH inhibits G6PD; low NADPH (high NADP⁺) activates it. This simple feedback loop ensures the pathway's output matches demand with remarkable precision — the cell produces exactly as much NADPH as it is consuming, no more and no less. Hormonal regulation (insulin) adjusts the baseline level of G6PD expression for longer-term changes in biosynthetic demand.
+    </div>
+  </div>
+
+  <!-- G6PD regulation -->
+  <div class="reg-enzyme-card primary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">Glucose-6-phosphate Dehydrogenase (G6PD)</div>
+        <div class="reg-card-subtitle">Step 1 · Only Rate-Limiting Enzyme · Controlled by NADPH:NADP⁺ ratio</div>
+      </div>
+      <span class="badge badge-gold">Rate-Limiting</span>
+    </div>
+    <div class="reg-columns">
+      <div>
+        <div class="reg-col-label inhibit">Inhibitors (slow PPP)</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">NADPH — direct product inhibition. When NADPH is abundant, no more is needed.</div>
+          <div class="reg-item inhibit">High NADPH:NADP⁺ ratio — the ratio itself is the signal, not absolute concentrations.</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Activators (speed up PPP)</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">NADP⁺ — substrate; rising NADP⁺ signals NADPH consumption and demand for more.</div>
+          <div class="reg-item activate">Insulin — induces G6PD gene expression in fed state (liver, adipose).</div>
+          <div class="reg-item activate">Oxidative stress — indirectly: ROS consume NADPH via glutathione reductase, raising NADP⁺.</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      <strong>The ratio-based control:</strong> The NADPH:NADP⁺ ratio in most cells is approximately 100:1 under normal conditions — far in favour of NADPH. This means G6PD is nearly completely inhibited at rest. When any NADPH-consuming process activates (fatty acid synthesis, oxidative stress response, steroid synthesis), the ratio falls, G6PD is relieved of inhibition, and the pathway accelerates. The speed of this response is matched to the speed of NADPH consumption — instant feedback, no signalling cascade required.<br><br>
+      <strong>Insulin's role:</strong> In the fed state, insulin promotes lipogenesis (fatty acid synthesis) in liver and adipose tissue, which requires large amounts of NADPH. Insulin simultaneously upregulates G6PD expression, ensuring the PPP has sufficient capacity to meet the increased NADPH demand for lipogenesis. This is why G6PD activity is high in the well-fed liver.
+    </div>
+  </div>
+
+  <!-- Three modes regulation -->
+  <div class="modes-reg-block">
+    <div class="modes-reg-title">How the Three Modes Relate to Regulation</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:var(--radius-md);padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Mode 1 — NADPH only (e.g. RBCs, adrenal cortex)</div>
+        <div style="font-size:13px;color:var(--text-body);line-height:1.65;">NADP⁺ is continuously high (NADPH is being consumed). G6PD runs at full speed. Ribose-5-phosphate produced in the oxidative phase is recycled back through the non-oxidative phase to F6P and G3P, re-entering glycolysis. <strong>G6PD activity = high; non-oxidative phase runs in the recycling direction.</strong></div>
+      </div>
+      <div style="background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--royal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Mode 2 — Ribose-5-P only (e.g. dividing cells, bone marrow)</div>
+        <div style="font-size:13px;color:var(--text-body);line-height:1.65;">NADPH:NADP⁺ ratio is high — NADPH is not being heavily consumed. G6PD is inhibited. Ribose-5-phosphate is generated by running the non-oxidative phase in reverse, using F6P and G3P from glycolysis directly. <strong>G6PD activity = low; oxidative phase bypassed entirely.</strong></div>
+      </div>
+      <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Mode 3 — Both needed (e.g. liver, rapidly growing tumours)</div>
+        <div style="font-size:13px;color:var(--text-body);line-height:1.65;">NADP⁺ is moderately elevated (NADPH being consumed for lipogenesis), and ribose is needed for nucleotide synthesis. Oxidative phase runs to produce NADPH, and ribose-5-phosphate is used directly rather than recycled. <strong>G6PD moderately active; both outputs consumed.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transketolase note -->
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-header">
+      <div>
+        <div class="reg-card-title">Transketolase — Thiamine Dependence</div>
+        <div class="reg-card-subtitle">Non-oxidative phase · TPP-dependent · Functionally regulated by thiamine availability</div>
+      </div>
+      <span class="badge badge-amber" style="background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border)">TPP Required</span>
+    </div>
+    <div class="reg-mechanism">
+      Transketolase is not regulated allosterically — its activity is determined primarily by <strong>Thiamine Pyrophosphate (TPP) availability</strong>. When thiamine is deficient, Transketolase activity falls, the non-oxidative phase stalls, and ribose-5-phosphate cannot be efficiently recycled into glycolysis or produced for nucleotide synthesis.<br><br>
+      <strong>Clinical utility:</strong> Measuring Transketolase activity in red blood cells, and comparing it before and after addition of TPP in vitro (the "TPP effect"), is a sensitive functional test of thiamine status. A large increase in activity after TPP addition confirms thiamine deficiency — the enzyme was substrate-limited. This test detects functional deficiency even before overt clinical symptoms appear.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="intro-note">⚕️ Clinical correlations follow the biochemical chain — which enzyme or cofactor fails, what NADPH-dependent process collapses, and why that produces the specific presentation.</div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">G6PD Deficiency</div>
+    <div class="clinical-enzyme-link">Deficient enzyme: Glucose-6-phosphate Dehydrogenase (Step 1 of PPP)</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">X-linked Recessive</span><span class="clinical-tag">Most Common Enzyme Deficiency Worldwide</span><span class="clinical-tag">~400 million affected</span><br><br>
+      Start from what G6PD does: it is the sole source of NADPH in red blood cells — RBCs have no mitochondria, no alternative NADPH-generating pathway. NADPH in RBCs exists for one primary purpose: maintaining GSH (reduced glutathione) via Glutathione Reductase, which neutralises H₂O₂ and other reactive oxygen species that constantly form during normal haemoglobin-carrying function.<br><br>
+      In G6PD deficiency, NADPH production is impaired. Under basal conditions, the residual G6PD activity is often sufficient and patients are asymptomatic. But when oxidative stress is imposed — by certain drugs, infections, or dietary triggers — the demand for NADPH surges beyond what the deficient enzyme can supply. GSH falls, GSSG accumulates, ROS attack the RBC membrane and haemoglobin. Denatured haemoglobin forms <strong>Heinz bodies</strong> visible on special staining. The spleen recognises these damaged cells and removes them — producing an episode of <strong>acute haemolytic anaemia</strong>.<br><br>
+      <strong>Triggers to know:</strong> antimalarials (primaquine, chloroquine), antibiotics (dapsone, nitrofurantoin, sulphonamides), fava beans (divicine and isouramil — oxidant compounds in broad beans, causing favism), naphthalene (mothballs), and infections (fever + oxidative stress together).<br><br>
+      <strong>Why it's so common:</strong> G6PD deficiency is prevalent in malaria-endemic regions (Africa, Mediterranean, Middle East, Southeast Asia) because heterozygous females and hemizygous males have some protection against Plasmodium falciparum malaria — the parasite is more vulnerable to oxidative stress in G6PD-deficient RBCs, giving carriers a survival advantage. This is the same selective pressure that maintains sickle cell trait.<br><br>
+      <strong>Neonatal jaundice:</strong> G6PD-deficient neonates are at high risk of severe neonatal jaundice, because neonatal RBCs are particularly susceptible to haemolysis. This is a preventable cause of kernicterus (brain damage from bilirubin) in endemic regions.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Favism</div>
+    <div class="clinical-enzyme-link">Mechanism: Oxidant compounds in fava beans → NADPH depletion in G6PD-deficient RBCs</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Dietary Trigger</span><span class="clinical-tag">G6PD-related</span><br><br>
+      Favism is acute haemolytic anaemia triggered specifically by ingestion of fava beans (broad beans, Vicia faba) in G6PD-deficient individuals. The active oxidants are divicine and isouramil — compounds derived from the vicine and convicine in fava beans. These undergo redox cycling in RBCs, generating large quantities of H₂O₂ and superoxide. In a G6PD-sufficient person, the surge in NADPH production via the PPP neutralises these oxidants rapidly. In a G6PD-deficient individual, the NADPH response is inadequate, GSH falls rapidly, and acute haemolysis follows within hours of ingestion.<br><br>
+      Favism was the first recognised form of G6PD deficiency — the ancient Mediterranean prohibition on eating fava beans (attributed to Pythagoras) likely reflected empirical observation of this reaction in a G6PD-deficient population. The haemolytic severity can vary by G6PD mutation type — Class I mutations (severely deficient) cause the most severe favism.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Chronic Granulomatous Disease (CGD)</div>
+    <div class="clinical-enzyme-link">Mechanism: NADPH Oxidase deficiency → failure of respiratory burst in phagocytes</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">X-linked (most common) / Autosomal Recessive</span><span class="clinical-tag">Primary Immunodeficiency</span><br><br>
+      NADPH Oxidase in neutrophils and macrophages uses NADPH (sourced from the PPP) to reduce O₂ to superoxide (O₂⁻): NADPH + 2O₂ → NADP⁺ + 2O₂⁻ + H⁺. Superoxide is then converted to H₂O₂, HOCl (via myeloperoxidase), and other reactive species that kill ingested bacteria and fungi — the <strong>respiratory burst</strong>.<br><br>
+      In CGD, NADPH Oxidase itself is deficient (most commonly the gp91phox subunit, X-linked). Phagocytes can engulf bacteria normally but cannot kill catalase-positive organisms (Staphylococcus aureus, Aspergillus, Serratia, Nocardia, Burkholderia) because these organisms produce their own catalase, which destroys the small amounts of H₂O₂ that the cell might otherwise generate via alternative pathways.<br><br>
+      Clinically: recurrent life-threatening bacterial and fungal infections beginning in childhood, lymphadenopathy, hepatosplenomegaly, and the characteristic <strong>granuloma formation</strong> (the body's attempt to wall off organisms it cannot kill). Dihydrorhodamine flow cytometry (DHR test) confirms the diagnosis — G6PD-deficient phagocytes fail to oxidise DHR, whereas normal phagocytes do during the respiratory burst.
+    </div>
+  </div>
+
+  <div class="clinical-card">
+    <div class="clinical-disease">Thiamine Deficiency — Transketolase Dysfunction</div>
+    <div class="clinical-enzyme-link">Affected enzyme: Transketolase (non-oxidative phase) — requires TPP</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Nutritional</span><span class="clinical-tag">Multi-Enzyme Impact</span><br><br>
+      While Wernicke's encephalopathy and beriberi (covered in the Krebs Cycle Mastery file) result from PDC and α-KG Dehydrogenase Complex failure, thiamine deficiency also impairs Transketolase in the non-oxidative phase of the PPP. This has two consequences: ribose-5-phosphate cannot be efficiently recycled through the non-oxidative phase, impairing nucleotide synthesis; and the PPP's connection back to glycolysis is disrupted.<br><br>
+      Practically, Transketolase impairment is used clinically as the most sensitive early indicator of thiamine deficiency: <strong>RBC Transketolase activity is measured before and after addition of TPP in vitro</strong>. An increase in activity of more than 25% after TPP addition (the "TPP effect") indicates functional thiamine deficiency — the enzyme was substrate-limited by TPP availability, even if serum thiamine is not yet critically low. This test can detect deficiency before Wernicke's or beriberi develop, enabling earlier intervention.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="mode-desc" id="mode-desc">Jump to any challenge freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav" id="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChallenge(1)">1 · Step Order</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChallenge(2)">2 · Enzyme Match</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChallenge(3)">3 · NADPH Roles</button>
+      <button class="challenge-nav-btn" id="cnav-4" onclick="showChallenge(4)">4 · Clinical MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-5" onclick="showChallenge(5)">5 · R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-6" onclick="showChallenge(6)">6 · Multiple Completion</button>
+    </div>
+
+    <!-- Challenge 1: Step arrangement (oxidative phase) -->
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 — Oxidative Phase Step Order</div>
+        <div class="challenge-instructions">Tap the three oxidative phase steps into the correct order. Substrate → Product shown only.</div>
+        <div class="section-label">Card Bank</div>
+        <div class="tap-bank" id="arrange-bank"></div>
+        <div class="section-label">Place in correct order</div>
+        <div class="arrange-slots" id="arrange-slots"></div>
+        <button class="check-btn" onclick="checkArrange()">Check Order</button>
+        <button class="btn-try-again" id="c1-try" onclick="tryAgainC1()">Try Again</button>
+        <button class="btn-reveal-ans" id="c1-reveal" onclick="revealC1()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetArrange()">Reset</button>
+        <div class="result-msg" id="arrange-result"></div>
+        <div class="reveal-note-box" id="c1-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="arrange-next" onclick="completeAndNext(1)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 2: Enzyme matching -->
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 — Enzyme Matching</div>
+        <div class="challenge-instructions">Match each enzyme to its reaction. Includes oxidative phase enzymes and the two non-oxidative phase enzymes.</div>
+        <div class="section-label">Enzyme Bank</div>
+        <div class="tap-bank" id="enzyme-bank-2"></div>
+        <div class="match-grid" id="match-grid-2"></div>
+        <button class="check-btn" onclick="checkMatch()">Check Matches</button>
+        <button class="btn-try-again" id="c2-try" onclick="tryAgainC2()">Try Again</button>
+        <button class="btn-reveal-ans" id="c2-reveal" onclick="revealC2()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetMatch()">Reset</button>
+        <div class="result-msg" id="match-result"></div>
+        <div class="reveal-note-box" id="c2-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="match-next" onclick="completeAndNext(2)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 3: NADPH Roles matching -->
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 — NADPH Roles</div>
+        <div class="challenge-instructions">Match each NADPH-dependent process to its description. Tap from the bank.</div>
+        <div class="section-label">Process Bank</div>
+        <div class="tap-bank" id="nadph-bank"></div>
+        <div class="match-grid" id="nadph-match-grid"></div>
+        <button class="check-btn" onclick="checkNADPH()">Check Matches</button>
+        <button class="btn-try-again" id="c3-try" onclick="tryAgainC3()">Try Again</button>
+        <button class="btn-reveal-ans" id="c3-reveal" onclick="revealC3()">Reveal Answers</button>
+        <button class="reset-btn" onclick="resetNADPH()">Reset</button>
+        <div class="result-msg" id="nadph-result"></div>
+        <div class="reveal-note-box" id="c3-reveal-note">✓ Correct answers shown in teal — these were revealed. Retry for a clean run.</div>
+        <button class="next-challenge-btn" id="nadph-next" onclick="completeAndNext(3)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 4: Clinical MCQ -->
+    <div class="challenge-panel" id="cp4">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 4 — Clinical Scenarios</div>
+        <div class="challenge-instructions">Select the best answer. Tap an option to reveal full feedback.</div>
+        <div id="mcq-container"></div>
+        <button class="next-challenge-btn show" onclick="completeAndNext(4)">Next Challenge →</button>
+      </div>
+    </div>
+
+    <!-- Challenge 5: R&A -->
+    <div class="challenge-panel" id="cp5">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 5 — Reason & Assertion</div>
+        <div class="challenge-instructions">Read both statements and select the correct option.</div>
+        <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;font-size:12px;line-height:1.8;font-family:var(--font-mono)">
+          <strong style="font-family:var(--font-body)">Options key:</strong><br>
+          A — Both TRUE; reason IS the correct explanation<br>
+          B — Both TRUE; reason is NOT the correct explanation<br>
+          C — Assertion TRUE; reason FALSE<br>
+          D — Assertion FALSE; reason TRUE<br>
+          E — Both FALSE
+        </div>
+        <div id="ra-container"></div>
+        <button class="next-challenge-btn show" style="background:var(--green)" onclick="showCompletion()">Complete All Challenges ✓</button>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="challenge-panel" id="cp6">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 6 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply, then check your answers.</div>
+        <div class="mc-question"><div class="mc-question-num">Question 1 of 3</div><div class="mc-stem">Which of the following statements about NADPH and its roles are correct?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc0opt0" onclick="toggleMCOption(this,0,0)"><div class="mc-checkbox" id="mc0cb0">&#9633;</div><div class="mc-option-text">NADPH is the primary product of the oxidative phase of the Pentose Phosphate Pathway</div></div>
+<div class="mc-option" id="mc0opt1" onclick="toggleMCOption(this,0,1)"><div class="mc-checkbox" id="mc0cb1">&#9633;</div><div class="mc-option-text">NADPH is used by Glutathione Reductase to regenerate reduced glutathione</div></div>
+<div class="mc-option" id="mc0opt2" onclick="toggleMCOption(this,0,2)"><div class="mc-checkbox" id="mc0cb2">&#9633;</div><div class="mc-option-text">NADPH serves as a direct electron donor to the ETC for ATP production</div></div>
+<div class="mc-option" id="mc0opt3" onclick="toggleMCOption(this,0,3)"><div class="mc-checkbox" id="mc0cb3">&#9633;</div><div class="mc-option-text">NADPH is required by NADPH oxidase to generate reactive oxygen species in phagocytes</div></div>
+<div class="mc-option" id="mc0opt4" onclick="toggleMCOption(this,0,4)"><div class="mc-checkbox" id="mc0cb4">&#9633;</div><div class="mc-option-text">Fatty acid synthesis requires NADPH at the Fatty Acid Synthase complex</div></div>
+</div><div class="mc-feedback" id="mc-feedback-0" style="display:none">Oxidative phase produces 2 NADPH per G6P (1 correct). Glutathione Reductase uses NADPH to regenerate GSH (2 correct). NADPH does not donate to ETC - that is NADH and FADH2 (3 wrong). NADPH oxidase generates superoxide for respiratory burst (4 correct). FAS consumes 14 NADPH per palmitate (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 2 of 3</div><div class="mc-stem">Which of the following are correct regarding G6PD deficiency?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc1opt0" onclick="toggleMCOption(this,1,0)"><div class="mc-checkbox" id="mc1cb0">&#9633;</div><div class="mc-option-text">G6PD deficiency is inherited in an X-linked recessive pattern</div></div>
+<div class="mc-option" id="mc1opt1" onclick="toggleMCOption(this,1,1)"><div class="mc-checkbox" id="mc1cb1">&#9633;</div><div class="mc-option-text">Affected individuals develop haemolytic anaemia when exposed to oxidative stressors such as primaquine</div></div>
+<div class="mc-option" id="mc1opt2" onclick="toggleMCOption(this,1,2)"><div class="mc-checkbox" id="mc1cb2">&#9633;</div><div class="mc-option-text">G6PD deficiency impairs the non-oxidative phase but not the oxidative phase of the PPP</div></div>
+<div class="mc-option" id="mc1opt3" onclick="toggleMCOption(this,1,3)"><div class="mc-checkbox" id="mc1cb3">&#9633;</div><div class="mc-option-text">Heinz bodies represent denatured haemoglobin from oxidative damage</div></div>
+<div class="mc-option" id="mc1opt4" onclick="toggleMCOption(this,1,4)"><div class="mc-checkbox" id="mc1cb4">&#9633;</div><div class="mc-option-text">G6PD deficiency provides partial protection against Plasmodium falciparum malaria</div></div>
+</div><div class="mc-feedback" id="mc-feedback-1" style="display:none">X-linked recessive (1 correct). Oxidative stressors deplete glutathione causing haemolysis (2 correct). G6PD catalyses first step of oxidative phase - deficiency blocks NADPH production there (3 wrong). Heinz bodies are oxidised denatured haemoglobin aggregates (4 correct). Parasitised RBCs preferentially destroyed in G6PD-deficient individuals (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 3 of 3</div><div class="mc-stem">Which of the following correctly describe features of the non-oxidative phase of the PPP?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc2opt0" onclick="toggleMCOption(this,2,0)"><div class="mc-checkbox" id="mc2cb0">&#9633;</div><div class="mc-option-text">The non-oxidative phase is reversible and can run in either direction</div></div>
+<div class="mc-option" id="mc2opt1" onclick="toggleMCOption(this,2,1)"><div class="mc-checkbox" id="mc2cb1">&#9633;</div><div class="mc-option-text">Transketolase requires Thiamine Pyrophosphate (TPP) as a cofactor</div></div>
+<div class="mc-option" id="mc2opt2" onclick="toggleMCOption(this,2,2)"><div class="mc-checkbox" id="mc2cb2">&#9633;</div><div class="mc-option-text">The non-oxidative phase produces NADPH from interconversion of sugar phosphates</div></div>
+<div class="mc-option" id="mc2opt3" onclick="toggleMCOption(this,2,3)"><div class="mc-checkbox" id="mc2cb3">&#9633;</div><div class="mc-option-text">Ribose-5-phosphate produced can be used for nucleotide synthesis</div></div>
+<div class="mc-option" id="mc2opt4" onclick="toggleMCOption(this,2,4)"><div class="mc-checkbox" id="mc2cb4">&#9633;</div><div class="mc-option-text">Transaldolase transfers a 3-carbon unit between sugar phosphates</div></div>
+</div><div class="mc-feedback" id="mc-feedback-2" style="display:none">Non-oxidative phase is fully reversible (1 correct). Transketolase uses TPP to transfer 2-carbon units (2 correct). NADPH only produced in oxidative phase (3 wrong). Ribose-5-P is precursor for nucleotide synthesis (4 correct). Transaldolase transfers 3-carbon units (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC()">Check Answers</button>
+          <button class="btn-try-again" id="mc-try-again" onclick="resetMC()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc-reveal" onclick="revealMC()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc-result"></div>
+        <div class="reveal-note-box" id="mc-reveal-note" style="display:none">Correct selections shown &mdash; review explanations above.</div>
+        <button class="next-challenge-btn" id="mc-next" onclick="completeAndNext(6)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+
+  <div id="completion-banner" style="display:none;background:linear-gradient(135deg,var(--teal-dim),var(--gold-dim));border:1px solid var(--gold-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px">
+    <div style="font-size:32px;margin-bottom:10px">🔒</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px">PPP Locked In</div>
+    <div style="font-size:13px;color:var(--text-muted);max-width:380px;margin:0 auto 18px">All five challenges complete. One pathway left — Fructose & Galactose Metabolism.</div>
+    <button onclick="exitTest()" style="background:var(--royal);color:white;border:none;padding:10px 26px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;">Restart Test Section</button>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+
+const oxidativeSteps = [
+  {num:1, substrate:"Glucose-6-phosphate + NADP⁺", product:"6-Phosphogluconolactone + NADPH", enzyme:"Glucose-6-phosphate Dehydrogenase (G6PD)"},
+  {num:2, substrate:"6-Phosphogluconolactone + H₂O", product:"6-Phosphogluconate", enzyme:"6-Phosphogluconolactonase"},
+  {num:3, substrate:"6-Phosphogluconate + NADP⁺", product:"Ribulose-5-phosphate + CO₂ + NADPH", enzyme:"6-Phosphogluconate Dehydrogenase"}
+];
+const matchData = [
+  {rxn:"G6P + NADP⁺ → 6-Phosphogluconolactone + NADPH", enzyme:"Glucose-6-phosphate Dehydrogenase (G6PD)"},
+  {rxn:"6-Phosphogluconolactone + H₂O → 6-Phosphogluconate", enzyme:"6-Phosphogluconolactonase"},
+  {rxn:"6-Phosphogluconate + NADP⁺ → Ribulose-5-P + CO₂ + NADPH", enzyme:"6-Phosphogluconate Dehydrogenase"},
+  {rxn:"Transfers 2-carbon units; requires TPP", enzyme:"Transketolase"},
+  {rxn:"Transfers 3-carbon units; no TPP required", enzyme:"Transaldolase"}
+];
+const nadphRoles = [
+  {desc:"Reduces GSSG → 2 GSH via Glutathione Reductase; protects RBCs from oxidative damage", process:"Antioxidant Defence"},
+  {desc:"Required for every 2-carbon addition in fatty acid elongation by Fatty Acid Synthase", process:"Fatty Acid Synthesis"},
+  {desc:"Used by cytochrome P450 enzymes to hydroxylate steroids and bile acid precursors in adrenal cortex", process:"Steroid Synthesis"},
+  {desc:"NADPH Oxidase uses it to generate superoxide (O₂⁻) for killing ingested bacteria", process:"Respiratory Burst"},
+  {desc:"Nitric Oxide Synthase requires it to convert arginine to NO for vascular signalling", process:"Nitric Oxide Synthesis"}
+];
+var mcqData = [
+  {
+    stem:"A 5-year-old boy of Mediterranean descent develops acute anaemia, jaundice, and dark urine 48 hours after starting a new antibiotic for a urinary tract infection. Blood smear shows Heinz bodies on crystal violet staining. Which combination of enzyme deficiency and triggering drug class correctly explains this presentation?",
+    options:[
+      "G6PD deficiency triggered by an oxidant antibiotic — NADPH cannot be replenished, GSH falls, haemoglobin denatures",
+      "Pyruvate Kinase deficiency triggered by the same antibiotic — ATP depletion causes RBC membrane failure",
+      "G6PD deficiency triggered by a penicillin-class antibiotic via an immune-mediated mechanism",
+      "Glutathione Reductase deficiency triggered by bacterial infection itself rather than the antibiotic"
+    ],
+    answer:0,
+    feedback:"<strong>G6PD deficiency</strong> triggered by an oxidant antibiotic (nitrofurantoin is the classic example for UTI treatment). In G6PD-deficient RBCs, NADPH cannot be regenerated → Glutathione Reductase cannot reduce GSSG back to GSH → H₂O₂ accumulates → haemoglobin denatures forming <strong>Heinz bodies</strong> → spleen removes damaged RBCs → haemolytic anaemia. The Mediterranean background, acute drug-triggered onset, and Heinz bodies on crystal violet stain are the classic triad. Pyruvate Kinase deficiency causes chronic haemolysis, not acute drug-triggered episodes."
+  },
+  {
+    stem:"In a G6PD-deficient red blood cell exposed to an oxidant drug, which sequence of events correctly describes the biochemical chain from enzyme deficiency to haemolysis?",
+    options:[
+      "G6PD deficient → NADPH falls → Glutathione Reductase cannot regenerate GSH → H₂O₂ accumulates → Heinz body formation → haemolysis",
+      "G6PD deficient → NADPH falls → Pyruvate Kinase is inhibited → ATP depletes → Na⁺/K⁺-ATPase fails → haemolysis",
+      "G6PD deficient → NADPH falls → Citrate Synthase is inhibited → TCA cycle arrests → oxidative damage → haemolysis",
+      "G6PD deficient → NADPH falls → Hexokinase is inhibited → glycolysis stops → ATP depletion → haemolysis"
+    ],
+    answer:0,
+    feedback:"The correct chain: G6PD deficiency → NADPH cannot be produced → <strong>Glutathione Reductase</strong> cannot regenerate GSH from GSSG (it requires NADPH) → GSH falls, GSSG rises → Glutathione Peroxidase cannot neutralise H₂O₂ → H₂O₂ oxidises haemoglobin and membrane lipids → denatured haemoglobin precipitates as <strong>Heinz bodies</strong> → spleen detects and removes damaged RBCs → haemolysis. The other chains incorrectly link NADPH depletion to enzymes that do not depend on NADPH."
+  },
+  {
+    stem:"A male infant has recurrent Staphylococcus aureus and Aspergillus fumigatus infections from early infancy. Neutrophil count is normal but the cells fail to kill phagocytosed organisms. Dihydrorhodamine flow cytometry shows absent oxidative burst. Which enzyme deficiency best explains this clinical picture?",
+    options:[
+      "G6PD deficiency — insufficient NADPH means neutrophils cannot fuel the NADPH Oxidase respiratory burst",
+      "NADPH Oxidase deficiency — the enzyme responsible for generating superoxide from NADPH in phagocytes is absent",
+      "Myeloperoxidase deficiency — conversion of H₂O₂ to HOCl is blocked, impairing bactericidal killing",
+      "Complement C3 deficiency — opsonisation is impaired, so bacteria are not efficiently phagocytosed"
+    ],
+    answer:1,
+    feedback:"<strong>Chronic Granulomatous Disease (CGD) — NADPH Oxidase deficiency.</strong> NADPH Oxidase uses NADPH (sourced from the PPP) to generate superoxide, initiating the respiratory burst that kills ingested bacteria. Without NADPH Oxidase, phagocytes engulf organisms normally but cannot kill them. The susceptibility to catalase-positive organisms (Staph aureus, Aspergillus, Serratia) is because these produce their own catalase, destroying the small H₂O₂ the cell might generate by other means. G6PD deficiency impairs RBCs primarily, not the phagocyte burst. Myeloperoxidase deficiency is usually mild; C3 deficiency impairs opsonisation, not killing."
+  },
+  {
+    stem:"During the fed state, insulin signalling in the liver promotes both fatty acid synthesis and increased pentose phosphate pathway activity. Which statement best explains the molecular link between these two processes?",
+    options:[
+      "Insulin directly phosphorylates G6PD, converting it from an inactive to an active form within minutes",
+      "Insulin upregulates G6PD gene expression, increasing PPP capacity to supply NADPH for the high NADPH demand of lipogenesis",
+      "Insulin activates Transaldolase in the non-oxidative phase, increasing ribose-5-phosphate flux for nucleotide synthesis alongside fat synthesis",
+      "Insulin inhibits NADPH Oxidase in the liver, preventing NADPH consumption and allowing it to accumulate for fatty acid synthesis"
+    ],
+    answer:1,
+    feedback:"Insulin <strong>induces G6PD gene expression</strong> in liver and adipose tissue. This makes physiological sense: lipogenesis (de novo fatty acid synthesis) requires approximately 14 NADPH per palmitate — a massive NADPH demand. By upregulating G6PD, insulin ensures the PPP has sufficient capacity to supply this NADPH. This is a transcriptional effect (hours timescale), distinct from the rapid allosteric inhibition of G6PD by NADPH. The other options describe incorrect mechanisms — G6PD is not regulated by phosphorylation, and Transaldolase is not activated by insulin."
+  }
+];
+const raData = [
+  {
+    assertion:"Red blood cells are uniquely vulnerable to G6PD deficiency because they lack mitochondria.",
+    reason:"Without mitochondria, red blood cells cannot generate NADPH via the TCA cycle or electron transport chain, making the PPP their only source of NADPH for antioxidant defence.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. RBCs have no mitochondria — they cannot use the TCA cycle or ETC. The PPP (specifically G6PD in the oxidative phase) is their only route to NADPH. NADPH is essential for maintaining GSH via Glutathione Reductase. When G6PD is deficient, this sole NADPH source is compromised, and the RBC has no backup — making it exquisitely sensitive to oxidative stress compared to nucleated cells that have mitochondrial NADPH-generating alternatives."
+  },
+  {
+    assertion:"The NADPH:NADP⁺ ratio is the primary regulator of G6PD activity, with high NADPH inhibiting the enzyme.",
+    reason:"When cells are performing active fatty acid synthesis, the NADPH:NADP⁺ ratio rises, stimulating G6PD to produce more NADPH.",
+    answer:"C",
+    feedback:"The assertion is true — NADPH:NADP⁺ ratio is the primary regulator and high NADPH inhibits G6PD via product inhibition. But the reason is false: active fatty acid synthesis <strong>consumes</strong> NADPH, which <strong>lowers</strong> the NADPH:NADP⁺ ratio and <strong>increases</strong> NADP⁺ — this relieves G6PD inhibition and speeds up the PPP. The reason describes the opposite of what actually occurs. It is falling NADPH (rising NADP⁺) that stimulates G6PD, not rising NADPH."
+  },
+  {
+    assertion:"Transketolase activity in red blood cells can be used as a functional test for thiamine deficiency.",
+    reason:"Transketolase requires Thiamine Pyrophosphate (TPP) as a cofactor, and its activity falls when thiamine is deficient, rising when TPP is added in vitro.",
+    answer:"A",
+    feedback:"Both statements are true and the reason correctly explains the assertion. The TPP effect test — measuring RBC Transketolase before and after addition of TPP in vitro — is a sensitive clinical test for thiamine deficiency. If Transketolase activity increases by more than 25% after TPP addition, thiamine deficiency is confirmed (the enzyme was substrate-limited by insufficient TPP). The reason accurately identifies the mechanism: Transketolase requires TPP, and its activity is directly limited by TPP availability."
+  },
+  {
+    assertion:"In a cell that needs only ribose-5-phosphate for nucleotide synthesis but has abundant NADPH, the oxidative phase of the PPP runs at full speed to produce ribose-5-phosphate.",
+    reason:"The non-oxidative phase can run in reverse, converting fructose-6-phosphate and glyceraldehyde-3-phosphate from glycolysis directly into ribose-5-phosphate without needing the oxidative phase.",
+    answer:"D",
+    feedback:"The assertion is false — when NADPH is abundant, the high NADPH:NADP⁺ ratio inhibits G6PD and suppresses the oxidative phase. The reason is true: the non-oxidative phase is reversible and can run in the direction of ribose-5-phosphate synthesis using glycolytic intermediates (F6P and G3P), bypassing the oxidative phase entirely. This is Mode 2 — ribose-5-phosphate produced without NADPH generation, precisely when NADPH is not needed. The assertion incorrectly states the oxidative phase runs at full speed under these conditions."
+  },
+  {
+    assertion:"Glucose-6-phosphate Dehydrogenase deficiency causes chronic haemolytic anaemia in the same way as Pyruvate Kinase deficiency.",
+    reason:"Both deficiencies impair ATP production in red blood cells, leading to failure of the Na⁺/K⁺-ATPase pump and haemolysis.",
+    answer:"E",
+    feedback:"Both statements are false. G6PD deficiency causes <strong>episodic</strong> haemolytic anaemia triggered by oxidative stress — not chronic haemolysis — because residual G6PD activity is usually sufficient at baseline. Pyruvate Kinase deficiency causes <strong>chronic</strong> haemolysis because ATP production is constitutively impaired. The mechanism is also completely different: G6PD deficiency impairs NADPH production → GSH falls → oxidative damage → haemolysis. Pyruvate Kinase deficiency impairs ATP production → ion pump failure → haemolysis. The reason incorrectly attributes both deficiencies to ATP impairment, which is only true for Pyruvate Kinase deficiency."
+  }
+];
+
+// ══ STATE ══
+var _selectedChip = null;
+var tapgedItem = null;
+var testMode = 'free';
+var completedChallenges = new Set();
+
+// ══ TABS ══
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ SCROLL-HIDE ══
+(function(){
+  var last = 0;
+  var h = document.getElementById('site-header');
+  window.addEventListener('scroll', function() {
+    var c = window.scrollY;
+    if (c > last && c > 60) h.classList.add('hide-bar');
+    else h.classList.remove('hide-bar');
+    last = c;
+  }, {passive:true});
+})();
+
+// ══ CARD TOGGLES ══
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleStep(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleShared() { document.getElementById('shared-card').classList.toggle('open'); }
+function toggleBypass(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ══ TAP-TO-PLACE CORE ══
+function tapSelectChip(chip) {
+  if (chip.classList.contains('used')) return;
+  if (_selectedChip === chip) {
+    chip.classList.remove('selected');
+    _selectedChip = null;
+    return;
+  }
+  if (_selectedChip) _selectedChip.classList.remove('selected');
+  _selectedChip = chip;
+  chip.classList.add('selected');
+}
+
+function clearTapReady() {}
+
+function makeChip(id, text, attrs) {
+  var chip = document.createElement('div');
+  chip.className = 'tap-chip';
+  chip.id = id;
+  chip.textContent = text;
+  if (attrs) Object.keys(attrs).forEach(function(k){ chip.dataset[k] = attrs[k]; });
+  chip.onclick = function(){ tapSelectChip(chip); };
+  return chip;
+}
+
+function makeSlotDrop(slotNum, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'slot-drop';
+  drop.dataset.slot = slotNum;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeMatchDrop(idx, placeholder, onPlace) {
+  var drop = document.createElement('div');
+  drop.className = 'match-drop';
+  drop.dataset.idx = idx;
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip) {
+      var chip = _selectedChip;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      onPlace(drop, chip);
+    } else if (drop.classList.contains('filled')) {
+      drop.textContent = placeholder;
+      drop.classList.remove('filled','correct','wrong');
+      onPlace(drop, null);
+    }
+  };
+  return drop;
+}
+
+function makeCofactorDrop(stepKey, placeholder, answersObj) {
+  var drop = document.createElement('div');
+  drop.className = 'cofactor-drop';
+  drop.textContent = placeholder;
+  drop.onclick = function(e) {
+    e.stopPropagation();
+    if (_selectedChip && _selectedChip.dataset.cofactor) {
+      var chip = _selectedChip;
+      var cf = chip.dataset.cofactor;
+      chip.classList.remove('selected');
+      _selectedChip = null;
+      if (!answersObj[stepKey]) answersObj[stepKey] = [];
+      if (answersObj[stepKey].indexOf(cf) !== -1) return;
+      answersObj[stepKey].push(cf);
+      var tag = document.createElement('span');
+      tag.className = 'reg-tag cofactor';
+      tag.style.cssText = 'font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;';
+      tag.textContent = cf + ' ✕';
+      tag.onclick = function(ev) {
+        ev.stopPropagation();
+        answersObj[stepKey] = answersObj[stepKey].filter(function(x){ return x !== cf; });
+        tag.remove();
+        if (!drop.querySelector('span')) drop.textContent = placeholder;
+      };
+      if (!drop.querySelector('span')) drop.textContent = '';
+      drop.appendChild(tag);
+    }
+  };
+  return drop;
+}
+
+// ══ TEST MODE ══
+function selectMode(mode, btn) {
+  testMode = mode;
+  document.querySelectorAll('.mode-toggle-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('mode-desc').textContent = mode === 'guided'
+    ? 'Complete each challenge in order. Each unlocks after the previous is checked.'
+    : 'All five challenges are open from the start.';
+}
+
+function startTestFree(){testMode='free';
+return startTestFree_inner();}
+function startTestFree_inner(){startTest();}
+function startTest() {
+  document.getElementById('tms').style.display = 'none';
+  document.getElementById('challenge-area').style.display = 'block';
+  document.getElementById('completion-banner').style.display = 'none';
+  completedChallenges = new Set();
+  _selectedChip = null;
+  initAllChallenges();
+  updateChallengeNav();
+  showChallenge(1);
+}
+
+function exitTest() {
+  document.getElementById('tms').style.display = 'block';
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'none';
+  _selectedChip = null;
+}
+
+function showChallenge(n) {
+  if (testMode === 'guided' && n > 1 && !completedChallenges.has(n-1)) return;
+  document.querySelectorAll('.challenge-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.challenge-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cp' + n).classList.add('active');
+  document.getElementById('cnav-' + n).classList.add('active');
+  _selectedChip = null;
+}
+
+function updateChallengeNav() {
+  for (var i = 1; i <= 5; i++) {
+    var btn = document.getElementById('cnav-' + i);
+    btn.classList.remove('done','active');
+    if (completedChallenges.has(i)) btn.classList.add('done');
+    // free mode: all challenges unlocked
+  }
+}
+
+function completeAndNext(n) {
+  completedChallenges.add(n);
+  updateChallengeNav();
+  if (n < 5) showChallenge(n + 1);
+}
+
+function showCompletion() {
+  document.getElementById('challenge-area').style.display = 'none';
+  document.getElementById('completion-banner').style.display = 'block';
+}
+
+function initMCQ() {
+  var container = document.getElementById('mcq-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  mcqData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'mcq-item';
+    
+    var stem = document.createElement('div');
+    stem.className = 'mcq-stem';
+    stem.textContent = (qi+1) + '. ' + q.stem;
+    
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'mcq-options';
+    optsDiv.id = 'mcq-opts-' + qi;
+    q.options.forEach(function(o, oi) {
+      var opt = document.createElement('div');
+      opt.className = 'mcq-option';
+      opt.dataset.qi = qi;
+      opt.dataset.oi = oi;
+      opt.innerHTML = '<span class="mcq-letter">' + letters[oi] + '</span>' + o;
+      opt.onclick = function() { selectMCQ(parseInt(opt.dataset.qi), parseInt(opt.dataset.oi)); };
+      optsDiv.appendChild(opt);
+    });
+    
+    var feedback = document.createElement('div');
+    feedback.className = 'mcq-feedback';
+    feedback.id = 'mcq-fb-' + qi;
+    feedback.innerHTML = q.feedback;
+    
+    div.appendChild(stem); div.appendChild(optsDiv); div.appendChild(feedback);
+    container.appendChild(div);
+  });
+}
+
+
+// ══ CHECK HELPERS ══
+function showResult(msgId, nextId, correct, total) {
+  var msg = document.getElementById(msgId);
+  msg.classList.add('show');
+  if (correct === total) {
+    msg.className = 'result-msg show pass';
+    msg.textContent = '✓ All ' + total + ' correct!';
+    document.getElementById(nextId).classList.add('show');
+  } else {
+    msg.className = 'result-msg show fail';
+    msg.textContent = correct + '/' + total + ' correct. Review the relevant section and try again.';
+  }
+}
+
+
+var arrangeAnswers={};
+var matchAnswers={};
+var nadphAnswers={};
+var cofactorAnswers={};
+
+function initAllChallenges(){initArrange();initMatch();initNADPH();initMCQ();initRA();}
+
+function initArrange(){
+  arrangeAnswers={};
+  var bank=document.getElementById('arrange-bank');
+  var slots=document.getElementById('arrange-slots');
+  bank.innerHTML=''; slots.innerHTML='';
+  document.getElementById('arrange-result').classList.remove('show');
+  document.getElementById('arrange-next').classList.remove('show');
+
+  oxidativeSteps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    bank.appendChild(makeChip('ac-'+s.num, s.substrate.split(' + ')[0]+' → '+s.product.split(' + ')[0], {step:s.num}));
+  });
+
+  for(var i=1;i<=3;i++){
+    (function(slotNum){
+      var row=document.createElement('div'); row.className='arrange-slot';
+      row.innerHTML='<div class="slot-num">'+slotNum+'</div>';
+      var drop=makeSlotDrop(slotNum,'Tap to place',function(drop,chip){
+        if(!chip){delete arrangeAnswers[slotNum];return;}
+        var prev=Object.keys(arrangeAnswers).find(function(k){return arrangeAnswers[k]==parseInt(chip.dataset.step);});
+        if(prev){var pd=document.querySelector('.slot-drop[data-slot="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled','correct','wrong');}delete arrangeAnswers[prev];}
+        var old=arrangeAnswers[slotNum];if(old){var oc=document.getElementById('ac-'+old);if(oc)oc.classList.remove('used');}
+        arrangeAnswers[slotNum]=parseInt(chip.dataset.step);
+        chip.classList.add('used');
+        var s=oxidativeSteps.find(function(x){return x.num==parseInt(chip.dataset.step);});
+        drop.textContent=s.substrate.split(' + ')[0]+' → '+s.product.split(' + ')[0];
+        drop.classList.add('filled'); drop.classList.remove('correct','wrong');
+      });
+      row.appendChild(drop); slots.appendChild(row);
+    })(i);
+  }
+}
+
+function checkArrange(){
+  var correct=0;
+  for(var i=1;i<=3;i++){
+    var drop=document.querySelector('.slot-drop[data-slot="'+i+'"]');
+    if(!drop) continue;
+    drop.classList.remove('correct','wrong');
+    if(arrangeAnswers[i]==i){drop.classList.add('correct');correct++;}
+    else if(arrangeAnswers[i]) drop.classList.add('wrong');
+  }
+  showResult('arrange-result','arrange-next',correct,3);
+}
+function resetArrange(){document.getElementById('arrange-result').classList.remove('show');document.getElementById('arrange-next').classList.remove('show');initArrange();}
+
+function initMatch(){
+  matchAnswers={};
+  var bank=document.getElementById('enzyme-bank-2');
+  var grid=document.getElementById('match-grid-2');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('match-next').classList.remove('show');
+
+  matchData.slice().sort(function(){return Math.random()-.5;}).forEach(function(m,si){
+    bank.appendChild(makeChip('mchip-'+si, m.enzyme, {idx:si, enzyme:m.enzyme}));
+  });
+
+  matchData.forEach(function(m,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='mrow-'+i;
+    var info=document.createElement('div'); info.className='match-step-info'; info.textContent=m.rxn;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete matchAnswers[idx];return;}
+      var prev=Object.keys(matchAnswers).find(function(k){return matchAnswers[k]==parseInt(chip.dataset.idx);});
+      if(prev!==undefined){var pd=document.querySelector('#match-grid-2 .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete matchAnswers[prev];}
+      matchAnswers[idx]=parseInt(chip.dataset.idx);
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.enzyme; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  var correct=0;
+  matchData.forEach(function(m,i){
+    var row=document.getElementById('mrow-'+i); row.classList.remove('correct','wrong');
+    if(matchAnswers[i]==i){row.classList.add('correct');correct++;}
+    else if(matchAnswers[i]!==undefined) row.classList.add('wrong');
+  });
+  showResult('match-result','match-next',correct,matchData.length);
+}
+function resetMatch(){document.getElementById('match-result').classList.remove('show');document.getElementById('match-next').classList.remove('show');initMatch();}
+
+function initNADPH(){
+  nadphAnswers={};
+  var bank=document.getElementById('nadph-bank');
+  var grid=document.getElementById('nadph-match-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  document.getElementById('nadph-result').classList.remove('show');
+  document.getElementById('nadph-next').classList.remove('show');
+
+  nadphRoles.slice().sort(function(){return Math.random()-.5;}).forEach(function(r,si){
+    bank.appendChild(makeChip('nchip-'+si, r.process, {idx:si, process:r.process}));
+  });
+
+  nadphRoles.forEach(function(r,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='nrow-'+i;
+    var info=document.createElement('div'); info.className='match-step-info'; info.style.fontSize='12px'; info.textContent=r.desc;
+    var drop=makeMatchDrop(i,'Tap to place',function(drop,chip){
+      var idx=parseInt(drop.dataset.idx);
+      if(!chip){delete nadphAnswers[idx];return;}
+      var prev=Object.keys(nadphAnswers).find(function(k){return nadphAnswers[k]===chip.dataset.process;});
+      if(prev!==undefined){var pd=document.querySelector('#nadph-match-grid .match-drop[data-idx="'+prev+'"]');if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}delete nadphAnswers[prev];}
+      nadphAnswers[idx]=chip.dataset.process;
+      chip.classList.add('used');
+      drop.textContent=chip.dataset.process; drop.classList.add('filled');
+    });
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkNADPH(){
+  var correct=0;
+  nadphRoles.forEach(function(r,i){
+    var row=document.getElementById('nrow-'+i); row.classList.remove('correct','wrong');
+    if(nadphAnswers[i]===r.process){row.classList.add('correct');correct++;}
+    else if(nadphAnswers[i]) row.classList.add('wrong');
+  });
+  showResult('nadph-result','nadph-next',correct,nadphRoles.length);
+}
+function resetNADPH(){document.getElementById('nadph-result').classList.remove('show');document.getElementById('nadph-next').classList.remove('show');initNADPH();}
+
+function initRA() {
+  var container = document.getElementById('ra-container');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D','E'];
+  var opts = [
+    'Both TRUE — reason IS the correct explanation',
+    'Both TRUE — reason is NOT the correct explanation',
+    'Assertion TRUE; reason FALSE',
+    'Assertion FALSE; reason TRUE',
+    'Both FALSE'
+  ];
+  raData.forEach(function(q, qi) {
+    var div = document.createElement('div');
+    div.className = 'ra-item';
+
+    var stmts = document.createElement('div');
+    stmts.className = 'ra-statements';
+    [['Assertion', q.assertion], ['Reason', q.reason]].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'ra-statement-box';
+      var lbl = document.createElement('div'); lbl.className = 'ra-statement-label'; lbl.textContent = pair[0];
+      var txt = document.createElement('div'); txt.className = 'ra-statement-text'; txt.textContent = pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+
+    var optsDiv = document.createElement('div');
+    optsDiv.className = 'ra-options'; optsDiv.id = 'ra-opts-' + qi;
+    opts.forEach(function(o, oi) {
+      var opt = document.createElement('div'); opt.className = 'ra-option';
+      opt.dataset.qi = qi; opt.dataset.letter = letters[oi];
+      var span = document.createElement('span'); span.className = 'ra-letter'; span.textContent = letters[oi];
+      opt.appendChild(span);
+      opt.appendChild(document.createTextNode(o));
+      opt.onclick = function() { selectRA(parseInt(this.dataset.qi), this.dataset.letter); };
+      optsDiv.appendChild(opt);
+    });
+
+    var fb = document.createElement('div');
+    fb.className = 'ra-feedback'; fb.id = 'ra-fb-' + qi; fb.innerHTML = q.feedback;
+
+    div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function tryAgainC1() {
+  document.querySelectorAll('#arrange-slots .slot-drop,#arrange-slots .drop-zone').forEach(function(drop) {
+    if (drop.classList.contains('correct')||drop.classList.contains('revealed')) return;
+    var sn=parseInt(drop.dataset.slot||drop.dataset.idx||0);
+    var old=arrangeAnswers[sn];
+    if (old!==undefined) { var oc=document.getElementById('ac-'+old); if(oc) oc.classList.remove('used'); delete arrangeAnswers[sn]; }
+    drop.textContent='Tap to place'; drop.classList.remove('filled','wrong');
+  });
+  document.getElementById('arrange-result').classList.remove('show');
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+}
+
+function revealC1() {
+  oxidativeSteps.forEach(function(s) {
+    var drop=document.querySelector('#arrange-slots .slot-drop[data-slot="'+s.num+'"],#arrange-slots .drop-zone[data-slot="'+s.num+'"]');
+    if (!drop||drop.classList.contains('correct')) return;
+    var old=arrangeAnswers[s.num]; if(old!==undefined){var oc=document.getElementById('ac-'+old);if(oc)oc.classList.remove('used');}
+    arrangeAnswers[s.num]=s.num;
+    var chip=document.getElementById('ac-'+s.num); if(chip){chip.classList.add('used');chip.classList.remove('selected');}
+    drop.textContent=s.enzyme||s.label||'';
+    drop.classList.remove('wrong','filled'); drop.classList.add('revealed');
+  });
+  document.getElementById('c1-try').classList.remove('show');
+  document.getElementById('c1-reveal').classList.remove('show');
+  document.getElementById('c1-reveal-note').classList.add('show');
+  document.getElementById('arrange-next').classList.add('show');
+  var msg=document.getElementById('arrange-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct order, then try a fresh run.';
+}
+
+function tryAgainC2() {
+  document.querySelectorAll('#match-grid-2 .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(matchAnswers).forEach(function(k) {
+    if (!document.querySelector('#match-grid-2 #'+'mrow-'+k+'.correct')) delete matchAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('match-result').classList.remove('show');
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+}
+
+function revealC2() {
+  matchData.forEach(function(item, i) {
+    var row = document.getElementById('mrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['enzyme'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c2-try').classList.remove('show');
+  document.getElementById('c2-reveal').classList.remove('show');
+  document.getElementById('c2-reveal-note').classList.add('show');
+  document.getElementById('match-next').classList.add('show');
+  var msg=document.getElementById('match-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+function tryAgainC3() {
+  document.querySelectorAll('#nadph-match-grid .match-row').forEach(function(row) {
+    if (row.classList.contains('correct') || row.classList.contains('revealed')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = 'Tap to place'; drop.classList.remove('filled','wrong'); }
+    row.classList.remove('wrong');
+  });
+  Object.keys(nadphAnswers).forEach(function(k) {
+    if (!document.querySelector('#nadph-match-grid #'+'nrow-'+k+'.correct')) delete nadphAnswers[k];
+  });
+  document.querySelectorAll('.chip-bank .chip,.tap-bank .tap-chip,.chip-bank .tap-chip').forEach(function(c){
+    if (!c.classList.contains('locked-correct')) c.classList.remove('used');
+  });
+  document.getElementById('nadph-result').classList.remove('show');
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+}
+
+function revealC3() {
+  nadphRoles.forEach(function(item, i) {
+    var row = document.getElementById('nrow-'+i);
+    if (!row || row.classList.contains('correct')) return;
+    var drop = row.querySelector('.match-drop');
+    if (drop) { drop.textContent = item['process'] || ''; drop.classList.remove('wrong'); drop.classList.add('filled'); }
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c3-try').classList.remove('show');
+  document.getElementById('c3-reveal').classList.remove('show');
+  document.getElementById('c3-reveal-note').classList.add('show');
+  document.getElementById('nadph-next').classList.add('show');
+  var msg=document.getElementById('nadph-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed — study the correct matches, then try a fresh run.';
+}
+
+
+
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.pathway-link');
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var wasActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!wasActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+
+
+// ── TOOLTIP TAP TOGGLE ──
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest ? e.target.closest('.pathway-link') : null;
+    if (!link && e.target.classList && e.target.classList.contains('pathway-link')) {
+      link = e.target;
+    }
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!isActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+// ── MULTIPLE COMPLETION ──
+var mcSelections = [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAnswers = [[true, true, false, true, true], [true, true, false, true, true], [true, true, false, true, true]];
+var mcChecked = false;
+
+function toggleMCOption(el, qIdx, optIdx) {
+  if (mcChecked) return;
+  mcSelections[qIdx][optIdx] = !mcSelections[qIdx][optIdx];
+  el.classList.toggle('selected', mcSelections[qIdx][optIdx]);
+  var cb = document.getElementById('mc' + qIdx + 'cb' + optIdx);
+  cb.textContent = mcSelections[qIdx][optIdx] ? '☑' : '□';
+}
+
+function checkMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  var score = 0;
+  for (var i = 0; i < totalQ; i++) {
+    var allCorrect = true;
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      var selected = mcSelections[i][j];
+      var correct = mcAnswers[i][j];
+      opt.classList.remove('selected');
+      if (selected && correct) { opt.classList.add('correct'); cb.textContent = '✓'; }
+      else if (selected && !correct) { opt.classList.add('incorrect'); cb.textContent = '✗'; allCorrect = false; }
+      else if (!selected && correct) { opt.classList.add('missed'); cb.textContent = '○'; allCorrect = false; }
+      else { cb.textContent = '□'; }
+    }
+    if (allCorrect) score++;
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  var res = document.getElementById('mc-result');
+  res.textContent = score + ' of ' + totalQ + ' questions fully correct.';
+  res.style.color = score === totalQ ? 'var(--green)' : 'var(--red)';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+  document.getElementById('mc-reveal').style.display = 'inline-block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+}
+
+function resetMC() {
+  mcChecked = false;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    mcSelections[i] = mcSelections[i].map(function(){ return false; });
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent = '□';
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'none';
+  }
+  document.getElementById('mc-result').textContent = '';
+  document.getElementById('mc-try-again').style.display = 'none';
+  document.getElementById('mc-reveal').style.display = 'none';
+  document.getElementById('mc-next').style.display = 'none';
+  document.getElementById('mc-reveal-note').style.display = 'none';
+}
+
+function revealMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('selected','correct','incorrect','missed');
+      if (mcAnswers[i][j]) { opt.classList.add('missed'); cb.textContent = '○'; }
+      else { cb.textContent = '□'; }
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  document.getElementById('mc-reveal-note').style.display = 'block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+}
+
+
+function selectMCQ(qi, oi) {
+  var allOpts = document.getElementById('mcq-opts-' + qi);
+  if (!allOpts) return;
+  var optEls = allOpts.querySelectorAll('.mcq-option');
+  for (var k = 0; k < optEls.length; k++) {
+    if (optEls[k].classList.contains('correct') || optEls[k].classList.contains('wrong')) return;
+  }
+  for (var j = 0; j < optEls.length; j++) optEls[j].classList.remove('selected');
+  optEls[oi].classList.add('selected');
+  setTimeout(function() {
+    var correct = mcqData[qi].answer === oi;
+    for (var j = 0; j < optEls.length; j++) {
+      optEls[j].classList.remove('selected');
+      optEls[j].style.pointerEvents = 'none';
+      if (j === oi) { optEls[j].classList.add(correct ? 'correct' : 'wrong'); }
+      else if (j === mcqData[qi].answer && !correct) { optEls[j].classList.add('correct'); }
+    }
+    var fb = document.getElementById('mcq-fb-' + qi);
+    if (fb) fb.style.display = 'block';
+  }, 300);
+}
+</script>
+</body>
+</html>

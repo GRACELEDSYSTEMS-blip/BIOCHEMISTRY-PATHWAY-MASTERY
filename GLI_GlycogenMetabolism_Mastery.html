@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glycogen Metabolism Mastery — GETLOCKEDIN × DOMINANCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOOLTIP SYSTEM ── */
+.pathway-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
+  vertical-align: middle;
+  font-family: var(--font-body);
+  user-select: none;
+}
+.plink-tooltip {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F1623;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  padding: 11px 14px;
+  border-radius: 10px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 9000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+.plink-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0F1623;
+}
+/* Show on hover (desktop) */
+.pathway-link:hover .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Show on tap (mobile + desktop click) */
+.pathway-link.active-tip .plink-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+:root {
+  --white:#FFFFFF; --off-white:#F7F8FA; --light-grey:#EEF0F4; --mid-grey:#C8CDD8;
+  --text-muted:#8892A0; --text-body:#2D3648; --text-dark:#0F1623;
+  --gold:#C9A84C; --gold-dim:#C9A84C18; --gold-border:#C9A84C40;
+  --royal:#1A3FBF; --royal-light:#2D5FE8; --royal-dim:#1A3FBF12; --royal-border:#1A3FBF35;
+  --red:#D94040; --red-dim:#D9404012; --red-border:#D9404035;
+  --green:#1A8C5B; --green-dim:#1A8C5B12; --green-border:#1A8C5B35;
+  --purple:#7C3AED; --purple-dim:#7C3AED12; --purple-border:#7C3AED35;
+  --amber:#B45309; --amber-dim:#B4530912; --amber-border:#B4530935;
+  --revealed:#0D7A6B; --revealed-dim:#0D7A6B15; --revealed-border:#0D7A6B40;
+  --shadow-sm:0 1px 4px rgba(15,22,35,.07); --shadow-md:0 4px 16px rgba(15,22,35,.10); --shadow-lg:0 8px 32px rgba(15,22,35,.13);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:24px;
+  --font-display:'Playfair Display',serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--off-white);color:var(--text-body);font-family:var(--font-body);font-size:15px;line-height:1.65;min-height:100vh;}
+
+/* ── HEADER ── */
+.site-header{background:var(--white);border-bottom:1px solid var(--light-grey);padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);transition:transform .25s ease;}
+.site-header.hide-bar{transform:translateY(-100%);}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:40px;gap:12px;}
+.brand{display:flex;align-items:baseline;gap:6px;flex-shrink:0;}
+.brand-main{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.08em;}
+.brand-main .b1{color:var(--royal);} .brand-main .b2{color:var(--gold);} .brand-main .b3{color:var(--royal);}
+.brand-x{font-size:10px;color:var(--text-muted);font-weight:600;}
+.brand-dominance{font-size:13px;letter-spacing:.08em;color:var(--royal);font-weight:700;}
+.header-page-title{font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB BAR ── */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--light-grey);position:sticky;top:40px;z-index:190;transition:top .25s ease;}
+.site-header.hide-bar+.tab-bar{top:0;}
+.tab-bar-inner{max-width:980px;margin:0 auto;display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-bar-inner::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--text-body);}
+.tab-btn.active{color:var(--royal);border-bottom-color:var(--royal);}
+
+/* ── MAIN ── */
+.main{max-width:980px;margin:0 auto;padding:18px 16px 50px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+
+/* ── SHARED ── */
+.badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.badge-royal{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.badge-grey{background:var(--light-grey);color:var(--text-muted);border:1px solid var(--mid-grey);}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+
+.section-lbl{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;}
+.reg-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;}
+.reg-tag{font-size:12px;padding:5px 11px;border-radius:var(--radius-sm);font-weight:500;}
+.reg-tag.inhibitor{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-tag.activator{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-tag.cofactor{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.detail-item{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:10px 13px;}
+.detail-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.detail-value{font-size:13px;color:var(--text-body);font-family:var(--font-mono);line-height:1.5;}
+
+.explanation{font-size:14px;color:var(--text-body);line-height:1.75;margin-top:10px;}
+.explanation strong{color:var(--text-dark);font-weight:600;}
+
+/* ── OVERVIEW ── */
+.overview-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+.overview-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--royal),var(--gold),var(--green));}
+.overview-title{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:8px;}
+.overview-title span{color:var(--gold);}
+.overview-subtitle{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;max-width:600px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;}
+.stat-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 8px;text-align:center;}
+.stat-value{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--royal);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.info-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.info-body{font-size:13px;color:var(--text-body);line-height:1.7;}
+.info-body strong{color:var(--text-dark);}
+
+.structure-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.structure-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.structure-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.structure-item{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px;border:1px solid var(--light-grey);}
+.structure-item-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:5px;}
+.structure-item-body{font-size:13px;color:var(--text-body);line-height:1.6;}
+.structure-item-body strong{color:var(--text-dark);}
+
+.tissue-compare{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.tissue-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+.tissue-col{border-radius:var(--radius-md);padding:12px 14px;}
+.tissue-col.liver{background:#1A3FBF08;border:1px solid var(--royal-border);}
+.tissue-col.muscle{background:#1A8C5B08;border:1px solid var(--green-border);}
+.tissue-col-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.tissue-col.liver .tissue-col-label{color:var(--royal);}
+.tissue-col.muscle .tissue-col-label{color:var(--green);}
+.tissue-col-body{font-size:13px;color:var(--text-body);line-height:1.65;}
+
+/* ── STEPS ── */
+.steps-intro{background:var(--royal-dim);border:1px solid var(--royal-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:var(--royal);margin-bottom:14px;font-weight:500;}
+.pathway-divider{border-radius:var(--radius-md);padding:12px 18px;margin:16px 0 12px;display:flex;align-items:center;gap:12px;}
+.pathway-divider.synthesis{background:var(--royal-dim);border:1px solid var(--royal-border);}
+.pathway-divider.breakdown{background:var(--red-dim);border:1px solid var(--red-border);}
+.pathway-divider-title{font-size:14px;font-weight:700;}
+.pathway-divider-title.synthesis{color:var(--royal);}
+.pathway-divider-title.breakdown{color:var(--red);}
+.pathway-divider-sub{font-size:12px;color:var(--text-muted);}
+
+.step-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);margin-bottom:10px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s;}
+.step-card:hover{box-shadow:var(--shadow-md);}
+.step-card.synthesis-card{border-left:3px solid var(--royal);}
+.step-card.breakdown-card{border-left:3px solid var(--red);}
+.step-card.key-enzyme{border-color:var(--gold-border);border-width:1.5px;}
+.step-card.key-enzyme.synthesis-card,.step-card.key-enzyme.breakdown-card{border-left:3px solid var(--gold);}
+
+.step-header{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;transition:background .15s;position:relative;}
+.step-header:hover{background:var(--off-white);}
+.step-num-badge{width:32px;height:32px;border-radius:50%;font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.synthesis-card .step-num-badge{background:var(--royal-dim);color:var(--royal);border:1px solid var(--royal-border);}
+.breakdown-card .step-num-badge{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.key-enzyme .step-num-badge{background:var(--gold);color:var(--white);}
+
+.step-header-main{flex:1;min-width:0;}
+.step-enzyme-name{font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:3px;}
+.step-rxn-preview{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.step-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.step-chevron{color:var(--text-muted);font-size:12px;transition:transform .25s;flex-shrink:0;}
+.step-card.open .step-chevron{transform:rotate(180deg);}
+.step-body{display:none;padding:0 18px 20px;border-top:1px solid var(--light-grey);}
+.step-card.open .step-body{display:block;}
+
+.step-callout{background:linear-gradient(135deg,var(--gold-dim),#fffdf0);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0;display:flex;gap:10px;font-size:13px;color:var(--text-dark);line-height:1.6;}
+.step-callout strong{color:var(--gold);}
+
+/* ── REGULATION ── */
+.reg-hero{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);}
+.reg-intro{font-size:14px;color:var(--text-body);line-height:1.75;}
+.reg-intro strong{color:var(--text-dark);}
+
+/* Cascade diagram */
+.cascade-block{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow-sm);}
+.cascade-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.cascade-steps{display:flex;flex-direction:column;gap:0;}
+.cascade-step{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--light-grey);}
+.cascade-step:last-child{border-bottom:none;}
+.cascade-arrow{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;width:28px;}
+.cascade-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.cascade-dot.hormone{background:var(--amber);}
+.cascade-dot.camp{background:var(--royal);}
+.cascade-dot.pka{background:var(--royal);}
+.cascade-dot.phk{background:var(--red);}
+.cascade-dot.phos{background:var(--red);}
+.cascade-dot.syn{background:var(--green);}
+.cascade-dot.insulin{background:var(--green);}
+.cascade-line{width:2px;height:24px;background:var(--mid-grey);}
+.cascade-content{flex:1;}
+.cascade-label{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.cascade-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.cascade-result{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-top:4px;}
+.cascade-result.active{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.cascade-result.inactive{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+
+.reg-enzyme-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.reg-enzyme-card.primary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);}
+.reg-enzyme-card.secondary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--royal);}
+.reg-enzyme-card.tertiary::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);}
+.reg-card-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.reg-card-sub{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:14px;}
+.reg-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.reg-col-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.reg-col-label.inhibit{color:var(--red);}
+.reg-col-label.activate{color:var(--green);}
+.reg-col-items{display:flex;flex-direction:column;gap:6px;}
+.reg-item{font-size:12px;padding:6px 12px;border-radius:var(--radius-sm);line-height:1.5;font-weight:500;}
+.reg-item.inhibit{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.reg-item.activate{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.reg-mechanism{font-size:14px;color:var(--text-body);line-height:1.75;background:var(--off-white);border-radius:var(--radius-md);padding:14px 16px;}
+.reg-mechanism strong{color:var(--text-dark);}
+
+.liver-muscle-compare{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
+.liver-muscle-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+
+/* ── CLINICAL ── */
+.intro-note{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#7a5e1a;margin-bottom:14px;font-weight:500;}
+.clinical-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);border-left:4px solid var(--purple);}
+.clinical-disease{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+.clinical-enzyme-link{font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:600;}
+.clinical-detail{font-size:14px;color:var(--text-body);line-height:1.75;}
+.clinical-detail strong{color:var(--text-dark);}
+.clinical-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px;}
+
+.gsd-summary-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0;overflow-x:auto;display:block;}
+.gsd-summary-table th{background:var(--off-white);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--light-grey);white-space:nowrap;}
+.gsd-summary-table td{padding:9px 12px;border-bottom:1px solid var(--light-grey);vertical-align:top;line-height:1.5;}
+.gsd-summary-table tr:last-child td{border-bottom:none;}
+.type-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+
+/* ── TEST SECTION ── */
+.test-mode-selector{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-md);text-align:center;}
+.test-mode-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:6px;}
+.test-mode-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+.mode-toggle{display:inline-flex;background:var(--off-white);border:1px solid var(--light-grey);border-radius:20px;padding:4px;gap:4px;margin-bottom:16px;}
+.mode-toggle-btn{background:none;border:none;padding:7px 20px;border-radius:16px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.mode-toggle-btn.active{background:var(--royal);color:var(--white);box-shadow:var(--shadow-sm);}
+.mode-desc{font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 16px;line-height:1.6;}
+.start-btn{background:var(--royal);color:var(--white);border:none;padding:12px 32px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-md);}
+.start-btn:hover{background:var(--royal-light);transform:translateY(-1px);}
+.exit-test-btn{background:none;border:none;color:var(--royal);font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;}
+.exit-test-btn:hover{opacity:.7;}
+.challenge-nav{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.challenge-nav-btn{background:var(--white);border:1px solid var(--light-grey);border-radius:20px;padding:7px 16px;font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.challenge-nav-btn.active{background:var(--royal);color:var(--white);border-color:var(--royal);}
+.challenge-nav-btn.done{background:var(--green-dim);color:var(--green);border-color:var(--green-border);}
+.challenge-nav-btn.locked{opacity:.45;cursor:not-allowed;}
+.challenge-panel{display:none;}
+.challenge-panel.active{display:block;}
+.challenge-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md);}
+.challenge-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:5px;}
+.challenge-instructions{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;}
+
+/* Chip + Drop zone */
+.chip-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.chip:hover{border-color:var(--royal);color:var(--royal);transform:translateY(-1px);}
+.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.chip.used{opacity:.3;pointer-events:none;}
+.chip.locked-correct{opacity:.7;pointer-events:none;border-color:var(--green);background:var(--green-dim);color:var(--green);}
+
+.order-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.order-slot{display:flex;align-items:center;gap:10px;}
+.slot-num{width:28px;height:28px;border-radius:50%;background:var(--light-grey);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.drop-zone{flex:1;min-height:42px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-md);display:flex;align-items:center;padding:6px 12px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);cursor:pointer;}
+.drop-zone:hover{border-color:var(--royal-border);}
+.drop-zone.ready{border-color:var(--royal);background:var(--royal-dim);color:var(--royal);}
+.drop-zone.filled{border-style:solid;border-color:var(--mid-grey);background:var(--off-white);color:var(--text-body);font-weight:500;}
+.drop-zone.correct{border-color:var(--green)!important;background:var(--green-dim)!important;color:var(--green)!important;pointer-events:none;}
+.drop-zone.wrong{border-color:var(--red)!important;background:var(--red-dim)!important;color:var(--red)!important;animation:shake .3s;}
+.drop-zone.revealed{border-color:var(--revealed)!important;background:var(--revealed-dim)!important;color:var(--revealed)!important;pointer-events:none;}
+
+.match-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.match-row{display:flex;align-items:center;gap:12px;background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:10px 14px;transition:all .2s;flex-wrap:wrap;}
+.match-row.correct{background:var(--green-dim);border-color:var(--green-border);}
+.match-row.wrong{background:var(--red-dim);border-color:var(--red-border);animation:shake .3s;}
+.match-row.revealed{background:var(--revealed-dim);border-color:var(--revealed-border);}
+.match-info{flex:1;font-size:13px;font-weight:600;color:var(--text-dark);min-width:140px;line-height:1.4;}
+.match-info span{display:block;font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;font-family:var(--font-mono);}
+.match-drop{width:200px;flex-shrink:0;min-height:36px;border:1.5px dashed var(--mid-grey);border-radius:var(--radius-sm);display:flex;align-items:center;padding:5px 10px;font-size:12px;color:var(--text-muted);transition:all .2s;font-family:var(--font-mono);cursor:pointer;}
+.match-drop.ready{border-color:var(--royal);background:var(--royal-dim);color:var(--royal);}
+.match-drop.filled{border-style:solid;border-color:var(--mid-grey);color:var(--text-dark);font-weight:600;background:var(--white);}
+
+/* MCQ */
+.mcq-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.mcq-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-stem{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.65;margin-bottom:12px;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.mcq-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:13px;color:var(--text-body);background:var(--off-white);line-height:1.5;}
+.mcq-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.mcq-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.mcq-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.mcq-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.mcq-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.mcq-feedback.show{display:block;}
+.mcq-feedback strong{color:var(--text-dark);}
+
+/* R&A */
+.ra-item{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--light-grey);}
+.ra-item:last-child{border-bottom:none;}
+.ra-statements{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ra-statement-box{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;}
+.ra-statement-label{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;}
+.ra-statement-text{font-size:13px;color:var(--text-dark);line-height:1.6;font-weight:500;}
+.ra-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.ra-option{display:flex;align-items:flex-start;gap:10px;padding:8px 13px;border:1px solid var(--light-grey);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text-body);background:var(--off-white);}
+.ra-option:hover{border-color:var(--royal);background:var(--royal-dim);}
+.ra-option.correct-ans{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.ra-option.wrong-ans{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.ra-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;width:18px;flex-shrink:0;margin-top:1px;}
+.ra-feedback{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;display:none;margin-top:8px;}
+.ra-feedback.show{display:block;}
+.ra-feedback strong{color:var(--text-dark);}
+
+/* Buttons */
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.btn-check{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-check:hover{background:var(--royal-light);}
+.btn-try{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);padding:10px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;}
+.btn-try:hover{background:var(--amber);color:var(--white);}
+.btn-try.show{display:inline-block;}
+.btn-reveal{background:var(--revealed-dim);color:var(--revealed);border:1px solid var(--revealed-border);padding:10px 18px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:none;}
+.btn-reveal:hover{background:var(--revealed);color:var(--white);}
+.btn-reveal.show{display:inline-block;}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;}
+.btn-next.show{display:inline-block;}
+.btn-next:hover{filter:brightness(1.08);}
+
+.result-msg{margin-top:12px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;display:none;}
+.result-msg.show{display:block;}
+.result-msg.pass{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.result-msg.fail{background:var(--gold-dim);color:#8a6c1a;border:1px solid var(--gold-border);}
+.reveal-note{background:var(--revealed-dim);color:var(--revealed);border:1px solid var(--revealed-border);border-radius:var(--radius-md);padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
+.reveal-note.show{display:block;}
+
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+
+/* Footer */
+.site-footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--light-grey);background:var(--white);}
+
+/* Mobile */
+
+/* ── Cross-file CSS aliases for consistency ── */
+.check-btn{background:var(--royal);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.check-btn:hover{background:var(--royal-light);}
+.reset-btn{background:var(--off-white);color:var(--text-muted);border:1px solid var(--light-grey);padding:10px 20px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-right:6px;}
+.reset-btn:hover{border-color:var(--mid-grey);color:var(--text-body);}
+.next-challenge-btn{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;margin-top:10px;}
+.next-challenge-btn.show{display:inline-block;}
+.next-challenge-btn:hover{filter:brightness(1.08);}
+.tap-bank,.arrange-bank{background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;min-height:50px;display:flex;flex-wrap:wrap;gap:8px;}
+.tap-chip{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-sm);padding:7px 12px;font-size:12px;font-family:var(--font-mono);color:var(--text-body);cursor:pointer;user-select:none;transition:all .15s;box-shadow:var(--shadow-sm);}
+.tap-chip.selected,.chip.selected{border-color:var(--royal)!important;background:var(--royal-dim)!important;color:var(--royal)!important;box-shadow:0 0 0 2px var(--royal);transform:translateY(-2px);}
+.tap-chip.used,.chip.used{opacity:.3;pointer-events:none;}
+
+/* ══ DEFINITIVE MOBILE CSS — max-width: 640px ══ */
+@media (max-width: 640px) {
+
+  /* ── LAYOUT & PADDING ── */
+  .main { padding: 10px 12px 40px; }
+  .overview-hero { padding: 14px 14px; }
+  .challenge-card { padding: 16px 14px; }
+  .info-card, .reg-enzyme-card, .clinical-card { padding: 14px 14px; }
+  .reg-hero { padding: 14px 14px; }
+
+  /* ── HEADER ── */
+  .header-inner { flex-wrap: wrap; height: auto; min-height: 40px; padding: 5px 0; gap: 4px; }
+  .brand-main { font-size: 11px !important; }
+  .brand-dominance { font-size: 11px !important; }
+  .header-page-title { font-size: 10px !important; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── OVERVIEW ── */
+  .overview-title { font-size: 22px !important; }
+  .overview-subtitle { font-size: 13px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 8px; }
+
+  /* ── GRIDS → SINGLE COLUMN ── */
+  .info-grid,
+  .detail-grid,
+  .two-col,
+  .reg-columns,
+  .reg-cols,
+  .ra-statements,
+  .nadph-grid,
+  .structure-grid,
+  .tissue-cols,
+  .amphibolic-cols,
+  .comparison-cols,
+  .modes-reg-block .tissue-cols { grid-template-columns: 1fr !important; }
+
+  /* ── STEP CARDS ── */
+  .step-card,
+  .bypass-card,
+  .pdc-card,
+  .nonox-card,
+  .shared-steps-card,
+  .nonox-card { overflow: visible !important; }
+
+  .step-header,
+  .bypass-header,
+  .pdc-header,
+  .nonox-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; position: relative; }
+
+  .step-header-main,
+  .bypass-header-main { width: calc(100% - 50px); min-width: 0; }
+
+  .step-enzyme-name,
+  .bypass-enzyme-name { font-size: 13px; white-space: normal; word-break: break-word; }
+
+  .step-rxn-preview,
+  .bypass-rxn-preview { font-size: 10px; white-space: normal; word-break: break-all; max-width: 100%; }
+
+  .step-badges,
+  .bypass-badges { width: 100%; justify-content: flex-start; margin-left: 44px; flex-wrap: wrap; gap: 4px; }
+
+  .step-chevron { position: absolute !important; right: 14px; top: 16px; }
+  .step-num-badge { flex-shrink: 0; }
+
+  .step-body,
+  .bypass-body,
+  .pdc-body,
+  .nonox-body { padding: 0 12px 16px; }
+
+  .step-callout { flex-direction: column; gap: 6px; }
+
+  /* ── REGULATION ── */
+  .reg-card-header { flex-direction: column; gap: 8px; }
+  .reg-card-title { font-size: 15px; }
+  .reg-col-items { gap: 6px; }
+  .cascade-step { flex-direction: column; gap: 6px; }
+  .cascade-arrow { flex-direction: row; width: auto; }
+  .mode-row { flex-direction: column; gap: 6px; }
+  .mode-pill { align-self: flex-start; }
+
+  /* ── TEST — NAVIGATION ── */
+  .challenge-nav { flex-wrap: wrap; gap: 6px; }
+  .challenge-nav-btn { font-size: 11px; padding: 6px 10px; }
+
+  /* ── TEST — CHIP BANK ── */
+  .chip-bank, .tap-bank, .arrange-bank { flex-wrap: wrap; min-height: 44px; }
+  .chip, .tap-chip { font-size: 11px; padding: 6px 10px; word-break: break-word; max-width: 100%; box-sizing: border-box; }
+
+  /* ── TEST — DROP ZONES ── */
+  .slot-drop, .drop-zone { min-height: 44px; font-size: 12px; word-break: break-word; }
+  .match-drop { width: 100% !important; min-height: 40px; font-size: 12px; word-break: break-word; }
+  .cofactor-drop { width: 100% !important; min-height: 40px; font-size: 11px; flex-wrap: wrap; }
+
+  /* ── TEST — MATCH ROWS ── */
+  .match-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .match-info { width: 100%; }
+  .match-step-info { width: 100%; }
+  .cofactor-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cofactor-enzyme-name { width: 100%; }
+  .order-slot { flex-wrap: nowrap; gap: 8px; }
+
+  /* ── TEST — BUTTONS ── */
+  .btn-row { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn-try-again, .btn-reveal-ans,
+  .btn-try, .btn-reveal { margin-right: 0; width: auto; }
+  .check-btn, .btn-check { width: auto; }
+  .reset-btn { width: auto; }
+  .next-challenge-btn, .btn-next { width: auto; }
+
+  /* ── MCQ ── */
+  .mcq-stem { font-size: 13px; word-break: break-word; line-height: 1.6; }
+  .mcq-option { word-break: break-word; align-items: flex-start; font-size: 12px; padding: 8px 10px; }
+  .mcq-letter { flex-shrink: 0; }
+  .mcq-feedback { font-size: 12px; }
+
+  /* ── R&A ── */
+  .ra-statements { grid-template-columns: 1fr !important; }
+  .ra-statement-text { font-size: 12px; word-break: break-word; }
+  .ra-option { font-size: 12px; word-break: break-word; align-items: flex-start; }
+  .ra-letter { flex-shrink: 0; }
+  .ra-feedback { font-size: 12px; }
+
+  /* ── CLINICAL ── */
+  .clinical-detail { font-size: 13px; }
+  .comparison-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 11px; }
+  .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  .gsd-summary-table { font-size: 11px; }
+
+  /* ── MISC ── */
+  .reg-row { flex-wrap: wrap; }
+  .reg-tag { font-size: 11px; word-break: break-word; }
+  .tab-btn { padding: 10px 12px; font-size: 11px; }
+  .site-footer { font-size: 10px; padding: 14px; }
+
+  /* ── TOOLTIP MOBILE ── */
+  .pathway-link { position: static; }
+  .plink-tooltip {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 72px !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    transform: none !important;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 9999 !important;
+  }
+  .plink-tooltip::after { display: none !important; }
+
+}
+
+/* ── MULTIPLE COMPLETION ── */
+.mc-question { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--light-grey); }
+.mc-question:last-child { border-bottom: none; margin-bottom: 0; }
+.mc-question-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.mc-stem { font-size: 14px; font-weight: 600; color: var(--text-dark); line-height: 1.6; margin-bottom: 6px; }
+.mc-instructions { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.mc-options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.mc-option { display: flex; align-items: flex-start; gap: 10px; background: var(--off-white); border: 1.5px solid var(--light-grey); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; transition: all .15s; }
+.mc-option:hover { border-color: var(--royal); background: var(--royal-dim); }
+.mc-option.selected { background: var(--royal-dim); border-color: var(--royal); }
+.mc-option.correct { background: var(--green-dim); border-color: var(--green); }
+.mc-option.incorrect { background: var(--red-dim); border-color: var(--red); }
+.mc-option.missed { background: var(--teal-dim); border-color: var(--teal); }
+.mc-checkbox { font-size: 16px; flex-shrink: 0; margin-top: 1px; color: var(--text-muted); }
+.mc-option.selected .mc-checkbox { color: var(--royal); }
+.mc-option.correct .mc-checkbox { color: var(--green); }
+.mc-option.incorrect .mc-checkbox { color: var(--red); }
+.mc-option.missed .mc-checkbox { color: var(--teal); }
+.mc-option-text { font-size: 13px; color: var(--text-body); line-height: 1.6; }
+.mc-feedback { background: var(--off-white); border: 1px solid var(--light-grey); border-left: 3px solid var(--royal); border-radius: var(--radius-md); padding: 12px 14px; font-size: 13px; color: var(--text-body); line-height: 1.7; margin-top: 10px; }
+
+
+.back-to-hub{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text-muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--light-grey);border-radius:20px;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.back-to-hub:hover{color:var(--royal);border-color:var(--royal);background:var(--royal-dim);}
+.back-to-hub-arrow{font-size:13px;}
+
+
+.mcq-option.selected { background: var(--royal-dim) !important; border-color: var(--royal) !important; color: var(--royal) !important; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-main"><span class="b1">GET</span><span class="b2">LOCKED</span><span class="b3">IN</span></div>
+      <span class="brand-x">×</span>
+      <span class="brand-dominance">DOMINANCE</span>
+    </div>
+    <div class="header-page-title">Glycogen Metabolism Mastery</div>
+    <a class="back-to-hub" href="https://graceledsystems-blip.github.io/BIOCHEMISTRY-PATHWAY-MASTERY/"><span class="back-to-hub-arrow">&larr;</span> All Topics</a>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('steps',this)">Step-by-Step</button>
+    <button class="tab-btn" onclick="showTab('regulation',this)">Regulation</button>
+    <button class="tab-btn" onclick="showTab('clinical',this)">Clinical</button>
+    <button class="tab-btn" onclick="showTab('test',this)">Test Yourself</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="tab-overview" class="section-panel active">
+
+  <div class="overview-hero">
+    <div class="overview-title">Glycogen <span>Metabolism</span> Mastery</div>
+    <div class="overview-subtitle">The storage and mobilisation of glucose. Glycogen is the cell's glucose reserve — rapidly built after meals and rapidly broken down during fasting or exercise. Understanding glycogen metabolism means understanding how the body manages blood glucose between meals.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">6</div><div class="stat-label">Synthesis steps</div></div>
+      <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Breakdown steps</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--amber)">~400g</div><div class="stat-label">Total body glycogen</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--green)">12–14</div><div class="stat-label">Residues/chain</div></div>
+      <div class="stat-box"><div class="stat-value" style="color:var(--red)">7</div><div class="stat-label">GSD types</div></div>
+    </div>
+  </div>
+
+  <div class="structure-block">
+    <div class="structure-title">Glycogen Structure — What You Need to Know</div>
+    <div class="structure-grid">
+      <div class="structure-item">
+        <div class="structure-item-label">α-1,4 Linkages</div>
+        <div class="structure-item-body">Form the straight-chain backbone. Glucose residues joined C1 to C4. Each linear chain contains <strong>12–14 glucose residues</strong>. Glycogen Phosphorylase cleaves these bonds during breakdown.</div>
+      </div>
+      <div class="structure-item">
+        <div class="structure-item-label">α-1,6 Linkages (Branch Points)</div>
+        <div class="structure-item-body">Create the branching structure. Occur every 8–10 residues along the chain. Created by <strong>Branching Enzyme</strong> during synthesis; require <strong>Debranching Enzyme</strong> for removal during breakdown.</div>
+      </div>
+      <div class="structure-item">
+        <div class="structure-item-label">Glycogenin — The Primer</div>
+        <div class="structure-item-body">A self-glucosylating protein at the core (reducing end) of glycogen. Adds the first 8 glucose residues to its own tyrosine residue. <strong>Glycogen Synthase cannot initiate chains — it can only extend existing ones.</strong> Glycogenin provides the obligatory primer.</div>
+      </div>
+      <div class="structure-item">
+        <div class="structure-item-label">Why Branching Matters</div>
+        <div class="structure-item-body">More branches = more <strong>non-reducing ends</strong> = more sites for simultaneous Phosphorylase and Synthase action = <strong>faster mobilisation and synthesis</strong>. Also increases water solubility of glycogen. Branching is a functional design, not just structural complexity.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tissue-compare">
+    <div class="structure-title">Liver vs Muscle — Different Purposes, Different Regulations</div>
+    <div class="tissue-cols">
+      <div class="tissue-col liver">
+        <div class="tissue-col-label">🔵 Liver Glycogen</div>
+        <div class="tissue-col-body">
+          <strong>Purpose:</strong> Maintain blood glucose for other tissues<br>
+          <strong>Storage:</strong> ~100g (6–8% of liver weight)<br>
+          <strong>Key enzyme:</strong> Glucose-6-phosphatase — dephosphorylates G6P → free glucose → bloodstream<br>
+          <strong>Trigger:</strong> Glucagon (fasting), epinephrine<br>
+          <strong>Allosteric:</strong> Glucose directly inhibits Phosphorylase<br>
+          <strong>Replenished:</strong> After meals via Glucokinase (high Km)
+        </div>
+      </div>
+      <div class="tissue-col muscle">
+        <div class="tissue-col-label">🟢 Muscle Glycogen</div>
+        <div class="tissue-col-body">
+          <strong>Purpose:</strong> Fuel for muscle work only<br>
+          <strong>Storage:</strong> ~300g (1–2% of muscle mass)<br>
+          <strong>No Glucose-6-phosphatase</strong> — G6P cannot leave muscle, goes directly to glycolysis<br>
+          <strong>Trigger:</strong> Epinephrine, Ca²⁺ (during contraction)<br>
+          <strong>Allosteric:</strong> AMP activates, ATP/G6P inhibit Phosphorylase<br>
+          <strong>Cannot contribute to blood glucose</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-label">Importance of Glycogen Metabolism</div>
+      <div class="info-body">
+        <strong>Blood glucose buffer:</strong> liver glycogen yields free glucose to maintain blood glucose between meals<br><br>
+        <strong>Intracellular G6P supply:</strong> for glycolysis → ATP in muscle/brain<br><br>
+        <strong>PPP substrate:</strong> G6P feeds pentose phosphate pathway → NADPH + ribose derivatives
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Overall Equations</div>
+      <div class="info-body" style="font-family:var(--font-mono);font-size:12px;line-height:2">
+        <span style="color:var(--royal)">SYNTHESIS:</span><br>
+        UDP-Glucose + Glycogen(n) → Glycogen(n+1) + UDP<br><br>
+        <span style="color:var(--red)">BREAKDOWN:</span><br>
+        Glycogen(n) + Pᵢ → Glycogen(n-1) + Glucose-1-P
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ STEPS ══ -->
+<div id="tab-steps" class="section-panel">
+
+  <div class="steps-intro">💡 Blue-accented cards = Glycogenesis (synthesis). Red-accented cards = Glycogenolysis (breakdown). Gold border = key enzyme. Tap any card to expand.</div>
+
+  <!-- GLYCOGENESIS -->
+  <div class="pathway-divider synthesis">
+    <div>
+      <div class="pathway-divider-title synthesis">🔵 Glycogenesis — Glycogen Synthesis</div>
+      <div class="pathway-divider-sub">6 steps · Activated by insulin (fed state) · Occurs in liver and muscle · Requires UDP-Glucose as activated donor</div>
+    </div>
+  </div>
+
+  <!-- S1: Hexokinase/Glucokinase -->
+  <div class="step-card synthesis-card" id="s1">
+    <div class="step-header" onclick="toggleCard('s1')">
+      <div class="step-num-badge">S1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Hexokinase / Glucokinase</div>
+        <div class="step-rxn-preview">Glucose + ATP → Glucose-6-phosphate + ADP</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-red">Irreversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose + ATP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-6-phosphate + ADP</div></div>
+        <div class="detail-item"><div class="detail-label">Inorganic Cofactor</div><div class="detail-value">Mg²⁺</div></div>
+        <div class="detail-item"><div class="detail-label">Tissue</div><div class="detail-value">Hexokinase (muscle) · Glucokinase (liver)</div></div>
+      </div>
+      <div class="explanation">
+        The same first step as glycolysis — glucose is phosphorylated and trapped inside the cell. In the liver, <strong>Glucokinase</strong> (high Km, not inhibited by G6P) acts as a glucose sensor: it only activates when blood glucose is elevated after a meal, making it the liver's primary mechanism for glucose uptake for glycogen storage. In muscle, Hexokinase (low Km) operates even at low blood glucose.
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: Phosphoglucomutase -->
+  <div class="step-card synthesis-card" id="s2">
+    <div class="step-header" onclick="toggleCard('s2')">
+      <div class="step-num-badge">S2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Phosphoglucomutase</div>
+        <div class="step-rxn-preview">Glucose-6-phosphate → Glucose-1-phosphate</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-grey">Reversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-6-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-1-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Mechanistic Intermediate</div><div class="detail-value">Glucose-1,6-bisphosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Mutase (phosphate C6→C1)</div></div>
+      </div>
+      <div class="explanation">
+        Shifts the phosphate from C6 to C1. Glucose-1-phosphate is the form required for the next step — UDP-glucose formation. This same enzyme runs in reverse during glycogenolysis. The reaction goes through a Glucose-1,6-bisphosphate intermediate.
+        <br><br>
+        <span class="pathway-link" onclick="this.classList.toggle('active-tip')">Glycogenolysis<span class="plink-tooltip">In glycogenolysis, Phosphoglucomutase runs in reverse — G1P → G6P — after Glycogen Phosphorylase releases G1P from glycogen. Both pathways share this enzyme.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3: UDP-Glucose Pyrophosphorylase -->
+  <div class="step-card synthesis-card key-enzyme" id="s3">
+    <div class="step-header" onclick="toggleCard('s3')">
+      <div class="step-num-badge">S3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">UDP-Glucose Pyrophosphorylase (UTP:Glucose-1-P Uridylyltransferase)</div>
+        <div class="step-rxn-preview">Glucose-1-P + UTP → UDP-Glucose + PPi</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-gold">Activated Donor</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>This step creates the activated glucosyl donor.</strong> UDP-Glucose is the form of glucose that Glycogen Synthase can actually use — it's the "loaded" carrier that donates glucose units to the growing glycogen chain. The reaction is driven to completion by pyrophosphatase cleaving PPi → 2Pi (irreversible in practice).</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-1-phosphate + UTP</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">UDP-Glucose + PPi</div></div>
+        <div class="detail-item"><div class="detail-label">Coenzyme</div><div class="detail-value" style="color:var(--royal);font-weight:600">UTP consumed · PPi hydrolysed → 2Pi</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Nucleotidyl transfer (activation)</div></div>
+      </div>
+      <div class="explanation">
+        UDP-Glucose (Uridine Diphosphate Glucose) is the activated form — the high-energy bond between glucose and UDP provides the thermodynamic driving force for glycogen synthesis. The release of pyrophosphate (PPi), which is immediately hydrolysed to 2 inorganic phosphates by pyrophosphatase, makes the overall reaction essentially irreversible and pulls it strongly forward.<br><br>
+        This principle — using a nucleoside triphosphate to activate a metabolite — appears repeatedly in biosynthesis (UDP-galactose in galactose metabolism, CTP in phospholipid synthesis). The pattern is always the same: activation costs one NTP, and PPi hydrolysis drives the reaction to completion.
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: Glycogenin -->
+  <div class="step-card synthesis-card key-enzyme" id="s4">
+    <div class="step-header" onclick="toggleCard('s4')">
+      <div class="step-num-badge">S4</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Glycogenin (Self-glucosylating Primer Protein)</div>
+        <div class="step-rxn-preview">UDP-Glucose × 8 → Glycogenin-(Glc)₈ primer</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-amber">Primer required</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>🔑</span>
+        <div><strong>Glycogen Synthase cannot initiate a new glycogen chain from scratch.</strong> Glycogenin provides the obligatory primer — it is a homodimer (two identical subunits) that auto-glucosylates itself, attaching glucose to a specific tyrosine-OH residue using UDP-Glucose. Each subunit adds 8 glucose residues to its partner subunit, building the primer chain Glycogen Synthase then extends.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">What it is</div><div class="detail-value">Self-glucosylating protein · Homodimer</div></div>
+        <div class="detail-item"><div class="detail-label">Attachment site</div><div class="detail-value">Tyrosine-OH residue of glycogenin</div></div>
+        <div class="detail-item"><div class="detail-label">Primer built</div><div class="detail-value">~8 glucose residues (α-1,4 linked)</div></div>
+        <div class="detail-item"><div class="detail-label">Location in glycogen</div><div class="detail-value">Reducing end (core) of glycogen molecule</div></div>
+      </div>
+      <div class="explanation">
+        Glycogenin remains covalently attached at the core of the glycogen molecule throughout its life — it is the structural anchor of every glycogen granule. This is why glycogen has a single reducing end (attached to glycogenin) and many non-reducing ends (where Glycogen Synthase adds glucose and Phosphorylase removes it).<br><br>
+        The clinical implication: a patient deficient in glycogenin (very rare) cannot synthesise glycogen at all. This is conceptually distinct from Glycogen Synthase deficiency (GSD Type 0), where the primer exists but cannot be elongated.
+      </div>
+    </div>
+  </div>
+
+  <!-- S5: Glycogen Synthase -->
+  <div class="step-card synthesis-card key-enzyme" id="s5">
+    <div class="step-header" onclick="toggleCard('s5')">
+      <div class="step-num-badge">S5</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Glycogen Synthase</div>
+        <div class="step-rxn-preview">UDP-Glucose + Glycogen(n) → Glycogen(n+1) + UDP</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Rate-Limiting (synthesis)</span>
+        <span class="badge badge-royal">Regulated</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>The rate-limiting enzyme of glycogen synthesis.</strong> Transfers glucose from UDP-Glucose to the C4-OH of the non-reducing end of a glycogen chain, forming an α-1,4 glycosidic bond. Requires a primer of at least 4 glucose residues (provided by glycogenin). Can only extend existing chains — it cannot branch.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">UDP-Glucose + Glycogen(n)</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glycogen(n+1) + UDP</div></div>
+        <div class="detail-item"><div class="detail-label">Bond formed</div><div class="detail-value">α-1,4 glycosidic bond</div></div>
+        <div class="detail-item"><div class="detail-label">Action site</div><div class="detail-value">Non-reducing end of chain</div></div>
+      </div>
+      <div class="section-lbl">Regulation (Covalent Modulation)</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ Phosphorylation by PKA → Glycogen Synthase b (inactive)</span>
+        <span class="reg-tag inhibitor">⊖ Phosphorylation by GSK-3 (multiple sites) → inactive</span>
+      </div>
+      <div class="section-lbl">Allosteric Activators</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Glucose-6-phosphate → activates even phosphorylated (b) form</span>
+        <span class="reg-tag activator">⊕ Insulin → activates Protein Phosphatase 1 → dephosphorylates → Synthase a (active)</span>
+      </div>
+      <div class="explanation">
+        Glycogen Synthase exists in two interconvertible forms: <strong>Synthase a</strong> (dephosphorylated, active) and <strong>Synthase b</strong> (phosphorylated, inactive). This is the exact opposite of Glycogen Phosphorylase — phosphorylation activates Phosphorylase but inactivates Synthase. This reciprocal covalent regulation ensures synthesis and breakdown cannot both run simultaneously at full speed.<br><br>
+        <strong>Glucose-6-phosphate</strong> is a key allosteric activator: even the phosphorylated (b) form can be partially activated by high G6P, providing a direct link between glucose availability and glycogen synthesis. When G6P is high (glucose abundant), glycogen synthesis proceeds regardless of the phosphorylation state.
+      </div>
+    </div>
+  </div>
+
+  <!-- S6: Branching Enzyme -->
+  <div class="step-card synthesis-card key-enzyme" id="s6">
+    <div class="step-header" onclick="toggleCard('s6')">
+      <div class="step-num-badge">S6</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Branching Enzyme (Amylo-1,4→1,6-Glucantransferase)</div>
+        <div class="step-rxn-preview">Transfers 6–7 residues from α-1,4 chain → new α-1,6 branch point</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-royal">Creates branches</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Alternate names</div><div class="detail-value">Oligo-1,4→1,6-glucantransferase · Glycosyl-4:6-transferase</div></div>
+        <div class="detail-item"><div class="detail-label">Requirement</div><div class="detail-value">Chain must be ≥11 residues long before branching</div></div>
+        <div class="detail-item"><div class="detail-label">Fragment transferred</div><div class="detail-value">6–7 glucose residues from non-reducing end</div></div>
+        <div class="detail-item"><div class="detail-label">Bond created</div><div class="detail-value">α-1,6 glycosidic bond (new branch point)</div></div>
+      </div>
+      <div class="explanation">
+        Branching Enzyme takes a segment of 6–7 glucose residues from the end of a chain (which must already be at least 11 residues long) and reattaches it via an α-1,6 bond to a glucose residue on the interior of the chain, creating a new branch point. The new branch must be at least 4 residues away from an existing branch.<br><br>
+        The functional significance: each new branch point creates two new non-reducing ends where Glycogen Synthase can add and Glycogen Phosphorylase can remove glucose. This exponential increase in available ends is what gives glycogen its remarkably fast synthesis and mobilisation rates — the molecule is designed for rapid parallel action, not sequential processing.
+        <br><br>
+        <span class="pathway-link" onclick="this.classList.toggle('active-tip')">Andersen Disease (GSD IV)<span class="plink-tooltip">Branching Enzyme deficiency causes Andersen disease (GSD Type IV). Glycogen lacks proper branching — it accumulates as abnormal long-chain polysaccharide (amylopectin-like), which triggers a foreign body reaction in the liver → cirrhosis.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLYCOGENOLYSIS -->
+  <div class="pathway-divider breakdown">
+    <div>
+      <div class="pathway-divider-title breakdown">🔴 Glycogenolysis — Glycogen Breakdown</div>
+      <div class="pathway-divider-sub">4 steps · Activated by glucagon (liver) + epinephrine (liver + muscle) · Produces G1P then G6P</div>
+    </div>
+  </div>
+
+  <!-- B1: Glycogen Phosphorylase -->
+  <div class="step-card breakdown-card key-enzyme" id="b1">
+    <div class="step-header" onclick="toggleCard('b1')">
+      <div class="step-num-badge">B1</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Glycogen Phosphorylase</div>
+        <div class="step-rxn-preview">Glycogen(n) + Pi → Glycogen(n-1) + Glucose-1-phosphate</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Rate-Limiting (breakdown)</span>
+        <span class="badge badge-red">Regulated</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⭐</span>
+        <div><strong>Rate-limiting enzyme of glycogenolysis.</strong> Cleaves α-1,4 glycosidic bonds by phosphorolysis — using inorganic phosphate (Pᵢ), not water. This directly produces Glucose-1-phosphate (not free glucose), saving the ATP that would otherwise be needed to phosphorylate free glucose. Stops 4 residues from any α-1,6 branch point.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glycogen(n) + Inorganic Phosphate (Pᵢ)</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-1-phosphate + Glycogen(n-1)</div></div>
+        <div class="detail-item"><div class="detail-label">Cofactor</div><div class="detail-value">Pyridoxal Phosphate (PLP — Vit B₆)</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction type</div><div class="detail-value">Phosphorolysis (NOT hydrolysis)</div></div>
+        <div class="detail-item"><div class="detail-label">Limit</div><div class="detail-value">Stops 4 residues from α-1,6 branch point</div></div>
+        <div class="detail-item"><div class="detail-label">Forms</div><div class="detail-value">Phosphorylase a (active) · Phosphorylase b (less active)</div></div>
+      </div>
+      <div class="section-lbl">Regulation — Covalent (same in liver and muscle)</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ Phosphorylation by Phosphorylase Kinase → Phosphorylase a (ACTIVE)</span>
+        <span class="reg-tag inhibitor">⊖ Dephosphorylation by Protein Phosphatase 1 → Phosphorylase b (less active)</span>
+      </div>
+      <div class="section-lbl">Regulation — Allosteric (LIVER)</div>
+      <div class="reg-row">
+        <span class="reg-tag inhibitor">⊖ Glucose — directly inhibits liver Phosphorylase a (promotes dephosphorylation)</span>
+        <span class="reg-tag inhibitor">⊖ ATP, G6P</span>
+        <span class="reg-tag activator">⊕ AMP — minor activation of liver Phosphorylase b</span>
+      </div>
+      <div class="section-lbl">Regulation — Allosteric (MUSCLE)</div>
+      <div class="reg-row">
+        <span class="reg-tag activator">⊕ AMP — potent activator of muscle Phosphorylase b (low energy signal)</span>
+        <span class="reg-tag activator">⊕ Ca²⁺ — via Phosphorylase Kinase activation during contraction</span>
+        <span class="reg-tag inhibitor">⊖ ATP — high energy inhibits</span>
+        <span class="reg-tag inhibitor">⊖ Glucose-6-phosphate</span>
+      </div>
+      <div class="explanation">
+        <strong>Why phosphorolysis instead of hydrolysis?</strong> Using Pᵢ instead of water directly produces Glucose-1-phosphate, which is already phosphorylated and trapped inside the cell. If hydrolysis were used, free glucose would be produced and would have to be re-phosphorylated by Hexokinase at the cost of 1 ATP. Phosphorolysis saves that ATP — an elegant metabolic economy.<br><br>
+        <strong>PLP (Vitamin B₆) as cofactor:</strong> Pyridoxal phosphate is covalently bound to Glycogen Phosphorylase and participates in the catalytic mechanism. This is one of the rare cases where a water-soluble vitamin acts as a prosthetic group (permanently bound) rather than a dissociable coenzyme.
+      </div>
+    </div>
+  </div>
+
+  <!-- B2: Debranching Enzyme -->
+  <div class="step-card breakdown-card key-enzyme" id="b2">
+    <div class="step-header" onclick="toggleCard('b2')">
+      <div class="step-num-badge">B2</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Debranching Enzyme (Amylo-1,6-Glucosidase / 4-α-Glucanotransferase)</div>
+        <div class="step-rxn-preview">Dual function: transfers 3 residues + releases 1 glucose at branch</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-gold">Dual Function</span>
+        <span class="badge badge-red">Critical</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>⚡</span>
+        <div><strong>One enzyme, two distinct catalytic activities.</strong> This is the most commonly misunderstood enzyme in glycogenolysis. Debranching Enzyme must act at every branch point before Glycogen Phosphorylase can continue — without it, breakdown stops 4 residues from every branch.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Activity 1</div><div class="detail-value">Transferase (oligo-1,4→1,4-glucantransferase) — transfers 3 of the 4 remaining residues to another chain end via α-1,4 bond</div></div>
+        <div class="detail-item"><div class="detail-label">Activity 2</div><div class="detail-value">α-1,6-Glucosidase — hydrolyses the single remaining α-1,6-linked glucose at the branch point, releasing FREE glucose (not G1P)</div></div>
+        <div class="detail-item"><div class="detail-label">Product of Activity 1</div><div class="detail-value">Elongated chain available for Phosphorylase</div></div>
+        <div class="detail-item"><div class="detail-label">Product of Activity 2</div><div class="detail-value">Free glucose (~8–10% of glycogen yield)</div></div>
+      </div>
+      <div class="explanation">
+        The sequence at every branch point: Glycogen Phosphorylase degrades the chain down to 4 residues from the α-1,6 branch. Then Debranching Enzyme acts:<br><br>
+        <strong>Step 1 (Transferase):</strong> moves 3 of the 4 stub residues to the non-reducing end of another chain, extending it. This creates a new substrate for Phosphorylase and leaves a single glucose residue still attached via α-1,6 bond.<br><br>
+        <strong>Step 2 (Glucosidase):</strong> hydrolyses (using water) the remaining α-1,6-linked glucose, releasing it as <strong>free glucose</strong> (not Glucose-1-phosphate). This free glucose bypasses Phosphoglucomutase and enters the blood or glycolysis directly.<br><br>
+        The two activities are on separate sites of the same polypeptide chain — which is why <strong>Cori disease (GSD Type III)</strong>, caused by Debranching Enzyme deficiency, results in abnormal glycogen with very short outer chains and accumulation of limit dextrin (the stump glycogen left after Phosphorylase has run to its 4-residue limit).
+      </div>
+    </div>
+  </div>
+
+  <!-- B3: Phosphoglucomutase -->
+  <div class="step-card breakdown-card" id="b3">
+    <div class="step-header" onclick="toggleCard('b3')">
+      <div class="step-num-badge">B3</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Phosphoglucomutase</div>
+        <div class="step-rxn-preview">Glucose-1-phosphate → Glucose-6-phosphate</div>
+      </div>
+      <div class="step-badges"><span class="badge badge-grey">Reversible</span></div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-1-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Glucose-6-phosphate</div></div>
+        <div class="detail-item"><div class="detail-label">Reaction Type</div><div class="detail-value">Mutase (phosphate C1→C6)</div></div>
+        <div class="detail-item"><div class="detail-label">Shared with</div><div class="detail-value">Glycogenesis (runs in reverse) · Galactose metabolism</div></div>
+      </div>
+      <div class="explanation">
+        Converts G1P → G6P. G6P is the branch point metabolite — its fate differs entirely between liver and muscle. In muscle, it enters glycolysis directly (no exit route). In liver, Glucose-6-phosphatase can dephosphorylate it to free glucose for export to blood.
+      </div>
+    </div>
+  </div>
+
+  <!-- B4: Fate of G6P / Glucose-6-phosphatase -->
+  <div class="step-card breakdown-card key-enzyme" id="b4">
+    <div class="step-header" onclick="toggleCard('b4')">
+      <div class="step-num-badge">B4</div>
+      <div class="step-header-main">
+        <div class="step-enzyme-name">Glucose-6-phosphatase (liver only)</div>
+        <div class="step-rxn-preview">Glucose-6-phosphate + H₂O → Glucose + Pᵢ</div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-amber">Liver only</span>
+        <span class="badge badge-red">GSD Type I target</span>
+      </div>
+      <span class="step-chevron">▼</span>
+    </div>
+    <div class="step-body">
+      <div class="step-callout">
+        <span>🔑</span>
+        <div><strong>Only liver (and kidney cortex) can release free glucose to blood.</strong> Muscle lacks Glucose-6-phosphatase — G6P from muscle glycogen can only fuel muscle glycolysis. This is why muscle glycogen cannot contribute to blood glucose homeostasis.</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="detail-label">Substrate</div><div class="detail-value">Glucose-6-phosphate + H₂O</div></div>
+        <div class="detail-item"><div class="detail-label">Product</div><div class="detail-value">Free Glucose + Pᵢ</div></div>
+        <div class="detail-item"><div class="detail-label">Location</div><div class="detail-value">ER membrane · Liver + Kidney cortex only</div></div>
+        <div class="detail-item"><div class="detail-label">G6P fate in muscle</div><div class="detail-value">Glycolysis only → ATP for contraction</div></div>
+      </div>
+      <div class="explanation">
+        G6P produced from glycogenolysis (or gluconeogenesis) in the liver is dephosphorylated by Glucose-6-phosphatase to free glucose, which exits the hepatocyte via GLUT2 into the bloodstream. This is the final step in the liver's glucose-releasing function.<br><br>
+        In muscle, the same G6P is retained — it cannot leave, and it enters glycolysis at Step 2 (Phosphoglucose Isomerase) to generate ATP for muscular work. The muscle is acting purely for its own fuel needs, not for blood glucose maintenance.
+        <br><br>
+        <span class="pathway-link" onclick="this.classList.toggle('active-tip')">Von Gierke Disease<span class="plink-tooltip">Glucose-6-phosphatase deficiency causes GSD Type Ia (Von Gierke disease). G6P cannot be dephosphorylated → massive G6P accumulation → diverted to glycogen (hepatomegaly) and glycolysis (lactic acidosis + hyperlipidaemia) → severe fasting hypoglycaemia. Glucagon and adrenaline have no effect because the final step to release glucose is blocked.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ REGULATION ══ -->
+<div id="tab-regulation" class="section-panel">
+
+  <div class="reg-hero">
+    <div class="info-label" style="margin-bottom:8px">Regulatory Overview</div>
+    <div class="reg-intro">
+      Glycogen metabolism is regulated at two key enzymes — <strong>Glycogen Phosphorylase</strong> (rate-limiting for breakdown) and <strong>Glycogen Synthase</strong> (rate-limiting for synthesis) — and by three types of regulation: <strong>allosteric</strong> (immediate, seconds), <strong>covalent modulation</strong> (phosphorylation/dephosphorylation, minutes), and <strong>hormonal</strong> (transcriptional + signalling cascade, minutes to hours). The fundamental principle is <strong>reciprocal control</strong>: the signals that activate breakdown simultaneously inactivate synthesis, and vice versa, so both processes never run at full speed simultaneously.
+    </div>
+  </div>
+
+  <!-- Hormonal Cascade -->
+  <div class="cascade-block">
+    <div class="cascade-title">⚡ The Hormonal Cascade — Glucagon/Epinephrine → Glycogen Breakdown</div>
+    <div class="cascade-steps">
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot hormone"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">Glucagon (liver) / Epinephrine (liver + muscle)</div>
+          <div class="cascade-desc">Hormones bind to G-protein coupled receptors on cell surface. Glucagon acts primarily in liver; epinephrine acts in both liver and muscle. In muscle, epinephrine also raises Ca²⁺ (independent route).</div>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot camp"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">Adenylyl Cyclase activated → cAMP rises</div>
+          <div class="cascade-desc">G-protein (Gαs) activates Adenylyl Cyclase → converts ATP → cyclic AMP (cAMP). cAMP is the second messenger that amplifies the hormone signal enormously — one hormone molecule triggers production of many cAMP molecules.</div>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot pka"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">cAMP activates Protein Kinase A (PKA)</div>
+          <div class="cascade-desc">cAMP binds to regulatory subunits of PKA, releasing and activating the catalytic subunits. PKA then phosphorylates multiple downstream targets simultaneously — this is the signal amplification step.</div>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot phk"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">PKA phosphorylates Phosphorylase Kinase → ACTIVE</div>
+          <div class="cascade-desc">Phosphorylase Kinase is itself a regulated enzyme. PKA phosphorylates and activates it. In muscle, Ca²⁺ also independently activates Phosphorylase Kinase (via its calmodulin subunit) — this links muscle contraction directly to glycogen breakdown without needing the hormone cascade.</div>
+          <span class="cascade-result active">Phosphorylase Kinase: ACTIVE</span>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot phos"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">Phosphorylase Kinase phosphorylates Glycogen Phosphorylase b → Phosphorylase a</div>
+          <div class="cascade-desc">Phosphorylase Kinase phosphorylates Ser14 on each subunit of Glycogen Phosphorylase b, converting it to the fully active Phosphorylase a form. Glycogen breakdown accelerates dramatically.</div>
+          <span class="cascade-result active">Glycogen Phosphorylase: ACTIVE (a form)</span>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot syn"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">PKA also phosphorylates Glycogen Synthase a → Synthase b (INACTIVE)</div>
+          <div class="cascade-desc">Simultaneously, PKA directly phosphorylates Glycogen Synthase, inactivating it. This is the reciprocal control — the same kinase cascade that turns on breakdown turns off synthesis. The cell cannot break down and synthesise glycogen simultaneously at full speed.</div>
+          <span class="cascade-result inactive">Glycogen Synthase: INACTIVE (b form)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insulin reversal -->
+  <div class="cascade-block">
+    <div class="cascade-title">🟢 Insulin Reversal — Activating Synthesis, Inhibiting Breakdown</div>
+    <div class="cascade-steps">
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot insulin"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">Insulin → activates Protein Phosphatase 1 (PP1)</div>
+          <div class="cascade-desc">Insulin signals (via PI3K/Akt pathway) activate Protein Phosphatase 1. PP1 is the key phosphatase that reverses all the phosphorylation events in the cascade.</div>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot insulin"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">PP1 dephosphorylates Phosphorylase Kinase → inactive</div>
+          <div class="cascade-desc">Removes the activating phosphate from Phosphorylase Kinase, shutting down the activation cascade upstream.</div>
+          <span class="cascade-result inactive">Phosphorylase Kinase: INACTIVE</span>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot insulin"></div><div class="cascade-line"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">PP1 dephosphorylates Phosphorylase a → Phosphorylase b (less active)</div>
+          <div class="cascade-desc">Glycogen breakdown slows. In the liver, glucose binding to Phosphorylase a also promotes its dephosphorylation — a direct allosteric feedback.</div>
+          <span class="cascade-result inactive">Glycogen Phosphorylase: LESS ACTIVE (b form)</span>
+        </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-arrow"><div class="cascade-dot insulin"></div></div>
+        <div class="cascade-content">
+          <div class="cascade-label">PP1 dephosphorylates Glycogen Synthase b → Synthase a (ACTIVE)</div>
+          <div class="cascade-desc">Glycogen synthesis is restored. Combined with the rise in G6P from glucose influx (which allosterically activates Synthase even in the b form), glycogen synthesis runs at maximum rate in the fed state.</div>
+          <span class="cascade-result active">Glycogen Synthase: ACTIVE (a form)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Allosteric regulation -->
+  <div class="reg-enzyme-card primary">
+    <div class="reg-card-title">Glycogen Phosphorylase — Allosteric Regulation</div>
+    <div class="reg-card-sub">Liver and muscle isoforms respond to different allosteric signals</div>
+    <div class="reg-cols">
+      <div>
+        <div class="reg-col-label inhibit">🔵 Liver Phosphorylase</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Glucose — direct allosteric inhibitor of Phosphorylase a; promotes PP1-mediated dephosphorylation → b form</div>
+          <div class="reg-item inhibit">ATP — high energy state inhibits</div>
+          <div class="reg-item inhibit">Glucose-6-phosphate — product feedback</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">🟢 Muscle Phosphorylase</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">AMP — potent activator of Phosphorylase b (signals low energy — urgent need for glucose)</div>
+          <div class="reg-item activate">Ca²⁺ — activates Phosphorylase Kinase (calmodulin subunit) → activates Phosphorylase a</div>
+          <div class="reg-item inhibit">ATP — inhibits (high energy → no need for glycogen breakdown)</div>
+          <div class="reg-item inhibit">G6P — inhibits</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      The liver-muscle difference reflects their different purposes. The liver monitors blood glucose directly — free glucose entering hepatocytes allosterically inhibits Phosphorylase a, telling the liver "glucose is now available, stop releasing more." The muscle monitors its own energy state — AMP rises when ATP is consumed rapidly during contraction, activating Phosphorylase b without needing the full hormone cascade. Ca²⁺ from the sarcoplasmic reticulum during muscle contraction provides an additional trigger, linking the act of contraction directly to fuel mobilisation.
+    </div>
+  </div>
+
+  <div class="reg-enzyme-card secondary">
+    <div class="reg-card-title">Glycogen Synthase — Allosteric Regulation</div>
+    <div class="reg-card-sub">Activated by G6P · Inactivated by phosphorylation · Restored by insulin via PP1</div>
+    <div class="reg-cols">
+      <div>
+        <div class="reg-col-label inhibit">Factors that Inactivate</div>
+        <div class="reg-col-items">
+          <div class="reg-item inhibit">Phosphorylation by PKA → Synthase b (inactive)</div>
+          <div class="reg-item inhibit">Phosphorylation by GSK-3 (multiple sites)</div>
+          <div class="reg-item inhibit">Low glucose/low G6P</div>
+        </div>
+      </div>
+      <div>
+        <div class="reg-col-label activate">Factors that Activate</div>
+        <div class="reg-col-items">
+          <div class="reg-item activate">Glucose-6-phosphate — allosterically activates even the b (phosphorylated) form</div>
+          <div class="reg-item activate">Insulin → PP1 → dephosphorylation → Synthase a (fully active)</div>
+          <div class="reg-item activate">Glucose (liver) — indirectly via G6P rise</div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-mechanism">
+      <strong>Glucose-6-phosphate</strong> is the most important allosteric activator. When G6P is high, even the phosphorylated (less active) b form of Glycogen Synthase can be partially activated — meaning that when glucose is genuinely abundant, glycogen synthesis proceeds even if the hormonal state hasn't yet fully shifted. This provides a rapid, direct link between glucose availability and glycogen storage without waiting for the full insulin signalling cascade.
+    </div>
+  </div>
+
+  <!-- Liver vs Muscle Summary -->
+  <div class="liver-muscle-compare">
+    <div class="liver-muscle-title">Summary — Liver vs Muscle Regulation</div>
+    <div class="tissue-cols" style="margin-top:10px;">
+      <div class="tissue-col liver">
+        <div class="tissue-col-label">🔵 Liver</div>
+        <div class="tissue-col-body" style="font-size:12px;line-height:1.7">
+          <strong>Trigger for breakdown:</strong> Glucagon + epinephrine<br>
+          <strong>Unique allosteric:</strong> Free glucose directly inhibits Phosphorylase a<br>
+          <strong>Goal:</strong> Maintain blood glucose for other tissues<br>
+          <strong>Product released:</strong> Free glucose → blood (via Glucose-6-phosphatase)<br>
+          <strong>Responds to:</strong> Systemic glucose levels
+        </div>
+      </div>
+      <div class="tissue-col muscle">
+        <div class="tissue-col-label">🟢 Muscle</div>
+        <div class="tissue-col-body" style="font-size:12px;line-height:1.7">
+          <strong>Trigger for breakdown:</strong> Epinephrine + Ca²⁺ + AMP<br>
+          <strong>Unique allosteric:</strong> AMP activates Phosphorylase b; Ca²⁺ activates Phosphorylase Kinase<br>
+          <strong>Goal:</strong> Fuel its own glycolysis during exercise<br>
+          <strong>Product used:</strong> G6P → glycolysis (no Glucose-6-phosphatase)<br>
+          <strong>Responds to:</strong> Its own energy state
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ CLINICAL ══ -->
+<div id="tab-clinical" class="section-panel">
+
+  <div class="intro-note">⚕️ Each GSD follows the chain: which enzyme is deficient → what accumulates or fails to be produced → why those specific features follow. The pattern of fasting hypoglycaemia, organomegaly, and the specific tissue affected are all predictable from the biochemistry.</div>
+
+  <!-- Quick reference table -->
+  <div style="overflow-x:auto;margin-bottom:14px;">
+    <table class="gsd-summary-table">
+      <thead>
+        <tr><th>Type</th><th>Name</th><th>Deficient Enzyme</th><th>Primary Organ</th><th>Key Feature</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="type-badge" style="background:#e8f0ff;color:#1A3FBF;border:1px solid #1A3FBF35">Type 0</span></td><td>—</td><td>Glycogen Synthase</td><td>Liver</td><td>No glycogen made → fasting hypoglycaemia + ketonaemia</td></tr>
+        <tr><td><span class="type-badge" style="background:#fef3e8;color:#B45309;border:1px solid #B4530935">Type Ia</span></td><td>Von Gierke</td><td>Glucose-6-phosphatase</td><td>Liver, Kidney</td><td>Massive hepatomegaly, hypoglycaemia, lactic acidosis, hyperlipidaemia</td></tr>
+        <tr><td><span class="type-badge" style="background:#f3e8ff;color:#7C3AED;border:1px solid #7C3AED35">Type II</span></td><td>Pompe</td><td>Lysosomal Acid α-Glucosidase (GAA)</td><td>Skeletal + cardiac muscle</td><td>Infantile: cardiomegaly → death by age 2; Adult: myopathy</td></tr>
+        <tr><td><span class="type-badge" style="background:#e8fff3;color:#1A8C5B;border:1px solid #1A8C5B35">Type III</span></td><td>Cori / Forbes</td><td>Debranching Enzyme</td><td>Liver + muscle</td><td>Limit dextrin accumulates, mild hypoglycaemia, myopathy</td></tr>
+        <tr><td><span class="type-badge" style="background:#fff3e8;color:#D94040;border:1px solid #D9404035">Type IV</span></td><td>Andersen</td><td>Branching Enzyme</td><td>Liver + muscle</td><td>Abnormal glycogen (amylopectin-like) → cirrhosis, splenomegaly</td></tr>
+        <tr><td><span class="type-badge" style="background:#e8f8ff;color:#0D7A6B;border:1px solid #0D7A6B35">Type V</span></td><td>McArdle</td><td>Muscle Glycogen Phosphorylase</td><td>Skeletal muscle</td><td>Exercise intolerance, cramps, myoglobinuria — normal fasting glucose</td></tr>
+        <tr><td><span class="type-badge" style="background:#f8f8e8;color:#8a6c1a;border:1px solid #C9A84C40">Type VI</span></td><td>Hers</td><td>Liver Glycogen Phosphorylase</td><td>Liver</td><td>Hepatomegaly, mild hypoglycaemia — generally benign</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Individual cards -->
+  <div class="clinical-card" style="border-left-color:var(--royal)">
+    <div class="clinical-disease">GSD Type 0 — Glycogen Synthase Deficiency</div>
+    <div class="clinical-enzyme-link" style="color:var(--royal)">Deficient enzyme: Glycogen Synthase (Step S5) · Liver</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--royal-dim);border-color:var(--royal-border);color:var(--royal)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--royal-dim);border-color:var(--royal-border);color:var(--royal)">No glycogen accumulation</span><br><br>
+      Type 0 is the conceptual mirror image of all other GSDs. Every other GSD causes glycogen to accumulate abnormally. Type 0 means almost no glycogen is made at all — the liver has essentially no glucose reserve to draw on between meals.<br><br>
+      The consequence is a distinctive pattern: <strong>fasting hypoglycaemia</strong> (no glycogen to break down) combined with <strong>elevated ketone bodies</strong> (the liver switches to fat oxidation to generate fuel, producing ketones at high rate). Paradoxically, because glycogen cannot be stored, blood glucose after a meal is transiently high — <strong>postprandial hyperglycaemia</strong> — because the glucose cannot be buffered into glycogen.<br><br>
+      <strong>Exam trap:</strong> students who memorise "GSDs cause glycogen accumulation" will miss Type 0. The deficient enzyme is Glycogen Synthase itself — no accumulation occurs because the substrate (UDP-Glucose) is never incorporated. Early death if untreated due to the severity of hypoglycaemic episodes.
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--amber)">
+    <div class="clinical-disease">GSD Type Ia — Von Gierke Disease</div>
+    <div class="clinical-enzyme-link" style="color:var(--amber)">Deficient enzyme: Glucose-6-phosphatase · Liver + Kidney</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber)">Most common GSD</span><br><br>
+      Glucose-6-phosphatase is the final gate for releasing glucose from both glycogenolysis and gluconeogenesis. Without it, G6P accumulates inside hepatocytes and cannot be exported as free glucose.<br><br>
+      Trace the consequences: G6P floods glycogen synthesis → <strong>massive hepatomegaly</strong> (liver swollen with glycogen). G6P also floods glycolysis → excess pyruvate → excess lactate → <strong>lactic acidosis</strong>. Excess acetyl-CoA → fatty acid and cholesterol synthesis → <strong>hypertriglyceridaemia and hypercholesterolaemia</strong>. Glucose cannot be released → <strong>severe fasting hypoglycaemia</strong> even after short fasts. Hyperuricaemia (G6P competes with urate for renal tubular secretion + excess purine breakdown) → <strong>gout</strong>.<br><br>
+      <strong>Critical exam point:</strong> Glucagon and epinephrine administration do NOT raise blood glucose in Von Gierke disease — both hormones work by promoting glycogenolysis and gluconeogenesis, both of which produce G6P, but G6P cannot be dephosphorylated without Glucose-6-phosphatase. This is the diagnostic clue separating it from other causes of fasting hypoglycaemia.
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--purple)">
+    <div class="clinical-disease">GSD Type II — Pompe Disease (Glycogenosis)</div>
+    <div class="clinical-enzyme-link" style="color:var(--purple)">Deficient enzyme: Lysosomal Acid α-Glucosidase (GAA / Acid Maltase) · Skeletal + Cardiac muscle</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag">Autosomal Recessive</span><span class="clinical-tag">Lysosomal Storage Disease</span><span class="clinical-tag">Enzyme Replacement Therapy available</span><br><br>
+      Pompe disease is fundamentally different from all other GSDs — it affects the <strong>lysosomal</strong> degradation of glycogen, not the cytosolic pathway. All cells continuously take up small amounts of glycogen into lysosomes for turnover; GAA is the enzyme that breaks it down there. Without it, glycogen accumulates progressively inside lysosomes across multiple tissues.<br><br>
+      <strong>Clinical spectrum by age of onset:</strong><br>
+      — <strong>Infantile (classic):</strong> presents within first few months of life with massive cardiomegaly (the heart glycogen accumulation is most life-threatening), profound hypotonia, and respiratory failure. Death by age 2 without treatment.<br>
+      — <strong>Juvenile/Adult:</strong> primarily skeletal muscle involvement — progressive limb-girdle myopathy, respiratory muscle weakness mimicking muscular dystrophy. No significant cardiac involvement.<br><br>
+      <strong>Key distinction from other GSDs:</strong> Pompe does not cause fasting hypoglycaemia (cytosolic glycogen metabolism is intact). The primary issue is organ damage from lysosomal glycogen accumulation, not metabolic fuel shortage.<br><br>
+      Treatment: Alglucosidase alfa (recombinant GAA — enzyme replacement therapy) significantly improves survival in the infantile form.
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--green)">
+    <div class="clinical-disease">GSD Type III — Cori Disease (Forbes Disease)</div>
+    <div class="clinical-enzyme-link" style="color:var(--green)">Deficient enzyme: Debranching Enzyme (Amylo-1,6-Glucosidase) · Liver + Skeletal + Cardiac Muscle</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green)">Limit Dextrin Accumulation</span><br><br>
+      Without Debranching Enzyme, Glycogen Phosphorylase degrades chains normally until it reaches 4 residues from each branch point — then it stops (as always). But now Debranching Enzyme cannot remove the branch, so the leftover stub — called <strong>limit dextrin</strong> — accumulates. This truncated, over-branched glycogen fills the liver and muscle cells.<br><br>
+      <strong>Why it's milder than Von Gierke:</strong> Gluconeogenesis is entirely intact (Glucose-6-phosphatase is present). During fasting, the liver can still make glucose from amino acids and lactate. Hypoglycaemia is milder and tends to improve with age as gluconeogenic capacity develops. However, the two catalytic activities of Debranching Enzyme can be individually deficient — if only the glucosidase activity is absent, the phenotype differs from complete enzyme deficiency.<br><br>
+      <strong>Presentation:</strong> Hepatomegaly (improving with age), muscle weakness (myopathy from muscle glycogen accumulation), and elevated transaminases. In some patients, cardiac involvement occurs. Distinguishable from Von Gierke by the presence of elevated amino acid transaminases and the milder hypoglycaemia that responds to protein feeding (gluconeogenesis intact).
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--red)">
+    <div class="clinical-disease">GSD Type IV — Andersen Disease</div>
+    <div class="clinical-enzyme-link" style="color:var(--red)">Deficient enzyme: Branching Enzyme (Amylo-1,4→1,6-Glucantransferase) · Liver + Skeletal Muscle</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--red-dim);border-color:var(--red-border);color:var(--red)">Abnormal glycogen structure</span><br><br>
+      Without Branching Enzyme, glycogen chains are extended but never branched — producing a molecule resembling amylopectin (plant starch) with very long, poorly branched chains. This structurally abnormal polysaccharide accumulates in the liver and is treated as a <strong>foreign body</strong> by the immune system, triggering a chronic inflammatory response.<br><br>
+      The result is <strong>progressive cirrhosis and hepatosplenomegaly</strong> — the liver is attacked by its own immune system in response to the abnormal glycogen. Liver failure typically occurs in early childhood. Myoglobinuria (muscle breakdown products in urine) may be seen from muscle involvement. Unlike most GSDs, hypoglycaemia is not the primary problem — it is the liver destruction that is life-threatening.<br><br>
+      <strong>Distinguishing feature:</strong> Liver biopsy shows PAS-positive (periodic acid-Schiff) inclusions with abnormally structured glycogen. Liver transplant is the only definitive treatment.
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--revealed)">
+    <div class="clinical-disease">GSD Type V — McArdle Disease</div>
+    <div class="clinical-enzyme-link" style="color:var(--revealed)">Deficient enzyme: Muscle Glycogen Phosphorylase · Skeletal Muscle only</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--revealed-dim);border-color:var(--revealed-border);color:var(--revealed)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--revealed-dim);border-color:var(--revealed-border);color:var(--revealed)">Exercise-induced symptoms</span><br><br>
+      McArdle disease is the pure muscle counterpart to Von Gierke — muscle Glycogen Phosphorylase is absent, but liver Phosphorylase is normal. Muscle cannot break down its own glycogen for fuel during exercise.<br><br>
+      <strong>Exercise intolerance is the hallmark:</strong> patients develop painful muscle cramps, fatigue, and weakness during exercise, especially intense or sustained activity. The "second wind" phenomenon is pathognomonic — if a patient rests briefly during exercise, symptoms transiently improve as circulating glucose and fatty acids catch up to meet energy demand.<br><br>
+      <strong>Myoglobinuria</strong> follows prolonged or intense exercise: muscle damage releases myoglobin into the urine (dark/red urine), which can cause acute kidney injury. Creatine kinase is markedly elevated during attacks.<br><br>
+      <strong>Critical exam distinction from Von Gierke:</strong> Fasting blood glucose is <strong>completely normal</strong> in McArdle disease — liver Phosphorylase is unaffected. The problem is entirely confined to muscle fuel use during exercise. Blood lactate fails to rise normally during ischaemic forearm exercise test (a classic diagnostic test — normal subjects produce lactate from muscle glycolysis; McArdle patients cannot).
+    </div>
+  </div>
+
+  <div class="clinical-card" style="border-left-color:var(--gold)">
+    <div class="clinical-disease">GSD Type VI — Hers Disease</div>
+    <div class="clinical-enzyme-link" style="color:var(--gold)">Deficient enzyme: Liver Glycogen Phosphorylase · Liver</div>
+    <div class="clinical-detail">
+      <span class="clinical-tag" style="background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold)">Autosomal Recessive</span><span class="clinical-tag" style="background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold)">Generally benign</span><br><br>
+      Hers disease is the liver counterpart of McArdle disease — liver Glycogen Phosphorylase is deficient, impairing hepatic glycogenolysis, while muscle Phosphorylase is normal. Because gluconeogenesis remains intact, the liver can still produce some glucose from amino acids and lactate, so hypoglycaemia is <strong>mild</strong> and generally manageable with frequent feeding.<br><br>
+      <strong>Presentation:</strong> Hepatomegaly (from glycogen accumulation) is the dominant finding, usually presenting in childhood. Growth retardation may occur. Symptoms typically improve significantly with age as gluconeogenic capacity increases and glycogen stores relatively diminish. Muscle symptoms are absent.<br><br>
+      <strong>Prognosis:</strong> Generally good — most patients lead normal lives with dietary management (frequent carbohydrate feeding to avoid fasting hypoglycaemia). This contrasts sharply with the severe metabolic and organ consequences of Von Gierke, Pompe, and Andersen diseases.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TEST YOURSELF ══ -->
+<div id="tab-test" class="section-panel">
+  <div id="tms" class="test-mode-selector" data-selector="true">
+    <div class="test-mode-title">Test Your Knowledge</div>
+    <div class="mode-desc" id="mode-desc">Jump to any challenge freely</div>
+    <button class="start-btn" onclick="startTestFree()">Begin &rarr;</button>
+  </div>
+
+  <div id="challenge-area" style="display:none">
+    
+    <div class="challenge-nav" id="challenge-nav">
+      <button class="challenge-nav-btn active" id="cnav-1" onclick="showChallenge(1)">1 · Glycogenesis Order</button>
+      <button class="challenge-nav-btn" id="cnav-2" onclick="showChallenge(2)">2 · Glycogenolysis Order</button>
+      <button class="challenge-nav-btn" id="cnav-3" onclick="showChallenge(3)">3 · Enzyme Functions</button>
+      <button class="challenge-nav-btn" id="cnav-4" onclick="showChallenge(4)">4 · Clinical MCQ</button>
+      <button class="challenge-nav-btn" id="cnav-5" onclick="showChallenge(5)">5 · R&amp;A</button>
+      <button class="challenge-nav-btn" id="cnav-6" onclick="showChallenge(6)">6 · Multiple Completion</button>
+    </div>
+
+    <!-- C1: Glycogenesis Order -->
+    <div class="challenge-panel active" id="cp1">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 1 — Glycogenesis Step Order</div>
+        <div class="challenge-instructions">Tap an enzyme chip to select it (it highlights blue), then tap the numbered slot where it belongs. Tap a filled slot to clear it. After checking: try again on wrong answers, or reveal all correct answers.</div>
+        <div class="section-lbl">Enzyme Bank</div>
+        <div class="chip-bank" id="c1-bank"></div>
+        <div class="section-lbl">Place in correct order (Steps 1–6)</div>
+        <div class="order-slots" id="c1-slots"></div>
+        <div class="btn-row">
+          <button class="btn-check" onclick="checkOrder('c1',synthesisSteps)">Check Order</button>
+          <button class="btn-try show" id="c1-try" onclick="tryAgain('c1',synthesisSteps)" style="display:none">Try Again</button>
+          <button class="btn-reveal show" id="c1-reveal" onclick="revealOrder('c1',synthesisSteps)" style="display:none">Reveal Answers</button>
+          <button class="btn-next" id="c1-next" onclick="completeAndNext(1)">Next Challenge →</button>
+        </div>
+        <div class="result-msg" id="c1-result"></div>
+        <div class="reveal-note" id="c1-reveal-note">✓ Correct answers revealed in teal. These were filled in for you — retry from the beginning to earn them.</div>
+      </div>
+    </div>
+
+    <!-- C2: Glycogenolysis Order -->
+    <div class="challenge-panel" id="cp2">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 2 — Glycogenolysis Step Order</div>
+        <div class="challenge-instructions">Arrange the 4 breakdown steps in correct order. Same tap-to-select, tap-to-place interaction.</div>
+        <div class="section-lbl">Enzyme Bank</div>
+        <div class="chip-bank" id="c2-bank"></div>
+        <div class="section-lbl">Place in correct order (Steps 1–4)</div>
+        <div class="order-slots" id="c2-slots"></div>
+        <div class="btn-row">
+          <button class="btn-check" onclick="checkOrder('c2',breakdownSteps)">Check Order</button>
+          <button class="btn-try" id="c2-try" onclick="tryAgain('c2',breakdownSteps)">Try Again</button>
+          <button class="btn-reveal" id="c2-reveal" onclick="revealOrder('c2',breakdownSteps)">Reveal Answers</button>
+          <button class="btn-next" id="c2-next" onclick="completeAndNext(2)">Next Challenge →</button>
+        </div>
+        <div class="result-msg" id="c2-result"></div>
+        <div class="reveal-note" id="c2-reveal-note">✓ Correct answers revealed in teal.</div>
+      </div>
+    </div>
+
+    <!-- C3: Enzyme Function Matching -->
+    <div class="challenge-panel" id="cp3">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 3 — Enzyme Functions</div>
+        <div class="challenge-instructions">Match each enzyme to its correct function description. Tap to select, tap to place.</div>
+        <div class="section-lbl">Enzyme Bank</div>
+        <div class="chip-bank" id="c3-bank"></div>
+        <div class="match-grid" id="c3-grid"></div>
+        <div class="btn-row">
+          <button class="btn-check" onclick="checkMatch()">Check Matches</button>
+          <button class="btn-try" id="c3-try" onclick="tryAgainMatch()">Try Again</button>
+          <button class="btn-reveal" id="c3-reveal" onclick="revealMatch()">Reveal Answers</button>
+          <button class="btn-next" id="c3-next" onclick="completeAndNext(3)">Next Challenge →</button>
+        </div>
+        <div class="result-msg" id="c3-result"></div>
+        <div class="reveal-note" id="c3-reveal-note">✓ Correct answers revealed in teal.</div>
+      </div>
+    </div>
+
+    <!-- C4: Clinical MCQ -->
+    <div class="challenge-panel" id="cp4">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 4 — Clinical Scenarios</div>
+        <div class="challenge-instructions">Select the best answer for each question. Tap to reveal detailed feedback.</div>
+        <div id="mcq-container"></div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn-next show" onclick="completeAndNext(4)">Next Challenge →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- C5: R&A -->
+    <div class="challenge-panel" id="cp5">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 5 — Reason & Assertion</div>
+        <div class="challenge-instructions">Read both statements carefully. Select the option that correctly describes the relationship between them.</div>
+        <div style="background:var(--off-white);border:1px solid var(--light-grey);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;font-size:12px;line-height:1.9;font-family:var(--font-mono)">
+          <strong style="font-family:var(--font-body)">Options key:</strong><br>
+          A — Both TRUE; reason IS the correct explanation of the assertion<br>
+          B — Both TRUE; reason is NOT the correct explanation of the assertion<br>
+          C — Assertion TRUE; reason FALSE<br>
+          D — Assertion FALSE; reason TRUE<br>
+          E — Both assertion and reason are FALSE
+        </div>
+        <div id="ra-container"></div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn-next show" style="background:var(--green)" onclick="showCompletion()">Complete All Challenges ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="challenge-panel" id="cp6">
+      <div class="challenge-card">
+        <div class="challenge-title">Challenge 6 &mdash; Multiple Completion</div>
+        <div class="challenge-instructions">Each question has one or more correct statements. Select ALL that apply, then check your answers.</div>
+        <div class="mc-question"><div class="mc-question-num">Question 1 of 3</div><div class="mc-stem">Which of the following statements about glycogen synthesis are correct?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc0opt0" onclick="toggleMCOption(this,0,0)"><div class="mc-checkbox" id="mc0cb0">&#9633;</div><div class="mc-option-text">Glycogen Synthase adds glucose units using UDP-Glucose as the donor</div></div>
+<div class="mc-option" id="mc0opt1" onclick="toggleMCOption(this,0,1)"><div class="mc-checkbox" id="mc0cb1">&#9633;</div><div class="mc-option-text">Glycogen Synthase forms alpha-1,4 glycosidic bonds</div></div>
+<div class="mc-option" id="mc0opt2" onclick="toggleMCOption(this,0,2)"><div class="mc-checkbox" id="mc0cb2">&#9633;</div><div class="mc-option-text">The Branching Enzyme creates alpha-1,6 branches by transferring at least 6 glucose residues</div></div>
+<div class="mc-option" id="mc0opt3" onclick="toggleMCOption(this,0,3)"><div class="mc-checkbox" id="mc0cb3">&#9633;</div><div class="mc-option-text">Glycogen Synthase is active in its phosphorylated form</div></div>
+<div class="mc-option" id="mc0opt4" onclick="toggleMCOption(this,0,4)"><div class="mc-checkbox" id="mc0cb4">&#9633;</div><div class="mc-option-text">UDP-Glucose Pyrophosphorylase generates UDP-Glucose from Glucose-1-phosphate and CTP</div></div>
+</div><div class="mc-feedback" id="mc-feedback-0" style="display:none">Glycogen Synthase uses UDP-Glucose (1 correct). Alpha-1,4 bonds form straight chains (2 correct). Branching Enzyme transfers 6+ residues to form alpha-1,6 branch points (3 correct). Glycogen Synthase is INACTIVE when phosphorylated - opposite to Phosphorylase (4 wrong). Uses UTP not CTP (5 wrong).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 2 of 3</div><div class="mc-stem">Which of the following are true regarding the hormonal regulation of glycogen metabolism?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc1opt0" onclick="toggleMCOption(this,1,0)"><div class="mc-checkbox" id="mc1cb0">&#9633;</div><div class="mc-option-text">Glucagon activates Glycogen Phosphorylase in the liver via a cAMP-PKA cascade</div></div>
+<div class="mc-option" id="mc1opt1" onclick="toggleMCOption(this,1,1)"><div class="mc-checkbox" id="mc1cb1">&#9633;</div><div class="mc-option-text">Insulin activates Glycogen Synthase by promoting its dephosphorylation via Protein Phosphatase-1</div></div>
+<div class="mc-option" id="mc1opt2" onclick="toggleMCOption(this,1,2)"><div class="mc-checkbox" id="mc1cb2">&#9633;</div><div class="mc-option-text">Epinephrine activates glycogenolysis in both liver and muscle</div></div>
+<div class="mc-option" id="mc1opt3" onclick="toggleMCOption(this,1,3)"><div class="mc-checkbox" id="mc1cb3">&#9633;</div><div class="mc-option-text">Glucagon directly activates Glycogen Phosphorylase in skeletal muscle</div></div>
+<div class="mc-option" id="mc1opt4" onclick="toggleMCOption(this,1,4)"><div class="mc-checkbox" id="mc1cb4">&#9633;</div><div class="mc-option-text">AMP directly activates muscle Glycogen Phosphorylase b without hormonal input</div></div>
+</div><div class="mc-feedback" id="mc-feedback-1" style="display:none">Glucagon to cAMP to PKA cascade activates Phosphorylase in liver (1 correct). Insulin activates PP-1 which dephosphorylates Glycogen Synthase (2 correct). Epinephrine acts on both liver and muscle (3 correct). Glucagon receptors absent from skeletal muscle (4 wrong). AMP allosterically activates Phosphorylase b during exercise (5 correct).</div></div>
+<div class="mc-question"><div class="mc-question-num">Question 3 of 3</div><div class="mc-stem">Which of the following correctly describe specific Glycogen Storage Diseases?</div><div class="mc-instructions">Select ALL statements that are correct.</div><div class="mc-options-list"><div class="mc-option" id="mc2opt0" onclick="toggleMCOption(this,2,0)"><div class="mc-checkbox" id="mc2cb0">&#9633;</div><div class="mc-option-text">Von Gierke disease is caused by Glucose-6-Phosphatase deficiency and presents with fasting hypoglycaemia</div></div>
+<div class="mc-option" id="mc2opt1" onclick="toggleMCOption(this,2,1)"><div class="mc-checkbox" id="mc2cb1">&#9633;</div><div class="mc-option-text">Pompe disease involves lysosomal acid alpha-glucosidase deficiency</div></div>
+<div class="mc-option" id="mc2opt2" onclick="toggleMCOption(this,2,2)"><div class="mc-checkbox" id="mc2cb2">&#9633;</div><div class="mc-option-text">McArdle disease causes fasting hypoglycaemia because muscle cannot release glucose</div></div>
+<div class="mc-option" id="mc2opt3" onclick="toggleMCOption(this,2,3)"><div class="mc-checkbox" id="mc2cb3">&#9633;</div><div class="mc-option-text">Hers disease is caused by liver phosphorylase deficiency and presents with hepatomegaly</div></div>
+<div class="mc-option" id="mc2opt4" onclick="toggleMCOption(this,2,4)"><div class="mc-checkbox" id="mc2cb4">&#9633;</div><div class="mc-option-text">Cori disease is caused by Debranching Enzyme deficiency</div></div>
+</div><div class="mc-feedback" id="mc-feedback-2" style="display:none">Von Gierke: G6Pase deficiency causes severe fasting hypoglycaemia (1 correct). Pompe: lysosomal GAA deficiency causes glycogen in lysosomes (2 correct). McArdle fasting glucose is completely normal - liver phosphorylase intact (3 wrong). Hers: liver phosphorylase deficiency causes hepatomegaly and mild hypoglycaemia (4 correct). Cori: Debranching Enzyme deficiency (5 correct).</div></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="check-btn" onclick="checkMC()">Check Answers</button>
+          <button class="btn-try-again" id="mc-try-again" onclick="resetMC()" style="display:none">Try Again</button>
+          <button class="btn-reveal-ans" id="mc-reveal" onclick="revealMC()" style="display:none">Reveal Answers</button>
+        </div>
+        <div class="result-msg" id="mc-result"></div>
+        <div class="reveal-note-box" id="mc-reveal-note" style="display:none">Correct selections shown &mdash; review explanations above.</div>
+        <button class="next-challenge-btn" id="mc-next" onclick="completeAndNext(6)" style="display:none">Complete &#10003;</button>
+      </div>
+    </div>
+
+  <div id="completion-banner" style="display:none;background:linear-gradient(135deg,var(--royal-dim),var(--gold-dim));border:1px solid var(--gold-border);border-radius:var(--radius-xl);padding:28px;text-align:center;margin-top:16px">
+    <div style="font-size:32px;margin-bottom:10px">🔒</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:6px">Glycogen Metabolism Locked In</div>
+    <div style="font-size:13px;color:var(--text-muted);max-width:400px;margin:0 auto 18px">All five challenges complete. Review any section or restart the test.</div>
+    <button onclick="exitTest()" style="background:var(--royal);color:white;border:none;padding:10px 26px;border-radius:20px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;">Restart Test Section</button>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">© 2026 GETLOCKEDIN × DOMINANCE · Powered by GRACE-LED SYSTEMS</footer>
+
+<script>
+// ══ DATA ══
+var synthesisSteps = [
+  {num:1, enzyme:'Hexokinase / Glucokinase', rxn:'Glucose → Glucose-6-phosphate'},
+  {num:2, enzyme:'Phosphoglucomutase', rxn:'Glucose-6-P → Glucose-1-phosphate'},
+  {num:3, enzyme:'UDP-Glucose Pyrophosphorylase', rxn:'Glucose-1-P + UTP → UDP-Glucose + PPi'},
+  {num:4, enzyme:'Glycogenin', rxn:'Self-glucosylation → 8-glucose primer on Tyr-OH'},
+  {num:5, enzyme:'Glycogen Synthase', rxn:'UDP-Glucose + Glycogen(n) → Glycogen(n+1) + UDP'},
+  {num:6, enzyme:'Branching Enzyme', rxn:'Transfers 6-7 residues → new α-1,6 branch point'}
+];
+
+var breakdownSteps = [
+  {num:1, enzyme:'Glycogen Phosphorylase', rxn:'Glycogen(n) + Pi → Glucose-1-P (stops 4 residues from branch)'},
+  {num:2, enzyme:'Debranching Enzyme', rxn:'Transfers 3 residues (transferase) + releases 1 free glucose (glucosidase)'},
+  {num:3, enzyme:'Phosphoglucomutase', rxn:'Glucose-1-P → Glucose-6-phosphate'},
+  {num:4, enzyme:'Glucose-6-phosphatase', rxn:'Glucose-6-P → Free glucose + Pi (liver only)'}
+];
+
+var matchItems = [
+  {enzyme:'Glycogenin', fn:'Self-glucosylating primer protein; attaches first glucose to its own Tyr-OH; provides obligatory primer for Glycogen Synthase'},
+  {enzyme:'Glycogen Synthase', fn:'Rate-limiting enzyme of synthesis; extends chains via α-1,4 bonds; inactivated by phosphorylation (PKA); activated by G6P and insulin'},
+  {enzyme:'Branching Enzyme', fn:'Creates α-1,6 branch points; transfers 6-7 residue fragments; deficient in Andersen disease (GSD IV)'},
+  {enzyme:'Glycogen Phosphorylase', fn:'Rate-limiting enzyme of breakdown; phosphorolysis of α-1,4 bonds; activated by phosphorylation; stops 4 residues from branch points'},
+  {enzyme:'Debranching Enzyme', fn:'Dual function: transferase removes 3 residues (G1P yield), glucosidase releases 1 free glucose; deficient in Cori disease (GSD III)'},
+  {enzyme:'Phosphorylase Kinase', fn:'Intermediate kinase in hormonal cascade; phosphorylates and activates Glycogen Phosphorylase b → a; also activated by Ca²⁺ independently'},
+  {enzyme:'Protein Phosphatase 1 (PP1)', fn:'Insulin-activated phosphatase; reverses the entire cascade; dephosphorylates Phosphorylase Kinase, Phosphorylase a, and Glycogen Synthase b'},
+  {enzyme:'UDP-Glucose Pyrophosphorylase', fn:'Creates activated glucose donor UDP-Glucose from G1P + UTP; PPi hydrolysis drives reaction to completion'}
+];
+
+var mcqData = [
+  {
+    stem: 'A 3-month-old infant presents with massive hepatomegaly, severe fasting hypoglycaemia, and lactic acidosis. Blood glucose does not rise after intravenous glucagon administration. Triglycerides and uric acid are both elevated. Which enzyme deficiency best accounts for this presentation?',
+    options: [
+      'Muscle Glycogen Phosphorylase, because it is the rate-limiting enzyme in glycogen catabolism',
+      'Glucose-6-phosphatase, because without it G6P cannot be converted to free glucose in the liver regardless of the upstream signal',
+      'Debranching Enzyme, because limit dextrin accumulates and blocks hepatic glucose export',
+      'Glycogen Synthase, because absence of this enzyme results in glycogen accumulation in hepatocytes'
+    ],
+    answer: 1,
+    feedback: '<strong>Von Gierke disease (GSD Type Ia) — Glucose-6-phosphatase deficiency.</strong> The failure to respond to glucagon is the definitive clue: glucagon promotes glycogenolysis and gluconeogenesis, both of which produce G6P — but without Glucose-6-phosphatase, G6P cannot be dephosphorylated to free glucose. The entire hormonal cascade runs normally but the final export step is blocked. G6P floods into glycogen synthesis (hepatomegaly), glycolysis (lactic acidosis), and lipid synthesis (hypertriglyceridaemia). Hyperuricaemia follows from both G6P competing for renal tubular secretion with urate and from increased purine turnover. Option A (Muscle Phosphorylase) would produce McArdle disease — exercise intolerance with normal fasting glucose. Option C (Debranching Enzyme) causes milder hypoglycaemia that responds to gluconeogenesis. Option D (Glycogen Synthase) causes Type 0 — no glycogen accumulation, not hepatomegaly.'
+  },
+  {
+    stem: 'During intense exercise, skeletal muscle glycogenolysis accelerates dramatically within seconds — well before circulating glucagon or epinephrine have had time to act. Which mechanism best explains this rapid response?',
+    options: [
+      'Rising AMP directly activates Glycogen Phosphorylase b, and Ca²⁺ released from the sarcoplasmic reticulum activates Phosphorylase Kinase independently of the cAMP cascade',
+      'Glucagon released from the pancreas binds muscle receptors and activates Protein Kinase A within seconds of exercise onset',
+      'Insulin receptors on muscle cells are desensitised during exercise, removing inhibition of Glycogen Phosphorylase',
+      'Citrate inhibits PFK-1, diverting G6P from glycolysis and activating Glycogen Phosphorylase by product accumulation'
+    ],
+    answer: 0,
+    feedback: '<strong>AMP and Ca²⁺ provide the rapid intrinsic response.</strong> When muscle ATP is consumed, AMP rises (from 2 ADP → ATP + AMP via Adenylate Kinase). AMP allosterically activates Phosphorylase b directly, providing an immediate energy-sensing mechanism. Simultaneously, Ca²⁺ released from the sarcoplasmic reticulum during muscle contraction activates Phosphorylase Kinase via its calmodulin subunit — converting Phosphorylase b → a. Both mechanisms operate within seconds and are entirely independent of circulating hormones. The full glucagon/epinephrine → cAMP → PKA cascade takes minutes and is the sustained second response. Option B is incorrect — glucagon acts primarily on liver, not muscle, and the timing does not match. Options C and D describe incorrect mechanisms.'
+  },
+  {
+    stem: 'A 25-year-old man with a known glycogen storage disease develops muscle cramps and passes dark red urine after a 10-minute sprint. His fasting blood glucose is normal. Forearm ischaemic exercise testing shows no rise in venous lactate. Which of the following correctly identifies both the diagnosis and the biochemical basis of the absent lactate rise?',
+    options: [
+      'GSD Type III (Cori disease) — debranching enzyme deficiency prevents glycogen degradation beyond branch points, so glycolysis substrate is limited',
+      'GSD Type V (McArdle disease) — muscle Glycogen Phosphorylase deficiency prevents G1P production from muscle glycogen, so glycolysis has no substrate and lactate cannot be generated from glycogen',
+      'GSD Type VI (Hers disease) — liver Phosphorylase deficiency reduces systemic glucose supply, limiting muscle glycolytic substrate',
+      'GSD Type Ia (Von Gierke disease) — Glucose-6-phosphatase deficiency prevents G6P from entering glycolysis in muscle during exercise'
+    ],
+    answer: 1,
+    feedback: '<strong>GSD Type V — McArdle disease.</strong> Muscle Glycogen Phosphorylase is the enzyme that liberates Glucose-1-phosphate from muscle glycogen during exercise. Without it, the muscle cannot access its own glycogen reserve for glycolysis. In the ischaemic forearm test, the arm is exercised while blood flow is occluded — a normal subject produces lactate from glycolytic breakdown of muscle glycogen; a McArdle patient cannot because no G1P is produced from glycogen, glycolysis has no glycogen-derived substrate, and lactate does not rise. Venous ammonia does rise normally (purine nucleotide cycle is intact), helping distinguish it from other myopathies. Myoglobinuria from muscle damage explains the dark urine. Normal fasting glucose confirms the liver Phosphorylase isoform is unaffected. Options A and C would not produce the specific forearm test result. Option D describes a different disease entirely.'
+  },
+  {
+    stem: 'Phosphorylation by Protein Kinase A activates Glycogen Phosphorylase but inactivates Glycogen Synthase. Which statement best explains why this reciprocal regulation is physiologically essential?',
+    options: [
+      'It prevents the cell from wasting ATP by simultaneously running glycogen synthesis and breakdown, which would create a futile cycle consuming UTP and Pi without net glycogen change',
+      'It ensures that Glycogen Synthase can still operate at low levels during fasting to maintain a minimum glycogen reserve for emergency use',
+      'It prevents substrate competition between UDP-Glucose (used by Glycogen Synthase) and inorganic phosphate (used by Glycogen Phosphorylase) for the same binding site on glycogen',
+      'It allows the liver to regulate blood glucose independently of the pancreas by using phosphorylation state as a direct blood glucose sensor'
+    ],
+    answer: 0,
+    feedback: '<strong>Reciprocal regulation prevents a futile cycle.</strong> If Glycogen Synthase and Glycogen Phosphorylase ran simultaneously at full speed, the net result would be: Glycogen Synthase adding glucose (consuming UTP to make UDP-Glucose) while Glycogen Phosphorylase removing glucose (consuming Pi) — a cycle that consumes energy without any net change in glycogen content. This would be physiologically catastrophic and thermodynamically wasteful. The reciprocal phosphorylation ensures that when the cell is mobilising glycogen (Phosphorylase active), synthesis is simultaneously shut down, and when the cell is storing glycogen (Synthase active), breakdown is simultaneously suppressed. The same principle applies to other futile cycle pairs — PFK-1/FBPase-1 in glycolysis/gluconeogenesis, for example. Option B is incorrect — Glycogen Synthase in the b form is nearly inactive even allosterically when G6P is low. Options C and D describe incorrect mechanisms.'
+  }
+];
+
+var raData = [
+  {
+    assertion: 'Glycogen Phosphorylase produces Glucose-1-phosphate rather than free glucose during glycogen breakdown.',
+    reason: 'Glycogen Phosphorylase uses inorganic phosphate (Pᵢ) rather than water to cleave α-1,4 glycosidic bonds, directly producing a phosphorylated product without consuming ATP.',
+    answer: 'A',
+    feedback: 'Both statements are true and the reason correctly explains the assertion. Phosphorolysis (using Pᵢ) rather than hydrolysis (using water) is the defining mechanistic feature of Glycogen Phosphorylase. The direct production of G1P means the glucose is already phosphorylated and ready for metabolism — if hydrolysis were used instead, free glucose would have to be re-phosphorylated by Hexokinase at the cost of one ATP per glucose. Phosphorolysis is therefore an energy-efficient mechanism, and the reason accurately captures why.'
+  },
+  {
+    assertion: 'Glycogen Synthase can initiate glycogen synthesis de novo from glucose without requiring any pre-existing glycogen chain.',
+    reason: 'Glycogen Synthase requires a primer of at least 4 glucose residues on glycogenin before it can add further glucose units via α-1,4 glycosidic bonds.',
+    answer: 'D',
+    feedback: 'The assertion is false — Glycogen Synthase cannot initiate synthesis de novo. It can only elongate existing chains. The reason is true: Glycogen Synthase requires the glycogenin-linked primer (of at least 4 residues) before it can act. The two statements are inversely related — the reason is true precisely because the assertion is false. Glycogenin performs the initiation step (self-glucosylation), providing the obligatory primer that Glycogen Synthase then extends.'
+  },
+  {
+    assertion: 'In McArdle disease, fasting blood glucose is normal because gluconeogenesis in the liver is unaffected.',
+    reason: 'McArdle disease is caused by deficiency of muscle Glycogen Phosphorylase, and liver Glycogen Phosphorylase is encoded by a different gene and is functionally intact.',
+    answer: 'A',
+    feedback: 'Both statements are true and the reason correctly explains the assertion. McArdle disease selectively affects the muscle isoform of Glycogen Phosphorylase; the liver isoform is encoded by a separate gene and is completely normal. Because hepatic glycogenolysis and gluconeogenesis are both intact, the liver maintains blood glucose normally between meals. The absence of fasting hypoglycaemia is the key clinical feature that distinguishes McArdle disease from hepatic GSDs like Von Gierke or Hers disease. The reason accurately identifies the molecular basis — isoenzyme specificity.'
+  },
+  {
+    assertion: 'Debranching Enzyme deficiency (Cori disease) causes milder hypoglycaemia than Glucose-6-phosphatase deficiency (Von Gierke disease).',
+    reason: 'In Cori disease, gluconeogenesis is intact and can compensate for impaired glycogenolysis during fasting, whereas in Von Gierke disease the final step of both glycogenolysis and gluconeogenesis is blocked.',
+    answer: 'A',
+    feedback: 'Both statements are true and the reason correctly explains the difference in severity. In Von Gierke disease, Glucose-6-phosphatase deficiency blocks the final common step shared by both glycogenolysis AND gluconeogenesis — no matter how much G6P is produced (from either pathway), it cannot be converted to free glucose. In Cori disease, glycogenolysis is only partially impaired (Phosphorylase can still break down chains until it hits branch points; only complete degradation past branches is blocked), and gluconeogenesis from amino acids and lactate is entirely normal. The liver can therefore still generate glucose during fasting, just less efficiently. This is why Cori disease hypoglycaemia is milder and tends to improve with age.'
+  },
+  {
+    assertion: 'Calcium ions activate glycogenolysis in muscle independently of the glucagon/epinephrine hormonal cascade.',
+    reason: 'Ca²⁺ released from the sarcoplasmic reticulum during muscle contraction activates Phosphorylase Kinase directly via its calmodulin subunit, converting Glycogen Phosphorylase b to the active a form without requiring cAMP or PKA.',
+    answer: 'A',
+    feedback: 'Both statements are true and the reason is the correct explanation. Phosphorylase Kinase has four types of subunits (α, β, γ, δ) — the δ subunit is calmodulin, a calcium-sensing protein. When Ca²⁺ binds to the calmodulin subunit, Phosphorylase Kinase is activated regardless of its phosphorylation state. This provides a direct, rapid link between muscle contraction (which releases Ca²⁺) and glycogen breakdown (via Phosphorylase Kinase → Phosphorylase b → a). This mechanism ensures that glycogen mobilisation begins within milliseconds of the first muscle contraction, far faster than the hormonal cascade could achieve. The reason is mechanistically precise and fully accounts for the assertion.'
+  }
+];
+
+// ══ STATE ══
+var _selectedChip = null;
+var orderAnswers = {c1:{}, c2:{}};
+var matchAnswers = {};
+var testMode = 'free';
+var completedChallenges = new Set();
+
+// ══ TABS ══
+function showTab(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ SCROLL HIDE ══
+(function(){
+  var last=0; var h=document.getElementById('site-header');
+  window.addEventListener('scroll',function(){
+    var c=window.scrollY;
+    if(c>last&&c>60) h.classList.add('hide-bar'); else h.classList.remove('hide-bar');
+    last=c;
+  },{passive:true});
+})();
+
+// ══ CARD TOGGLE ══
+function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
+
+// ══ TOOLTIP ══
+document.addEventListener('click',function(e){
+  var link=e.target.closest('.pathway-link');
+  if(link){
+    e.preventDefault();
+    var was=link.classList.contains('active-tip');
+    document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});
+    if(!was) link.classList.add('active-tip');
+  } else {
+    document.querySelectorAll('.pathway-link.active-tip').forEach(function(el){el.classList.remove('active-tip');});
+  }
+});
+
+// ══ TEST MODE ══
+function selectMode(mode,btn){
+  testMode=mode;
+  document.querySelectorAll('.mode-toggle-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('mode-desc').textContent=mode==='guided'
+    ?'Complete each challenge in order. Each unlocks after the previous is checked.'
+    :'All five challenges are open from the start.';
+}
+
+function startTestFree(){testMode='free';
+return startTestFree_inner();}
+function startTestFree_inner(){startTest();}
+function startTest(){
+  document.getElementById('tms').style.display='none';
+  document.getElementById('challenge-area').style.display='block';
+  document.getElementById('completion-banner').style.display='none';
+  completedChallenges=new Set();
+  _selectedChip=null;
+  initC1(); initC2(); initC3(); initMCQ(); initRA();
+  updateChallengeNav(); showChallenge(1);
+}
+
+function exitTest(){
+  document.getElementById('tms').style.display='block';
+  document.getElementById('challenge-area').style.display='none';
+  document.getElementById('completion-banner').style.display='none';
+  _selectedChip=null;
+}
+
+function showChallenge(n){
+  if(testMode==='guided'&&n>1&&!completedChallenges.has(n-1)) return;
+  document.querySelectorAll('.challenge-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.challenge-nav-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('cp'+n).classList.add('active');
+  document.getElementById('cnav-'+n).classList.add('active');
+  _selectedChip=null;
+}
+
+function updateChallengeNav(){
+  for(var i=1;i<=5;i++){
+    var btn=document.getElementById('cnav-'+i);
+    btn.classList.remove('done','active');
+    if(completedChallenges.has(i)) btn.classList.add('done');
+    // free mode: all challenges unlocked
+  }
+}
+
+function completeAndNext(n){
+  completedChallenges.add(n);
+  updateChallengeNav();
+  if(n<5) showChallenge(n+1);
+}
+
+function showCompletion(){
+  document.getElementById('challenge-area').style.display='none';
+  document.getElementById('completion-banner').style.display='block';
+}
+
+// ══ CHIP SELECTION ══
+function tapChip(chip){
+  if(chip.classList.contains('used')||chip.classList.contains('locked-correct')) return;
+  if(_selectedChip===chip){ chip.classList.remove('selected'); _selectedChip=null; return; }
+  if(_selectedChip) _selectedChip.classList.remove('selected');
+  _selectedChip=chip;
+  chip.classList.add('selected');
+}
+
+// ══ C1: GLYCOGENESIS ORDER ══
+function initC1(){
+  orderAnswers.c1={};
+  var bank=document.getElementById('c1-bank');
+  var slots=document.getElementById('c1-slots');
+  bank.innerHTML=''; slots.innerHTML='';
+  hidePostCheck('c1');
+
+  synthesisSteps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    var chip=document.createElement('div');
+    chip.className='chip'; chip.id='c1chip-'+s.num;
+    chip.dataset.num=s.num; chip.dataset.enzyme=s.enzyme;
+    chip.textContent=s.enzyme;
+    chip.onclick=function(){tapChip(chip);};
+    bank.appendChild(chip);
+  });
+
+  for(var i=1;i<=6;i++){
+    (function(slotNum){
+      var row=document.createElement('div'); row.className='order-slot';
+      row.innerHTML='<div class="slot-num">'+slotNum+'</div>';
+      var drop=document.createElement('div');
+      drop.className='drop-zone'; drop.dataset.slot=slotNum;
+      drop.textContent='Tap to place';
+      drop.onclick=function(){
+        if(drop.classList.contains('correct')) return;
+        if(_selectedChip){
+          placeInSlot(drop,_selectedChip,'c1',synthesisSteps.length);
+        } else if(drop.classList.contains('filled')){
+          clearSlot(drop,'c1');
+        }
+      };
+      row.appendChild(drop); slots.appendChild(row);
+    })(i);
+  }
+}
+
+function placeInSlot(drop,chip,id,total){
+  var slotNum=parseInt(drop.dataset.slot);
+  var chipNum=parseInt(chip.dataset.num);
+  // Remove chip from any previous slot
+  var prev=Object.keys(orderAnswers[id]).find(function(k){return orderAnswers[id][k]===chipNum;});
+  if(prev){
+    var pd=document.querySelector('#'+id+'-slots .drop-zone[data-slot="'+prev+'"]');
+    if(pd){pd.textContent='Tap to place';pd.classList.remove('filled','wrong');}
+    delete orderAnswers[id][prev];
+  }
+  // Clear current slot
+  var old=orderAnswers[id][slotNum];
+  if(old!==undefined){
+    var oc=document.getElementById(id+'chip-'+old);
+    if(oc) oc.classList.remove('used');
+  }
+  orderAnswers[id][slotNum]=chipNum;
+  chip.classList.add('used'); chip.classList.remove('selected');
+  drop.textContent=chip.dataset.enzyme;
+  drop.classList.add('filled'); drop.classList.remove('wrong','correct','revealed');
+  _selectedChip=null;
+}
+
+function clearSlot(drop,id){
+  var slotNum=parseInt(drop.dataset.slot);
+  var old=orderAnswers[id][slotNum];
+  if(old!==undefined){
+    var oc=document.getElementById(id+'chip-'+old);
+    if(oc) oc.classList.remove('used');
+    delete orderAnswers[id][slotNum];
+  }
+  drop.textContent='Tap to place';
+  drop.classList.remove('filled','wrong','correct','revealed');
+}
+
+function checkOrder(id, steps){
+  var correct=0; var total=steps.length;
+  steps.forEach(function(s){
+    var drop=document.querySelector('#'+id+'-slots .drop-zone[data-slot="'+s.num+'"]');
+    if(!drop) return;
+    if(drop.classList.contains('correct')) { correct++; return; }
+    drop.classList.remove('correct','wrong','revealed');
+    if(orderAnswers[id][s.num]===s.num){ drop.classList.add('correct'); correct++; }
+    else if(orderAnswers[id][s.num]!==undefined) drop.classList.add('wrong');
+  });
+  var msg=document.getElementById(id+'-result');
+  msg.classList.add('show');
+  if(correct===total){
+    msg.className='result-msg show pass';
+    msg.textContent='✓ Perfect! All '+total+' steps in the correct order.';
+    document.getElementById(id+'-next').classList.add('show');
+    document.getElementById(id+'-try').style.display='none';
+    document.getElementById(id+'-reveal').style.display='none';
+  } else {
+    msg.className='result-msg show fail';
+    msg.textContent=correct+'/'+total+' correct. Wrong steps are highlighted red.';
+    document.getElementById(id+'-try').style.display='inline-block';
+    document.getElementById(id+'-reveal').style.display='inline-block';
+  }
+}
+
+function tryAgain(id, steps){
+  // Clear only wrong answers, keep correct ones locked
+  steps.forEach(function(s){
+    var drop=document.querySelector('#'+id+'-slots .drop-zone[data-slot="'+s.num+'"]');
+    if(!drop||drop.classList.contains('correct')||drop.classList.contains('revealed')) return;
+    var old=orderAnswers[id][s.num];
+    if(old!==undefined){
+      var oc=document.getElementById(id+'chip-'+old);
+      if(oc) oc.classList.remove('used');
+      delete orderAnswers[id][s.num];
+    }
+    drop.textContent='Tap to place'; drop.classList.remove('filled','wrong');
+  });
+  document.getElementById(id+'-result').classList.remove('show');
+  document.getElementById(id+'-try').style.display='none';
+  document.getElementById(id+'-reveal').style.display='none';
+  _selectedChip=null;
+}
+
+function revealOrder(id, steps){
+  steps.forEach(function(s){
+    var drop=document.querySelector('#'+id+'-slots .drop-zone[data-slot="'+s.num+'"]');
+    if(!drop||drop.classList.contains('correct')) return;
+    // Clear old chip
+    var old=orderAnswers[id][s.num];
+    if(old!==undefined&&old!==s.num){
+      var oc=document.getElementById(id+'chip-'+old); if(oc) oc.classList.remove('used');
+    }
+    orderAnswers[id][s.num]=s.num;
+    var chip=document.getElementById(id+'chip-'+s.num);
+    if(chip){ chip.classList.add('used'); chip.classList.remove('selected'); }
+    drop.textContent=s.enzyme;
+    drop.classList.remove('wrong','filled');
+    drop.classList.add('revealed');
+  });
+  document.getElementById(id+'-try').style.display='none';
+  document.getElementById(id+'-reveal').style.display='none';
+  document.getElementById(id+'-reveal-note').classList.add('show');
+  document.getElementById(id+'-next').classList.add('show');
+  var msg=document.getElementById(id+'-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed. Study the correct order, then try a fresh run.';
+}
+
+function hidePostCheck(id){
+  document.getElementById(id+'-result').classList.remove('show');
+  document.getElementById(id+'-try').style.display='none';
+  document.getElementById(id+'-reveal').style.display='none';
+  document.getElementById(id+'-next').classList.remove('show');
+  var rn=document.getElementById(id+'-reveal-note');
+  if(rn) rn.classList.remove('show');
+}
+
+// C2 uses same functions
+function initC2(){
+  orderAnswers.c2={};
+  var bank=document.getElementById('c2-bank');
+  var slots=document.getElementById('c2-slots');
+  bank.innerHTML=''; slots.innerHTML='';
+  hidePostCheck('c2');
+
+  breakdownSteps.slice().sort(function(){return Math.random()-.5;}).forEach(function(s){
+    var chip=document.createElement('div');
+    chip.className='chip'; chip.id='c2chip-'+s.num;
+    chip.dataset.num=s.num; chip.dataset.enzyme=s.enzyme;
+    chip.textContent=s.enzyme;
+    chip.onclick=function(){tapChip(chip);};
+    bank.appendChild(chip);
+  });
+
+  for(var i=1;i<=4;i++){
+    (function(slotNum){
+      var row=document.createElement('div'); row.className='order-slot';
+      row.innerHTML='<div class="slot-num">'+slotNum+'</div>';
+      var drop=document.createElement('div');
+      drop.className='drop-zone'; drop.dataset.slot=slotNum;
+      drop.textContent='Tap to place';
+      drop.onclick=function(){
+        if(drop.classList.contains('correct')) return;
+        if(_selectedChip) placeInSlot(drop,_selectedChip,'c2',breakdownSteps.length);
+        else if(drop.classList.contains('filled')) clearSlot(drop,'c2');
+      };
+      row.appendChild(drop); slots.appendChild(row);
+    })(i);
+  }
+}
+
+// ══ C3: ENZYME MATCH ══
+function initC3(){
+  matchAnswers={};
+  var bank=document.getElementById('c3-bank');
+  var grid=document.getElementById('c3-grid');
+  bank.innerHTML=''; grid.innerHTML='';
+  hidePostCheck('c3');
+
+  matchItems.slice().sort(function(){return Math.random()-.5;}).forEach(function(m,si){
+    var chip=document.createElement('div');
+    chip.className='chip'; chip.id='c3chip-'+si;
+    chip.dataset.si=si; chip.dataset.enzyme=m.enzyme;
+    chip.textContent=m.enzyme;
+    chip.onclick=function(){tapChip(chip);};
+    bank.appendChild(chip);
+  });
+
+  matchItems.forEach(function(m,i){
+    var row=document.createElement('div'); row.className='match-row'; row.id='c3row-'+i;
+    var info=document.createElement('div'); info.className='match-info';
+    info.textContent=m.fn;
+    var drop=document.createElement('div'); drop.className='match-drop'; drop.dataset.idx=i;
+    drop.textContent='Tap to place';
+    drop.onclick=function(){
+      if(row.classList.contains('correct')) return;
+      if(_selectedChip){
+        var si=parseInt(_selectedChip.dataset.si);
+        // Remove from previous slot
+        var prev=Object.keys(matchAnswers).find(function(k){return matchAnswers[k]===si;});
+        if(prev!==undefined&&parseInt(prev)!==i){
+          var pd=document.querySelector('#c3-grid .match-drop[data-idx="'+prev+'"]');
+          if(pd){pd.textContent='Tap to place';pd.classList.remove('filled');}
+          delete matchAnswers[prev];
+        }
+        // Clear current slot
+        var old=matchAnswers[i];
+        if(old!==undefined&&old!==si){
+          var oc=document.getElementById('c3chip-'+old); if(oc) oc.classList.remove('used');
+        }
+        matchAnswers[i]=si;
+        _selectedChip.classList.add('used'); _selectedChip.classList.remove('selected');
+        drop.textContent=_selectedChip.dataset.enzyme; drop.classList.add('filled');
+        _selectedChip=null;
+      } else if(drop.classList.contains('filled')){
+        var old2=matchAnswers[i];
+        if(old2!==undefined){ var oc2=document.getElementById('c3chip-'+old2); if(oc2) oc2.classList.remove('used'); }
+        delete matchAnswers[i];
+        drop.textContent='Tap to place'; drop.classList.remove('filled');
+      }
+    };
+    row.appendChild(info); row.appendChild(drop); grid.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  var correct=0;
+  matchItems.forEach(function(m,i){
+    var row=document.getElementById('c3row-'+i);
+    if(row.classList.contains('correct')) {correct++; return;}
+    row.classList.remove('correct','wrong','revealed');
+    var si=matchAnswers[i];
+    if(si!==undefined&&matchItems[si]&&matchItems[si].enzyme===m.enzyme){
+      row.classList.add('correct'); correct++;
+    } else if(si!==undefined) row.classList.add('wrong');
+  });
+  var msg=document.getElementById('c3-result'); msg.classList.add('show');
+  if(correct===matchItems.length){
+    msg.className='result-msg show pass';
+    msg.textContent='✓ All '+matchItems.length+' enzymes matched correctly!';
+    document.getElementById('c3-next').classList.add('show');
+    document.getElementById('c3-try').style.display='none';
+    document.getElementById('c3-reveal').style.display='none';
+  } else {
+    msg.className='result-msg show fail';
+    msg.textContent=correct+'/'+matchItems.length+' correct. Wrong rows are highlighted red.';
+    document.getElementById('c3-try').style.display='inline-block';
+    document.getElementById('c3-reveal').style.display='inline-block';
+  }
+}
+
+function tryAgainMatch(){
+  matchItems.forEach(function(m,i){
+    var row=document.getElementById('c3row-'+i);
+    if(row.classList.contains('correct')||row.classList.contains('revealed')) return;
+    var old=matchAnswers[i];
+    if(old!==undefined){ var oc=document.getElementById('c3chip-'+old); if(oc) oc.classList.remove('used'); delete matchAnswers[i]; }
+    var drop=document.querySelector('#c3-grid .match-drop[data-idx="'+i+'"]');
+    if(drop){drop.textContent='Tap to place';drop.classList.remove('filled','wrong');}
+    row.classList.remove('wrong');
+  });
+  document.getElementById('c3-result').classList.remove('show');
+  document.getElementById('c3-try').style.display='none';
+  document.getElementById('c3-reveal').style.display='none';
+  _selectedChip=null;
+}
+
+function revealMatch(){
+  matchItems.forEach(function(m,i){
+    var row=document.getElementById('c3row-'+i);
+    if(row.classList.contains('correct')) return;
+    var correctSi=matchItems.findIndex(function(x){return x.enzyme===m.enzyme;});
+    var old=matchAnswers[i];
+    if(old!==undefined&&old!==correctSi){ var oc=document.getElementById('c3chip-'+old); if(oc) oc.classList.remove('used'); }
+    matchAnswers[i]=correctSi;
+    var chip=document.getElementById('c3chip-'+correctSi);
+    if(chip){chip.classList.add('used');chip.classList.remove('selected');}
+    var drop=document.querySelector('#c3-grid .match-drop[data-idx="'+i+'"]');
+    if(drop){drop.textContent=m.enzyme;drop.classList.remove('wrong','filled');drop.classList.add('filled');}
+    row.classList.remove('wrong'); row.classList.add('revealed');
+  });
+  document.getElementById('c3-try').style.display='none';
+  document.getElementById('c3-reveal').style.display='none';
+  document.getElementById('c3-reveal-note').classList.add('show');
+  document.getElementById('c3-next').classList.add('show');
+  var msg=document.getElementById('c3-result');
+  msg.className='result-msg show fail';
+  msg.textContent='Answers revealed. Study the correct matches, then try a fresh run.';
+}
+
+// ══ MCQ ══
+function initMCQ(){
+  var container=document.getElementById('mcq-container'); container.innerHTML='';
+  var letters=['A','B','C','D'];
+  mcqData.forEach(function(q,qi){
+    var div=document.createElement('div'); div.className='mcq-item';
+    var stem=document.createElement('div'); stem.className='mcq-stem'; stem.textContent=(qi+1)+'. '+q.stem;
+    var optsDiv=document.createElement('div'); optsDiv.className='mcq-options'; optsDiv.id='mcq-opts-'+qi;
+    q.options.forEach(function(o,oi){
+      var opt=document.createElement('div'); opt.className='mcq-option';
+      opt.dataset.qi=qi; opt.dataset.oi=oi;
+      var span=document.createElement('span'); span.className='mcq-letter'; span.textContent=letters[oi];
+      opt.appendChild(span); opt.appendChild(document.createTextNode(o));
+      opt.onclick=function(){selectMCQ(parseInt(this.dataset.qi),parseInt(this.dataset.oi));};
+      optsDiv.appendChild(opt);
+    });
+    var fb=document.createElement('div'); fb.className='mcq-feedback'; fb.id='mcq-fb-'+qi; fb.innerHTML=q.feedback;
+    div.appendChild(stem); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function selectMCQ(qi, oi) {
+  var allOpts = document.getElementById('mcq-opts-' + qi);
+  if (!allOpts) return;
+  var optEls = allOpts.querySelectorAll('.mcq-option');
+  for (var k = 0; k < optEls.length; k++) {
+    if (optEls[k].classList.contains('correct') || optEls[k].classList.contains('wrong')) return;
+  }
+  for (var j = 0; j < optEls.length; j++) optEls[j].classList.remove('selected');
+  optEls[oi].classList.add('selected');
+  setTimeout(function() {
+    var correct = mcqData[qi].answer === oi;
+    for (var j = 0; j < optEls.length; j++) {
+      optEls[j].classList.remove('selected');
+      optEls[j].style.pointerEvents = 'none';
+      if (j === oi) { optEls[j].classList.add(correct ? 'correct' : 'wrong'); }
+      else if (j === mcqData[qi].answer && !correct) { optEls[j].classList.add('correct'); }
+    }
+    var fb = document.getElementById('mcq-fb-' + qi);
+    if (fb) fb.style.display = 'block';
+  }, 300);
+}
+function initRA(){
+  var container=document.getElementById('ra-container'); container.innerHTML='';
+  var letters=['A','B','C','D','E'];
+  var opts=[
+    'Both TRUE — reason IS the correct explanation of the assertion',
+    'Both TRUE — reason is NOT the correct explanation of the assertion',
+    'Assertion TRUE; reason FALSE',
+    'Assertion FALSE; reason TRUE',
+    'Both assertion and reason are FALSE'
+  ];
+  raData.forEach(function(q,qi){
+    var div=document.createElement('div'); div.className='ra-item';
+    var stmts=document.createElement('div'); stmts.className='ra-statements';
+    [['Assertion',q.assertion],['Reason',q.reason]].forEach(function(pair){
+      var box=document.createElement('div'); box.className='ra-statement-box';
+      var lbl=document.createElement('div'); lbl.className='ra-statement-label'; lbl.textContent=pair[0];
+      var txt=document.createElement('div'); txt.className='ra-statement-text'; txt.textContent=pair[1];
+      box.appendChild(lbl); box.appendChild(txt); stmts.appendChild(box);
+    });
+    var optsDiv=document.createElement('div'); optsDiv.className='ra-options'; optsDiv.id='ra-opts-'+qi;
+    opts.forEach(function(o,oi){
+      var opt=document.createElement('div'); opt.className='ra-option';
+      opt.dataset.qi=qi; opt.dataset.letter=letters[oi];
+      var span=document.createElement('span'); span.className='ra-letter'; span.textContent=letters[oi];
+      opt.appendChild(span); opt.appendChild(document.createTextNode(o));
+      opt.onclick=function(){selectRA(parseInt(this.dataset.qi),this.dataset.letter);};
+      optsDiv.appendChild(opt);
+    });
+    var fb=document.createElement('div'); fb.className='ra-feedback'; fb.id='ra-fb-'+qi; fb.innerHTML=q.feedback;
+    div.appendChild(stmts); div.appendChild(optsDiv); div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function selectRA(qi,letter){
+  var q=raData[qi]; var letters=['A','B','C','D','E'];
+  document.querySelectorAll('#ra-opts-'+qi+' .ra-option').forEach(function(el,i){
+    el.classList.remove('correct-ans','wrong-ans');
+    if(letters[i]===q.answer) el.classList.add('correct-ans');
+    else if(letters[i]===letter&&letter!==q.answer) el.classList.add('wrong-ans');
+  });
+  document.getElementById('ra-fb-'+qi).classList.add('show');
+}
+
+
+// ── TOOLTIP TAP TOGGLE ──
+(function() {
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest ? e.target.closest('.pathway-link') : null;
+    if (!link && e.target.classList && e.target.classList.contains('pathway-link')) {
+      link = e.target;
+    }
+    if (link) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isActive = link.classList.contains('active-tip');
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+      if (!isActive) link.classList.add('active-tip');
+    } else {
+      document.querySelectorAll('.pathway-link.active-tip').forEach(function(el) {
+        el.classList.remove('active-tip');
+      });
+    }
+  });
+})();
+
+// ── MULTIPLE COMPLETION ──
+var mcSelections = [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]];
+var mcAnswers = [[true, true, true, false, false], [true, true, true, false, true], [true, true, false, true, true]];
+var mcChecked = false;
+
+function toggleMCOption(el, qIdx, optIdx) {
+  if (mcChecked) return;
+  mcSelections[qIdx][optIdx] = !mcSelections[qIdx][optIdx];
+  el.classList.toggle('selected', mcSelections[qIdx][optIdx]);
+  var cb = document.getElementById('mc' + qIdx + 'cb' + optIdx);
+  cb.textContent = mcSelections[qIdx][optIdx] ? '☑' : '□';
+}
+
+function checkMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  var score = 0;
+  for (var i = 0; i < totalQ; i++) {
+    var allCorrect = true;
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      var selected = mcSelections[i][j];
+      var correct = mcAnswers[i][j];
+      opt.classList.remove('selected');
+      if (selected && correct) { opt.classList.add('correct'); cb.textContent = '✓'; }
+      else if (selected && !correct) { opt.classList.add('incorrect'); cb.textContent = '✗'; allCorrect = false; }
+      else if (!selected && correct) { opt.classList.add('missed'); cb.textContent = '○'; allCorrect = false; }
+      else { cb.textContent = '□'; }
+    }
+    if (allCorrect) score++;
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  var res = document.getElementById('mc-result');
+  res.textContent = score + ' of ' + totalQ + ' questions fully correct.';
+  res.style.color = score === totalQ ? 'var(--green)' : 'var(--red)';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+  document.getElementById('mc-reveal').style.display = 'inline-block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+}
+
+function resetMC() {
+  mcChecked = false;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    mcSelections[i] = mcSelections[i].map(function(){ return false; });
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('correct','incorrect','missed','selected');
+      cb.textContent = '□';
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'none';
+  }
+  document.getElementById('mc-result').textContent = '';
+  document.getElementById('mc-try-again').style.display = 'none';
+  document.getElementById('mc-reveal').style.display = 'none';
+  document.getElementById('mc-next').style.display = 'none';
+  document.getElementById('mc-reveal-note').style.display = 'none';
+}
+
+function revealMC() {
+  mcChecked = true;
+  var totalQ = 3;
+  for (var i = 0; i < totalQ; i++) {
+    for (var j = 0; j < mcAnswers[i].length; j++) {
+      var opt = document.getElementById('mc' + i + 'opt' + j);
+      var cb = document.getElementById('mc' + i + 'cb' + j);
+      opt.classList.remove('selected','correct','incorrect','missed');
+      if (mcAnswers[i][j]) { opt.classList.add('missed'); cb.textContent = '○'; }
+      else { cb.textContent = '□'; }
+    }
+    document.getElementById('mc-feedback-' + i).style.display = 'block';
+  }
+  document.getElementById('mc-reveal-note').style.display = 'block';
+  document.getElementById('mc-next').style.display = 'inline-block';
+  document.getElementById('mc-try-again').style.display = 'inline-block';
+}
+
+</script>
+</body>
+</html>
